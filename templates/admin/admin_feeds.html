@@ -1,0 +1,33 @@
+<fieldset id="admin_feeds">
+    <legend>Feeds Admin</legend>
+    <div class="fieldsetdiv">
+        Feed List:  <small>Tips:you can double-click the "Add" column in the table header to add a new record.</small>
+        <div id="feeddiv">
+        <table id="feedtable">
+            <thead><tr>
+                <th>Title</th>
+                <th>Feed</th>
+                <th>Order</th>
+                <th>Valid</th>
+                <th>Id</th>
+                <th> </th>
+                <th> </th>
+            </tr></thead>
+            <tbody>
+            {% for feed in feeds %}
+            <tr>
+                <td>{{feed.title}}</td>
+                <td>{{feed.feed}}</td>
+                <td>{{feed.order}}</td>
+                <td>{{feed.valid}}</td>
+                <td>{{feed.key.id}}</td>
+                <td> </td>
+                <td> </td>
+            </tr>
+            {% endfor%}
+            </tbody>
+        </table>
+       </div>
+    </div>
+</fieldset>
+

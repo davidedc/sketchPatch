@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title><![CDATA[{{ BLOG.title }}]]></title>
+    <id>{{ BLOG.root_url }}/</id>
+    <subtitle>{{ BLOG.description }}</subtitle>
+    <link href="{{ BLOG.root_url }}" />
+    <link href="{{ BLOG.root_url }}/atom" rel="self" />
+    <updated>{{last_updated}}</updated>
+    <author>
+      <name>{{ BLOG.author }}</name>
+    </author>
+{% for entry in blogs %}
+  <entry>
+      <link href="{{ entry.full_permalink }}"/>
+      <id>{{ entry.full_permalink }}</id>
+      <title><![CDATA[{{entry.title}}]]></title>
+      <content type="html"><![CDATA[{{entry.content}}]]></content>
+      <author>
+          <name>{{entry.author}}</name>
+      </author>
+      <updated>{{entry.formatted_date}}</updated>
+  </entry>
+{% endfor %}
+</feed>

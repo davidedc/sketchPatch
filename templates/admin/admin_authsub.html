@@ -1,0 +1,26 @@
+<fieldset id="admin_authsub">
+    <legend>Session Token Management</legend>
+    <div class="fieldsetdiv">
+        Sesseion Token List:
+        <table id="tokentable">
+            <tr>
+                <th>User Email</th>
+                <th>Target Service</th>
+                <th>Session Token</th>
+                <th> &nbsp;</th>
+            </tr>
+            {% for token in session_tokens %}
+            <tr>
+                <td>{{token.user_email}}</td>
+                <td>{{token.target_service}}</td>
+                <td>{{token.session_token}}</td>
+                <td>
+                    <a href="javascript:deleteSessionToken('{{token.user_email}}','{{token.target_service}}')"
+                       id="{{token.user_email}}_{{token.target_service}}">Delete</a>
+                </td>
+            </tr>
+            {% endfor%}
+        </table>
+    </div>
+</fieldset>
+

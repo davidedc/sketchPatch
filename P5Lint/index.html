@@ -1,0 +1,142 @@
+<html>
+<head><title>P5Lint - online Processing syntax checker</title>
+<style>
+fieldset {
+    background-color: blanchedalmond;
+    border-top: 1px dotted black;
+    color: black;
+    margin: 1em;
+    padding: 8px;
+    text-align: left;
+}
+legend {
+    background-color: thistle;
+    border-top: 1px dotted black;
+    color: black;
+    padding: 8px;
+}
+i {
+    font-family: serif;
+    font-style: italic;
+}
+p {
+    padding-left: 30pt;
+    width: 80%;
+}
+input[type="button"] {
+    background-color: navajowhite;
+    border-top: 1px dotted black;
+    color: black;
+}
+input[type="button"]:hover {
+    background-color: lightsteelblue;
+    text-decoration: underline;
+}
+input[type="button"]:active {
+    background-color: indianred;
+    text-decoration: none;
+}
+
+input[type="text"] {
+    border-top: 1px dotted black;
+    text-align: center;
+}
+
+a:link {
+    color: darkblue;
+}
+a:visited {
+    color: purple;
+}
+a:hover {
+    color: blue;
+}
+a:active {
+    color: red;
+}
+body {
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+
+.leftcolumn {
+    float: left;
+    margin: 1em;
+}
+
+#errors {
+    margin: 1em;
+	border-top: 1px dotted black; 
+	padding: 1em;
+    background-color: SeaShell;
+}
+#errors p {
+    margin-left: 40px;
+    width: 80%;
+}
+#errors p.evidence {
+    margin-left: 0;
+    font-family: monospace;
+}
+
+#functions {
+    background-color: white;
+}
+#members {
+    background-color: peachpuff;
+}
+
+#functions, #members {
+	border-top: 1px dotted black; 
+	font-family: monospace;
+    margin: 1em;
+    padding: 1em;
+}
+#functions div {
+    margin-left: 10em;
+    text-indent: -5em;
+}
+#functions div.function {
+    margin-left: 0;
+    text-indent: 0;
+}
+.style2 {font-size: x-small}
+</style></head>
+<body>
+<table width="599" border="0">
+  <tr>
+    <td width="175">&nbsp;</td>
+    <td width="5">&nbsp;</td>
+    <td width="75%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="175"><small><img src="./indexPageImages/P5LintLogo.gif" width="175" height="161"></small></td>
+    <td width="5">&nbsp;</td>
+    <td><p><img src="./indexPageImages/WriteHeader.gif" width="587" height="101"></p>
+    <p><small>Based on <a target="_blank" href="http://www.crockford.com/">Douglas Crockford's</a> <a href="http://www.JSLint.com/lint.html">JSLint</a></small></p></td>
+  </tr>
+  <tr>
+    <td width="175">&nbsp;</td>
+    <td width="5">&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+<p>
+<big>Pick a version:</big><br><br>
+<a href="indexV16-14Nov09.html">V16 14 Nov 09</a><br>
+<a href="indexV17-26Nov09.html">V17 26 Nov 09</a> - better output formatting, many unnecessary options checkboxes have been eliminated, the summary now contains a hash of the summary itself in order to quicker check if two summaries are the same.<br>
+<a href="indexV18-21Jan10.html">V18 21 Jan 10</a> - Multiblock comment is now purged - import statements are purged - added tolerance of font/3d/print/println/imports - fixed bug happening when last line is commented - started decoupling the text output from the actual error checking<br>
+<a href="indexV19-25Jan10.html">V19 25 Jan 10</a> - check of 3d use extended to the createGraphics function - tolerance flags are now passed at the invokation of the P5LintDoTheChecks function (and ovverriden in case the corresponding checkboxes are found) - strings are checked for double quotes, e.g. stuff like 'this' is reported as error.<br>
+<br><br><big>To do:</big><br><br>
+- we could actually find and report the line number of undeclared variables
+- we could actually find and report the line number of when 3d primitives and setups are found
+- we could actually find and report the line number where text functions are used
+- we could actually find and report the line number of where the printout functions are used
+- we could actually find and report the line number of where imports are made
+
+</p>
+
+
+</div
+</body></html>

@@ -1,0 +1,325 @@
+{% extends "main.html" %}
+{% block title %}{{title}} - System Admin{% endblock %}
+{% block blogcontainer %}
+
+<!-- Dependency -->
+<script src="http://yui.yahooapis.com/2.5.2/build/yahoo/yahoo-min.js"></script>
+<!-- Used for Custom Events and event listener bindings -->
+<script src="http://yui.yahooapis.com/2.5.2/build/event/event-min.js"></script>
+<!-- Connection Manager -->
+<script src="http://yui.yahooapis.com/2.5.2/build/connection/connection-min.js"></script>
+<!-- JSON Utility -->
+<script src="http://yui.yahooapis.com/2.5.2/build/json/json-min.js"></script>
+
+<!--DataTable-->
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.5.2/build/datatable/assets/skins/sam/datatable.css" />
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.5.2/build/tabview/assets/skins/sam/tabview.css" />
+        
+<script type="text/javascript" src="http://yui.yahooapis.com/2.5.2/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" src="http://yui.yahooapis.com/2.5.2/build/element/element-beta-min.js"></script>
+<script type="text/javascript" src="http://yui.yahooapis.com/2.5.2/build/datasource/datasource-beta-min.js"></script>
+<script type="text/javascript" src="http://yui.yahooapis.com/2.5.2/build/datatable/datatable-beta-min.js"></script>
+<!--tabview-->
+<script type="text/javascript" src="http://yui.yahooapis.com/2.5.2/build/tabview/tabview-min.js"></script>
+
+<!--my yui grid render-->
+<script type="text/javascript" src="/jscripts/update.prototype.grid.js"></script>
+<script type="text/javascript" src="/jscripts/albumlist.grid.js"></script>
+<script type="text/javascript" src="/jscripts/archivelist.grid.js"></script>
+<script type="text/javascript" src="/jscripts/feedlist.grid.js"></script>
+<script type="text/javascript" src="/jscripts/menulist.grid.js"></script>
+<script type="text/javascript" src="/jscripts/taglist.grid.js"></script>
+<script type="text/javascript" src="/jscripts/imagelist.grid.js"></script>
+
+<script type="text/javascript">
+    function flushAllMemcache(flush) {
+        var sUrl = "/rpc?action=FlushAllMemcache&arg0=" + flush + "&time=" + new Date().getTime();
+        var flushAllMemcacheSuccess = function(o) {
+            if (o.responseText !== undefined) {
+                var cache_stats = YAHOO.lang.JSON.parse(o.responseText);
+                document.getElementById("cache_stats.hits").innerHTML = cache_stats.hits;
+                document.getElementById("cache_stats.misses").innerHTML = cache_stats.misses;
+                document.getElementById("cache_stats.byte_hits").innerHTML = cache_stats.byte_hits;
+                document.getElementById("cache_stats.items").innerHTML = cache_stats.items;
+                document.getElementById("cache_stats.bytes").innerHTML = cache_stats.bytes;
+                document.getElementById("cache_stats.oldest_item_age").innerHTML = cache_stats.oldest_item_age;
+                if (o.argument.flush) {
+                    alert("Flush all the memcache successfully.");
+                } else {
+                    alert("Refresh memcache statistics successfully.");
+                }
+            }
+        }
+        var callback =
+        {
+            success:flushAllMemcacheSuccess,
+            failure:handleFailure,
+            argument:{flush:flush}
+        };
+        YAHOO.util.Connect.asyncRequest('GET', sUrl, callback);
+    }
+
+    function deleteSessionToken(user_email, target_service) {
+        var sUrl = "/rpc?action=DeleteSessionToken&arg0=\"" + user_email + "\"&arg1=\"" + target_service +
+                   "\"&time=" + new Date().getTime();
+        var deleteSessionTokenSuccess = function(o) {
+            if (o.responseText !== undefined) {
+                var src_obj = document.getElementById(o.argument.user_email + "_" + o.argument.target_service);
+                document.getElementById("tokentable").deleteRow(src_obj.parentNode.parentNode.rowIndex);
+                alert("Delete session token successfully.");
+            }
+        }
+        var callback =
+        {
+            success:deleteSessionTokenSuccess,
+            failure:handleFailure,
+            argument:{user_email:user_email,target_service:target_service}
+        };
+        YAHOO.util.Connect.asyncRequest('GET', sUrl, callback);
+    }
+
+    String.prototype.trim = function () {
+        return this.replace(/^[\s\,]*/, "").replace(/[\s\,]*$/, ""); //for remove the space and comma at the begining/end of the tag.
+    };
+    var handleFailure = function(o) {
+        if (o.responseText !== undefined) {
+            alert("Client RPC Request Error, please retry.");
+        }
+    }
+
+    function isInteger(number) {
+        for (var i = 0; i < number.length; i++) {
+            if (isNaN(number.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    function checkDelicious(){
+        var delicious = document.getElementById("delicious_enable");
+        var delicious_username = document.getElementById("delicious_username");
+        delicious_username.disabled = !delicious.checked;
+    }
+    function checkGoogleAjaxFeed(){
+        var google_ajax_feed_enable = document.getElementById("google_ajax_feed_enable");
+        var google_ajax_feed_title = document.getElementById("google_ajax_feed_title");
+        var google_ajax_feed_result_num = document.getElementById("google_ajax_feed_result_num");
+        google_ajax_feed_title.disabled = !google_ajax_feed_enable.checked;
+        google_ajax_feed_result_num.disabled = !google_ajax_feed_enable.checked;
+    }
+    function checkRecaptcha(){
+        var recaptcha_enable = document.getElementById("recaptcha_enable");
+        var recaptcha_public_key = document.getElementById("recaptcha_public_key");
+        var recaptcha_private_key = document.getElementById("recaptcha_private_key");
+        recaptcha_public_key.disabled = !recaptcha_enable.checked;
+        recaptcha_private_key.disabled = !recaptcha_enable.checked;
+    }
+
+    function saveConfiguration(){
+        var title = document.forms["configForm"]["title"];
+        if(title.value==""){
+            alert("Please input blog title.");
+            title.focus();
+            return false;
+        }
+        var author = document.forms["configForm"]["author"];
+        if(author.value==""){
+            alert("Please input author name.");
+            author.focus();
+            return false;
+        }
+        var root_url = document.forms["configForm"]["root_url"];
+        if(root_url.value==""){
+            alert("Please input root url address.");
+            root_url.focus();
+            return false;
+        }
+        var num_post_per_page = document.forms["configForm"]["num_post_per_page"];
+        if(num_post_per_page.value=="" || !isInteger(num_post_per_page.value)){
+            alert("Please input posts num per page.");
+            num_post_per_page.focus();
+            return false;
+        }
+        var cache_time = document.forms["configForm"]["cache_time"];
+        if(cache_time.value=="" || !isInteger(cache_time.value)){
+            alert("Please input page cache time value.");
+            cache_time.focus();
+            return false;
+        }
+        var google_ajax_feed_result_num = document.forms["configForm"]["google_ajax_feed_result_num"];
+        var google_ajax_feed_title = document.forms["configForm"]["google_ajax_feed_title"];
+        if (document.forms["configForm"]["google_ajax_feed_enable"].checked) {
+            google_ajax_feed_result_num.disabled = false;
+            google_ajax_feed_title.disabled = false;
+            if(google_ajax_feed_title.value==""){
+                alert("Please input feed control main title.");
+                google_ajax_feed_title.focus();
+                return false;
+            }
+            if (google_ajax_feed_result_num.value == "" || !isInteger(google_ajax_feed_result_num.value)) {
+                alert("Please input result num per feed.");
+                google_ajax_feed_result_num.focus();
+                return false;
+            }
+        }else{
+           google_ajax_feed_result_num.disabled = true;
+           google_ajax_feed_title.disabled = true;
+        }
+        var delicious_enable = document.forms["configForm"]["delicious_enable"];
+        var delicious_username = document.forms["configForm"]["delicious_username"];
+        if (delicious_enable.checked) {
+            delicious_username.disabled = false;
+            if(delicious_username.value==""){
+                alert("Please input del.icio.us username.");
+                google_ajax_feed_title.focus();
+                return false;
+            }
+        }else{
+            delicious_username.disabled = true;
+        }
+        var recaptcha_enable = document.forms["configForm"]["recaptcha_enable"];
+        var recaptcha_public_key = document.forms["configForm"]["recaptcha_public_key"];
+        var recaptcha_private_key = document.forms["configForm"]["recaptcha_private_key"];
+        if (recaptcha_enable.checked) {
+            recaptcha_public_key.disabled = false;
+            recaptcha_private_key.disabled = false;
+            if(recaptcha_public_key.value==""){
+                alert("Please input recaptcha public key.");
+                recaptcha_public_key.focus();
+                return false;
+            }
+            if(recaptcha_private_key.value==""){
+                alert("Please input recaptcha private key.");
+                recaptcha_private_key.focus();
+                return false;
+            }
+        }else{
+            recaptcha_public_key.disabled = true;
+            recaptcha_private_key.disabled = true;
+        }
+
+        var logo_images = document.forms["configForm"]["logo_images"];
+        var logoUrls = logo_images.value.replace(/[,;\n\r]/g, ' ');
+        logoUrls = logoUrls.replace(/[ ]+/g, ' ').trim();
+        var logoArray = logoUrls.split(' ');
+        var logo_images_space = "";
+        for(var i=0;i<logoArray.length;i++){
+           logo_images_space+=logoArray[i];
+           if(i!=logoArray.length-1){
+            logo_images_space+=" ";
+           }
+        }
+        document.forms["configForm"]["logo_images_space"].value = logo_images_space;
+
+        var sUrl = "/admin/system?time=" + new Date().getTime();
+        var deleteSessionTokenSuccess = function(o) {
+            if (o.responseText !== undefined) {
+                alert("Update System Configuration successfully.");
+            }
+        }
+        var callback =
+        {
+            success:deleteSessionTokenSuccess,
+            failure:handleFailure
+        };
+        var formObject = document.getElementById('configForm');
+        YAHOO.util.Connect.setForm(formObject);
+        YAHOO.util.Connect.asyncRequest('POST', sUrl, callback);
+    }
+</script>
+{% block jscript %}
+{% endblock %}
+
+<div class="yui-g">
+    <div id="admincontainer" class=" yui-skin-sam">
+        <div id="adminmenu">
+        </div>
+        <script type="text/javascript">
+            (function() {
+                var tabView = new YAHOO.widget.TabView();
+
+                var systemTab = new YAHOO.widget.Tab({
+                    label: 'System',
+                    dataSrc: '/admin/system',
+                    cacheData: true,
+                    active: true
+                });
+                tabView.addTab(systemTab);
+
+                var pagesTab = new YAHOO.widget.Tab({
+                    label: 'Pages',
+                    dataSrc: '/admin/pages',
+                    cacheData: true
+                });
+                tabView.addTab(pagesTab);
+                pagesTab.addListener('dataLoadedChange', renderMenuTable);
+
+                var albumsTab = new YAHOO.widget.Tab({
+                    label: 'Albums',
+                    dataSrc: '/admin/albums',
+                    cacheData: true
+                });
+                tabView.addTab(albumsTab);
+                albumsTab.addListener('dataLoadedChange', renderAlbumTable);
+
+                var feedsTab = new YAHOO.widget.Tab({
+                    label: 'Feeds',
+                    dataSrc: '/admin/feeds',
+                    cacheData: true
+                });
+                tabView.addTab(feedsTab);
+                feedsTab.addListener('dataLoadedChange', renderFeedTable);
+
+                var imagesTab = new YAHOO.widget.Tab({
+                    label: 'Images',
+                    dataSrc: '/admin/images',
+                    cacheData: true
+                });
+                tabView.addTab(imagesTab);
+                imagesTab.addListener('dataLoadedChange', renderImageTable);
+
+                var tagsTab = new YAHOO.widget.Tab({
+                    label: 'Tags',
+                    dataSrc: '/admin/tags',
+                    cacheData: true
+                });
+                tabView.addTab(tagsTab);
+                tagsTab.addListener('dataLoadedChange', renderTagTable);  
+
+                var archivesTab = new YAHOO.widget.Tab({
+                    label: 'Archives',
+                    dataSrc: '/admin/archives',
+                    cacheData: true
+                });
+                tabView.addTab(archivesTab);
+                archivesTab.addListener('dataLoadedChange', renderArchiveTable);  
+
+                var authsubTab = new YAHOO.widget.Tab({
+                    label: 'AuthSub',
+                    dataSrc: '/admin/authsub',
+                    cacheData: true
+                });
+                tabView.addTab(authsubTab);
+
+                var cacheTab = new YAHOO.widget.Tab({
+                    label: 'Cache',
+                    dataSrc: '/admin/cache',
+                    cacheData: true
+                });
+                tabView.addTab(cacheTab);
+
+                YAHOO.util.Event.onContentReady('adminmenu', function() {
+                    tabView.appendTo('adminmenu');
+                });               
+            })();
+
+        </script>
+
+        {% block admincontainer %}
+        {% endblock %}
+
+    </div>
+</div>
+{% endblock %}
+

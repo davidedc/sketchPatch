@@ -1,0 +1,34 @@
+<script language="JavaScript" type="text/javascript" >
+//<![CDATA[
+
+     function deleteCookie(name){
+		document.cookie = name + '=; expires=Thu, 01-Jan-70 00:00:01 GMT;';
+	} 
+	
+     function deleteClientSideUserInfoCookies(){
+		deleteCookie('user.user_id');
+		deleteCookie('user.is_current_user_admin');
+		deleteCookie('user.user');
+		deleteCookie('user.nickname');
+		deleteCookie('user.firstLogin');
+	}
+
+    function readCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0 ; i < ca.length ; i++) {
+                var c = ca[i];
+                while (c.charAt(0)==' ') {
+                	c = c.substring(1,c.length);
+                }
+                if (c.indexOf(nameEQ) === 0) {
+                	return c.substring(nameEQ.length,c.length);
+                }
+        }
+        return null;
+    }
+
+
+
+    //]]>
+    </script>

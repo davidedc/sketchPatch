@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<HTML>
+<HEAD>
+    <META http-equiv=Content-Type content="text/html; charset=utf-8">
+    <TITLE>{% block title %}{{title}}{% endblock %}</TITLE>
+    <link rel="alternate" type="application/atom+xml" title="{{ BLOG.title }}" href="{{ BLOG.root_url }}/atom" />
+    <link type="text/css" rel="stylesheet" href="/stylesheets/blog.css"/>
+    <link type="text/css" rel="stylesheet" href="/stylesheets/weblog.css"/>
+    <!-- yui -->
+    <link rel="stylesheet" type="text/css"
+          href="http://yui.yahooapis.com/2.5.2/build/reset-fonts-grids/reset-fonts-grids.css">
+
+    <script type="text/javascript" src="/jscripts/swfobject.js"></script>
+    <script type="text/javascript">
+    swfobject.registerObject("myId", "9.0.0");
+    </script>
+
+
+</HEAD>
+<body class="yui-skin-sam">
+<div id="doc2" class="yui-t5">
+    <div id="hd">
+        {% include "main_top.html" %}
+    </div>
+    <br>
+    <div id="bd">
+        <div id="yui-main">
+            <div class="yui-b">
+                {% block blogcontainer %}
+                <div class="yui-gc" id="blogcontainer">
+                    <div class="yui-u first">
+                        {% block blog %}
+                        {% endblock %}
+                    </div>
+                    <div class="yui-u">
+                        {% include "menu_right.html" %}
+                    </div>
+                </div>
+                {% endblock %}
+            </div>
+        </div>
+        <div class="yui-b">
+            {% include "menu_right_right.html" %}
+        </div>
+    </div>
+    <div id="ft">
+        {% include "footer.html" %}
+    </div>
+</div>
+</BODY>
+</HTML>

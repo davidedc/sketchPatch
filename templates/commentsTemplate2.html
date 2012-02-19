@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<meta http-equiv="Content-Type" content="text/xhtml; charset=ISO-8859-1" />
+<title>sketchPatch_Comments</title>
+<link href="/style.css" rel="stylesheet" type="text/css" />
+
+
+{% include 'readCookieCode.html' %}
+	
+	
+</head>
+
+
+
+
+<body>
+
+<div id="page">
+
+{% include 'headerTemplate.html' %}
+			
+
+
+
+	<div id="content">
+	
+	
+		<div class="commentsPageBox">
+
+
+{% for sketchComment in sketchComments %}
+
+
+
+
+		<div class="commentTextBox"> <strong><a href="/byUploader/{{sketchComment.author_nickname}}-{{sketchComment.author_string_user_id}}/">
+		{{sketchComment.author_nickname}}'s</a>
+		comment  </strong> <br /> <p>{{sketchComment.body}}<p>
+
+    	
+
+		{# is the user a) an admin b) the owner of the sketch c) the owner of the comment? #}
+		
+
+    	<script type="text/javascript">
+    		if ((( readCookie("user.user_id") != "None"))&&( ("{{sketchComment.author_user_id}}" == readCookie("user.user_id")) || (readCookie("user.is_current_user_admin") == "True") || ("{{sketchComment.sketch_author_user_id}}" == readCookie("user.user_id")) )) {
+    			document.write("<div class=\"commentdelete\"><a href=\"/deleteComment/{{sketchComment.keyname}}/?backTo="+location.href+"\"><img src='/imgs/delete.gif' alt='delete'/>Delete<\/a><\/div>");
+    		}
+    	</script>
+ </div>
+
+{% endfor %}
+
+
+		
+
+
+				
+		<div style="float:right; margin-bottom:70px;"><strong> <a href=""> < back </a>
+		{% ifnotequal next "" %}
+		| <a href="./?bookmark={{next}}"> next > </a> 
+        {% endifnotequal %}
+        </strong>
+</div>
+		
+		
+		<div class="yourcommentsetxt"> <h4>Add your comments about the sketch<img src="/imgs/comment.png"  /></h4>
+ </div>
+ 	</div>
+
+ <div class="FORMtextdiv">
+<form method="post" action='/addComment/{{sketch.randomID}}/'>
+
+                  <textarea id="text_input" name="text_input" rows="5" cols="40">
+</textarea>
+<br />
+                <input id="submit_comment" name="submit_addreply" type="submit" value=
+                "submit" /><br />
+                <br />
+ </form>
+
+		
+		
+		</div>
+		
+		</div>
+		  
+{% include 'footerTemplate.html' %}
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-8776965-1");
+pageTracker._setDomainName(".sketchpatch.net");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+</body>
+</html>

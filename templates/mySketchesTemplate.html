@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<meta http-equiv="Content-Type" content="text/xhtml; charset=ISO-8859-1" />
+<title>sketchPatch_Gallery</title>
+<link href="./style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="justcorners.js"></script>
+
+	
+</head>
+
+
+
+<body>
+
+<div id="page">
+
+		<div id="header_Gallery">
+			<div id="menu">
+				<a href="./index.html"> home</a>|
+				<a href="./create"> write a sketch</a>|
+				<a href="./mySketches.html"> my sketches</a>|
+				<a href="./gallery.html"> gallery</a>|
+				<a href="./Featured_artist.html"> featured artists</a>|
+				
+			</div>
+			
+		</div>
+			
+
+
+		<div id="content">
+		
+		  <div id="gallerycontent">
+			
+	{% for sketch in sketches %}
+			
+				<div id="sketchBox"><div class="sketchBoximage"><div class="lock"><img src="./imgs/padlock.png" alt="unpublished sketch" width="12" /> </div><a href="sketchpage"> <img src="/thumbnailDownload/{{sketch.permalink}}.jpg" class="floatLeft" alt="sketchPatch" width="50" height="50" /></a></div>
+
+<div class="galleryinfotext"><p>{{sketch.title}} by <br /> 
+ <strong>{{sketch.author_nickname}}</strong>
+ <p>{{sketch.stringtags}}</p></div>
+				
+		</div>
+{% endfor %}
+
+
+<SCRIPT TYPE="TEXT/JAVASCRIPT">
+
+// arrays for the stuff that changes
+// replace the variable bits in a string with " +variable+ "
+
+
+// put the for loop here. And put the whole document.write (that is your html script) inside it
+for(i=0; i<26; i++) { 
+   document.writeln("\
+<div id=\"sketchBox\"><a href=\"sketchpage\"> <img src=\"./imgs/Picture_"+i+".png\" class=\"floatLeft\" alt=\"sketchPatch\" width=\"50\" height=\"50\"</a>\ 
+<p>Sketch Title Author Name  Tags, tags , and tags</p></div>\
+"); 
+}
+
+</SCRIPT>
+
+
+<div id="gallerypagination"><strong> <a href="">< back </a> | <a href=""> next > </a> </strong></div>
+
+				</div>
+				
+				
+					
+		
+		
+		{% ifnotequal bookmark "sketch" %}
+        <a href="javascript:history.go(-1)">Back</a>
+        {% endifnotequal %}
+
+		{% ifnotequal next "" %}
+        <a href="/gallery?bookmark={{next}}'">Next</a>
+        {% endifnotequal %}
+
+{% include 'footerTemplate.html' %}
+		
+		</div>
+
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-8776965-1");
+pageTracker._setDomainName(".sketchpatch.net");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+</body>
+</html>

@@ -1,0 +1,66 @@
+
+.p_bar a {
+ 	float: left;
+	text-decoration: none;
+}
+.p_input {
+	background: #EBEBEB;
+	border: 0;
+	height: 16px;
+    margin: 0;
+	width: 40px;
+}
+.p_total {
+	border: 1px solid #CEDEF7;
+	border-right: 0;
+    padding:1px 5px;
+}
+.p_pages {
+	border: 1px solid #CEDEF7;
+	margin-right: 1px;
+	vertical-align: middle;
+    padding:1px 5px;    
+}
+.p_num {
+	border: 1px solid #CEDEF7;
+	margin-right: 1px;
+	vertical-align: middle;
+    padding:1px 5px;        
+}
+a:hover .p_num {
+	background-color: #DEF7FF;
+	border: 1px solid #CEDEF7;
+ 	text-decoration: none;
+}
+.p_redirect {
+	border: 1px solid #CEDEF7;
+    padding:0px 5px 2px;    
+}
+a:hover .p_redirect {
+	border: 1px solid #CEDEF7;
+	text-decoration: none;
+}
+.p_curpage {
+	background-color: #FFDE7A;
+	border: 1px solid #CEDEF7;
+	margin-right: 1px;
+	vertical-align: middle;
+    padding:1px 5px;
+}
+
+/* Start Tag Cloud CSS */
+.cloud {padding:1px; line-height:150%;text-align:justify;}
+.cloud a {text-decoration:none;padding:0px;}
+a.tag1 { font-size: 0.8em; font-weight: 100; }
+a.tag2, a.tag3 { font-size: 0.9em; font-weight: 200; }
+a.tag4 ,a.tag5, a.tag6 { font-size: 1.0em; font-weight: 300; }
+a.tag7, .tag8, a.tag9  { font-size: 1.1em; font-weight: 400; }
+a.tag10, a.tag11, a.tag12 { font-size: 1.2em; font-weight: 500; }
+a.tag13, a.tag14, a.tag15 { font-size: 1.4em; font-weight: 600; }
+a.tag16, a.tag17, a.tag18 { font-size: 1.6em; font-weight: 700; }
+a.tag19, a.tag20, a.tag21 { font-size: 1.8em; font-weight: 800; }
+a.tag22, a.tag23, a.tag24 { font-size: 2.2em; font-weight: 900; }
+a.tag25, a.tag26, a.tag27 { font-size: 2.3em; font-weight: 900; }
+a.tag28, a.tag29, a.tag30 { font-size: 2.4em; font-weight: 900;}
+/* End Tag Cloud CSS */
+

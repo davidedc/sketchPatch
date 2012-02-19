@@ -1,0 +1,51 @@
+{% extends "main.html" %}
+
+{% block title %}{{title}} - {{tag|unquote}}{% endblock %}
+
+
+{% block blog %}
+    <div id=bloglist>
+
+    {% if blogs %}
+      {% for blog in blogs %}
+        <H2 class=date-header> {{blog.date|date:"l, F d, Y"}} </H2>
+        <DIV class="post">
+        <H3 class=post-title>
+            <a href="/{{blog.relative_permalink}}">{{blog.title}}</a>
+        </H3>
+        <DIV class=post-body>
+         {{blog.content}}
+         </DIV>
+
+            {% if blog.tags %}
+            <p>
+                Tags:
+                {% for tag in blog.tags %}
+                <a href="/tag/{{ tag|unquote }}">{{ tag|unquote }}</a>{% if not forloop.last %},{% endif %}
+                {% endfor %}
+            </p><br>
+            {% endif %}
+            
+        <H4 class=byline> Posted by {{blog.authorNickname}} at
+           <A  class=timestamp-link href="{{entity.permalink}}">{{blog.date|date:"H:i A"}}</A>
+                     {% if blog.weblogreactions_set.count %}
+                    <A class=comment-link href="/viewBlog?blogId={{blog.key.id}}#reactions">{{blog.weblogreactions_set.count}} comments</A>
+                    {% else %}<A class=comment-link href="/viewBlog?blogId={{blog.key.id}}#addreaction">no comments</A>{% endif %}
+        </H4>
+        </DIV>
+        {% endfor %}
+     {% else %}
+        <div class="post">
+            <div class="post-title">No Matches</div>
+            <h2>No articles tagged with '{{ tag|unquote }}'</h2>
+            <div class="post-body">
+                <p>It's possible that an article with the tag was removed.</p>
+                <p>Please try another tag or use the full-text search.</p>
+            </div>
+        </div>
+     {% endif %}
+
+    </div>
+
+{% endblock %}
+

@@ -1,0 +1,33 @@
+		<div id="header">
+			<div id="menu">
+				<a href="/index.html"> home</a> |
+				<a href="/Featured_Sketches.html"> featured sketches</a> |
+				<a href="/gallery.html"> gallery</a> |
+				<a href="/create"> write a sketch</a> |
+				<a href="http://community.sketchpatch.net/"> community</a> |
+				
+                <script language="JavaScript" type="text/javascript">
+//<![CDATA[
+
+
+                if ( readCookie("user.user") == "None") {
+                		login_url = "{{login_url}}";
+                        document.write("<a href=\""+login_url+"\">log in<\/a>");
+                }
+                else {
+                        document.write("<a href=\"\/mySketches\">my profile<\/a>");
+                        //document.write("<a href=\"\/editProfile\">my profile<\/a>");
+                }
+
+              //]]>
+              </script>
+				
+				
+				
+				
+			</div>
+			
+	<div id="headerPageText"> {{headerTitle}} </div>		
+			
+		</div>
+		

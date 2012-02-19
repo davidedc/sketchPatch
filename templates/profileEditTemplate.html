@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta name="generator" content=
+    "HTML Tidy for Linux/x86 (vers 11 February 2007), see www.w3.org" />
+    <meta http-equiv="Content-Type" content="text/xhtml; charset=us-ascii" />
+    <title>sketchPatch - The programming playground</title>
+    <link href="/style.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="/jquery-tooltip/jquery.tooltip.css" type="text/css" />
+    <!--  <link rel="stylesheet" href="./jquery-tooltip/demo/screen.css" />  -->
+
+    <script src="/jquery-tooltip/lib/jquery.js" type="text/javascript"></script>
+    <script src="/jquery-tooltip/lib/jquery.bgiframe.js" type="text/javascript"></script>
+    <script src="/jquery-tooltip/lib/jquery.dimensions.js" type="text/javascript"></script>
+    <script src="/jquery-tooltip/jquery.tooltip.js" type="text/javascript"></script>
+    <script src="/jquery-tooltip/demo/chili-1.7.pack.js" type="text/javascript"></script>
+		<script type="text/javascript" src="/corner/justcorners.js"></script>
+		<script language="JavaScript" type="text/javascript"></script>
+    
+    {% include 'readCookieCode.html' %}
+
+  </head>
+  <body>
+    <div id="page">
+			{% include 'headerTemplate.html' %}
+			<br />
+      <div id="content" style="margin-top:0px">
+      
+               
+
+      
+      
+		<form name="profile_edit_form" enctype="multipart/form-data" method="post" action="/myPageEdit/" style="width:auto;">
+				
+				
+				
+				
+				
+    			<div class="profileTitle">
+	      		<div class="titleform">
+	  					<div class="FORMtextdiv">
+								<h8>Name</h8>
+							
+   
+	      			<input name="title_input" style="margin:5px;" id="title_input" type="text" border="thin" value='{{name}}'/>
+	      			<input type="hidden" name="thumbnailData" id="thumbnailDataHiddenField" value="" />
+  
+						<a href="javascript:document.profile_edit_form.submit()"> <img alt="edit" style="margin-left:20px; " src="/imgs/editingDONE_soph.png"/></a>
+	    			 </div>
+	    			</div>
+	    		</div>
+
+	   			
+	   			
+	   			
+	   			<div id="profileTEXT">
+	   				<div class="yourcommentsetxt">
+							<h8>About You...</h8>
+						</div>
+						<div class="FORMtextdiv">
+							<textarea id="text_input" name="text_input" cols="1" rows="5" class="authorInfo">{{profileText}}</textarea> 
+	 					</div>   			 
+	   			</div>
+
+	    		
+	    		
+	    		
+	    		<div id="profileMETA">
+	    				<div class="yourcommentsetxt">
+							<h8>Links...</h8>
+						</div>
+	    			<div class="titleform">
+	 						<div class="FORMtextdiv"><h8>http://</h8></div>
+	      			<input name="url1_input" id="url1_input" type="text" border="thin" value='{{url1}}'/>
+	      			<input type="hidden" name="thumbnailData" id="thumbnailDataHiddenField" value="" />
+  					
+							<div class="FORMtextdiv"><h8>http://</h8></div>
+	         		<input name="url2_input" id="url2_input" type="text" border="thin" value='{{url2}}'/>
+	      			<input type="hidden" name="thumbnailData" id="thumbnailDataHiddenField" value="" />
+ 
+	    				<div class="FORMtextdiv"><h8>http://</h8></div>
+	       			<input name="url3_input" id="url3_input" type="text" border="thin" value='{{url3}}'/>
+	      			<input type="hidden" name="thumbnailData" id="thumbnailDataHiddenField" value="" />    
+
+		  				<div class="FORMtextdiv"><h8>http://</h8></div>
+		      		<input name="url4_input" id="url4_input" type="text" border="thin" value='{{url4}}'/>
+		      		<input type="hidden" name="thumbnailData" id="thumbnailDataHiddenField" value="" />
+	    			</div>
+	    			
+	    			<div class="FORMtextdiv"><h8>Place </h8></div>
+		      		<input name="url4_input" id="url4_input" type="text" border="thin" value='{{url4}}'/>
+		      		<input type="hidden" name="thumbnailData" id="thumbnailDataHiddenField" value="" />
+	    			</div>
+	    			
+				</div>
+    
+	    		
+	    		
+	    		
+	    		<div id="profilePIC">
+						<div class="yourcommentsetxt">
+							<h8>Image...</h8>
+							
+							<div style="margin-top:17px;"> <img alt="edit" src="/avatar/{{userNickname}}-{{userIDasString}}.png"> </div>
+						</div>
+						
+					<input type="file" name="avatarPic" />
+	    			
+	    		</div>
+	    		
+	    		
+    	</form> 
+    		
+    		
+    		
+			</div>
+
+			<div id="footer"> 
+       	<script language="JavaScript" type="text/javascript">
+         	//<![CDATA[
+					if ( readCookie("user.user") != "None") {
+						logout_url = "{{logout_url}}";
+		      	document.write(" <div style=\"  margin: 0px 0px 10px 245px;\">");
+					} else {
+						document.write(" <div style=\"  margin: 0px 0px 10px 280px;\"></div>");
+					}
+					//]]>
+				</script>
+
+				<a href="/about.html">About</a> | <a href="mailto:sketchpatch.temp.acc@googlemail.com">Contact</a> | <a href="/credits.html">Credits</a>                
+        <script language="JavaScript" type="text/javascript">
+					//<![CDATA[
+					if ( readCookie("user.user") != "None") {
+						logout_url = "{{logout_url}}";
+						document.write(" | <a href=\""+logout_url+"\" onclick=\"deleteClientSideUserInfoCookies();\">Sign out<\/a></div>");
+	        }
+					//]]>
+         </script>
+			</div>
+			<div style=" margin: 0px 0px 0px 263px;" ></div>
+		</div>
+  	<script language="JavaScript" type="text/javascript">
+			//<![CDATA[
+    		var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+		    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    	//]]>
+  	</script>
+		<script language="JavaScript" type="text/javascript">
+			//<![CDATA[
+		    try {
+		    	var pageTracker = _gat._getTracker("UA-8776965-1");
+			    pageTracker._setDomainName(".sketchpatch.net");
+			    pageTracker._trackPageview();
+		    } catch(err) {}
+	    //]]>
+  	</script>
+  </body>
+</html>

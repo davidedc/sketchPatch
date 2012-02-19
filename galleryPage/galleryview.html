@@ -1,0 +1,241 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<meta http-equiv="Content-Type" content="text/xhtml; charset=ISO-8859-1" />
+<title>sketchPatch gallery</title>
+<link href="../style.css" rel="stylesheet" type="text/css" />
+
+
+
+<script src="galleryview_files/jquery.js"></script>
+<script src="galleryview_files/jquery.galleryview-2.1.1.js"></script>
+<script src="galleryview_files/jquery.timers-1.2.js"></script>
+<script src="galleryview_files/jquery.easing.1.3.js"></script><!-- This is optional !-->
+<script>
+	$(document).ready(function(){
+		$('#gallery').galleryView({
+			panel_width: 800,
+			panel_height: 400,
+			frame_width: 85,
+			frame_height: 28,
+      		transition_speed: 350,
+     		easing: 'easeInOutQuad',
+			transition_interval: 5000,
+			nav_theme: 'custom',
+			background_color: '#222',
+			border: 'none',
+			overlay_height: 52,
+			filmstrip_position: 'bottom',
+			pointer_height: 50,
+			pointer_width: 50,
+			pause_on_hover: true,
+			overlay_position: 'bottom'		});
+	});
+</script>
+
+<script type="text/javascript" id="miao">
+//<![CDATA[
+
+     function deleteClientSideUserInfoCookies(){
+		deleteCookie('user.user_id');
+		deleteCookie('user.is_current_user_admin');
+		deleteCookie('user.user');
+		deleteCookie('user.nickname');
+		deleteCookie('user.firstLogin');
+	}
+
+    function readCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0 ; i < ca.length ; i++) {
+                var c = ca[i];
+                while (c.charAt(0)==' ') c = c.substring(1,c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+        }
+        return null;
+    }
+
+
+
+    //]]>
+    </script>	
+	
+</head>
+
+
+<style type="text/css">
+#gallery_wrap {
+	width: 820px;
+	height: 368px;
+	/*padding: 25px;*/
+	margin-left: -5px;
+	/*background: url(img/border.png) top left no-repeat;*/
+}
+
+#work { visibility: hidden; }
+
+/* GALLERY CONTAINER */
+.gallery { /*background: #ddd; border: 1px solid #aaa; padding: 5px;*/}
+
+/* LOADING BOX */
+.loader { background: url(loader.gif) center center no-repeat #ddd; }
+
+/* GALLERY PANELS */
+.panel {}
+
+/* DEFINE HEIGHT OF PANEL OVERLAY */
+/* NOTE - It is best to define padding here as well so overlay and background retain identical dimensions */
+.panel .panel-overlay,
+.panel .overlay-background { height: 60px; padding: 0 1em; }
+
+/* PANEL OVERLAY BACKGROUND */
+.panel .overlay-background { background: #222; }
+
+/* PANEL OVERLAY CONTENT */
+.panel .panel-overlay { color: white; font-size: 0.7em; }
+.panel .panel-overlay a { color: white; text-decoration: underline; font-weight: bold; }
+
+/* FILMSTRIP */
+/* 'margin' will define top/bottom margin in completed gallery */
+.filmstrip { margin: 5px; }
+
+/* FILMSTRIP FRAMES (contains both images and captions) */
+.frame {}
+
+/* WRAPPER FOR FILMSTRIP IMAGES */
+.frame .img_wrap { border: 0px solid #aaa; }
+
+/* WRAPPER FOR CURRENT FILMSTRIP IMAGE */
+.frame.current .img_wrap { border-color: #000; }
+
+/* FRAME IMAGES */
+.frame img { border: none; margin:0px }
+
+/* FRAME CAPTION */
+.frame .caption { font-size: 11px; text-align: center; color: #888; }
+
+/* CURRENT FRAME CAPTION */
+.frame.current .caption { color: #000; }
+
+/* POINTER FOR CURRENT FRAME */
+.pointer {
+	border-color: #000;
+}
+
+/* TRANSPARENT BORDER FIX FOR IE6 */
+/* NOTE - DO NOT CHANGE THIS RULE */
+*html .pointer {
+	filter: chroma(color=pink);
+}
+
+
+</style>
+
+<body>
+
+<div id="page">
+
+
+		<div id="header" style="width:820px;">
+			<div id="menu">
+				<a href="/index.html"> home</a> |
+				<a href="/Featured_Sketches.html"> featured sketches</a> |
+				<a href="/gallery.html"> gallery</a> |
+				<a href="/create"> write a sketch</a> |
+				<a href="http://community.sketchpatch.net/"> community</a>
+                <script language="JavaScript" type="text/javascript">
+//<![CDATA[
+                if ( readCookie("user.user") != "None") {
+                        document.write(" |<a href=\"\/mySketches\">my sketches<\/a>");
+                }
+
+              //]]>
+              </script>
+				
+		
+				
+				
+				
+				
+			</div>
+			
+	<div id="headerPageText" style="margin-left:0px; margin-right:120px;">Gallery</div>		
+			
+		</div>
+		
+		
+	
+
+  <div id="content" style="width:820px; margin-top:15px">
+<div id="gallery_wrap">
+<ul id="gallery" >
+    <li><span class="panel-overlay">This is an overlay</span><img src="galleryview_files/01.jpg" /></li>
+    <li><span class="panel-overlay">This is another overlay</span><img src="galleryview_files/02.jpg" /></li>
+    <li><span class="panel-overlay">This is yet another overlay</span><img src="galleryview_files/03.jpg" /></li>
+    <li><span class="panel-overlay">This is an overlay too</span><img src="galleryview_files/04.jpg" /></li>
+    <li><span class="panel-overlay">This is an overlay too</span><img src="galleryview_files/05.jpg" /></li>
+    <li><span class="panel-overlay">This is an overlay too</span><img src="galleryview_files/06.jpg" /></li>
+    <li><span class="panel-overlay">This is an overlay too</span><img src="galleryview_files/07.jpg" /></li>
+    <li><span class="panel-overlay">This is an overlay too</span><img src="galleryview_files/08.jpg" /></li>
+    <li><span class="panel-overlay">This is an overlay too</span><img src="galleryview_files/09.jpg" /></li>
+    <li><span class="panel-overlay">This is an overlay too</span><img src="galleryview_files/10.jpg" /></li>
+    <li><span class="panel-overlay">This is an overlay too</span><img src="galleryview_files/11.jpg" /></li>
+    <li><span class="panel-overlay">This is an overlay too</span><img src="galleryview_files/12.jpg" /></li>
+    <li><span class="panel-overlay">This is an overlay too</span><img src="galleryview_files/13.jpg" /></li>
+</ul>
+
+	 
+
+        </div>
+                      
+</div>	  
+
+<div id="footer" align="center"> 
+<div style=" margin-top:40px; width:240px;"> 
+Share the love: <a href="http://twitter.com/home/?status=Checkin%27%20out%20http://www.sketchpatch.net/galleryview.html%20by%20@sketchPatch"><img src="twitter.png" alt="share on twitter"/></a>  &nbsp; <a href="http://www.facebook.com/share.php?u=www.sketchpatch.net/galleryview.html"><img src="facebook.png" alt="share on facebook"/></a>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<img src="/imgs/CClogo.png" alt="Creative Commons"/>
+<br/>
+<h3>Unless otherwise stated, the sketches on this site are licensed under  <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>.</h3>
+</div>
+
+
+  </div>
+		 
+		 
+
+				
+
+		
+		</div>
+	
+		
+		
+		</div>
+
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-8776965-1");
+pageTracker._setDomainName(".sketchpatch.net");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+
+
+</body>
+</html>

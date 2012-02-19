@@ -1,0 +1,1149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta name="generator" content=
+    "HTML Tidy for Linux/x86 (vers 11 February 2007), see www.w3.org" />
+    <meta http-equiv="Content-Type" content="text/xhtml; charset=us-ascii" />
+    <title>
+      sketchPatch
+    </title>
+    <link href="/style.css" rel="stylesheet" type="text/css" />
+    
+  
+<!-- this debugger seems to work best for me -->
+<!-- 
+<script type='text/javascript' 
+        src='http://getfirebug.com/releases/lite/1.2/firebug-lite-compressed.js'></script>
+-->
+
+<!-- in theory this following debugger is newer and more advanced, but it actually
+doesn't report the errors that I can see with the one above... -->
+<!--soundcloud javascript wrapper as seen on http://wiki.github.com/soundcloud/Widget-JS-API/ -->
+
+<script type="text/javascript" src="/jscripts/soundcloud.player.api.js"></script>
+
+<script type="text/javascript">
+     var firstTimeGotReady = true;
+     var playWhenReady = false;
+     var playerIsReady = false;
+     var playerIsReadyAndNotPlaying = false;
+     var loadThisWhenReady = "";
+     var theSoundCloudWidget;
+     soundcloud.addEventListener('onPlayerReady', function(player, data) {
+     
+     //alert("player ready");
+     playerIsReady = true;
+     	
+     theSoundCloudWidget = player;
+
+     if (firstTimeGotReady) {
+     	//alert("skipping this ready alert");
+     	firstTimeGotReady = false;
+
+	     if (loadThisWhenReady !== ""){
+   	    		 //alert("player has just become ready, so loading " + loadThisWhenReady);
+   	          theSoundCloudWidget.api_load(loadThisWhenReady);
+   		  }
+
+     	return;
+     }
+     
+       //alert("the player is now ready and playWhenReady is " + playWhenReady);
+
+        if (playWhenReady) {
+        	theSoundCloudWidget.api_play();
+     		trackIsPlaying = true;
+        }
+        else {
+        playerIsReadyAndNotPlaying = true;
+        }
+
+     });
+</script>
+
+
+  
+<!-- BOXY  -->
+ 	<script type="text/javascript" src="/boxy/javascripts/jquery.js"></script>
+      <script type="text/javascript" src="/boxy/javascripts/jquery_002.js"></script>
+
+
+    <!-- per Project stuff -->
+            <script type='text/javascript' src='/boxy/javascripts/jquery.boxy.js'></script>
+      
+      <STYLE TYPE="text/css" MEDIA="screen, projection">
+<!--
+  @import url(/boxy/stylesheets/boxy.css);
+-->
+textarea#styled {
+	border: none;
+	padding: 5px;
+	border:2px dotted #ff33ff;
+	font-family: Tahoma, sans-serif;
+	background-position: top left;
+	background-repeat: no-repeat;
+}
+</STYLE>
+
+<script type="text/javascript" src="/jscripts/swfobject.js"></script>
+
+  <!-- <script src="/P5Lint/v0.1925Jan10/P5LintJs/webjslint.js"></script> -->
+  <script src="/P5Lint/v0.1925Jan10/P5LintJs/removeComments.js"></script>
+  <script src="/P5Lint/v0.1925Jan10/P5LintJs/widget.js"></script>
+
+  		<script src="/jscripts/flash_detect_min.js"></script>
+
+    <!-- END per project stuff -->
+
+		<!-- Dependencies for syntax highlighting -->
+		<script type="text/javascript" src="/jscripts/codemirror/highlight.js"></script>
+		<script type="text/javascript" src="/jscripts/codemirror/stringstream.js"></script>
+		<script type="text/javascript" src="/jscripts/codemirror/tokenize.js"></script>
+		<script type="text/javascript" src="/jscripts/codemirror/tokenizejavascript.js"></script>
+		<script type="text/javascript" src="/jscripts/codemirror/parsejavascript.js"></script>
+		<link href="/jscripts/codemirror/jscolors.css"  rel="stylesheet" type="text/css">
+		<script type="text/javascript">
+	    String.prototype.trim = function () {
+        return this.replace(/^[\s\,]*/, "").replace(/[\s\,]*$/, ""); //for remove the space and comma at the begining/end of the tag.
+    };
+
+		function ltrim(stringToTrim) {
+				return stringToTrim.replace(/^\s+/,"");
+			}
+			function doSyntaxHighlighting() {
+				var el = document.getElementById("theSourceCode");
+				var text = ltrim(deHTML(el.innerHTML));
+				el.innerHTML = ""
+				highlightText(text, el);
+				el.innerHTML = "<pre>" + el.innerHTML + "<\/pre>";
+			}
+		</script>
+		<!-- End of stuff syntax hightlighting -->
+  </head>
+  <body>
+    <script type="text/javascript" src="/sketchPlayer/sandbox_files/processingas.js">
+</script>
+
+
+{% include 'readCookieCode.html' %}
+
+
+<script type="text/javascript" >
+//<![CDATA[
+
+    var ProcessingFlash = null;
+	var debugAlerts = false;
+	var programMadeRight = '';
+	var programAsFetched = '';
+	var doShowFlashProcessingCanvas = false;
+	var doShowHTML5ProcessingCanvas = false;
+
+	//////////////////////////////////////////////
+</script>
+
+<script src="/sketchPlayer/sandbox_files/processing.js"></script>
+  			
+<script type="text/javascript" >
+    function getFlashMovie() {
+   		return document.getElementById("processingViewer");
+    }
+
+
+	
+			function addBasicConstructorToAllClassesMissingOne(input) {
+			  var lineCommentExp = "((\\r|\\n)*\\/\\*lineNumber[1234567890]*\\*\\/(\\r|\\n)*\\s*)*";
+			  var myRe;
+			  var foundLeftSideArraysPlace;
+			  var foundLeftSideArrays;
+			  var foundLeftSideArraysLength;
+			  var secondPart;
+						
+			  for ( var i=0; i < classesList.length; i++ ){
+			  
+			  	var needsAZeroArgumentConstructor = true;
+			  	for ( var p=0; p < classesWithZeroArgumentConstructors.length; p++ ){
+					if (classesList[i] === classesWithZeroArgumentConstructors[p]){
+						needsAZeroArgumentConstructor = false;
+					}
+			  	}
+			  
+			  	if (!needsAZeroArgumentConstructor){
+					  if (debugAlerts) alert("class "+classesList[i]+" already has a constructor ");
+					  continue;
+			  	}
+			    if (debugAlerts) alert("class "+classesList[i]+" needs a constructor, proceeding ");
+			  
+
+				var allMatches=0;
+					while (  true )	{
+						allMatches++;
+				  
+					  // let's find right side declarations of arrays
+					  // that is, anything that has a class name and actually contains something
+					  // after the opening square bracket
+					
+						// this finds the header of a zero-parameter constructor
+						// the end of this match is exactly where there should be a super
+						secondPart = "(PROCESSINGASRESERVEDKEYWORDclassnotinvokingconstructors|class)\\s*"+lineCommentExp+"\\s*"+classesList[i] + "\\s*" + lineCommentExp +"\\s*(\\s+extends\\s+[a-zA-Z0-9][a-zA-Z0-9]+\\s*)?\\s*\\{"+lineCommentExp;
+						//alert('building regex for functions returning ' + classesWithZeroArgumentConstructors[i]);
+						myRe = new RegExp("[^a-zA-Z0-9_]"+secondPart,"g");
+						//alert('regex: ' + myRe);
+						foundLeftSideArraysPlace = input.search(myRe);
+
+						// go to the next class if there are no more results for this one
+						if (foundLeftSideArraysPlace  == -1){
+						    //alert('found no constructors for ' + classesWithZeroArgumentConstructors[i]);
+							break;
+						}
+						//alert('found the class definition');
+						foundLeftSideArraysPlace++;
+
+						
+						//alert('found the zero-param constructor for ' + classesWithZeroArgumentConstructors[i]);
+						
+						foundLeftSideArrays = input.match(myRe);
+						foundLeftSideArraysLength = foundLeftSideArrays[0].length;
+
+						//alert('foundLeftSideArrays: ' + foundLeftSideArrays);
+						
+						var remainderOfProgram = input.substring(foundLeftSideArraysPlace + foundLeftSideArraysLength);
+						//alert('remainderOfProgram: ' + remainderOfProgram);
+						remainderOfProgram = "\n"+classesList[i]+" () {\n// added by pre-processor\n}\n" + remainderOfProgram;
+						
+						// let's add the class to the list of classes with basic constructors
+						// because the following step is to add the super(); inside
+						// the constructors of classes that extend other classes.
+						// (if they don't contain super already, that is)
+						classesWithZeroArgumentConstructors.push(classesList[i]);
+						
+
+						input= input.substring(0,foundLeftSideArraysPlace+foundLeftSideArraysLength) + remainderOfProgram;
+						if (debugAlerts) alert('program after added constructor: >'+input);
+						break;
+					}
+				}
+				return input;
+
+			 }
+			 
+			function addSuperToZeroArgumentConstructorsThatDontHaveOne(input) {
+              
+			  var lineCommentExp = "((\\r|\\n)*\\/\\*lineNumber[1234567890]*\\*\\/(\\r|\\n)*\\s*)*";
+			  var myRe;
+			  var foundLeftSideArraysPlace;
+			  var foundLeftSideArrays;
+			  var foundLeftSideArraysLength;
+			  var secondPart;
+						
+			  //alert("there are "+classesWithZeroArgumentConstructors.length+" empty constructors");
+			  for ( var i=0; i < classesWithZeroArgumentConstructors.length; i++ ){
+			  
+			  var itDoesExtendAnotherClass = false;
+			  for ( var p=0; p < classesWithExtensionsList.length; p++ ){
+			  	if (classesWithZeroArgumentConstructors[i] === classesWithExtensionsList[p]){
+				  	itDoesExtendAnotherClass = true;
+			  	}
+			  }
+			  
+			  if (!itDoesExtendAnotherClass){
+			  	  //alert("class "+classesWithZeroArgumentConstructors[i]+" does not extend any class, there is no need to add a super");
+			  	  continue;
+			  }
+			  //alert("class "+classesWithZeroArgumentConstructors[i]+" does extend a class, checking if a super is present");
+			  
+
+				var allMatches=0;
+					while (  true )	{
+						allMatches++;
+				  
+					  // let's find right side declarations of arrays
+					  // that is, anything that has a class name and actually contains something
+					  // after the opening square bracket
+					
+						// this finds the header of a zero-parameter constructor
+						// the end of this match is exactly where there should be a super
+						secondPart = classesWithZeroArgumentConstructors[i] + "\\s*" + lineCommentExp + "\\(\\s*" + lineCommentExp + "\\)\\s*" + lineCommentExp + "\\{"+lineCommentExp;
+						//alert('building regex for functions returning ' + classesWithZeroArgumentConstructors[i]);
+						myRe = new RegExp("[^a-zA-Z0-9_]"+secondPart,"g");
+						//alert('regex: ' + myRe);
+						foundLeftSideArraysPlace = input.search(myRe);
+
+						// go to the next class if there are no more results for this one
+						if (foundLeftSideArraysPlace  == -1){
+						    //alert('found no constructors for ' + classesWithZeroArgumentConstructors[i]);
+							break;
+						}
+						//alert('found one constructor');
+						foundLeftSideArraysPlace++;
+
+						
+						//alert('found the zero-param constructor for ' + classesWithZeroArgumentConstructors[i]);
+						
+						foundLeftSideArrays = input.match(myRe);
+						foundLeftSideArraysLength = foundLeftSideArrays[0].length;
+
+						//alert('foundLeftSideArrays: ' + foundLeftSideArrays);
+						
+						var remainderOfProgram = input.substring(foundLeftSideArraysPlace + foundLeftSideArraysLength);
+						//alert('remainderOfProgram: ' + remainderOfProgram);
+						if (remainderOfProgram.trim().substring(0,5) !== "super") {
+						//alert('>'+remainderOfProgram.trim().substring(0,5) + '< doesnt match with super, adding it ');
+						remainderOfProgram = "\n super(); // added by pre-processor\n" + remainderOfProgram;
+						}
+						else {
+						 //alert( remainderOfProgram.trim().substring(0,5) + ' matches with super, not adding it ');
+						}
+						
+
+						input= input.substring(0,foundLeftSideArraysPlace+foundLeftSideArraysLength) + remainderOfProgram;
+						//alert('program after substitution: >'+input);
+						break;
+					}
+				}
+				//alert('program after added supers: >'+input);
+				return input;
+
+		}
+
+	function replaceAllTheSwitchesWithIfs(input) {
+	
+	var positionOfNextSwitch = 0;
+	var replacedText = "";
+	var switchNumber = -1;
+	
+	while(true){
+		switchNumber++;
+		positionOfNextSwitch = input.indexOf("switch",6);
+			//alert(" next switch is at: " + positionOfNextSwitch);
+	
+		if (positionOfNextSwitch != -1){
+			//alert(" taking care of this piece: " + input.substring(0,positionOfNextSwitch));
+			replacedText += replaceSwitchesWithIfs(input.substring(0,positionOfNextSwitch),switchNumber);
+			//alert(" intermediate bob: " + replacedText);
+			input = input.substring(positionOfNextSwitch);
+		}
+		else {
+			replacedText += replaceSwitchesWithIfs(input,switchNumber);
+			break;
+		}
+		
+	
+	}
+	//alert(" final bob: " + replacedText);
+	
+	return replacedText;
+	
+	
+	}
+	
+	function replaceSwitchesWithIfs(input,switchNumber) {
+	
+	//alert('input to switch replace function: '+input);
+	var positionOfStartSwitch = input.indexOf("switch");
+	
+	if (positionOfStartSwitch == -1) return input;
+	
+	var positionOfStartSwitchOpenCurl = input.indexOf("{",positionOfStartSwitch);
+	var switchExpression = input.substring(positionOfStartSwitch+6,positionOfStartSwitchOpenCurl);
+
+	var switchVariableName = "switchNumer" + switchNumber;
+	
+	var variableDeclaration = "int "+switchVariableName+ " = "+switchExpression + "; // added by preprocessor\n";
+	
+	input = input.substring(0,positionOfStartSwitch) + "\n"+variableDeclaration+"\n"+input.substring(positionOfStartSwitchOpenCurl+1);
+	//alert('input 1 '+input);
+	
+	var firstCase = true;
+	var theCaseDoesNotComeAfterABreak = true;
+	while(true){
+		var positionOfCase = input.indexOf("case ");
+
+		if (positionOfCase != -1){
+			var positionOfCaseColons = input.indexOf( ":" , positionOfCase );
+			var caseTestExpression = input.substring( positionOfCase+5 , positionOfCaseColons );
+			var caseReplacement = '';
+			
+			if ((!firstCase) && (theCaseDoesNotComeAfterABreak)){
+			// this means that this case comes after a case WITHOUT break, so we need to
+			// assign the test value to the variable so that the flow falls through
+				caseReplacement += switchVariableName + " = "+caseTestExpression+" ;\n}\n if ("+switchVariableName+" == "+caseTestExpression + " ) { // added by preprocessor\n";
+				input = input.substring(0,positionOfCase) + caseReplacement + input.substring(positionOfCaseColons+1);
+				//alert('input 4 '+input);
+			}
+			else {
+			// this means that this case comes after a case WITH break, so the test variable
+			// has already been assigned to a value that makes it fall off of all the test cases
+				//if (!firstCase) caseReplacement += "\n}";
+				caseReplacement += "\n if ("+switchVariableName+" == "+caseTestExpression + " ) { // added by preprocessor\n";
+				input = input.substring(0,positionOfCase) + caseReplacement + input.substring(positionOfCaseColons+1);
+				//alert('input 4 '+input);
+			}
+			firstCase = false;
+		}
+		else {
+			break;
+		}
+
+
+
+		var positionOfBreak = input.indexOf("break;");
+		var positionOfNextCase = input.indexOf("case");
+		//var isThereACaseAfterwards =  input.indexOf("case",positionOfBreak);
+		
+		if (positionOfBreak != -1){
+			if ( (positionOfNextCase==-1) || (positionOfBreak < positionOfNextCase)) {
+				var breakReplacement = switchVariableName +" = \"DONE\";"
+				if (positionOfNextCase != -1) breakReplacement += "\n}\n";
+				input = input.substring(0,positionOfBreak) + breakReplacement + input.substring(positionOfBreak+6);
+				//alert('input 3 '+input);
+				theCaseDoesNotComeAfterABreak = false;
+			}
+			else {
+				theCaseDoesNotComeAfterABreak = true;
+			}
+		}
+		else {
+			theCaseDoesNotComeAfterABreak = true;
+		}
+
+	}
+	
+	// if the switch has a last break, the algorithms above
+	// leaves it blank. We can remove it.
+	input = input.replace("break;","");
+	var defaultReplacement = "}\n if (" + switchVariableName +" != \"DONE\" ) {";
+	input = input.replace("default:",defaultReplacement);
+	
+	if (debugAlerts) alert("replaced switch number "+switchVariableName);
+	
+	return input;
+    
+    }
+    
+    function ProcessingASonLoad() {
+        // swf loaded
+		if (debugAlerts) alert("swf loaded");
+        
+		
+		if (!doShowFlashProcessingCanvas) return;
+		
+        var browser=navigator.userAgent;
+
+		if (debugAlerts) alert("about to call p5lint");
+		//P5LintDoTheChecks(programMadeRight,null,false,true,false,false,false);
+		if (debugAlerts) alert("finished calling p5lint");
+		
+		// we replace "static final" with nothing
+		programMadeRight = programMadeRight.replace(new RegExp("static\\s+final\\s+", "g"), "");
+		//alert(11);
+		programMadeRight = programMadeRight.replace(new RegExp("final\\s+static\\s+", "g"), "");
+		//alert(12);
+
+		//if (debugAlerts) alert("program at the beginning ");
+		if (debugAlerts) alert("program at the beginning " + programMadeRight);
+		
+
+		/////////////////////////////////////////////////////
+		// this is kind of working but we reached a collapsing point
+		// with these data structures. We need to rationalise all of this
+		// right now this works, but we receive a warning by P5Lint
+		// which doesn't like stuff like
+		//   public void setup(){
+		// The problem is that we can't do the transformations below
+		// before we ran P5Lint cause P5Lint finds the list of classes for us
+		// this has to be fixed further.
+		// P.S. Maybe you can deal with these redundant public keywords
+		// in the interpreter?
+		/////////////////////////////////////////////////////				
+		// we replace all public declarations with a simplified version
+		// i.e.
+		//   public boolean switcit = true;
+		// becomes
+		//   boolean switcit = true;
+		// and
+		//   public void setup(){
+		// becomes
+		//   void setup(){
+		/////////////////////////////////////////////////////
+
+		if (debugAlerts) alert("replacing public keywords for each of the "+classesList.length+ " classes");
+		for ( var k=0; k < classesList.length; k++ ){
+			if (debugAlerts) alert("replacing public "+classesList[k]);
+			programMadeRight = programMadeRight.replace(new RegExp("public\\s+"+classesList[k]+"\\s+", "g"), " "+classesList[k]+" ");
+		}
+		
+		programMadeRight = programMadeRight.replace(new RegExp("public\\s+void\\s+", "g"), " void ");
+		programMadeRight = programMadeRight.replace(new RegExp("public\\s+byte\\s+", "g"), " byte ");
+		programMadeRight = programMadeRight.replace(new RegExp("public\\s+char\\s+", "g"), " char ");
+		programMadeRight = programMadeRight.replace(new RegExp("public\\s+boolean\\s+", "g"), " boolean ");
+		programMadeRight = programMadeRight.replace(new RegExp("public\\s+int\\s+", "g"), " int ");
+		programMadeRight = programMadeRight.replace(new RegExp("public\\s+float\\s+", "g"), " float ");
+		programMadeRight = programMadeRight.replace(new RegExp("public\\s+String\\s+", "g"), " String ");
+		programMadeRight = programMadeRight.replace(new RegExp("public\\s+color\\s+", "g"), " color ");
+		programMadeRight = programMadeRight.replace(new RegExp("public\\s+PImage\\s+", "g"), " PImage ");
+		programMadeRight = programMadeRight.replace(new RegExp("public\\s+PFont\\s+", "g"), " PFont ");
+		programMadeRight = programMadeRight.replace(new RegExp("public\\s+PGraphics\\s+", "g"), " PGraphics ");
+		programMadeRight = programMadeRight.replace(new RegExp("public\\s+PShape\\s+", "g"), " PShape ");
+		programMadeRight = programMadeRight.replace(new RegExp("public\\s+Point\\s+", "g"), " Point ");
+
+
+		/////////////////////////////////////////////////////
+		// now we manipulate the program in order to put the class definitions on top
+		// so that processing.as works.
+		/////////////////////////////////////////////////////		
+		var onlyTheClasses = "";
+		var splittedLinesProgram = programMadeRight.split("\n");
+		var withoutTheClasses = programMadeRight.split("\n");
+		
+		if (debugAlerts) alert("number of classes found: " + classesList.length);
+		
+		for ( var k=0; k < classesList.length; k++ ){
+			var startLine = classesListStartLines[k];
+			var endLines = classesListEndLines[k];
+
+			if (debugAlerts) alert("class: " + classesList[k] + " start line: "+ startLine + " end line: " + endLines);
+			
+			startLine -= 1;
+			//endLines -= 1;
+			
+			if (splittedLinesProgram[startLine].trim().substring(0,1)=="{") {
+			if (debugAlerts) alert("one of those classes that opens on a different line ");
+			startLine--;
+			}
+			
+			if (debugAlerts) alert("starting line: " + splittedLinesProgram[startLine]);
+			
+			for ( var throughTheLines = startLine; throughTheLines < endLines; throughTheLines++ ){
+				//alert('going through line number ' + throughTheLines);
+				//alert('splittedLinesProgram ' + splittedLinesProgram[throughTheLines-1] );
+				if (splittedLinesProgram[throughTheLines] == undefined) splittedLinesProgram[throughTheLines] = '\n';
+				onlyTheClasses += splittedLinesProgram[throughTheLines] + "\n";
+				withoutTheClasses[throughTheLines] = '';
+			}
+
+		}
+		
+		//alert(13);
+
+		var partOfTheProgramWithoutClassDefinitions = withoutTheClasses.join("\n");
+		
+		// if there is no change to the program then "onlyTheClasses" is undefined
+		// and we can just leave the program unchanged.
+		if (onlyTheClasses){
+			var aliasClassesForStaticVariables = onlyTheClasses;
+			var aliasesConstructors = "";
+			if (debugAlerts) alert("aliasClassesForStaticVariables before replacing the class keyword "+ aliasClassesForStaticVariables);
+
+			aliasClassesForStaticVariables = aliasClassesForStaticVariables.replace(new RegExp("class ", "g"), "PROCESSINGASRESERVEDKEYWORDclassnotinvokingconstructors ");
+			if (debugAlerts) alert("aliasClassesForStaticVariables soon after replaced the class keyword "+ aliasClassesForStaticVariables);
+			
+			for ( var creatingClassAliasesNames=0; creatingClassAliasesNames < classesList.length; creatingClassAliasesNames++ ){
+
+			var theClassWeAreTreating = classesList[creatingClassAliasesNames].trim();
+			if (debugAlerts) alert("the part with classes - before the transforms "+ aliasClassesForStaticVariables);
+
+			aliasClassesForStaticVariables = aliasClassesForStaticVariables.replace(new RegExp(" "+theClassWeAreTreating+"\\s", "g"), " PROCESSINGASRESERVEDCLASSALIAS"+theClassWeAreTreating+"   ");
+			aliasClassesForStaticVariables = aliasClassesForStaticVariables.replace(new RegExp(" "+theClassWeAreTreating+";", "g"), " PROCESSINGASRESERVEDCLASSALIAS"+theClassWeAreTreating+" ; ");
+			aliasClassesForStaticVariables = aliasClassesForStaticVariables.replace(new RegExp(" "+theClassWeAreTreating+"\\{", "g"), " PROCESSINGASRESERVEDCLASSALIAS"+theClassWeAreTreating+" { ");
+			aliasClassesForStaticVariables = aliasClassesForStaticVariables.replace(new RegExp(" "+theClassWeAreTreating+"\\(", "g"), " PROCESSINGASRESERVEDCLASSALIAS"+theClassWeAreTreating+" ( ");
+
+			aliasClassesForStaticVariables = aliasClassesForStaticVariables.replace(new RegExp("(\\r|\\n)+"+theClassWeAreTreating+"\\s", "g"), "\r\n PROCESSINGASRESERVEDCLASSALIAS"+theClassWeAreTreating+"   ");
+			aliasClassesForStaticVariables = aliasClassesForStaticVariables.replace(new RegExp("(\\r|\\n)+"+theClassWeAreTreating+";", "g"), "\r\n PROCESSINGASRESERVEDCLASSALIAS"+theClassWeAreTreating+" ; ");
+			aliasClassesForStaticVariables = aliasClassesForStaticVariables.replace(new RegExp("(\\r|\\n)+"+theClassWeAreTreating+"{", "g"), "\r\n PROCESSINGASRESERVEDCLASSALIAS"+theClassWeAreTreating+" { ");
+			aliasClassesForStaticVariables = aliasClassesForStaticVariables.replace(new RegExp("(\\r|\\n)+"+theClassWeAreTreating+"\\(", "g"), "\r\n PROCESSINGASRESERVEDCLASSALIAS"+theClassWeAreTreating+" ( ");
+
+
+			if (debugAlerts) alert("the part with classes: "+ aliasClassesForStaticVariables);
+
+			aliasesConstructors += "\n"+" PROCESSINGASRESERVEDCLASSALIAS"+theClassWeAreTreating +" PROCESSINGASRESERVEDOBJECTCLASSALIAS"+theClassWeAreTreating+" = new "+ "PROCESSINGASRESERVEDCLASSALIAS"+theClassWeAreTreating +"();\n";
+
+			
+			partOfTheProgramWithoutClassDefinitions = partOfTheProgramWithoutClassDefinitions.replace(new RegExp(theClassWeAreTreating+"\\.", "g"), " PROCESSINGASRESERVEDOBJECTCLASSALIAS"+theClassWeAreTreating+".");
+			if (debugAlerts) alert("in the part without classes: "+ partOfTheProgramWithoutClassDefinitions);
+			}
+			
+			programMadeRight = onlyTheClasses + aliasClassesForStaticVariables + aliasesConstructors + partOfTheProgramWithoutClassDefinitions;
+		}
+		
+		//alert(14);
+		if (debugAlerts) alert("program after classes have been reshuffled " + programMadeRight);
+
+		////////////////////////////////////////////////////////
+		// now that we've created a bunch of new classes to handle
+		// static members,
+		// we have to extend three important data structures that
+		// keep track of
+		//  - the list of classes
+		//  - the list of classes with zero-argument constructors
+		//  - the list of classes that extend other classes
+		////////////////////////////////////////////////////////		
+		var increasedClassesWithZeroArgumentConstructors = [];
+		for ( var i=0; i < classesList.length; i++ ){
+			for ( var p=0; p < classesWithZeroArgumentConstructors.length; p++ ){
+						if (classesList[i] === classesWithZeroArgumentConstructors[p]){
+							increasedClassesWithZeroArgumentConstructors.push(classesList[i]);
+							increasedClassesWithZeroArgumentConstructors.push("PROCESSINGASRESERVEDCLASSALIAS"+classesList[i]);
+						}
+			}
+		}
+
+		var increasedClassesWithExtensionsList = [];
+		for ( var i=0; i < classesList.length; i++ ){
+			for ( var p=0; p < classesWithExtensionsList.length; p++ ){
+						if (classesList[i] === classesWithExtensionsList[p]){
+							increasedClassesWithExtensionsList.push(classesList[i]);
+							increasedClassesWithExtensionsList.push("PROCESSINGASRESERVEDCLASSALIAS"+classesList[i]);
+						}
+			}
+		}
+
+		var increasedClassesList = [];
+		for ( var i=0; i < classesList.length; i++ ){
+			increasedClassesList.push(classesList[i]);
+			increasedClassesList.push("PROCESSINGASRESERVEDCLASSALIAS"+classesList[i]);
+		}
+		
+		if (debugAlerts) alert("old class list: " + classesList + "\n\n *** \n\n new class list" + increasedClassesList);
+		if (debugAlerts) alert("old classesWithExtensionsList: " + classesWithExtensionsList + "\n\n *** \n\n new one: " + increasedClassesWithExtensionsList);
+		if (debugAlerts) alert("old classesWithZeroArgumentConstructors: " + classesWithZeroArgumentConstructors + "\n\n *** \n\n new one: " + increasedClassesWithZeroArgumentConstructors);
+		
+		//alert(15);
+		classesList = increasedClassesList;
+		classesWithExtensionsList = increasedClassesWithExtensionsList;
+		classesWithZeroArgumentConstructors = increasedClassesWithZeroArgumentConstructors;
+		////////////////////////////////////////////////////////
+
+
+		if (debugAlerts) alert("program before removing comments " + programMadeRight);
+
+		/////////////////////////////////////////////////////
+		// now we'll be doing some processing.as - specific manipulations
+		// so we better remove all the comments ot avoid garbling the
+		// regexes too much.
+		programMadeRight = removeComments(programMadeRight);
+		// remove comments add the line numbers and we don't need them here,
+		// so we are getting rid of them
+		var lineCommentExp = "((\\r|\\n)*\\/\\*lineNumber[1234567890]*\\*\\/(\\r|\\n)*\\s*)*";
+		programMadeRight = programMadeRight.replace(new RegExp(lineCommentExp, "g"), "");		
+
+		
+		if (debugAlerts) alert("program before adding constructors " + programMadeRight);
+		programMadeRight = addBasicConstructorToAllClassesMissingOne(programMadeRight);
+		if (debugAlerts) alert("all classes should have a basic constructor here: " + programMadeRight);
+		
+		//alert("adding super to constructors that don't have one");
+		programMadeRight = addSuperToZeroArgumentConstructorsThatDontHaveOne(programMadeRight);
+		if (debugAlerts) alert("all extended classes should have super: " + programMadeRight);
+		//alert(programMadeRight);
+		
+		//alert("replacing switches with IFs");
+		programMadeRight = replaceAllTheSwitchesWithIfs(programMadeRight);
+		if (debugAlerts) alert("all the switches should be replaced: " + programMadeRight);
+
+		programMadeRight = programMadeRight.replace("import ddf.minim.*;","");
+		if (debugAlerts) alert("minim library package eliminated (no use to processing interpreter) " + programMadeRight);
+
+
+		if (debugAlerts) alert(programMadeRight);
+
+
+		//alert(16);
+        //alert("your browser is: " + navigator.appName);
+        ProcessingFlash = getFlashMovie();
+        ProcessingFlash.start();
+        ProcessingFlash.run(programMadeRight, null);
+        //alert("processing started and runned");
+
+        // alert("processing started");
+        // sketchy loadImage pre-processing
+        //alert(programMadeRight);
+
+        
+        doSyntaxHighlighting();
+        
+    }
+
+        
+    ProcessingAS.onResize = function (w, h) {
+        document.getElementById('sketchWindow').style.width = w+'px';
+		document.getElementById('sketchWindow').style.height = h+'px';
+
+        // Processing canvas resized
+        ProcessingFlash.width = w;
+        ProcessingFlash.height = h;
+    };
+
+    function tellSoundCloudWidgetToLoadURL(val)
+    {
+        //alert("asking soundcloud widget to load stuff");
+        if ( playerIsReady) {
+        theSoundCloudWidget.api_load(val);
+        }
+        else {
+        loadThisWhenReady = val;
+        }
+
+    }
+
+    function tellSoundCloudWidgetToPlay(val)
+    {
+        //alert("asking soundcloud widget to play");
+
+        if ( playerIsReadyAndNotPlaying) {
+        	//alert("player is already ready to play so I'm about to play");
+        	theSoundCloudWidget.api_play();
+        }
+        else {
+        	//alert("player is not ready to play; setting a flag here to remember when it's ready");
+        playWhenReady = true;
+        }
+    }
+
+    function tellSoundCloudWidgetToPause(val)
+    {
+        //alert("asking soundcloud widget to pause");
+
+        	theSoundCloudWidget.api_pause();
+    }
+    
+    function sendToJavaScript(val)
+    {
+        var oldSketchWidth = document.getElementById('sketchWindow').style.width;
+		var oldSketchHeight = document.getElementById('sketchWindow').style.height;
+
+        document.getElementById('sketchWindow').style.width = 100+'px';
+		document.getElementById('sketchWindow').style.height = 100+'px';
+        ProcessingFlash.width = 100;
+        ProcessingFlash.height = 100;
+
+		//alert('should have resized');
+
+        Boxy.ask("This sketch seems slow... do you want to continue?", {"1":"No", "2":"Continue"}, function(r) {document.getElementById('sketchWindow').style.width = oldSketchWidth; document.getElementById('sketchWindow').style.height = oldSketchHeight; ProcessingFlash.width = oldSketchWidth; ProcessingFlash.height = oldSketchHeight; if (r=="2") {callToActionscript('moreTime');} });
+    }
+
+    var printoutString="";
+    var printOutTextAreaAlreadyVisible = false;
+    //var textAreaContentLength = 0;
+    function printSomething(val)
+    {
+        if (!printOutTextAreaAlreadyVisible){
+
+			if (document.getElementById) { // DOM3 = IE5, NS6
+				document.getElementById('thePrintoutAreaDiv').style.visibility = 'visible';
+				document.getElementById('thePrintoutAreaDiv').style.display = 'block';
+			}
+			else {
+				if (document.layers) { // Netscape 4
+					document.thePrintoutAreaDiv.visibility = 'visible';
+					document.thePrintoutAreaDiv.display = 'block';
+				}
+				else { // IE 4
+					document.all.thePrintoutAreaDiv.style.visibility = 'visible';
+					document.all.thePrintoutAreaDiv.style.display = 'block';
+				}
+			} 
+
+        document.thePrintoutAreaForm.thePrintoutArea.rows = 9;
+        document.thePrintoutAreaForm.thePrintoutArea.cols = 90;
+        document.thePrintoutAreaForm.thePrintoutArea.width = 789;
+        document.thePrintoutAreaForm.thePrintoutArea.height = 207;
+        //document.thePrintoutAreaForm.thePrintoutArea.visibility = block;
+        
+
+        }
+        //textAreaContentLength += val.length;
+        //if (textAreaContentLength > 1500) {
+        //    textAreaContentLength = 0;
+        //    document.thePrintoutAreaForm.thePrintoutArea.value = "";
+        //}
+        var newContent = document.thePrintoutAreaForm.thePrintoutArea.value + val;
+        var lengthOfTextArea = newContent.length;
+        //alert(lengthOfTextArea)
+        
+        if (lengthOfTextArea > 700) {
+        //alert('shrinking')
+        	document.thePrintoutAreaForm.thePrintoutArea.value = newContent.substring(lengthOfTextArea-700);
+        }
+        else {
+        	document.thePrintoutAreaForm.thePrintoutArea.value = newContent;
+        }
+        document.thePrintoutAreaForm.thePrintoutArea.scrollTop = document.thePrintoutAreaForm.thePrintoutArea.scrollHeight - document.thePrintoutAreaForm.thePrintoutArea.clientHeight;
+        printOutTextAreaAlreadyVisible = true; 
+    }
+
+
+    function callToActionscript(str) 
+    {
+     getFlashMovie().sendToActionscript(str);
+    }
+    //////////////////////////////////////////////////////////////////////
+
+
+    //]]>
+    </script><script type="text/javascript" language="javascript">
+//<![CDATA[
+    var http = false;
+
+    if(navigator.appName == "Microsoft Internet Explorer") {
+    http = new ActiveXObject("Microsoft.XMLHTTP");
+    } else {
+    http = new XMLHttpRequest();
+    } 
+
+    function sendThumbnailToJavascript(test) {
+      //document.getElementById('foo').innerHTML = "from flash: <br/>" + test + "<br/> escaped: <br/>" + escape(test);
+
+	   // if the sketch is not running when a thumbnail is requested
+	   // (e.g. because it's a malformed applet or it's just not running)
+	   // then we receive an empty string - all we have to do is to return
+       if (test === "") {
+         return;
+       }
+      
+      var poststr = "thumb=" + escape(test).replace(/\+/g, "-");
+
+      http.open('POST', "/thumbnailUpload/{{sketch.randomID}}", true);
+      http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      http.setRequestHeader("Content-length", poststr.length);
+      http.setRequestHeader("Connection", "close");
+      http.send(poststr);
+
+      http.send(null);
+    }
+
+    function sendFullPictureToJavascript(test) {
+      //alert('full picture upload received: ' + test);
+      //document.getElementById('foo').innerHTML = "from flash: <br/>" + test + "<br/> escaped: <br/>" + escape(test);
+      
+      var poststr = "fullPicture=" + escape(test).replace(/\+/g, "-");
+
+      http.open('POST', "/fullPictureUpload/{{sketch.randomID}}", true);
+      http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      http.setRequestHeader("Content-length", poststr.length);
+      http.setRequestHeader("Connection", "close");
+      http.send(poststr);
+
+      http.send(null);
+    }
+    
+    //]]>
+    </script>
+    <div id="page">
+{% include 'headerTemplate.html' %}
+      <div id="content">
+        <div id="sketchWindow" style="width:1px; height:1px;">
+
+        </div>
+
+		<canvas width="1" height="1" id="processingCanvas"></canvas>
+        
+
+        <script type="text/javascript">
+		// <![CDATA[
+
+      	var fo = new SWFObject("/sketchPlayer/sandbox_files/processing.swf", "processingViewer", "1", "1", "8.0.15", "#ffffff", true);
+      	// need this next line for local testing, it's optional if your swf is on the same domain as your html page
+      	fo.addParam("allowScriptAccess", "always");
+      	fo.addParam("allowFullScreen", "true");
+		$(document).ready(function() {fo.write("sketchWindow");});
+
+		// ]]>
+        </script>
+
+<div id="thePrintoutAreaDiv" style="visibility:hidden; display:none;">
+<form name=thePrintoutAreaForm>
+<textarea name="thePrintoutArea" id="styled" width=0px height=0px rows="0" cols="0" readonly>
+</textarea>
+</form> 
+</div>  
+
+        <!--<div class="sketchWindowIcons"><img src="/imgs/play-symbol.gif" alt="play"  height="25px"/></div> -->
+        <!--<div class="sketchWindowIcons"><img src="/imgs/full_screen.jpg" height="25px"  /></div>--><br />
+
+
+          <script language="JavaScript" type="text/javascript">
+
+        document.thePrintoutAreaForm.thePrintoutArea.rows = 0;
+        document.thePrintoutAreaForm.thePrintoutArea.cols = 0;
+        document.thePrintoutAreaForm.thePrintoutArea.width = 0;
+        document.thePrintoutAreaForm.thePrintoutArea.height = 0;
+
+		if (document.getElementById) { // DOM3 = IE5, NS6
+			document.getElementById('thePrintoutAreaDiv').style.visibility = 'hidden';
+			document.getElementById('thePrintoutAreaDiv').style.display = 'none';
+		}
+		else {
+			if (document.layers) { // Netscape 4
+				document.thePrintoutAreaDiv.visibility = 'hidden';
+				document.thePrintoutAreaDiv.display = 'none';
+			}
+			else { // IE 4
+				document.all.thePrintoutAreaDiv.style.visibility = 'hidden';
+				document.all.thePrintoutAreaDiv.style.display = 'none';
+			}
+		} 
+          </script>
+
+        <div id="sketchWindowIcons">
+        
+
+          <script language="JavaScript" type="text/javascript">
+//<![CDATA[
+
+				var notAGroupLogin = false;
+				if ("None" == readCookie("groupLoginCode")) {
+					notAGroupLogin = true;
+					}
+					else
+					{
+					notAGroupLogin = false;
+					}
+
+                // if (you have uploaded the sketch and you are not a group login ) or you are an admin than you can edit it:
+                //if (  (readCookie("user.is_current_user_admin")=="True") || (("{{ sketch.author_user_id}}" == readCookie("user.user_id")) && notAGroupLogin)   ){
+
+                // if you have uploaded the sketch or you are an admin than you can edit it:
+                if (  (readCookie("user.is_current_user_admin")=="True") || (("{{ sketch.author_user_id}}" == readCookie("user.user_id")))   ){
+                        document.write("<div class='sketchWindowIcons'><a href='/edit/{{sketch.randomID}}/'>Edit: <!--startOfInsertCommentForSkeletalHTML--><img src='/imgs/pencil.png' alt='edit' /><!--endOfInsertCommentForSkeletalHTML--><\/a><\/div>");
+                } 
+          //]]>
+          </script>
+          <div class="sketchWindowIcons">
+            <a href='/copy/{{sketch.randomID}}/'>Copy: <!--startOfInsertCommentForSkeletalHTML--><img src="/imgs/sheep_clone.png" alt=
+            "copy" /><!--endOfInsertCommentForSkeletalHTML--></a>
+          </div><script language="JavaScript" type="text/javascript">
+//<![CDATA[
+				var notAGroupLogin = false;
+				if ("None" == readCookie("groupLoginCode")) {
+					notAGroupLogin = true;
+					}
+					else
+					{
+					notAGroupLogin = false;
+					}
+				// if you are the admin then you can delete
+				// if you are anonymous then you can't delete
+				// if you are a group login then you can't delete
+				// if you own the sketch and you are neither anonymous nor a group login then you can delete
+                if ((readCookie("user.is_current_user_admin")=="True")||((( readCookie("user.user_id") != "None") && ("{{ sketch.author_user_id}}" == readCookie("user.user_id"))) && notAGroupLogin)){
+                        document.write("<div class='sketchWindowIcons'><a href='/delete/{{sketch.randomID}}/'>Delete: <img src='/imgs/delete.gif' alt='delete'/><\/a><\/div>");
+                } 
+          //]]>
+          </script>
+          <script language="JavaScript" type="text/javascript">
+//<![CDATA[
+
+                        // if you have uploaded the sketch or you are an admin than you can take a thumbnail of it
+                if (  (readCookie("user.is_current_user_admin")=="True")   ){           
+                        document.write("<div class='sketchWindowIcons'><a href='#' id='thumbnailUpload' onclick=\"javascript:callToActionscript('getStringOfBase64AppletJPG');\">Make thumbnail: <img src=\"\/imgs\/i-mona-lisa-graphics.png\" alt='thumbnail' \/><\/a><\/div>");
+                        document.write("<div class='sketchWindowIcons'><a href='#' id='fullPictureUpload' onclick=\"javascript:callToActionscript('uploadFullPicture');\">Upload full picture: <img src=\"\/imgs\/uploadBigPictureIcon.png\" alt='bigPicture' \/><\/a><\/div>");
+                }
+                document.write("<!--startOfInsertCommentForSkeletalHTML--><div class='sketchWindowIcons'> <img src=\"\/imgs\/emptyIcon.png\" \/> Share: <a href='http:\/\/www.facebook.com\/sharer.php?u=http:\/\/www.sketchpatch.net\/view\/{{sketch.randomID}}/'  ><img src=\"\/imgs\/facebook.png\" alt='share on facebook' \/> &nbsp <\/a> <a href='http:\/\/twitter.com\/home\/?status=cool%20%23Processing%20sketch:%20http:\/\/www.sketchpatch.net\/view\/{{sketch.randomID}}/' ><img src=\"\/imgs\/twitter.png\" alt='share on twitter' \/> &nbsp <\/a> <a href='http:\/\/del.icio.us\/post?url=http:\/\/www.sketchpatch.net\/view\/{{sketch.randomID}}/&amp;title=Cool+sketch'  ><img src=\"\/imgs\/delicious.png\" alt='share on delicious' \/> &nbsp <\/a><\/div><!--endOfInsertCommentForSkeletalHTML-->");
+
+          //]]>
+          </script>
+        </div>
+        <div id="contentleft">
+          <div id="sketchCode">
+            <h1>
+              {{sketch.dateSaved|date:"l, F d, Y"}}
+            </h1>
+            <!--startOfInsertCommentForSkeletalHTML--><h2><!--endOfInsertCommentForSkeletalHTML-->
+              {{sketch.title}}
+            <!--startOfInsertCommentForSkeletalHTML--></h2><!--endOfInsertCommentForSkeletalHTML-->
+            <div id="theSourceCode">
+              {{sketch.sourceCode}}
+            </div>
+          </div>
+        </div>
+
+<script type="text/javascript">        
+	function fetchProgram() {
+        return deHTML(document.getElementById("theSourceCode").innerHTML);
+    }
+
+    function deHTML(original) {
+    	//programMadeRight = unescape(original);
+    	var programMadeRight = original.replace(/<br>/g,"\n");
+    	programMadeRight = programMadeRight.replace(/<BR>/g,"\n");
+    	programMadeRight = programMadeRight.replace(/&nbsp;/g," ");
+    	programMadeRight = programMadeRight.replace(/&lt;/g,"<");
+    	programMadeRight = programMadeRight.replace(/&gt;/g,">");
+    	programMadeRight = programMadeRight.replace(/<pre>/g," ");
+    	programMadeRight = programMadeRight.replace(/&amp;/g,"&");
+    	programMadeRight = programMadeRight.replace(/&quot;/g,"\"");
+    	return programMadeRight;
+    }
+
+	
+	// One of the first things we do is to detect whether flash is
+	// there or not.
+		programMadeRight = '';
+        programAsFetched = fetchProgram();      
+		programMadeRight = programAsFetched;      
+		if (debugAlerts) alert("fetching the program");
+		
+
+//////////// if the browser doesn't support flash than we stop - canvas will do the rest
+if(!FlashDetect.installed){
+		// flash not installed, you can return. Canvas will periodically check whether
+		// the programMadeRight variable contains a progra and start as soon as it does
+		if (debugAlerts) alert("flash not installed");
+		doShowFlashProcessingCanvas = false;
+		doShowHTML5ProcessingCanvas = true;
+		// in this case, the ProcessingASonLoad method won't be called.
+		
+		
+	}else{
+		if (debugAlerts) alert("flash installed");
+		 doShowFlashProcessingCanvas = true;		
+		 doShowHTML5ProcessingCanvas = false;
+		 // in this case, when the flash object will load, the ProcessingASonLoad will
+		 // be called, and that method will do all the program manipulations needed
+		 // and start processing.as
+		 // if the browser supports canvas, processing.js will be loaded, but
+		 // init() won't actually instantiate the program because of the flag
+	}
+</script>	
+           
+              
+        <div id="contentright">
+          <div id="info">
+            <br />
+            <!--startOfInsertCommentForSkeletalHTML--><h2><!--endOfInsertCommentForSkeletalHTML-->
+              info <!--startOfInsertCommentForSkeletalHTML--><img src="/imgs/info.gif" alt="info" /><!--endOfInsertCommentForSkeletalHTML-->
+            <!--startOfInsertCommentForSkeletalHTML--></h2><!--endOfInsertCommentForSkeletalHTML--><strong>submitted by:</strong>
+            
+            <a class="timestamp-link" href=
+            "/byUploader/{{sketch.author_nickname}}-{{sketch.author_string_user_id}}/">{{sketch.author_nickname}}</a><br />
+            <!--href=
+            "/profile/{{sketch.author_nickname}}-{{sketch.author_string_user_id}}/"-->
+
+            <!--startOfInsertCommentForSkeletalHTML--></h2><!--endOfInsertCommentForSkeletalHTML--><strong>views:&nbsp;</strong>
+                <script language="JavaScript" type="text/javascript">
+                   document.write(readCookie("pageViews"));
+                </script><br />
+
+            <br />
+            {{sketch.description}}<br />
+            <br />
+		{% ifnotequal sketch.parentSketchRandomID "" %}
+<!--startOfInsertCommentForSkeletalHTML--><img src="/imgs/tree.jpg" alt="tree" /><!--endOfInsertCommentForSkeletalHTML-->This sketch has a <a href="/view/{{sketch.parentSketchRandomID}}/">parent</a>
+{% endifnotequal %}
+
+		
+		<div id="tags">	<strong>Tags: </strong>{% for tag in sketch.tags %}
+            {{ tag|unquote }}{% if not forloop.last %},{% endif %}
+            {% endfor %}
+<br />
+            </div>
+          </div>
+          <div id="usercomments">
+            <div id="commentIcons">
+              <!--startOfInsertCommentForSkeletalHTML--><h2><!--endOfInsertCommentForSkeletalHTML-->
+                comments <!--startOfInsertCommentForSkeletalHTML--><img src="/imgs/comment.png" alt="comment" /><!--endOfInsertCommentForSkeletalHTML-->
+              <!--startOfInsertCommentForSkeletalHTML--></h2><!--endOfInsertCommentForSkeletalHTML-->
+            </div>
+            <div id="latestComments">
+              <img src="/imgs/ajaxSpinner.gif" alt="loading" title="loading" />
+              loading...
+            </div><script type="text/javascript">
+//<![CDATA[
+                                var http2 = false;
+
+                                if(navigator.appName == "Microsoft Internet Explorer") {
+                                  http2 = new ActiveXObject("Microsoft.XMLHTTP");
+                                } else {
+                                  http2 = new XMLHttpRequest();
+                                } 
+
+                                function loadLatestComments() {
+                                        http2.open("GET", "/latestComments/{{sketch.randomID}}/", true);
+                                        http2.onreadystatechange = function() {
+                                                if(http2.readyState == 4) {
+                                                        document.getElementById('latestComments').innerHTML = http2.responseText;
+                                                }
+                                        };
+                                        http2.send(null);
+                                }
+
+                                loadLatestComments();
+
+            //]]>
+            </script>
+            <p>
+              &nbsp;
+            </p>
+            <p>
+              Add a comment:
+            </p>
+            <div id="addcomment">
+             
+<form method="post" action='/addComment/{{sketch.randomID}}/'>
+
+                  <textarea id="text_input" name="text_input" rows="5" cols="40">
+</textarea>
+<br />
+                <input id="submit_comment" name="submit_addreply" type="submit" value=
+                "submit" /><br />
+                <br />
+ </form>
+                </div>
+                 
+                
+                
+                
+                
+                
+                <script language="JavaScript" type="text/javascript">
+//<![CDATA[
+
+
+                if ( readCookie("user.user") == "None") {
+                        document.getElementById('text_input').disabled=true;
+                        document.getElementById('submit_comment').disabled=true;
+                        var login_url = "{{login_url}}";
+                        document.write("( you need to <a href=\""+login_url+"\"> log in<\/a> to leave a comment )<br\/>");
+                }
+
+              //]]>
+              </script>
+            </div>
+          </div><!-- contentright end -->
+        
+        
+        </div><!-- content end -->
+                 
+     
+     
+
+{% include 'footerTemplate.html' %}
+      
+      
+    </div><!-- close div page -->
+
+<!-- soundcloud player -->
+<object height="1px" width="1px" id="yourPlayerId" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000">
+    <param name="movie" value="http://player.soundcloud.com/player.swf?url=http%3A%2F%2Fsoundcloud.com%2Fmatas%2Fhobnotropic&amp;enable_api=true&amp;object_id=yourPlayerId"></param>
+    <param name="allowscriptaccess" value="always"></param>
+    <embed allowscriptaccess="always" height="1px" width="1px" src="http://player.soundcloud.com/player.swf?url=http%3A%2F%2Fsoundcloud.com%2Fmatas%2Fhobnotropic&amp;enable_api=true&amp;object_id=yourPlayerId" type="application/x-shockwave-flash" name="yourPlayerId"></embed>
+</object>
+
+    
+    <script type="text/javascript">
+//<![CDATA[
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    //]]>
+    </script><script type="text/javascript">
+//<![CDATA[
+    try {
+    var pageTracker = _gat._getTracker("UA-8776965-1");
+    pageTracker._setDomainName(".sketchpatch.net");
+    pageTracker._trackPageview();
+    } catch(err) {}
+    //]]>
+    </script>
+  </body>
+</html> 

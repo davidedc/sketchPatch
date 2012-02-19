@@ -1,0 +1,2126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<meta http-equiv="Content-Type" content="text/xhtml; charset=ISO-8859-1" />
+<title>sketchPatch</title>
+<link href="/style.css" rel="stylesheet" type="text/css" />
+<link href="/boxy/stylesheets/boxy.css"  rel="stylesheet" type="text/css" />
+
+	
+<!-- this line below includes a handy firebug-lite version that kind of works for IE - better than nothing -->
+<!-- <script type='text/javascript' 
+        src='http://getfirebug.com/releases/lite/1.2/firebug-lite-compressed.js'></script> -->
+
+
+<!--soundcloud javascript wrapper as seen on http://wiki.github.com/soundcloud/Widget-JS-API/ -->
+<script type="text/javascript" src="/jscripts/soundcloud.player.api.js"></script>
+
+<script type="text/javascript">
+     firstTimeGotReady = true;
+     playWhenReady = false;
+     playerIsReady = false;
+     playerIsReadyAndNotPlaying = false;
+     loadThisWhenReady = "";
+     soundcloud.addEventListener('onPlayerReady', function(player, data) {
+     
+     //alert("player ready");
+     playerIsReady = true;
+     	
+     theSoundCloudWidget = player;
+
+     if (firstTimeGotReady) {
+     	//alert("skipping this ready alert");
+     	firstTimeGotReady = false;
+
+	     if (loadThisWhenReady !== ""){
+   	    	  //alert("player has just become ready, so loading " + loadThisWhenReady);
+   	          theSoundCloudWidget.api_load(loadThisWhenReady);
+   		  }
+
+     	return;
+     }
+     
+       //alert("the player is now ready and playWhenReady is " + playWhenReady);
+
+        if (playWhenReady) {
+        	theSoundCloudWidget.api_play();
+     		trackIsPlaying = true;
+        }
+        else {
+        playerIsReadyAndNotPlaying = true;
+        }
+
+     });
+
+function gup( name )
+{
+  name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+  var regexS = "[\\?&]"+name+"=([^&#]*)";
+  var regex = new RegExp( regexS );
+  var results = regex.exec( window.location.href );
+  if( results == null )
+    return "";
+  else
+    return results[1];
+}
+
+</script>
+
+
+  <script src="/jscripts/codemirror/codemirror.js" type="text/javascript"></script>
+  <!--<script src="/jscripts/codemirror/mirrorframe.js" type="text/javascript"></script>-->
+
+
+<!-- BOXY  -->
+ 	<script type="text/javascript" src="/boxy/javascripts/jquery.js"></script>
+      <script type="text/javascript" src="/boxy/javascripts/jquery_002.js"></script>
+    <!-- per Project stuff -->
+            <script type='text/javascript' src='/boxy/javascripts/jquery.boxy.js'></script>
+
+<script type="text/javascript" src="/jscripts/swfobject.js"></script>
+
+  <script src="/P5Lint/v0.1925Jan10/P5LintJs/webjslint.js"></script>
+  <script src="/P5Lint/v0.1925Jan10/P5LintJs/removeComments.js"></script>
+  <script src="/P5Lint/v0.1925Jan10/P5LintJs/widget.js"></script>
+
+			
+	<!-- Help pages scripts (jquery included!) --------------------------------- --> 			
+	<script type="text/javascript" src="/jscripts/jquery-1.3.2.js"></script> 			
+				
+	<script type="text/javascript"> 
+
+
+	    var latestfetchedProgram; 			
+	    var latestReport; 			
+
+		// ****************************************************************
+		// this here below is a little state machine in order
+		// to show the right panels at the right time depending
+		// on the events like user closing panels or playng sketch...
+		// ****************************************************************
+
+	    // there are six possible states for the panels showing/not showing
+	    var state_not_playing_info_box_showing = 1; 			
+	    var state_running_info_box_showing = 2; 			
+	    var state_not_playing_error_box_showing = 3; 			
+	    var state_running_error_box_showing = 4; 			
+	    var state_not_playing_hint_box_showing = 5; 			
+	    var state_running_hint_box_showing = 6; 			
+
+	    // this is the starting state, where the sketch is not playing and
+	    // only the info of the sketch are showing.
+	    var current_state = state_not_playing_info_box_showing; 			
+
+	    var transition_hint_button_clicked = 1; 			
+	    var transition_play_button_clicked = 2; 			
+	    var transition_stop_button_clicked = 3; 			
+	    var transition_sketch_ended = 4; 			
+	    var transition_close_panel_button_clicked = 5; 			
+	    var transition_sketch_has_started_running = 6; 			
+		// ****************  end of state machine *************************
+
+
+	    var previouslyOpened = null; 			
+	    var lastOneOpened = 'none'; 			
+				
+	    var previouslyOpened2 = null; 			
+	    var lastOneOpened2 = 'none'; 			
+				
+	        $(document).ready(function() { 			
+	                
+	                // if the user wants to edit a rejected sketch, we assume that it's because
+	                // she wants to make it public. So let's check that checkbox if the case.
+	                if (gup('setThePublicFlag')==='true')
+	                	document.getElementById('publishedcheckbox').checked = true;
+	                
+	                $(".menu").click(function() { 			
+	                 			
+				
+	                    if (lastOneOpened !== $(this).attr("id")) { 			
+	                                if (previouslyOpened !== null) previouslyOpened.hide(400); 			
+	                    } 			
+	                        $(this).next().slideToggle(400); 			
+	                    previouslyOpened = $(this).next(); 			
+	                    $(this).justClicked = true; 			
+	                    lastOneOpened = $(this).attr("id"); 			
+	                         			
+	                }, 			
+	                function() { 			
+	                $(this).next().slideToggle(400); 			
+	                }); 			
+	         			
+	         			
+	        }); 			
+				
+	        $(document).ready(function() { 			
+	                $(".menu2").click(function() { 			
+	                 			
+				
+	                    if (lastOneOpened2 !== $(this).attr("id")) { 			
+	                                if (previouslyOpened2 !== null) previouslyOpened2.hide(400); 			
+	                    } 			
+	                        $(this).next().slideToggle(400); 			
+	                    previouslyOpened2 = $(this).next(); 			
+	                    $(this).justClicked = true; 			
+	                    lastOneOpened2 = $(this).attr("id"); 			
+	                         			
+	                }, 			
+	                function() { 			
+	                $(this).next().slideToggle(400); 			
+	                }); 			
+	         			
+	         			
+	        }); 			
+	         			
+	        
+				
+</script> 			
+<!-- end of Help pages scripts (jquery included!) --------------------------------- --> 			
+
+
+<style type="text/css" MEDIA="screen, projection">
+img#close {
+  margin-top: 11px;
+  margin-left: 9px;
+  cursor: pointer;
+}
+
+#funnyQuote {text-align:right;}
+
+#theWarningsAndErrorsAreaDivInternal p {
+  margin-left: 1.5em;
+  margin-top: 0;
+  margin-bottom: 0
+  }
+  
+
+#theWarningsAndErrorsAreaDivInternal A:link {text-decoration: none}
+#theWarningsAndErrorsAreaDivInternal A:visited {text-decoration: none}
+#theWarningsAndErrorsAreaDivInternal A:active {text-decoration: none}
+#theWarningsAndErrorsAreaDivInternal A:hover {text-decoration: underline; color: red;}
+
+
+textarea#styled {
+	border: none;
+	padding: 5px;
+	border:2px dotted #ff33ff;
+	font-family: Tahoma, sans-serif;
+	}
+
+
+</style>
+
+  </head>
+
+
+
+
+<body>
+
+
+<script type="text/javascript" src="/sketchPlayer/sandbox_files/processingas.js"></script>
+
+{% include 'readCookieCode.html' %}
+
+<script type="text/javascript" >
+//<![CDATA[
+
+    var Processing = null;
+	var editor;
+
+	var debugAlerts = false;
+
+	    String.prototype.trim = function () {
+        return this.replace(/^[\s\,]*/, "").replace(/[\s\,]*$/, ""); //for remove the space and comma at the begining/end of the tag.
+    };
+
+	
+    function ProcessingASonLoad() {
+ 	   //alert('ProcessingASonLoad is being ran but I am doing nothing');
+    }
+
+    function getFlashMovie() {
+   		return document.getElementById("processingViewer");
+    }
+
+	function setRandomWarningsAndErrorsAreaMessage(){
+		var r_text = [];
+		r_text[0] = "If all else fails, immortality can always be assured by spectacular error <br> J. K. Galbraith";
+		r_text[1] = "Any man whose errors take ten years to correct is quite a man. <br> J. R. Oppenheimer, speaking of Albert Einstein";	
+		r_text[2] = "An expert is a person who avoids small error as s/he sweeps on to the grand fallacy <br> B. Stolberg";
+		r_text[3] = "There are grammatical errors even in his silence. <br> S. J. Lec";
+		r_text[4] = "Irrationally held truths may be more harmful than reasoned errors. <br> T. H. Huxley";
+		r_text[5] = "There are sadistic scientists who hurry to hunt down errors instead of establishing the truth <br> M. Curie";
+		r_text[6] = "What is earnest is not always true; on the contrary, error is often more earnest than truth. <br> B. Disraeli ";
+		r_text[7] = "Great services are not canceled by one act or by one single error. <br> B. Disraeli";
+		r_text[8] = "Love truth, and pardon error <br> Voltaire";	
+		r_text[9] = "There are, in every age, new errors to be rectified and new prejudices to be opposed. <br> S. Johnson";		
+		r_text[10] = "An error is the more dangerous the more truth it contains. <br> H.F. Amiel";		
+		r_text[11] = "The first step towards amendment is the recognition of error <br> Seneca";		
+		r_text[12] = "From error to error one discovers the entire truth.  <br> S. Freud";		
+		r_text[13] = "Delay is preferable to error. <br> T. Jefferson";		
+		r_text[14] = "It is error alone which needs the support of government. Truth can stand by itself. <br> T. Jefferson";		
+		r_text[15] = "Be bold. If you're going to make an error, make a doozy, and don't be afraid to hit the ball. <br> B. J. King ";		
+		r_text[16] = "It is error only, and not truth, that shrinks from inquiry. <br> T. Paine";	
+		r_text[17] = "The history of human opinion is scarcely anything more than the history of human errors. <br> Voltaire";
+		r_text[18] = "Error of opinion may be tolerated where reason is left free to combat it. <br> T. Jefferson";	
+		r_text[19] = "Sometimes we may learn more from a man's errors, than from his virtues. <br> H W Longfellow";
+		r_text[20] = "Honest error is to be pitied, not ridiculed. <br> Earl of Chesterfield";	
+		r_text[21] = "A small error in the former will produce an enormous error in the latter. <br> H. Poincare ";	
+		r_text[22] = "A subtle thought that is in error may yet give rise to fruitful inquiry that can establish truths of great value. <br> I Asimov ";	
+		r_text[23] = "Admitting Error clears the Score, And proves you Wiser than before. <br> A Guiterman ";	
+		r_text[24] = "All men are liable to error; and most men are, in many points, by passion or interest, under temptation to it. <br> J. Locke ";
+		r_text[25] = "An error doesn't become a mistake until you refuse to correct it. <br> O. A. Battista";
+		r_text[26] = "Better to trust the man who is frequently in error than the one who is never in doubt. <br> E. Sevareid";
+		r_text[27] = "Error is always more busy than truth. <br> H. Ballou";
+		r_text[28] = "Give me a fruitful error anytime, full of seeds, bursting with its own corrections. <br> V. Pareto ";
+		r_text[29] = "Great feelings will often take the aspect of error, and great faith the aspect of illusion. <br> R. Burton ";
+		r_text[30] = "I am indeed amazed when I consider how weak my mind is and how prone to error. <br> R. Descartes ";
+		r_text[31] = "If any sort of error is inexcusable, it's an incorrect phone number. One of the cardinal rules of copy editing is that every phone number published must be checked. <br> B. Walsh ";
+		r_text[32] = "If I commit an error I do it without bad intention. <br> S. Watie ";
+		r_text[33] = "If there is an error of human judgment, I am the human. <br> W. Mulholland ";
+		r_text[34] = "If you make an error, use it as a stepping stone to a new idea you might not have otherwise discovered. <br> Roger von Oech ";
+		r_text[35] = "In all science, error precedes the truth, and it is better it should go first than last. <br> H. Walpole ";
+		r_text[36] = "In politics, every day is filled with numerous opportunities for serious error. Enjoy it. <br> D. Rumsfeld ";
+		r_text[37] = "It is one thing to show a man that he is in an error, and another to put him in possession of the truth. <br> J. Locke ";
+		r_text[38] = "It is sometimes well for a blatant error to draw attention to overmodest truths. <br> J. Rostand ";
+		r_text[39] = "It is, all in all, a historic error to believe that the master makes the school; the students make it! <br> R. Musil ";
+		r_text[40] = "Knowledge is ancient error reflecting on its youth. <br> F. Picabia";
+		r_text[41] = "Knowledge rests not upon truth alone, but upon error also. <br> C. Jung ";
+		r_text[42] = "Men are apt to prefer a prosperous error to an afflicted truth. <br> J. Taylor ";
+		r_text[43] = "Mistakes are a fact of life. It is the response to the error that counts. <br> N. Giovanni ";
+		r_text[44] = "Most of our stuff was trial and error. You live with a tape recorder, you turn it on, you play the song and you listen to it. <br> L. Helm ";
+		r_text[45] = "Music is really all about experimentation and lots of trial and error. It's just mind<br>numbingly boring until you hit on something that works well. <br> M. Gore";
+		r_text[46] = "My biggest error? Something that is to happen yet. <br> A. Senna ";
+		r_text[47] = "Nine times out of ten, in the arts as in life, there is actually no truth to be discovered; there is only error to be exposed. <br> H. L. Mencken ";
+		r_text[48] = "Pure innovation is more gross than error. <br> G. Chapman ";
+		r_text[49] = "So be it. God created profoundly fallible creatures on this earth, and human history is mostly the story of error and accident. <br> M. Ledeen ";
+		r_text[50] = "Some of the best lessons we ever learn are learned from past mistakes. The error of the past is the wisdom and success of the future. <br> D. Turner ";
+		r_text[51] = "The way to succeed is to double your error rate. <br> T. J. Watson ";
+		r_text[52] = "There are strange flowers of reason to match each error of the senses. <br> L. Aragon ";
+		r_text[53] = "There is a soul of truth in error; there is a soul of good in evil. <br> R. Whately ";
+		r_text[54] = "There is an element of luck, there is an element of trial and error, sometimes you fail, sometimes you succeed. It's not as beautifully simple as it may seem when we are talking about it. <br> L. Brahimi ";
+		r_text[55] = "There is no original truth, only original error. <br> G. Bachelard ";
+		r_text[56] = "To me, error analysis is the sweet spot for improvement. <br> D. Norman ";
+		r_text[57] = "To rise from error to truth is rare and beautiful. <br> V. Hugo ";
+		r_text[58] = "Truth emerges more readily from error than from confusion. <br> F. Bacon ";
+		r_text[59] = "Truth is immortal; error is mortal. <br> M. B. Eddy ";
+		r_text[60] = "Truth lies within a little and certain compass, but error is immense. <br> H. St. John ";
+		r_text[61] = "We are built to make mistakes, coded for error. <br> L. Thomas ";
+		r_text[62] = "The code was willing, <br> It considered your request, <br> But the chips were weak. <br> Barry L. Brumitt ";
+		r_text[63] = "Errors have occurred. <br> We won't tell you where or why. <br> Lazy programmers. <br> Charlie Gibbs";
+		r_text[64] = "There is a chasm <br> of carbon and silicon <br> the software can't bridge  <br> Rahul Sonnad";
+		r_text[65] = "To have no errors <br> Would be life without meaning <br> No struggle, no joy <br> Brian M. Porter";
+		r_text[66] = "Serious error. <br> All shortcuts have disappeared <br> Screen. Mind. Both are blank. <br> Ian Hughes";
+		r_text[67] = "Any sufficiently advanced bug is indistinguishable from a feature. <br> Rich Kulawiec";
+		r_text[68] = "If debugging is the process of removing bugs, then programming must be the process of putting them in. <br> Edsger W. Dijkstra";
+		r_text[69] = "There are two ways to write error-free programs; only the third one works. <br> Alan J. Perlis";
+		r_text[70] = "Compound bugs are two separate bugs that interact:  you trip going downstairs, and when you reach for the handrail it comes off in your hand. <br> Paul Graham";
+		r_text[71] = "In programming, as in everything else, to be in error is to be reborn. <br> Alan J. Perlis";
+		
+		var i = Math.floor(r_text.length * Math.random())
+		return r_text[i];
+	}
+
+	// these two functions allow us to set a style of a dynamically
+	// added div (setAttribute doesn't work with styles in IE)
+	// http://www.peterbe.com/plog/setAttribute-style-IE
+	////////////////////////////////////////////////////////////////
+	function rzCC(s){
+    // thanks http://www.ruzee.com/blog/2006/07/\
+    // retrieving-css-styles-via-javascript/
+	   for(var exp=/-([a-z])/; 
+		   exp.test(s); 
+		   s=s.replace(exp,RegExp.$1.toUpperCase()));
+	   return s;
+	 }
+	 function _setStyle(element, declaration) {
+	   if (declaration.charAt(declaration.length-1)==';') {
+		 declaration = declaration.slice(0, -1);
+		 }
+	   var k, v;
+	   var splitted = declaration.split(';');
+	   for (var i=0, len=splitted.length; i<len; i++) {
+		  k = rzCC(splitted[i].split(':')[0]);
+		  v = splitted[i].split(':')[1];
+		  eval("element.style."+k+"='"+v+"'");
+
+	   }
+	 }
+	 ////////////////////////////////////////////////////////////////
+
+	function hideInfoPanel() {
+					if (document.getElementById) { // DOM3 = IE5, NS6
+						document.getElementById('contentright').style.visibility = 'hidden';
+						document.getElementById('contentright').style.display = 'none';
+					}
+					else {
+						if (document.layers) { // Netscape 4
+							document.contentright.visibility = 'hidden';
+							document.contentright.display = 'none';
+						}
+						else { // IE 4
+							document.all.contentright.style.visibility = 'hidden';
+							document.all.contentright.style.display = 'none';
+						}
+					} 
+	}
+
+	function hideHelpPanel() {
+					if (document.getElementById) { // DOM3 = IE5, NS6
+						document.getElementById('HelpWindowDiv').style.visibility = 'hidden';
+						document.getElementById('HelpWindowDiv').style.display = 'none';
+					}
+					else {
+						if (document.layers) { // Netscape 4
+							document.HelpWindowDiv.visibility = 'hidden';
+							document.HelpWindowDiv.display = 'none';
+						}
+						else { // IE 4
+							document.all.HelpWindowDiv.style.visibility = 'hidden';
+							document.all.HelpWindowDiv.style.display = 'none';
+						}
+					} 
+	}
+
+	function hideWarningsErrorsPanel() {
+					editor.setLineNumbers(false);
+					if (document.getElementById) { // DOM3 = IE5, NS6
+						document.getElementById('theWarningsAndErrorsAreaDiv').style.visibility = 'hidden';
+						document.getElementById('theWarningsAndErrorsAreaDiv').style.display = 'none';
+					}
+					else {
+						if (document.layers) { // Netscape 4
+							document.theWarningsAndErrorsAreaDiv.visibility = 'hidden';
+							document.theWarningsAndErrorsAreaDiv.display = 'none';
+						}
+						else { // IE 4
+							document.all.theWarningsAndErrorsAreaDiv.style.visibility = 'hidden';
+							document.all.theWarningsAndErrorsAreaDiv.style.display = 'none';
+						}
+					} 
+	}
+
+	function showTheReport(ErrorWarningStructure) {
+				// note that this function only gets called if
+				// we are already sure that there are errors.
+				
+				document.getElementById('theWarningsAndErrorsAreaDivInternal').innerHTML = '';
+			
+				var funnyQuoteDiv = document.createElement("div");
+       
+				funnyQuoteDiv.id = "funnyQuote";
+				   //divTag.class = "box";
+			//divTag.setAttribute('href',"http://www.google.com");
+			//divTg.setAttribute('style',"text-decoration: none");
+       
+				document.getElementById('theWarningsAndErrorsAreaDivInternal').appendChild(funnyQuoteDiv);
+
+				document.getElementById("funnyQuote").innerHTML += '<i>'+setRandomWarningsAndErrorsAreaMessage()+'<\/i><br><br>';
+			
+
+
+			for (var i = 0; i < ErrorWarningStructure[1].length; i += 1) {
+			
+			        var divTag = document.createElement("div");
+       
+        divTag.id = "errorWarningButton"+i;
+       //divTag.class = "box";
+//divTag.setAttribute('href',"http://www.google.com");
+//_setStyle(divTg, 'background-color:#FDAEF3;margin-top:1px;');
+       
+        document.getElementById('theWarningsAndErrorsAreaDivInternal').appendChild(divTag);
+
+		//divTag.setAttribute('style','background-color:#ffd5fa;margin-top:2px;');
+		//divTag.setAttribute('style','background-color:#fdaef3;margin-top:2px;');
+		if (i%2) _setStyle(divTag, 'padding:3px; background-color:#ffd5fa;margin-top:3px;');
+		
+		else _setStyle(divTag, 'padding:3px; background-color:#fdaef3;margin-top:3px;');
+		
+		
+			var lineNumberText = '';
+			var linkText = '';
+			var scriptHighlightingTheError = '';
+				
+				if (ErrorWarningStructure[0][i] !== ''){
+					lineNumberText += "<b>line " + ErrorWarningStructure[0][i] + "<\/b>";
+					
+					scriptHighlightingTheError = 'onclick="editor.selectLines(editor.nthLine(1),0,editor.nthLine(2),0);"' 
+					var lineWithError = ErrorWarningStructure[0][i];
+					var lineLength = editor.lineContent(editor.nthLine(lineWithError )).length;
+					
+					
+					// codeMirror doesn't seem to take the focus nicely on IE,
+					// so we are omitting that part in that browser.
+					var codeMirrorFocusCommand = ''
+					if(navigator.appName.indexOf("Explorer") === -1) codeMirrorFocusCommand = 'editor.focus();';
+
+					//scriptHighlightingTheError = 'onclick="editor.selectLines(editor.nthLine('+lineWithError+'),0,editor.nthLine('+ lineWithError +'),'+ lineLength +'); '+codeMirrorFocusCommand+'return false;"';
+
+					scriptHighlightingTheError = 'onclick="'+codeMirrorFocusCommand+'return false;"  onmouseover="editor.selectLines(editor.nthLine('+lineWithError+'),0,editor.nthLine('+ lineWithError +'),'+ lineLength +'); '+codeMirrorFocusCommand+'return false;"';
+					
+					
+				}
+				else {
+					lineNumberText += "<b>(line n.a.)<\/b> ";
+					scriptHighlightingTheError = 'onclick="editor.selectLines(editor.firstLine(),0);editor.focus(); return false;"';
+				}
+				
+				if (ErrorWarningStructure[2][i] !== '')
+					linkText += "\"" + ErrorWarningStructure[2][i] + '\": ';
+					
+				linkText += ErrorWarningStructure[1][i];
+
+
+				
+				document.getElementById("errorWarningButton"+i).innerHTML += '<a href="#" '+ scriptHighlightingTheError +' >'+lineNumberText+'<p>'+linkText +'<\/p><\/a>';
+				
+
+				}
+				
+				
+
+				var lostConfusedDiv = document.createElement("div");
+       
+				lostConfusedDiv.id = "lostConfused";
+				   
+				document.getElementById('theWarningsAndErrorsAreaDivInternal').appendChild(lostConfusedDiv);
+
+				document.getElementById("lostConfused").innerHTML += '<br>--<br>P.S. Confused?<br>Maybe those geniuses of the <u><a style="{text-decoration: underline;}" href="http://community.sketchpatch.net/discussion/" target="_blank">discussion area<\/a><\/u> can help.';
+			
+	}
+
+	function showWarningsAndErrorsPanel() {
+					editor.setLineNumbers(true);
+					
+					hideHelpPanel();
+					hideInfoPanel();
+					
+					
+					if (document.getElementById) { // DOM3 = IE5, NS6
+						document.getElementById('theWarningsAndErrorsAreaDiv').style.visibility = 'visible';
+						document.getElementById('theWarningsAndErrorsAreaDiv').style.display = 'block';
+					}
+					else {
+						if (document.layers) { // Netscape 4
+							document.theWarningsAndErrorsAreaDiv.visibility = 'visible';
+							document.theWarningsAndErrorsAreaDiv.display = 'block';
+						}
+						else { // IE 4
+							document.all.theWarningsAndErrorsAreaDiv.style.visibility = 'visible';
+							document.all.theWarningsAndErrorsAreaDiv.style.display = 'block';
+						}
+					}
+				    
+				    showTheReport(latestReport);
+
+	}
+
+	function showInfoPanel() {
+					hideHelpPanel();
+					hideWarningsErrorsPanel();
+
+					if (document.getElementById) { // DOM3 = IE5, NS6
+						document.getElementById('contentright').style.visibility = 'visible';
+						document.getElementById('contentright').style.display = 'block';
+					}
+					else {
+						if (document.layers) { // Netscape 4
+							document.contentright.visibility = 'visible';
+							document.contentright.display = 'block';
+						}
+						else { // IE 4
+							document.all.contentright.style.visibility = 'visible';
+							document.all.contentright.style.display = 'block';
+						}
+					}
+	}
+
+	function showHelpPanel() {
+	        		hideWarningsErrorsPanel();
+					hideInfoPanel();
+					
+					if (document.getElementById) { // DOM3 = IE5, NS6
+						document.getElementById('HelpWindowDiv').style.visibility = 'visible';
+						document.getElementById('HelpWindowDiv').style.display = 'block';
+					}
+					else {
+						if (document.layers) { // Netscape 4
+							document.HelpWindowDiv.visibility = 'visible';
+							document.HelpWindowDiv.display = 'block';
+						}
+						else { // IE 4
+							document.all.HelpWindowDiv.style.visibility = 'visible';
+							document.all.HelpWindowDiv.style.display = 'block';
+						}
+					}
+	}
+
+
+	
+	
+			function addBasicConstructorToAllClassesMissingOne(input) {
+			  var lineCommentExp = "((\\r|\\n)*\\/\\*lineNumber[1234567890]*\\*\\/(\\r|\\n)*\\s*)*";
+			  var myRe;
+			  var foundLeftSideArraysPlace;
+			  var foundLeftSideArrays;
+			  var foundLeftSideArraysLength;
+			  var secondPart;
+						
+			  for ( var i=0; i < classesList.length; i++ ){
+			  
+			  	var needsAZeroArgumentConstructor = true;
+			  	for ( var p=0; p < classesWithZeroArgumentConstructors.length; p++ ){
+					if (classesList[i] === classesWithZeroArgumentConstructors[p]){
+						needsAZeroArgumentConstructor = false;
+					}
+			  	}
+			  
+			  	if (!needsAZeroArgumentConstructor){
+					  if (debugAlerts) alert("class "+classesList[i]+" already has a constructor ");
+					  continue;
+			  	}
+			    if (debugAlerts) alert("class "+classesList[i]+" needs a constructor, proceeding ");
+			  
+
+				var allMatches=0;
+					while (  true )	{
+						allMatches++;
+				  
+					  // let's find right side declarations of arrays
+					  // that is, anything that has a class name and actually contains something
+					  // after the opening square bracket
+					
+						// this finds the header of a zero-parameter constructor
+						// the end of this match is exactly where there should be a super
+						secondPart = "(PROCESSINGASRESERVEDKEYWORDclassnotinvokingconstructors|class)\\s*"+lineCommentExp+"\\s*"+classesList[i] + "\\s*" + lineCommentExp +"\\s*(\\s+extends\\s+[a-zA-Z0-9][a-zA-Z0-9]+\\s*)?\\s*\\{"+lineCommentExp;
+						//alert('building regex for functions returning ' + classesWithZeroArgumentConstructors[i]);
+						myRe = new RegExp("[^a-zA-Z0-9_]"+secondPart,"g");
+						//alert('regex: ' + myRe);
+						foundLeftSideArraysPlace = input.search(myRe);
+
+						// go to the next class if there are no more results for this one
+						if (foundLeftSideArraysPlace  == -1){
+						    //alert('found no constructors for ' + classesWithZeroArgumentConstructors[i]);
+							break;
+						}
+						//alert('found the class definition');
+						foundLeftSideArraysPlace++;
+
+						
+						//alert('found the zero-param constructor for ' + classesWithZeroArgumentConstructors[i]);
+						
+						foundLeftSideArrays = input.match(myRe);
+						foundLeftSideArraysLength = foundLeftSideArrays[0].length;
+
+						//alert('foundLeftSideArrays: ' + foundLeftSideArrays);
+						
+						var remainderOfProgram = input.substring(foundLeftSideArraysPlace + foundLeftSideArraysLength);
+						//alert('remainderOfProgram: ' + remainderOfProgram);
+						remainderOfProgram = "\n"+classesList[i]+" () {\n// added by pre-processor\n}\n" + remainderOfProgram;
+						
+						// let's add the class to the list of classes with basic constructors
+						// because the following step is to add the super(); inside
+						// the constructors of classes that extend other classes.
+						// (if they don't contain super already, that is)
+						classesWithZeroArgumentConstructors.push(classesList[i]);
+						
+
+						input= input.substring(0,foundLeftSideArraysPlace+foundLeftSideArraysLength) + remainderOfProgram;
+						if (debugAlerts) alert('program after added constructor: >'+input);
+						break;
+					}
+				}
+				return input;
+
+			 }
+			 
+			function addSuperToZeroArgumentConstructorsThatDontHaveOne(input) {
+              
+			  var lineCommentExp = "((\\r|\\n)*\\/\\*lineNumber[1234567890]*\\*\\/(\\r|\\n)*\\s*)*";
+			  var myRe;
+			  var foundLeftSideArraysPlace;
+			  var foundLeftSideArrays;
+			  var foundLeftSideArraysLength;
+			  var secondPart;
+						
+			  //alert("there are "+classesWithZeroArgumentConstructors.length+" empty constructors");
+			  for ( var i=0; i < classesWithZeroArgumentConstructors.length; i++ ){
+			  
+			  var itDoesExtendAnotherClass = false;
+			  for ( var p=0; p < classesWithExtensionsList.length; p++ ){
+			  	if (classesWithZeroArgumentConstructors[i] === classesWithExtensionsList[p]){
+				  	itDoesExtendAnotherClass = true;
+			  	}
+			  }
+			  
+			  if (!itDoesExtendAnotherClass){
+			  	  //alert("class "+classesWithZeroArgumentConstructors[i]+" does not extend any class, there is no need to add a super");
+			  	  continue;
+			  }
+			  //alert("class "+classesWithZeroArgumentConstructors[i]+" does extend a class, checking if a super is present");
+			  
+
+				var allMatches=0;
+					while (  true )	{
+						allMatches++;
+				  
+					  // let's find right side declarations of arrays
+					  // that is, anything that has a class name and actually contains something
+					  // after the opening square bracket
+					
+						// this finds the header of a zero-parameter constructor
+						// the end of this match is exactly where there should be a super
+						secondPart = classesWithZeroArgumentConstructors[i] + "\\s*" + lineCommentExp + "\\(\\s*" + lineCommentExp + "\\)\\s*" + lineCommentExp + "\\{"+lineCommentExp;
+						//alert('building regex for functions returning ' + classesWithZeroArgumentConstructors[i]);
+						myRe = new RegExp("[^a-zA-Z0-9_]"+secondPart,"g");
+						//alert('regex: ' + myRe);
+						foundLeftSideArraysPlace = input.search(myRe);
+
+						// go to the next class if there are no more results for this one
+						if (foundLeftSideArraysPlace  == -1){
+						    //alert('found no constructors for ' + classesWithZeroArgumentConstructors[i]);
+							break;
+						}
+						//alert('found one constructor');
+						foundLeftSideArraysPlace++;
+
+						
+						//alert('found the zero-param constructor for ' + classesWithZeroArgumentConstructors[i]);
+						
+						foundLeftSideArrays = input.match(myRe);
+						foundLeftSideArraysLength = foundLeftSideArrays[0].length;
+
+						//alert('foundLeftSideArrays: ' + foundLeftSideArrays);
+						
+						var remainderOfProgram = input.substring(foundLeftSideArraysPlace + foundLeftSideArraysLength);
+						//alert('remainderOfProgram: ' + remainderOfProgram);
+						if (remainderOfProgram.trim().substring(0,5) !== "super") {
+						//alert('>'+remainderOfProgram.trim().substring(0,5) + '< doesnt match with super, adding it ');
+						remainderOfProgram = "\n super(); // added by pre-processor\n" + remainderOfProgram;
+						}
+						else {
+						 //alert( remainderOfProgram.trim().substring(0,5) + ' matches with super, not adding it ');
+						}
+						
+
+						input= input.substring(0,foundLeftSideArraysPlace+foundLeftSideArraysLength) + remainderOfProgram;
+						//alert('program after substitution: >'+input);
+						break;
+					}
+				}
+				//alert('program after added supers: >'+input);
+				return input;
+
+		}
+	
+
+	function replaceAllTheSwitchesWithIfs(input) {
+	
+	var positionOfNextSwitch = 0;
+	var replacedText = "";
+	var switchNumber = -1;
+	
+	while(true){
+		switchNumber++;
+		positionOfNextSwitch = input.indexOf("switch",6);
+			//alert(" next switch is at: " + positionOfNextSwitch);
+	
+		if (positionOfNextSwitch != -1){
+			//alert(" taking care of this piece: " + input.substring(0,positionOfNextSwitch));
+			replacedText += replaceSwitchesWithIfs(input.substring(0,positionOfNextSwitch),switchNumber);
+			//alert(" intermediate bob: " + replacedText);
+			input = input.substring(positionOfNextSwitch);
+		}
+		else {
+			replacedText += replaceSwitchesWithIfs(input,switchNumber);
+			break;
+		}
+		
+	
+	}
+	//alert(" final bob: " + replacedText);
+	
+	return replacedText;
+	
+	
+	}
+	
+	function replaceSwitchesWithIfs(input,switchNumber) {
+	
+	//alert('input to switch replace function: '+input);
+	var positionOfStartSwitch = input.indexOf("switch");
+	
+	if (positionOfStartSwitch == -1) return input;
+	
+	var positionOfStartSwitchOpenCurl = input.indexOf("{",positionOfStartSwitch);
+	var switchExpression = input.substring(positionOfStartSwitch+6,positionOfStartSwitchOpenCurl);
+
+	var switchVariableName = "switchNumer" + switchNumber;
+	
+	var variableDeclaration = "int "+switchVariableName+ " = "+switchExpression + "; // added by preprocessor\n";
+	
+	input = input.substring(0,positionOfStartSwitch) + "\n"+variableDeclaration+"\n"+input.substring(positionOfStartSwitchOpenCurl+1);
+	//alert('input 1 '+input);
+	
+	var firstCase = true;
+	var theCaseDoesNotComeAfterABreak = true;
+	while(true){
+		var positionOfCase = input.indexOf("case ");
+
+		if (positionOfCase != -1){
+			var positionOfCaseColons = input.indexOf( ":" , positionOfCase );
+			var caseTestExpression = input.substring( positionOfCase+5 , positionOfCaseColons );
+			var caseReplacement = '';
+			
+			if ((!firstCase) && (theCaseDoesNotComeAfterABreak)){
+			// this means that this case comes after a case WITHOUT break, so we need to
+			// assign the test value to the variable so that the flow falls through
+				caseReplacement += switchVariableName + " = "+caseTestExpression+" ;\n}\n if ("+switchVariableName+" == "+caseTestExpression + " ) { // added by preprocessor\n";
+				input = input.substring(0,positionOfCase) + caseReplacement + input.substring(positionOfCaseColons+1);
+				//alert('input 4 '+input);
+			}
+			else {
+			// this means that this case comes after a case WITH break, so the test variable
+			// has already been assigned to a value that makes it fall off of all the test cases
+				//if (!firstCase) caseReplacement += "\n}";
+				caseReplacement += "\n if ("+switchVariableName+" == "+caseTestExpression + " ) { // added by preprocessor\n";
+				input = input.substring(0,positionOfCase) + caseReplacement + input.substring(positionOfCaseColons+1);
+				//alert('input 4 '+input);
+			}
+			firstCase = false;
+		}
+		else {
+			break;
+		}
+
+
+
+		var positionOfBreak = input.indexOf("break;");
+		var positionOfNextCase = input.indexOf("case");
+		//var isThereACaseAfterwards =  input.indexOf("case",positionOfBreak);
+		
+		if (positionOfBreak != -1){
+			if ( (positionOfNextCase==-1) || (positionOfBreak < positionOfNextCase)) {
+				var breakReplacement = switchVariableName +" = \"DONE\";"
+				if (positionOfNextCase != -1) breakReplacement += "\n}\n";
+				input = input.substring(0,positionOfBreak) + breakReplacement + input.substring(positionOfBreak+6);
+				//alert('input 3 '+input);
+				theCaseDoesNotComeAfterABreak = false;
+			}
+			else {
+				theCaseDoesNotComeAfterABreak = true;
+			}
+		}
+		else {
+			theCaseDoesNotComeAfterABreak = true;
+		}
+
+	}
+	
+	// if the switch has a last break, the algorithms above
+	// leaves it blank. We can remove it.
+	input = input.replace("break;","");
+	var defaultReplacement = "}\n if (" + switchVariableName +" != \"DONE\" ) {";
+	input = input.replace("default:",defaultReplacement);
+	
+	if (debugAlerts) alert("replaced switch number "+switchVariableName);
+	
+	return input;
+    
+    }
+	
+    function loadProgramInViewerApplet() {
+        // swf loaded
+        //alert('running loadProgramInViewerApplet');
+
+		
+		document.thePrintoutAreaForm.thePrintoutArea.value = "";
+
+        // swf loaded
+        //alert('running loadProgramInViewerAppletPart2');
+
+        //document.getElementById('sketchWindow').style.visibility = 'visible';
+		//document.getElementById('sketchWindow').style.display = 'block';
+
+		if (printOutTextAreaAlreadyVisible){
+			document.thePrintoutAreaForm.thePrintoutArea.value = "";
+		}
+
+        var browser=navigator.userAgent;
+        var programMadeRight = latestfetchedProgram;      
+		
+		// we replace "static final" with nothing
+		programMadeRight = programMadeRight.replace(new RegExp("static\\s+final\\s+", "g"), "");
+		programMadeRight = programMadeRight.replace(new RegExp("final\\s+static\\s+", "g"), "");
+
+		if (debugAlerts) alert("program at the beginning " + programMadeRight);
+
+
+		/////////////////////////////////////////////////////
+		// this is kind of working but we reached a collapsing point
+		// with these data structures. We need to rationalise all of this
+		// right now this works, but we receive a warning by P5Lint
+		// which doesn't like stuff like
+		//   public void setup(){
+		// The problem is that we can't do the transformations below
+		// before we ran P5Lint cause P5Lint finds the list of classes for us
+		// this has to be fixed further.
+		// P.S. Maybe you can deal with these redundant public keywords
+		// in the interpreter?
+		/////////////////////////////////////////////////////				
+		// we replace all public declarations with a simplified version
+		// i.e.
+		//   public boolean switcit = true;
+		// becomes
+		//   boolean switcit = true;
+		// and
+		//   public void setup(){
+		// becomes
+		//   void setup(){
+		/////////////////////////////////////////////////////
+
+		if (debugAlerts) alert("replacing public keywords for each of the "+classesList.length+ " classes");
+		for ( var k=0; k < classesList.length; k++ ){
+			if (debugAlerts) alert("replacing public "+classesList[k]);
+			programMadeRight = programMadeRight.replace(new RegExp("public\\s+"+classesList[k]+"\\s+", "g"), " "+classesList[k]+" ");
+		}
+		
+		programMadeRight = programMadeRight.replace(new RegExp("public\\s+void\\s+", "g"), " void ");
+		programMadeRight = programMadeRight.replace(new RegExp("public\\s+byte\\s+", "g"), " byte ");
+		programMadeRight = programMadeRight.replace(new RegExp("public\\s+char\\s+", "g"), " char ");
+		programMadeRight = programMadeRight.replace(new RegExp("public\\s+boolean\\s+", "g"), " boolean ");
+		programMadeRight = programMadeRight.replace(new RegExp("public\\s+int\\s+", "g"), " int ");
+		programMadeRight = programMadeRight.replace(new RegExp("public\\s+float\\s+", "g"), " float ");
+		programMadeRight = programMadeRight.replace(new RegExp("public\\s+String\\s+", "g"), " String ");
+		programMadeRight = programMadeRight.replace(new RegExp("public\\s+color\\s+", "g"), " color ");
+		programMadeRight = programMadeRight.replace(new RegExp("public\\s+PImage\\s+", "g"), " PImage ");
+		programMadeRight = programMadeRight.replace(new RegExp("public\\s+PFont\\s+", "g"), " PFont ");
+		programMadeRight = programMadeRight.replace(new RegExp("public\\s+PGraphics\\s+", "g"), " PGraphics ");
+		programMadeRight = programMadeRight.replace(new RegExp("public\\s+PShape\\s+", "g"), " PShape ");
+		programMadeRight = programMadeRight.replace(new RegExp("public\\s+Point\\s+", "g"), " Point ");
+
+
+		/////////////////////////////////////////////////////
+		// now we manipulate the program in order to put the class definitions on top
+		// so that processing.as works.
+		/////////////////////////////////////////////////////		
+		var onlyTheClasses = "";
+		var splittedLinesProgram = programMadeRight.split("\n");
+		var withoutTheClasses = programMadeRight.split("\n");
+		
+		
+		for ( var k=0; k < classesList.length; k++ ){
+			var startLine = classesListStartLines[k];
+			var endLines = classesListEndLines[k];
+
+			if (debugAlerts) alert("class: " + classesList[k] + " start line: "+ startLine + " end line: " + endLines);
+			
+			startLine -= 1;
+			//endLines -= 1;
+
+			if (debugAlerts) alert("decreased startLine");
+
+			if (debugAlerts) alert("the starting line is: " + ((splittedLinesProgram[startLine])));
+
+			if (debugAlerts) alert("the starting line is: " + ((splittedLinesProgram[startLine]).trim()));
+
+			if (debugAlerts) alert("the starting line is: " + ((splittedLinesProgram[startLine]).trim()).substring(0,1));
+			
+			if (splittedLinesProgram[startLine].trim().substring(0,1)=="{") {
+			if (debugAlerts) alert("one of those classes that opens on a different line ");
+			startLine--;
+			}
+			
+			if (debugAlerts) alert("starting line: " + splittedLinesProgram[startLine]);
+			
+			for ( var throughTheLines = startLine; throughTheLines < endLines; throughTheLines++ ){
+				//alert('going through line number ' + throughTheLines);
+				//alert('splittedLinesProgram ' + splittedLinesProgram[throughTheLines-1] );
+				if (splittedLinesProgram[throughTheLines] == undefined) splittedLinesProgram[throughTheLines] = '\n';
+				onlyTheClasses += splittedLinesProgram[throughTheLines] + "\n";
+				withoutTheClasses[throughTheLines] = '';
+			}
+
+		}
+		
+		var partOfTheProgramWithoutClassDefinitions = withoutTheClasses.join("\n");
+		
+		// if there is no change to the program then "onlyTheClasses" is undefined
+		// and we can just leave the program unchanged.
+		if (onlyTheClasses){
+			var aliasClassesForStaticVariables = onlyTheClasses;
+			var aliasesConstructors = "";
+			if (debugAlerts) alert("aliasClassesForStaticVariables before replacing the class keyword "+ aliasClassesForStaticVariables);
+
+			aliasClassesForStaticVariables = aliasClassesForStaticVariables.replace(new RegExp("class ", "g"), "PROCESSINGASRESERVEDKEYWORDclassnotinvokingconstructors ");
+			if (debugAlerts) alert("aliasClassesForStaticVariables soon after replaced the class keyword "+ aliasClassesForStaticVariables);
+			
+			for ( var creatingClassAliasesNames=0; creatingClassAliasesNames < classesList.length; creatingClassAliasesNames++ ){
+
+			var theClassWeAreTreating = classesList[creatingClassAliasesNames].trim();
+			if (debugAlerts) alert("the part with classes - before the transforms "+ aliasClassesForStaticVariables);
+
+			aliasClassesForStaticVariables = aliasClassesForStaticVariables.replace(new RegExp(" "+theClassWeAreTreating+"\\s", "g"), " PROCESSINGASRESERVEDCLASSALIAS"+theClassWeAreTreating+"   ");
+			aliasClassesForStaticVariables = aliasClassesForStaticVariables.replace(new RegExp(" "+theClassWeAreTreating+";", "g"), " PROCESSINGASRESERVEDCLASSALIAS"+theClassWeAreTreating+" ; ");
+			aliasClassesForStaticVariables = aliasClassesForStaticVariables.replace(new RegExp(" "+theClassWeAreTreating+"\\{", "g"), " PROCESSINGASRESERVEDCLASSALIAS"+theClassWeAreTreating+" { ");
+			aliasClassesForStaticVariables = aliasClassesForStaticVariables.replace(new RegExp(" "+theClassWeAreTreating+"\\(", "g"), " PROCESSINGASRESERVEDCLASSALIAS"+theClassWeAreTreating+" ( ");
+
+			aliasClassesForStaticVariables = aliasClassesForStaticVariables.replace(new RegExp("(\\r|\\n)+"+theClassWeAreTreating+"\\s", "g"), "\r\n PROCESSINGASRESERVEDCLASSALIAS"+theClassWeAreTreating+"   ");
+			aliasClassesForStaticVariables = aliasClassesForStaticVariables.replace(new RegExp("(\\r|\\n)+"+theClassWeAreTreating+";", "g"), "\r\n PROCESSINGASRESERVEDCLASSALIAS"+theClassWeAreTreating+" ; ");
+			aliasClassesForStaticVariables = aliasClassesForStaticVariables.replace(new RegExp("(\\r|\\n)+"+theClassWeAreTreating+"{", "g"), "\r\n PROCESSINGASRESERVEDCLASSALIAS"+theClassWeAreTreating+" { ");
+			aliasClassesForStaticVariables = aliasClassesForStaticVariables.replace(new RegExp("(\\r|\\n)+"+theClassWeAreTreating+"\\(", "g"), "\r\n PROCESSINGASRESERVEDCLASSALIAS"+theClassWeAreTreating+" ( ");
+
+
+			if (debugAlerts) alert("the part with classes: "+ aliasClassesForStaticVariables);
+
+			aliasesConstructors += "\n"+" PROCESSINGASRESERVEDCLASSALIAS"+theClassWeAreTreating +" PROCESSINGASRESERVEDOBJECTCLASSALIAS"+theClassWeAreTreating+" = new "+ "PROCESSINGASRESERVEDCLASSALIAS"+theClassWeAreTreating +"();\n";
+
+			
+			partOfTheProgramWithoutClassDefinitions = partOfTheProgramWithoutClassDefinitions.replace(new RegExp(theClassWeAreTreating+"\\.", "g"), " PROCESSINGASRESERVEDOBJECTCLASSALIAS"+theClassWeAreTreating+".");
+			if (debugAlerts) alert("in the part without classes: "+ partOfTheProgramWithoutClassDefinitions);
+			}
+			
+			programMadeRight = onlyTheClasses + aliasClassesForStaticVariables + aliasesConstructors + partOfTheProgramWithoutClassDefinitions;
+		}
+		
+		if (debugAlerts) alert("program after classes have been reshuffled " + programMadeRight);
+
+		////////////////////////////////////////////////////////
+		// now that we've created a bunch of new classes to handle
+		// static members,
+		// we have to extend three important data structures that
+		// keep track of
+		//  - the list of classes
+		//  - the list of classes with zero-argument constructors
+		//  - the list of classes that extend other classes
+		////////////////////////////////////////////////////////		
+		var increasedClassesWithZeroArgumentConstructors = [];
+		for ( var i=0; i < classesList.length; i++ ){
+			for ( var p=0; p < classesWithZeroArgumentConstructors.length; p++ ){
+						if (classesList[i] === classesWithZeroArgumentConstructors[p]){
+							increasedClassesWithZeroArgumentConstructors.push(classesList[i]);
+							increasedClassesWithZeroArgumentConstructors.push("PROCESSINGASRESERVEDCLASSALIAS"+classesList[i]);
+						}
+			}
+		}
+
+		var increasedClassesWithExtensionsList = [];
+		for ( var i=0; i < classesList.length; i++ ){
+			for ( var p=0; p < classesWithExtensionsList.length; p++ ){
+						if (classesList[i] === classesWithExtensionsList[p]){
+							increasedClassesWithExtensionsList.push(classesList[i]);
+							increasedClassesWithExtensionsList.push("PROCESSINGASRESERVEDCLASSALIAS"+classesList[i]);
+						}
+			}
+		}
+
+		var increasedClassesList = [];
+		for ( var i=0; i < classesList.length; i++ ){
+			increasedClassesList.push(classesList[i]);
+			increasedClassesList.push("PROCESSINGASRESERVEDCLASSALIAS"+classesList[i]);
+		}
+		
+		if (debugAlerts) alert("old class list: " + classesList + "\n\n *** \n\n new class list" + increasedClassesList);
+		if (debugAlerts) alert("old classesWithExtensionsList: " + classesWithExtensionsList + "\n\n *** \n\n new one: " + increasedClassesWithExtensionsList);
+		if (debugAlerts) alert("old classesWithZeroArgumentConstructors: " + classesWithZeroArgumentConstructors + "\n\n *** \n\n new one: " + increasedClassesWithZeroArgumentConstructors);
+		
+		classesList = increasedClassesList;
+		classesWithExtensionsList = increasedClassesWithExtensionsList;
+		classesWithZeroArgumentConstructors = increasedClassesWithZeroArgumentConstructors;
+		////////////////////////////////////////////////////////
+
+
+		if (debugAlerts) alert("program before removing comments " + programMadeRight);
+
+		/////////////////////////////////////////////////////
+		// now we'll be doing some processing.as - specific manipulations
+		// so we better remove all the comments ot avoid garbling the
+		// regexes too much.
+		programMadeRight = removeComments(programMadeRight);
+		// remove comments add the line numbers and we don't need them here,
+		// so we are getting rid of them
+		var lineCommentExp = "((\\r|\\n)*\\/\\*lineNumber[1234567890]*\\*\\/(\\r|\\n)*\\s*)*";
+		programMadeRight = programMadeRight.replace(new RegExp(lineCommentExp, "g"), "");		
+
+		
+		if (debugAlerts) alert("program before adding constructors " + programMadeRight);
+		programMadeRight = addBasicConstructorToAllClassesMissingOne(programMadeRight);
+		if (debugAlerts) alert("all classes should have a basic constructor here: " + programMadeRight);
+		
+		//alert("adding super to constructors that don't have one");
+		programMadeRight = addSuperToZeroArgumentConstructorsThatDontHaveOne(programMadeRight);
+		if (debugAlerts) alert("all extended classes should have super: " + programMadeRight);
+		//alert(programMadeRight);
+		
+		//alert("replacing switches with IFs");
+		programMadeRight = replaceAllTheSwitchesWithIfs(programMadeRight);
+		if (debugAlerts) alert("all the switches should be replaced: " + programMadeRight);
+
+		programMadeRight = programMadeRight.replace("import ddf.minim.*;","");
+		if (debugAlerts) alert("minim library package eliminated (no use to processing interpreter) " + programMadeRight);
+
+
+		if (debugAlerts) alert(programMadeRight);
+		//alert(programMadeRight);
+
+		
+        //alert("your browser is: " + navigator.appName);
+        Processing = getFlashMovie();
+
+		try {
+			Processing.restart();
+			Processing.run(programMadeRight, null);
+		  }
+		catch(err) {
+		  //Handle errors here
+		  }
+
+        //alert('in theory, the program should be running');
+        //alert("processing started and runned");
+
+        // alert("processing started");
+        // sketchy loadImage pre-processing
+        //alert(programMadeRight);
+    }
+
+    function hidePrintOutArea() {
+    	if (document.getElementById) { // DOM3 = IE5, NS6
+			document.getElementById('thePrintoutAreaDiv').style.visibility = 'hidden';
+			document.getElementById('thePrintoutAreaDiv').style.display = 'none';
+		}
+		else {
+			if (document.layers) { // Netscape 4
+				document.thePrintoutAreaDiv.visibility = 'hidden';
+				document.thePrintoutAreaDiv.display = 'none';
+			}
+			else { // IE 4
+				document.all.thePrintoutAreaDiv.style.visibility = 'hidden';
+				document.all.thePrintoutAreaDiv.style.display = 'none';
+			}
+		} 
+		
+		printOutTextAreaAlreadyVisible = false;
+
+    }
+    
+    function stopTheApplet() {
+
+        // stop playing music if any
+        theSoundCloudWidget.api_stop();
+
+        // swf loaded
+        //alert('now stopping the applet');
+
+        //var browser=navigator.userAgent;
+        //var programMadeRight = fetchProgram();      
+
+		try {
+			   callToActionscript('getStringOfBase64AppletJPG');
+		  }
+		catch(err) {
+		  //Handle errors here
+		  }
+
+        //alert("your browser is: " + navigator.appName);
+        Processing = getFlashMovie();
+        Processing.stopSketchExecution();
+        //alert('in theory, the program should be stopped');
+        finishedRunning("");
+
+		// in this case, the user has actually clicked on the stop icon, so we
+		// hide the printout window and the applet window.
+		// (the sketch can also stop naturally at the end of the setup method
+		// if there is no draw method, in that case we don't hide the output window
+		// or the texnoutput window - but we put the "play" icon back)
+
+        //document.getElementById('sketchWindow').style.visibility = 'hidden';
+		//document.getElementById('sketchWindow').style.display = 'none';
+
+        // Processing canvas resized
+        Processing.width = '1px';
+        Processing.height = '1px';
+
+        document.getElementById('sketchWindow').style.width = '1px';
+		document.getElementById('sketchWindow').style.height = '1px';
+		document.getElementById('sketchWindow').style.marginTop = '1px';
+
+		document.thePrintoutAreaForm.thePrintoutArea.value = "";
+		hidePrintOutArea();
+
+		
+		scroll(0,0);
+    }
+
+
+    function startedRunning(val)
+    {
+        // this function is called by actionscript when the sketch is parsed and its
+        // first instruction is about to execute.
+        // it's handy because for example you can turn the play button into a "reload" button.
+        
+        //alert('started running');
+
+		nextState(transition_sketch_has_started_running);
+	}
+
+    function finishedRunning(val)
+    {
+        // this function is called by actionscript when the sketch is has stopped running
+        // i.e. we executed the setup method and there is no draw method, or a noLoop()
+        // instruction has been called.
+        // it comes handy for example to turn the "reload" button back into a play button
+
+        //alert('finished running');
+		nextState(transition_sketch_ended);
+	}
+	
+    function fetchProgram() {
+        //var something2 = document.getElementById('text_input2');
+        //alert(editor.getCode());
+        return editor.getCode();
+    }
+
+    function deHTML(original) {
+    	//programMadeRight = unescape(original);
+    	var programMadeRight = original.replace(/<br>/g,"\n");
+    	programMadeRight = programMadeRight.replace(/<BR>/g,"\n");
+    	programMadeRight = programMadeRight.replace(/&nbsp;/g," ");
+    	programMadeRight = programMadeRight.replace(/&lt;/g,"<");
+    	programMadeRight = programMadeRight.replace(/&gt;/g,">");
+    	programMadeRight = programMadeRight.replace(/<pre>/g," ");
+    	programMadeRight = programMadeRight.replace(/&amp;/g,"&");
+    	programMadeRight = programMadeRight.replace(/&quot;/g,"\"");
+
+    	return programMadeRight;
+    }
+        
+    ProcessingAS.onResize = function (w, h) {
+        document.getElementById('sketchWindow').style.width = w+'px';
+		document.getElementById('sketchWindow').style.height = h+'px';
+		document.getElementById('sketchWindow').style.marginTop = '15px';
+
+
+        // Processing canvas resized
+        Processing.width = w;
+        Processing.height = h;
+    };
+
+    function tellSoundCloudWidgetToLoadURL(val)
+    {
+        //alert("asking soundcloud widget to load stuff");
+        if ( playerIsReady) {
+        theSoundCloudWidget.api_load(val);
+        }
+        else {
+        loadThisWhenReady = val;
+        }
+
+    }
+
+    function tellSoundCloudWidgetToPlay(val)
+    {
+        //alert("asking soundcloud widget to play");
+
+        if ( playerIsReadyAndNotPlaying) {
+        	//alert("player is already ready to play so I'm about to play");
+        	theSoundCloudWidget.api_play();
+        }
+        else {
+        	//alert("player is not ready to play; setting a flag here to remember when it's ready");
+        playWhenReady = true;
+        }
+    }
+
+    function tellSoundCloudWidgetToPause(val)
+    {
+        //alert("asking soundcloud widget to pause");
+
+        	theSoundCloudWidget.api_pause();
+    }
+    
+    function sendToJavaScript(val)
+    {
+        //alert(val);
+
+        var oldWidth = document.getElementById('sketchWindow').style.width;
+		var oldHeight = document.getElementById('sketchWindow').style.height;
+
+        document.getElementById('sketchWindow').style.width = 100+'px';
+		document.getElementById('sketchWindow').style.height = 100+'px';
+        Processing.width = 100;
+        Processing.height = 100;
+
+		//alert('should have resized');
+
+        Boxy.ask("This sketch seems slow... do you want to continue?", {"1":"No", "2":"Continue"}, function(r) {document.getElementById('sketchWindow').style.width = oldWidth; document.getElementById('sketchWindow').style.height = oldHeight; Processing.width = oldWidth; Processing.height = oldHeight; if (r=="2") {callToActionscript('moreTime');} else {finishedRunning();} });
+
+    }
+
+    var printoutString="";
+    var printOutTextAreaAlreadyVisible = false;
+    //var textAreaContentLength = 0;
+    
+    function openCleanPrintOutArea(val) {
+			if (document.getElementById) { // DOM3 = IE5, NS6
+				document.getElementById('thePrintoutAreaDiv').style.visibility = 'visible';
+				document.getElementById('thePrintoutAreaDiv').style.display = 'block';
+			}
+			else {
+				if (document.layers) { // Netscape 4
+					document.thePrintoutAreaDiv.visibility = 'visible';
+					document.thePrintoutAreaDiv.display = 'block';
+				}
+				else { // IE 4
+					document.all.thePrintoutAreaDiv.style.visibility = 'visible';
+					document.all.thePrintoutAreaDiv.style.display = 'block';
+				}
+			} 
+
+			document.thePrintoutAreaForm.thePrintoutArea.rows = 9;
+			document.thePrintoutAreaForm.thePrintoutArea.cols = 90;
+			document.thePrintoutAreaForm.thePrintoutArea.width = 789;
+			document.thePrintoutAreaForm.thePrintoutArea.height = 207;
+			//document.thePrintoutAreaForm.thePrintoutArea.visibility = block;
+			
+			document.thePrintoutAreaForm.thePrintoutArea.value = "";
+    }
+    
+    
+    function printSomething(val)
+    {
+        if (!printOutTextAreaAlreadyVisible){
+			openCleanPrintOutArea();    
+        }
+        //textAreaContentLength += val.length;
+        //if (textAreaContentLength > 1500) {
+        //    textAreaContentLength = 0;
+        //    document.thePrintoutAreaForm.thePrintoutArea.value = "";
+        //}
+        var newContent = document.thePrintoutAreaForm.thePrintoutArea.value + val;
+        var lengthOfTextArea = newContent.length;
+        //alert(lengthOfTextArea)
+        
+        if (lengthOfTextArea > 700) {
+        //alert('shrinking')
+        	document.thePrintoutAreaForm.thePrintoutArea.value = newContent.substring(lengthOfTextArea-700);
+        }
+        else {
+        	document.thePrintoutAreaForm.thePrintoutArea.value = newContent;
+        }
+        document.thePrintoutAreaForm.thePrintoutArea.scrollTop = document.thePrintoutAreaForm.thePrintoutArea.scrollHeight - document.thePrintoutAreaForm.thePrintoutArea.clientHeight;
+        printOutTextAreaAlreadyVisible = true; 
+    }
+
+
+    function callToActionscript(str) 
+    {
+     getFlashMovie().sendToActionscript(str);
+    }
+    //////////////////////////////////////////////////////////////////////
+
+
+    //]]>
+    </script><script type="text/javascript" language="javascript">
+//<![CDATA[
+    var http = false;
+
+    if(navigator.appName == "Microsoft Internet Explorer") {
+    http = new ActiveXObject("Microsoft.XMLHTTP");
+    } else {
+    http = new XMLHttpRequest();
+    } 
+
+    function sendThumbnailToJavascript(test) {
+      //document.getElementById('foo').innerHTML = "from flash: <br/>" + test + "<br/> escaped: <br/>" + escape(test);
+
+	  // we replace the old thumbnail only if we receive a non-empty string,
+	  // otherwise we are going to keep the previous thumbnail as the good one
+	  // note that the author might have broken the sketch since we took
+	  // the last thumbnail, so we might be misrepresenting the sketch,
+	  // but there is no real way to avoid that 
+	  
+	  // alert("receiving thumbnail from the sketch player: " + test);
+      if (test !== "") {
+        //alert("setting thumbnail data in the hidden field");
+      	document.getElementById('thumbnailDataHiddenField').value = test;
+      }
+
+    }
+
+    //]]>
+    </script>
+
+
+
+<div id="page">
+
+
+{% include 'headerTemplate.html' %}
+	
+
+  <div id="content" style="margin-top:10px">
+  
+ 
+ 
+         <div id="sketchWindow" style="width:1px; height:1px; margin-top:1px;">
+
+        </div>
+        
+        <script type="text/javascript">
+		// <![CDATA[
+
+      	var fo = new SWFObject("/sketchPlayer/sandbox_files/processing.swf", "processingViewer", "1", "1", "8.0.15", "#ffffff", true);
+      	// need this next line for local testing, it's optional if your swf is on the same domain as your html page
+      	fo.addParam("allowScriptAccess", "always");
+      	fo.addParam("allowFullScreen", "true");
+		$(document).ready(function() {fo.write("sketchWindow");});
+
+		// ]]>
+        </script>
+
+
+<div id="thePrintoutAreaDiv" style="visibility:hidden; display:none; width:770px;">
+	<!--<div id="theCloseIconForThePrintoutArea" style="text-align:right; width:770px;">
+		close this
+	</div>
+	-->
+	<div id="thePrintoutAreaDivHeader" style="width:770px; height:20px;padding: 5px; border:2px dotted #ff33ff; border-bottom-style:none; font-family: Tahoma, sans-serif;"> Printouts </div>
+	
+	<div id="thePrintoutAreaDivInternal" style="width:770px; height:100px;padding: 5px; border:2px dotted #ff33ff; font-family: Tahoma, sans-serif;">
+		<form name=thePrintoutAreaForm>
+			<textarea name="thePrintoutArea" style="border: none; width:770px; height:100px;" readonly></textarea>
+		</form> 
+	</div>  
+</div>  
+
+
+        <!--<div class="sketchWindowIcons"><img src="/imgs/play-symbol.gif" alt="play"  height="25px"/></div> -->
+        <!--<div class="sketchWindowIcons"><img src="/imgs/full_screen.jpg" height="25px"  /></div>--><br />
+
+
+          <script language="JavaScript" type="text/javascript">
+		
+		if (document.getElementById) { // DOM3 = IE5, NS6
+			document.getElementById('thePrintoutAreaDiv').style.visibility = 'hidden';
+			document.getElementById('thePrintoutAreaDiv').style.display = 'none';
+		}
+		else {
+			if (document.layers) { // Netscape 4
+				document.thePrintoutAreaDiv.visibility = 'hidden';
+				document.thePrintoutAreaDiv.display = 'none';
+			}
+			else { // IE 4
+				document.all.thePrintoutAreaDiv.style.visibility = 'hidden';
+				document.all.thePrintoutAreaDiv.style.display = 'none';
+			}
+		} 
+          </script>
+
+ 
+ 
+    {# The form target is different whether we are on this page for copying a sketch or not #}
+    {# IF we are here to copy a sketch, then we come from a page (copyBlog/) that only fetches the fields #}
+    {# of the previous blog entry. That method can't catch the post that happens when you #}
+    {# click submit. The /addBlog method triggered by the /create/blog page should catch that #}
+    {# so, here we go, we create a page from here #}
+    
+    {% ifequal action "copyBlog" %}
+    <form name="allTheSketchInfo" ACTION="/create/" method=post >
+    {% else %}
+    <form name="allTheSketchInfo" method=post >
+    {% endifequal %}
+   <fieldset>
+ 
+  <div id="contentleft">
+    
+
+{# for this rounded corners delirioum of negative margins, I referenced http://home.tiscali.nl/developerscorner/liquidcorners/liquidcorners.htm #}
+<div id="editcode" style="width:350px;">
+<div id="playpausebox" style="width:350px; height:37px;">
+
+
+<!-- old left side: editorLeftSide.gif -->
+<div id="playpauseboxleft" style="background-image: url('/imgs/editorLeftSideYellow.gif'); height: 37px; width: 7px; font-size: 2px;"></div>
+
+
+<!-- old play icon: play.gif -->
+<div id="playpauseboxplay" style="margin-left: 10px; margin-top: -29px; background-image: url(/imgs/editorPlayButtonYellow.gif); height: 23px; width: 23px; font-size: 2px;"></div>
+{# make the play icon div clikkable, by using the tecnique at http://stackoverflow.com/questions/1057416/how-to-make-div-click-able #}
+
+<script type="text/javascript">
+var something = document.getElementById('playpauseboxplay');
+
+something.style.cursor = 'pointer';
+something.onclick = function() {
+    //alert('clicked on play');
+    hidePrintOutArea();
+	nextState(transition_play_button_clicked);
+    //alert('state after pressing play:' + current_state);
+};
+</script>
+
+
+<!-- old stop icon: /imgs/stop.gif -->
+<div id="playpauseboxstop" style="margin-left: 40px; margin-top: -23px; background-image: url(/imgs/editorStopButtonYellow.gif); height: 23px; width: 23px; font-size: 2px;"></div>
+{# make the stop icon div clikkable, by using the tecnique at http://stackoverflow.com/questions/1057416/how-to-make-div-click-able #}
+<script type="text/javascript">
+var something2 = document.getElementById('playpauseboxstop');
+
+something2.style.cursor = 'pointer';
+something2.onclick = function() {
+    //alert('clicked on stop');
+    //alert('now stopping the applet');
+    stopTheApplet();
+};
+</script>
+
+
+<div id="editorSaveButton" style="margin-top: -23px; background-image: url(/imgs/editorSaveButtonYellowNEW.gif); height: 23px; width: 70px; font-size: 2px; cursor: pointer; margin-left: 137px;"></div>
+<div id="editorHintButton" style="margin-top: -23px; background-image: url(/imgs/editorHintButtonYellow.gif); height: 23px; width: 66px; font-size: 2px; cursor: pointer; margin-left: 275px;"></div>
+<script type="text/javascript">
+var something3 = document.getElementById('editorSaveButton');
+
+something3.style.cursor = 'pointer';
+something3.onclick = function() {
+    //alert('clikked on save');
+    
+	try {
+		   callToActionscript('getStringOfBase64AppletJPG');
+	  }
+	catch(err) {
+	  //Handle errors here
+	  }
+
+     //alert("now it should save the sketch");
+     var button = document.getElementById('makeitclick');
+     button.click();
+
+};
+
+var something4 = document.getElementById('editorHintButton');
+
+something4.style.cursor = 'pointer';
+something4.onclick = function() {
+		nextState(transition_hint_button_clicked);
+};
+
+</script>
+
+
+<!-- old right side icon: /imgs/editorRightSide.gif -->
+<div id="playpauseboxright" style="float: right; margin-top: -31px; background-image: url(/imgs/editorRightSideYellow.gif); height: 37px; width: 7px; font-size: 2px;"></div>
+
+</div>
+
+<div id="editorContainer" style="float:right; width:348px; margin-left: 0px; margin-right: 0px; border-style:solid; border-width:1px; border-color:#cdc74a;">
+
+<textarea id="text_input2" name="text_input2"  style="height:430px; 100%;">
+{% if sketch %}{{sketch.sourceCodeForTextArea}}{% else %}// just type here
+// and click "save" when your done
+
+{% endif %}
+</textarea>
+
+<script type="text/javascript">
+  editor = CodeMirror.fromTextArea("text_input2", {
+  parserfile: ["tokenizejavascript.js", "parsejavascript.js"],
+  path: "/jscripts/codemirror/",
+  stylesheet: "/jscripts/codemirror/jscolors.css",
+  autoMatchParens: true,
+  initCallback: function() { editor.focus(); editor.selectLines(editor.lastLine(), 0); }
+});
+
+</script>
+
+</div>
+</div>
+
+<div id="sketchWindowIcons">
+
+
+
+
+<div class="sketchWindowIcons">
+
+<!-- <input name=submit_preview value="Save" type="hidden" alt="submit" />
+-->
+
+<input id="makeitclick" name=submit_preview value=Save type="image" src="/imgs/editorSaveButtonYellowNEW.gif" style="height: 1px; width: 1px; margin: 0px;" alt="submit" />
+
+
+<h3>Sketches you submit on sketchPatch will be licensed under the <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>. If you upload code based on other people's work, please check the licence compatibility.</h3>
+</div>
+ </div>
+			
+  </div>
+  
+  <!-- help div start -->
+<div id="HelpWindowDiv" style="visibility:hidden; display:none;"><h2 style="font-size: 22px;"> <img onClick="nextState(transition_close_panel_button_clicked);return false" src="/imgs/close_button.gif" style="padding-bottom: 2px; padding: 0 10px 0 0;"/>Click below to see an example</h2>
+
+<div id="HELPbox" style="font-size: 15px;">
+
+
+<div class="menu" id="setup" style="font-size: 15px; height:12px; line-height:12px; text-decoration:underline;"> Get Started...</div>
+
+	<div class="box" > 
+
+Copy this code into the text area to set up a basic sketch...
+<br />
+<div style=" width: auto; height: auto; margin: 10px; padding: 10px; border: solid 2px #ff2233;">
+<h9>
+void setup() { 
+<br />  &nbsp; size(500,500);
+<br /> &nbsp;
+
+<br />} 
+<br /> &nbsp;
+<br />void draw() {	
+<br /> &nbsp;  background(200,30,90); 
+<br /> &nbsp;  fill(20,40,150); 	
+<br /> &nbsp;  rect(100,100, 100,100);
+<br /> &nbsp;
+<br /> &nbsp;
+<br />}
+</h9>
+</div>
+
+	</div>
+
+
+<div class="menu" style="font-size: 15px; height:15px; line-height:12px; text-decoration:underline;" id="jhljhykj">Draw basic Shapes </div>
+	<div class="box"> 
+
+<div class="menu2" id="jhkj">Rectangle </div>
+
+<div class="box2"> 
+
+Copy this code into the 'void draw ()' area of your code in the text area to draw a basic rectangle...
+<br />
+<h9>
+<div style=" width: auto; height: auto; margin: 10px; padding: 10px; border: solid 2px #ff2233;">
+  &nbsp; rect(100,100,100,100);
+</div>
+</h9>
+</div>
+
+<div class="menu2" id="jhkjd">Triangle </div>
+
+<div class="box2" > 
+Copy this code into the 'void draw ()' area of your code in the text area to draw a basic triangle...
+<br />
+<div style=" width: auto; height: auto; margin: 10px; padding: 10px; border: solid 2px #ff2233;">
+<h9>
+  &nbsp;  triangle(30, 75, 58, 20, 86, 75); 
+</h9>
+</div>
+
+
+</div>
+
+<div class="menu2" id="jhkjs">Ellipse </div>
+
+<div class="box2"> 
+Copy this code into the 'void draw ()' area of your code in the text area to draw a basic ellipse...
+<br />
+<h9>
+<div style=" width: auto; height: auto; margin: 10px; padding: 10px; border: solid 2px #ff2233;">
+ &nbsp;   ellipse(56, 46, 55, 55);
+
+</h9>
+</div>
+	</div>
+
+</div> <!-- closing the basic shapes class box -->
+
+
+<div class="menu" id="jhkjaa" style="font-size: 15px; height:12px; line-height:12px; text-decoration:underline;">Randomise</div>
+
+
+<div class="box">
+
+You can change how things look at random by using "random", all you need to do is specify the minimum and the maximum value you want. 
+<br />Copy this code into the text area to randomly change the size and colour of your ellipse:
+<br />
+<div style=" width: auto; height: auto; margin: 10px; padding: 10px; border: solid 2px #ff2233;">
+<h9>
+
+  &nbsp;  fill(random(0,255),20,200); 
+<br />  &nbsp; stroke(255,255,0);
+<br />  &nbsp;  ellipse(150, 150, random(10,150), 150);
+
+
+</h9>
+</div>
+</div>
+
+<div class="menu" id="jhkasasj" style="font-size: 15px; height:12px; line-height:12px; text-decoration:underline;"> Animate</div>
+
+	<div class="box"> 
+
+You can animate your graphics by replacing numbers with "mouseX" , "mouseY" or "frameCount". In this example we change colors and shape size using the mouse:
+<br />
+<div style=" width: auto; height: auto; margin: 10px; padding: 10px; border: solid 2px #ff2233;">
+<h9>
+
+&nbsp;  background(20,30,mouseX); 
+<br /> &nbsp;  fill(20,mouseY,150); 	
+<br /> &nbsp;  rect(100,100, 100,mouseX); 
+
+</h9>
+</div> 
+	</div>
+
+
+
+<div class="menu" id="setup" style="font-size: 15px; height:12px; line-height:12px; text-decoration:underline;"> Drawing Tool</div>
+
+	<div class="box"> 
+
+Copy this code into the 'void draw ()' area of your code to make a drawing tool...
+<br />
+<div style=" width: auto; height: auto; margin: 10px; padding: 10px; border: solid 2px #ff2233;">
+<h9>
+
+&nbsp;  fill(0,0,0);
+<br />&nbsp;  noStroke();
+<br /> &nbsp;  ellipse(mouseX,mouseY, 2,2); 
+
+</h9>
+</div>
+Then remove the line 'background();' 
+	</div>
+	
+	
+
+
+<div class="menu" id="jhkpooasj" style="font-size: 15px; height:12px; line-height:12px; text-decoration:underline;"> Repeat</div>
+
+	<div class="box">
+
+You can repeat any piece of code by using a 'for loop'. A for loop changes a variable of a quantity you decide, until it reaches a number you want.
+<br /> Example: add 10 each time to a variable called "i", until it gets to 200: 
+<br />
+<h9>
+</h9>
+<br />
+<br />
+Copy this code into the text area to see a rectangle repeat across the sketch:
+<br />
+
+<div style=" width: auto; height: auto; margin: 10px; padding: 10px; border: solid 2px #ff2233;">
+<h9>
+
+&nbsp;  for (int i=0; i<200; i=i+10) {
+<br /> &nbsp;  rect(i,i, 100,100); 
+<br /> &nbsp; }
+
+</h9>
+</div> 
+	</div>
+
+
+</div>
+
+</div>
+
+<!-- help div end -->
+
+  
+  <div id="theWarningsAndErrorsAreaDiv" style="visibility:hidden; display:none; border:2px dotted #ff33ff;">
+	<div id="theWarningsAndErrorsAreaDivHeader" style="height:37px;  border-bottom:2px dotted #ff33ff ; font-family: Tahoma, sans-serif;"> <img id="close" onClick="nextState(transition_close_panel_button_clicked);return false" src="/imgs/close_button.gif"/> <div id="theWarningsAndErrorsAreaMessage" style="margin-left:33px; height:10px; top:50%; margin-top:-16px;  ">
+	
+	Ooops, found some glitches.
+	
+	</div></div>
+	<div id="theWarningsAndErrorsAreaDivInternal" style="margin-left:5px; overflow:auto; font-family: Tahoma, sans-serif; padding:5px;">
+	</div>  
+</div>  
+
+  <div id="contentright">
+  <h2 style="color:#CC0099; margin-left: -29px;"><img src="/imgs/arrowLeft.gif" width="20" height="20" /> Write your sketch here</h2>
+  <br />Check the Processing language <a href="http://www.processing.org/reference/" target="new">reference</a> (<a href="http://community.sketchpatch.net/discussion/post/926286" target="new">most</a> of it works).<br />Need inspiration? Play with the examples in <a href="/gallery.html">the gallery</a>.<br />
+
+<script language="JavaScript" type="text/javascript"> 
+
+function readCookie(name) {
+	var nameEQ = name + "=";
+	var ca = document.cookie.split(';');
+	for(var i=0;i < ca.length;i++) {
+		var c = ca[i];
+		while (c.charAt(0)==' ') c = c.substring(1,c.length);
+		if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+	}
+	return null;
+}
+ 
+</script>
+
+
+    <br />
+  
+  <div class="titleform">
+  <div class="FORMtextdiv"><h4>Title</h4></div>
+   
+      <input name=title_input id="title_input" type="text" border="thin" value='{% if sketch %}{{sketch.title}}{% endif %}'/>
+      <input type="hidden" name="thumbnailData" id="thumbnailDataHiddenField" value="">
+  
+
+   		
+    </div>
+	 <br />
+    	<script type="text/javascript">
+    		document.write("<strong>by "+readCookie("user.nickname")+"<\/strong>");
+    	</script>
+	
+	
+	<div class="titleform">
+  <div class="FORMtextdiv"><h4>Tags</h4></div>
+   
+      <input type="text" name="tags" border="thin" value="{% if sketch %}{{sketch.tags_commas}}{% endif %}"/>
+  
+   {#<h3>seperate tags with a comma </h3>#}
+   		
+    </div>
+  
+  <div class="titleform">
+  <div class="FORMtextdiv"><h4>Publish</h4></div>
+  <INPUT id = "publishedcheckbox" TYPE=checkbox NAME="published" {% if published %}CHECKED{% endif %} />
+    	<script type="text/javascript">
+    			{# document.write("readCookie(user.user_id)"+readCookie("user.user_id")); #}
+    		if (readCookie("user.user_id") == "None") {
+    			document.getElementById('publishedcheckbox').disabled=true;
+    			document.write("<br \/>just log in if you want to keep sketches private");
+    		}
+    	</script>
+  <h3>(come on, let other people see your sketch!)</h3>
+   		
+    </div>
+  
+ 
+ <div class="yourcommentsetxt"> <h4>Your comments about the sketch<img src="/imgs/comment.png" width="20" /></h4>
+ </div>
+ <div class="FORMtextdiv"> <textarea id="text_input" name="text_input" cols="1" rows="5" class="authorcomment">{% if sketch %}{{sketch.description}}{% endif %}</textarea> 
+ </div>
+ 
+         <input type="hidden" name="preview" value="0" />
+        <input type="hidden" name="submitted" value="1" />
+
+        {% ifequal action "editBlog" %}
+        {% if sketch %}
+        <input name="blogId" type="hidden" value="{{sketch.key.id}}" />
+        {% endif %}
+        {% endifequal %}
+
+        {% ifequal action "copyBlog" %}
+        <input name="oldestParentSketchRandomID" type="hidden" value="{{sketch.oldestParentSketchRandomID}}" />
+        <input name="parentSketchRandomID" type="hidden" value="{{sketch.randomID}}" />
+    	<script type="text/javascript">
+    			document.write('<input name="parent_idList" type="hidden" value="{{sketch.get_parents}}, '+readCookie("user.user_id")+'" \/>');
+    			document.write('<input name="parent_nicknamesList" type="hidden" value="{{sketch.get_parentNicknamesList}}, '+readCookie("user.nickname")+'" \/>');
+    	</script>       
+        {% else %}
+        <input name="parentSketchRandomID" type="hidden" value="" />
+        <input name="oldestParentSketchRandomID" type="hidden" value="{{sketch.randomID}}" />
+    	<script type="text/javascript">
+    			document.write('<input name="parent_idList" type="hidden" value="'+readCookie("user.user_id")+'" \/>');
+    			document.write('<input name="parent_nicknamesList" type="hidden" value="'+readCookie("user.nickname")+'" \/>');
+    	</script>       
+        {% endifequal %}
+
+	<!-- content right -->  
+  	</div>
+
+
+
+
+</fieldset>
+</form>
+
+  </div>
+  
+{% include 'footerTemplate.html' %}
+
+</div>
+
+	<script type="text/javascript"> 
+	
+
+	    function isThereAnErrorInTheProgram() {
+	    	latestfetchedProgram = fetchProgram();
+			latestReport = P5LintDoTheChecks(latestfetchedProgram,null,false,true,false,false,false,true);
+			if (latestReport[1].length !== 0){
+					return true;
+			}
+			return false;
+		}
+
+
+	    function nextState(transition) {
+	      //alert("applying transition. state: "+current_state+" transition: "+ transition);
+	      
+	      // state number one
+	      if (current_state === state_not_playing_info_box_showing){
+		  	   if (transition ===  transition_sketch_has_started_running) {
+					document.getElementById("playpauseboxplay").style.background = 'url(/imgs/editorReloadButtonYellow.gif)';
+	           }
+		  	   else if (transition ===  transition_hint_button_clicked) {
+					current_state =  state_not_playing_hint_box_showing;
+					showHelpPanel();
+			   }
+			   else if (transition ===  transition_play_button_clicked) {
+					if (isThereAnErrorInTheProgram()) {
+						current_state =  state_not_playing_error_box_showing;
+						showWarningsAndErrorsPanel();
+					}
+					else {
+						current_state =  state_running_info_box_showing;
+						showInfoPanel();
+					}
+				    //alert('now invoking loadProgramInViewerApplet()');
+					document.getElementById("playpauseboxplay").style.background = 'url(/imgs/editorPlayButtonYellow.gif)';
+					loadProgramInViewerApplet();
+			   }
+			   else if (transition ===  transition_stop_button_clicked) {					
+			   		
+					current_state =  current_state;
+			   }
+			   else if (transition ===  transition_sketch_ended) {
+					current_state =  current_state;
+			   }
+			   else if (transition ===  transition_close_panel_button_clicked) {
+					current_state =  current_state;
+			   }
+	      }
+
+		  // state number two
+	      else if (current_state === state_running_info_box_showing){
+		  	   if (transition ===  transition_sketch_has_started_running) {
+					document.getElementById("playpauseboxplay").style.background = 'url(/imgs/editorReloadButtonYellow.gif)';
+	           }
+		  	   else if (transition ===  transition_hint_button_clicked) {
+					current_state =  state_running_hint_box_showing;
+					showHelpPanel();
+			   }
+			   else if (transition ===  transition_play_button_clicked) {
+					if (isThereAnErrorInTheProgram()) {
+						current_state =  state_not_playing_error_box_showing;
+						showWarningsAndErrorsPanel();
+					}
+					else {
+						current_state =  state_running_info_box_showing;
+						showInfoPanel();
+					}
+				    //alert('now invoking loadProgramInViewerApplet()');
+					document.getElementById("playpauseboxplay").style.background = 'url(/imgs/editorPlayButtonYellow.gif)';
+					loadProgramInViewerApplet();
+			   }
+			   else if (transition ===  transition_stop_button_clicked) {
+			   		
+					current_state =  state_not_playing_info_box_showing;
+			   }
+			   else if (transition ===  transition_sketch_ended) {
+					current_state =  state_not_playing_info_box_showing;
+					document.getElementById("playpauseboxplay").style.background = 'url(/imgs/editorPlayButtonYellow.gif)';
+			   }
+			   else if (transition ===  transition_close_panel_button_clicked) {
+					current_state =  current_state;
+			   }
+	      }
+
+	      // state number three
+	      else if (current_state === state_not_playing_error_box_showing){
+	      
+		  	   if (transition ===  transition_sketch_has_started_running) {
+					current_state =  state_running_error_box_showing;
+					document.getElementById("playpauseboxplay").style.background = 'url(/imgs/editorReloadButtonYellow.gif)';
+	           }
+		  	   else if (transition ===  transition_hint_button_clicked) {
+					current_state =  transition_close_panel_button_clicked;
+					showHelpPanel();
+			   }
+			   else if (transition ===  transition_play_button_clicked) {
+					if (isThereAnErrorInTheProgram()) {
+						showWarningsAndErrorsPanel();
+						// no change of state
+					}
+					else {
+						current_state =  state_running_info_box_showing;
+						showInfoPanel();
+					}
+					document.getElementById("playpauseboxplay").style.background = 'url(/imgs/editorPlayButtonYellow.gif)';
+					loadProgramInViewerApplet();
+
+			   }
+			   else if (transition ===  transition_stop_button_clicked) {
+			   		
+					current_state =  current_state;
+			   }
+			   else if (transition ===  transition_sketch_ended) {
+					current_state =  current_state;
+			   }
+			   else if (transition ===  transition_close_panel_button_clicked) {
+					current_state =  state_not_playing_info_box_showing;
+					showInfoPanel();
+			   }
+	      }
+
+	      // state number four
+	      else if (current_state === state_running_error_box_showing){
+		  	   if (transition ===  transition_sketch_has_started_running) {
+					document.getElementById("playpauseboxplay").style.background = 'url(/imgs/editorReloadButtonYellow.gif)';
+	           }
+		  	   else if (transition ===  transition_hint_button_clicked) {
+					current_state =  state_running_hint_box_showing;
+					showHelpPanel();
+			   }
+			   else if (transition ===  transition_play_button_clicked) {
+					if (isThereAnErrorInTheProgram()) {
+						current_state =  state_not_playing_error_box_showing;
+						showWarningsAndErrorsPanel();
+					}
+					else {
+						current_state =  state_running_info_box_showing;
+						showInfoPanel();
+					}
+				    //alert('now invoking loadProgramInViewerApplet()');
+					document.getElementById("playpauseboxplay").style.background = 'url(/imgs/editorPlayButtonYellow.gif)';
+					loadProgramInViewerApplet();
+			   }
+			   else if (transition ===  transition_stop_button_clicked) {
+			   		
+					current_state =  state_not_playing_error_box_showing;
+			   }
+			   else if (transition ===  transition_sketch_ended) {
+					current_state =  state_not_playing_error_box_showing;
+					document.getElementById("playpauseboxplay").style.background = 'url(/imgs/editorPlayButtonYellow.gif)';
+
+			   }
+			   else if (transition ===  transition_close_panel_button_clicked) {
+					current_state =  state_running_info_box_showing;
+					showInfoPanel();
+			   }
+	      }
+	     
+	     //state number five
+	     else if (current_state === state_not_playing_hint_box_showing){
+		  	   if (transition ===  transition_sketch_has_started_running) {
+					document.getElementById("playpauseboxplay").style.background = 'url(/imgs/editorReloadButtonYellow.gif)';
+	           }
+		  	   else if (transition ===  transition_hint_button_clicked) {
+					if (isThereAnErrorInTheProgram()) {
+						current_state =  state_not_playing_error_box_showing;
+					    showWarningsAndErrorsPanel();
+					}
+					else {
+						current_state =  state_not_playing_info_box_showing;
+						showInfoPanel();
+					}
+			   }
+			   else if (transition ===  transition_play_button_clicked) {
+					if (isThereAnErrorInTheProgram()) {
+						current_state =  state_not_playing_error_box_showing;
+						showWarningsAndErrorsPanel();
+					}
+					else {
+						current_state =  state_running_hint_box_showing;
+					}
+					document.getElementById("playpauseboxplay").style.background = 'url(/imgs/editorPlayButtonYellow.gif)';
+					loadProgramInViewerApplet();
+			   }
+			   else if (transition ===  transition_stop_button_clicked) {
+			   		
+					current_state =  current_state;
+			   }
+			   else if (transition ===  transition_sketch_ended) {
+					current_state =  current_state;
+			   }
+			   else if (transition ===  transition_close_panel_button_clicked) {
+					if (isThereAnErrorInTheProgram()) {
+						current_state =  state_not_playing_error_box_showing;
+					    showWarningsAndErrorsPanel();
+					}
+					else {
+						current_state =  state_not_playing_info_box_showing;
+						showInfoPanel();
+					}
+			   }
+	      }
+
+	     // state number six
+	     else if (current_state === state_running_hint_box_showing){
+		  	   if (transition ===  transition_sketch_has_started_running) {
+					document.getElementById("playpauseboxplay").style.background = 'url(/imgs/editorReloadButtonYellow.gif)';
+	           }
+		  	   else if (transition ===  transition_hint_button_clicked) {
+					if (isThereAnErrorInTheProgram()) {
+						current_state =  state_running_error_box_showing;
+					    showWarningsAndErrorsPanel();
+					}
+					else {
+						current_state =  state_running_info_box_showing;
+						showInfoPanel();
+					}
+			   }
+			   else if (transition ===  transition_play_button_clicked) {
+					if (isThereAnErrorInTheProgram()) {
+						current_state =  state_not_playing_error_box_showing;
+						showWarningsAndErrorsPanel();
+					}
+					else {
+						current_state =  state_running_hint_box_showing;
+					}
+					document.getElementById("playpauseboxplay").style.background = 'url(/imgs/editorPlayButtonYellow.gif)';
+					loadProgramInViewerApplet();
+
+			   }
+			   else if (transition ===  transition_stop_button_clicked) {
+			   		
+					current_state =  state_not_playing_hint_box_showing;
+			   }
+			   else if (transition ===  transition_sketch_ended) {
+					current_state =  state_not_playing_hint_box_showing;
+					document.getElementById("playpauseboxplay").style.background = 'url(/imgs/editorPlayButtonYellow.gif)';
+			   }
+			   else if (transition ===  transition_close_panel_button_clicked) {
+					if (isThereAnErrorInTheProgram()) {
+						current_state =  state_running_error_box_showing;
+					    showWarningsAndErrorsPanel();
+					}
+					else {
+						current_state =  state_running_info_box_showing;
+						showInfoPanel();
+					}
+			   }
+	      }
+	     
+	     
+	      //alert("end of applying transition. state is now: "+current_state);
+
+	    }
+		
+</script> 
+
+<!-- soundcloud player -->
+<object height="1px" width="1px" id="yourPlayerId" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000">
+    <param name="movie" value="http://player.soundcloud.com/player.swf?url=http%3A%2F%2Fsoundcloud.com%2Fmatas%2Fhobnotropic&amp;enable_api=true&amp;object_id=yourPlayerId"></param>
+    <param name="allowscriptaccess" value="always"></param>
+    <embed allowscriptaccess="always" height="1px" width="1px" src="http://player.soundcloud.com/player.swf?url=http%3A%2F%2Fsoundcloud.com%2Fmatas%2Fhobnotropic&amp;enable_api=true&amp;object_id=yourPlayerId" type="application/x-shockwave-flash" name="yourPlayerId"></embed>
+  </object>
+
+     
+     
+  <script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-8776965-1");
+pageTracker._setDomainName(".sketchpatch.net");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+</body>
+</html>

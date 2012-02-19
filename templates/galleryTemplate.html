@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<meta http-equiv="Content-Type" content="text/xhtml; charset=ISO-8859-1" />
+<title>sketchPatch - {{headerTitle}}</title>
+<link href="/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="/corner/justcorners.js"></script>
+
+{% include 'readCookieCode.html' %}
+
+	
+</head>
+
+
+
+<body>
+
+<div id="page">
+
+{% include 'headerTemplate.html' %}
+
+		<div id="content">
+
+<div id="gallerypagination1">{% ifnotequal bookmark "sketch" %}<&nbsp;<a href="javascript:history.go(-1)" >back</a>{% endifnotequal %} {% ifnotequal next "" %}&nbsp;|&nbsp;<a href="/{% ifequal action "gallery" %}latest.html{% endifequal %}{% ifequal action "mySketches" %}mySketches/{% endifequal %}{% ifequal action "sketchesByUploader" %}byUploader/{{userIDasString}}{% endifequal %}?bookmark={{next}}" >next</a>&nbsp;>{% endifnotequal %}</div>
+		
+		  <div id="gallerycontent">
+	{% for sketch in sketches %}
+			
+				<div id="sketchBox"><div class="sketchBoximage">{% ifnotequal sketch.published Null %}{% if not sketch.published %}<div class="lock"><img src="/imgs/padlock.png" alt="unpublished sketch" width="12" /> </div>{% endif %}{% endifnotequal %}<a href="/view/{{sketch.randomID}}/">
+{% ifequal action "gallery" %}
+				<img src="/thumbnailsForGallery/{{sketch.randomID}}.jpg" class="corners iradius2" class="floatLeft" alt="sketchPatch" width="50" height="50" /></a>
+{% endifequal %}
+{% ifequal action "mySketches" %}
+				<img src="/thumbnailsForMyPage/{{sketch.randomID}}.jpg" class="corners iradius2" class="floatLeft" alt="sketchPatch" width="50" height="50" /></a>
+{% endifequal %}
+{% ifequal action "sketchesByUploader" %}
+				<img src="/thumbnailsByUploader/{{sketch.randomID}}.jpg" class="corners iradius2" class="floatLeft" alt="sketchPatch" width="50" height="50" /></a>
+{% endifequal %}
+  
+				</div>
+
+<div class="galleryinfotext"><p>{{sketch.title}}{% ifequal action "gallery" %} by <br /> 
+ <strong>{{sketch.author_nickname}}</strong>{% endifequal %}
+ <p>{{sketch.stringtags}}</p></div>
+				
+		</div>
+{% endfor %}
+
+
+<SCRIPT TYPE="TEXT/JAVASCRIPT">
+
+// arrays for the stuff that changes
+// replace the variable bits in a string with " +variable+ "
+
+
+// put the for loop here. And put the whole document.write (that is your html script) inside it
+for(i=0; i<26; i++) { 
+   document.writeln("\
+<div id=\"sketchBox\"><a href=\"sketchpage\"> <img src=\"./imgs/Picture_"+i+".png\" class=\"corners iradius2\" class=\"floatLeft\" alt=\"sketchPatch\" width=\"50\" height=\"50\"</a>\ 
+<p>Sketch Title Author Name  Tags, tags , and tags</p></div>\
+"); 
+}
+
+</SCRIPT>
+
+
+<div id="gallerypagination2">{% ifnotequal bookmark "sketch" %}<&nbsp;<a href="javascript:history.go(-1)" >back</a>{% endifnotequal %} {% ifnotequal next "" %}&nbsp;|&nbsp;<a href="/{% ifequal action "gallery" %}latest.html{% endifequal %}{% ifequal action "mySketches" %}mySketches/{% endifequal %}{% ifequal action "sketchesByUploader" %}byUploader/{{userIDasString}}{% endifequal %}?bookmark={{next}}" >next</a>&nbsp;>{% endifnotequal %}</div>
+
+				</div>
+       
+{% include 'footerTemplate.html' %}
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-8776965-1");
+pageTracker._setDomainName(".sketchpatch.net");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+</body>
+</html>

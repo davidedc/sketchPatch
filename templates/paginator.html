@@ -1,0 +1,24 @@
+{% if page %}
+{% if page.number %}
+<div id="pagination">
+<div class="p_bar"><a class="p_total">&nbsp;{{page.paginator.count}} &nbsp;</a><a class="p_pages">
+    &nbsp;{{page.number}}/{{page.real_pages}} &nbsp;</a></div>
+
+{% if page.show_first %}<a href="/page/1" class="p_redirect">|&lsaquo;</a> {% endif %}
+
+{% if page.has_previous %} <a href="/page/{{ page.previous_page_number }}" class="p_redirect">&lsaquo;&lsaquo;</a> {% endif %}
+
+{% for num in page.page_numbers %}
+  {% ifequal num page.number %}
+    <a class="p_curpage">{{ num }}</a>
+  {% else %}
+    <a href="/page/{{ num }}" class="p_num">{{ num }}</a>
+  {% endifequal %}
+{% endfor %}
+
+{% if page.has_next %}<a href="/page/{{ page.next_page_number }}" class="p_redirect">&rsaquo;&rsaquo;</a> {% endif %}
+
+{% if page.show_last %} <a href="/page/{{ page.real_pages }}" class="p_redirect">&rsaquo;|</a> {% endif %}
+</div>
+ {% endif %}
+ {% endif %}

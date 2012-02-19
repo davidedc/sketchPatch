@@ -1,0 +1,612 @@
+StringCreationWithLiteral.pde
+  source length: 266
+  source hash: 6b4955714b8972d8b20401234662da86
+  check length: 115
+  check hash: de3ea4e85e675c8c81efb7df570d2674
+
+IntMultidimentionalArrayWithLiteral.pde
+  source length: 194
+  source hash: 17c52fb22f96f94317ff1f858ebe58ec
+  check length: 49
+  check hash: 52c8cad23ed3d3fccef5ff4f0baaa1ed
+
+AdditiveWave.pde
+  source length: 1828
+  source hash: 2bc86ec89a90091708596372b214592b
+  check length: 413
+  check hash: d517664554cb148371ba94af9c9498c9
+
+Alphamask.pde
+  source length: 463
+  source hash: 40ce87d9cf5466e4e519c0814143b0f6
+  check length: 151
+  check hash: 63cc34bf39b122344bc2c00a16b65852
+
+Arctangent.pde
+  source length: 1085
+  source hash: f164ccfd9a153d9e58e070fdea48627e
+  check length: 379
+  check hash: b60353ab3d0a5d29f0990b2ad4555d0b
+
+Arm.pde
+  source length: 776
+  source hash: 6f005d6135338f62d2d91947ddd2d1fc
+  check length: 214
+  check hash: 7dff838ccce6ab8efd3d2af72d014e95
+
+Array.pde
+  source length: 907
+  source hash: 4957c5876ba3f2ee8d25b4c0e738c1a5
+  check length: 60
+  check hash: 2bccd390187397267ce150f3c732822c
+
+Array2D.pde
+  source length: 752
+  source hash: dead8cbe567b94eafe1277f5b733e9ad
+  check length: 76
+  check hash: 716c1ab63f58c4811fb67ee6ca4b1e40
+
+ArrayObjects.pde
+  source length: 1304
+  source hash: 5f0f9dcef9a8f7dcc8bfebfab7f974ea
+  check length: 468
+  check hash: a2b2c902bd9fe8f8c516a240322fdde9
+
+BackgroundImage.pde
+  source length: 639
+  source hash: 3b19cfd223e9514dab9ff2a9edfe6e82
+  check length: 121
+  check hash: 1d7b9fb8b98cfb55cdf42c3230ca1b67
+
+Bezier.pde
+  source length: 440
+  source hash: 9592bf5a925657cb66e2847170917873
+  check length: 43
+  check hash: 83684c0632cae5009b0ed5ef8271220f
+
+BezierEllipse.pde
+  source length: 2619
+  source hash: 9d7c452fa18796370bca95cd27ff122f
+  check length: 430
+  check hash: 9d47c29acfbed1a64572c09ec063481f
+
+Brightness.pde
+  source length: 616
+  source hash: 54fa448d243873c23445d71bb00d885a
+  check length: 187
+  check hash: 131ba80706985bae3b8ab5ac4e8804fe
+
+CharactersStrings.pde
+  source length: 2738
+  source hash: 69f87d59c35fe0cd28a9ca53bad00df9
+  check length: 306
+  check hash: b6f132ea3a3f8e1bc11e401458b26fcc
+
+Clock.pde
+  source length: 1106
+  source hash: 4fb8ea4b62644e730a5b772402bafd76
+  check length: 111
+  check hash: 23645d2b8a82360e0fbb6e6334e5c4c6
+
+ColorWheel.pde
+  source length: 2659
+  source hash: 50bbfbc65b527623a6b6ff42fc280e8a
+  check length: 295
+  check hash: e08a9f84ce72f715e00b766a608016d6
+
+CompositeObjects.pde
+  source length: 2104
+  source hash: 253387785be5aaec857d2e4a25f4791e
+  check length: 729
+  check hash: 94189173c8ab5aaea55c51d610b2f508
+
+Conditionals1.pde
+  source length: 675
+  source hash: 9c53a2e46478c5dec3afcd768b60d4e4
+  check length: 43
+  check hash: 83684c0632cae5009b0ed5ef8271220f
+
+Conditionals2.pde
+  source length: 579
+  source hash: 864d57ec0af113838d45df26d795ef88
+  check length: 43
+  check hash: 83684c0632cae5009b0ed5ef8271220f
+
+Constrain.pde
+  source length: 735
+  source hash: 849910abe41b09c2a44331c852929ffd
+  check length: 171
+  check hash: fd9bad9bfd94c872454217b53d5d2757
+
+Coordinates.pde
+  source length: 1379
+  source hash: e3e81abd595708303f45a9e85846fe63
+  check length: 23
+  check hash: 9a47ffd726f50f1a5bb54fb0a194cff4
+
+CreateGraphics.pde
+  source length: 788
+  source hash: 257a7785be6dcd9c9e814dcf6524c3dc
+  check length: 180
+  check hash: 73ce559505a3883850635a2a6f6cc118
+
+CreateImage.pde
+  source length: 441
+  source hash: 597a431a070df40366f614c86df63289
+  check length: 165
+  check hash: 340147e38ff81675e34d56cb106dbb8b
+
+Creating.pde
+  source length: 600
+  source hash: f50dd62ff5cfe311d572be8b73eb1337
+  check length: 65
+  check hash: 3174f106daae6aee6cbc3749a369c586
+
+DatatypeConversion.pde
+  source length: 787
+  source hash: e7be40be49bf5663f7340248d4307712
+  check length: 52
+  check hash: 5c9d44ec39529293d1e33ac5dd404015
+
+DisableStyle.pde
+  source length: 818
+  source hash: 700ea26639c993bcd222c1279f7416bc
+  check length: 154
+  check hash: 02cfb63bd3653458cba4fb60c65846a2
+
+Distance1D.pde
+  source length: 994
+  source hash: 8f1e36b3d5c297bc289809d463211716
+  check length: 192
+  check hash: 9f8f250f57aeaa88a0dd1a3b4cb3318b
+
+Distance2D.pde
+  source length: 569
+  source hash: 2a5f40b0256be2fe9d170fee932ba3f3
+  check length: 169
+  check hash: 0975178ece1ff2dfe8831b9d96ca3c97
+
+DoubleRandom.pde
+  source length: 384
+  source hash: 68c5da9b2881a3db9649c32c75988432
+  check length: 66
+  check hash: 9f0d80651e37486d88aa047f8d6275d7
+
+Easing.pde
+  source length: 757
+  source hash: 93fcb477dc1173927432d2ffdf6b5fce
+  check length: 177
+  check hash: 05809e7a69a3e7c4176125ed3b568b9e
+
+EmbeddedIteration.pde
+  source length: 490
+  source hash: 5a655c08298d32ab0181039121b3fc5e
+  check length: 75
+  check hash: 412861ce496a1b913774ccf74a408aaf
+
+EmbeddedLinks.pde
+  source length: 1236
+  source hash: eb9948d95556c18ace605f6088ceb529
+  check length: 388
+  check hash: da623e87d46f120be8ff66b4aa907977
+
+Functions.pde
+  source length: 634
+  source hash: 405baed86954df39529959ae1065dd87
+  check length: 171
+  check hash: e0bd0f6372ba1bb63cc14232723f8546
+
+GetChild.pde
+  source length: 1076
+  source hash: a35dd0b3ead63a2f6e6333b0f8b58ca6
+  check length: 199
+  check hash: 776ca148615e4e7c0a206eb9010ae01f
+
+Graphing2DEquation.pde
+  source length: 1413
+  source hash: 8dcd93283873315f609abedede0c767b
+  check length: 137
+  check hash: a9ae655cb714033c927bf1b820c52d20
+
+Hue.pde
+  source length: 647
+  source hash: d1e5cb4d50fe516549b91848a8ed73b0
+  check length: 166
+  check hash: 21713cdf3dd04b5f0b4711573a0d1921
+
+IncrementDecrement.pde
+  source length: 631
+  source hash: 68c909c353de9b5fd0ca643be87baa92
+  check length: 154
+  check hash: 684268f983df05aa380cb70ad099abe4
+
+Inheritance.pde
+  source length: 1440
+  source hash: df66d82b3714dd1f2268aeb16fc6e3f3
+  check length: 614
+  check hash: 2a68c825758c74ecdac1614cdf6a5956
+
+IntegersFloats.pde
+  source length: 722
+  source hash: ae8e1b2eb172e0500ca3a5af7bb947df
+  check length: 105
+  check hash: af5baf8b4e6497094d45632f0799b88d
+
+Iteration.pde
+  source length: 602
+  source hash: af2b11e7e38e17dcf8577eb3f1b98558
+  check length: 79
+  check hash: 5096de1e0050ab832a77a5abaef20629
+
+Keyboard.pde
+  source length: 816
+  source hash: 3dc0e190ad2cce665a74de77ca15df09
+  check length: 238
+  check hash: 487806ecdf005dc36e2a5af327756ec7
+
+KeyboardFunctions.pde
+  source length: 2077
+  source hash: f58413083ac573361e15cfd0f09e48be
+  check length: 467
+  check hash: 45d5ce756b193185853e505347fdf00c
+
+Letters.pde
+  source length: 1474
+  source hash: 6e10a9442629fcbf8da8cfb45e392cda
+  check length: 162
+  check hash: 0f4c39305d4a3cb42daa769c247cf182
+
+LinearGradient.pde
+  source length: 1790
+  source hash: 889c45dc6a982c56f5be7bf3225c7724
+  check length: 278
+  check hash: 5a0d144d00906dfd016235b113fcdeea
+
+LoadDisplayImage.pde
+  source length: 628
+  source hash: cf1e1e29fbda01ccb8af585ec01a9b00
+  check length: 136
+  check hash: b4af1f226f2833fa255f80d622fab6da
+
+LoadDisplayShape.pde
+  source length: 799
+  source hash: c3f63e52d78d32b2b469030a05bd98a7
+  check length: 118
+  check hash: 070fca22b108b88134c878cc15fca6f3
+
+LoadingImages.pde
+  source length: 516
+  source hash: ec0d1472d039565c20b33a8a64775d34
+  check length: 46
+  check hash: 142ad796cebbfb51233c28405c489bd5
+
+LogicalOperators.pde
+  source length: 867
+  source hash: 120e21283e58e1996829a5ce2a3cefa6
+  check length: 47
+  check hash: 2578c9c94607ada1eabc2f6cfb48db96
+
+Loop.pde
+  source length: 864
+  source hash: 18446945c46657cdadf270b64d1aeddc
+  check length: 136
+  check hash: 9913da1885ee3bffb46fb372d272d6f2
+
+Milliseconds.pde
+  source length: 506
+  source hash: a2f5ffae9115b64440fd69fd3013f2d6
+  check length: 139
+  check hash: 3eb7057af1d03d581a6d2fb872260c7e
+
+Modulo.pde
+  source length: 498
+  source hash: 8b76df653022a35a28b50bde0d6cb96b
+  check length: 127
+  check hash: 86f8c549b233ab1dd9c333b9cf86219a
+
+Mouse1D.pde
+  source length: 839
+  source hash: 143e8af7aa83278ffa48251aaf1604b9
+  check length: 222
+  check hash: 228efa243bee16bb8136534440ad797c
+
+Mouse2D.pde
+  source length: 453
+  source hash: 31e06519d009e2af2da61289ffb55523
+  check length: 114
+  check hash: 605bd50c99dd5b18cc3904b0036ba148
+
+MouseFunctions.pde
+  source length: 965
+  source hash: a446676e0808e065800fef6efa0b9fd2
+  check length: 398
+  check hash: 01e1672b167eafc58689294bfb8af1e9
+
+MousePress.pde
+  source length: 360
+  source hash: a55b5832363e085bf62707e4973269c0
+  check length: 82
+  check hash: 4fa3350da997f1b6403ac3a3c8095490
+
+MouseSignals.pde
+  source length: 1038
+  source hash: 67b3a97a75cc72ddf5d2d5d723fda9bf
+  check length: 193
+  check hash: cebfc366fafb2a8a8416f17107894278
+
+MultipleConstructors.pde
+  source length: 1025
+  source hash: 81b71e494335980af6d5fa170419de2e
+  check length: 327
+  check hash: ae96d304d4cbd2be83fa10d007e6bcfb
+
+Neighborhood.pde
+  source length: 6356
+  source hash: 0490e6191af7569233ab68bf1ee9c012
+  check length: 1362
+  check hash: 94cec49a406a67d48f93ea8e67e4842e
+
+NoLoop.pde
+  source length: 737
+  source hash: dcb3cc64270ded9acd14a30dcff76ae2
+  check length: 99
+  check hash: 00d0f33d271e7982a2e3df9a31060eff
+
+Noise1D.pde
+  source length: 664
+  source hash: 9e69a03fb99541c8049757287348ecf9
+  check length: 144
+  check hash: 396a73d95d1046915efa142df186edeb
+
+Noise2D.pde
+  source length: 958
+  source hash: 5ba9f4211a180d47f545e6a0fb67c395
+  check length: 152
+  check hash: 292b1a1a8a489400379564b914e025cf
+
+Noise3D.pde
+  source length: 1259
+  source hash: 23ab819aeead4869e78b2ed66b23ea61
+  check length: 189
+  check hash: 600beb5136bf0686afa9b1183859b6f7
+
+NoiseWave.pde
+  source length: 1317
+  source hash: 3c98777ebb75b32641ae18740d77b4e4
+  check length: 331
+  check hash: add3842d7dfbae5071e92abd9fb2a5aa
+
+Objects.pde
+  source length: 1523
+  source hash: e8d02d681b0279f29ac07987ffb1d9fc
+  check length: 444
+  check hash: 2c0277c88aa32e6a0106f9d414d20935
+
+OperatorPrecedence.pde
+  source length: 1709
+  source hash: 1a54f4830522758f71dd65c51d04ea17
+  check length: 43
+  check hash: 83684c0632cae5009b0ed5ef8271220f
+
+PieChart.pde
+  source length: 461
+  source hash: 477c0b642d72825c158cf00c65f9cf28
+  check length: 85
+  check hash: df98af4c35822124853e3300aaa1c37f
+
+Pointillism.pde
+  source length: 548
+  source hash: 4f89d6dafdad5ecd5a2a82245f2794f2
+  check length: 177
+  check hash: 8741ce445d096c2da44903311dcbc9bb
+
+PointsLines.pde
+  source length: 580
+  source hash: d5de6ba1051241cc5079d182d126e38c
+  check length: 59
+  check hash: 7c399acd01dcc937b958c74bbf655556
+
+PolarToCartesian.pde
+  source length: 909
+  source hash: 9ffac215d80249a2334a5032d6a4ce50
+  check length: 218
+  check hash: 5c9324ff5e476f979ee086b80d094b23
+
+RadialGradient.pde
+  source length: 1530
+  source hash: 539134510a1033959b55b82f3a1d2e86
+  check length: 229
+  check hash: a9d3c7953e8e597ffd92bdeeccf5d8f9
+
+RadialGradient.pde
+  source length: 1530
+  source hash: 539134510a1033959b55b82f3a1d2e86
+  check length: 229
+  check hash: a9d3c7953e8e597ffd92bdeeccf5d8f9
+
+Random.pde
+  source length: 332
+  source hash: 00985e562cc4fd002e43d7b9017611df
+  check length: 49
+  check hash: 00bcf8d6e4e1127c0f3c74d3206ad603
+
+Reading.pde
+  source length: 745
+  source hash: a73656c5c0b1f41dfe8a69ef8ce793c7
+  check length: 104
+  check hash: 1a71fc3f75ea51b7c38ea959b820a4bf
+
+Recursion.pde
+  source length: 668
+  source hash: 318616d14d26b6dbda9c8605e8462438
+  check length: 147
+  check hash: bb17fcf84aae982766f592451954f207
+
+Recursion2.pde
+  source length: 796
+  source hash: 9b487e906f35d13a604a28557697da18
+  check length: 148
+  check hash: b0aa475f360670b50550f45decaee0dc
+
+Redraw.pde
+  source length: 771
+  source hash: d1e8fc2f8c238057df15e3379742efa4
+  check length: 136
+  check hash: 7e2fbf5e6c7439f2b790a8cc75315449
+
+Relativity.pde
+  source length: 866
+  source hash: bf966c20269b449a6ce95b09f98d09de
+  check length: 241
+  check hash: ab7d07a79d585654a54699893a013f2e
+
+RequestImage.pde
+  source length: 2125
+  source hash: c9c437d0c5cb4687adbd881573e17500
+  check length: 485
+  check hash: 229e25e23e8f7e4c8f0685bccc266b34
+
+Rotate.pde
+  source length: 781
+  source hash: 1e850d4f2dc5c872db644443cb4d95a4
+  check length: 138
+  check hash: fd41858ba2c47a3f8c1ce372bd109508
+
+Saturation.pde
+  source length: 737
+  source hash: 5af3297d94cb9266b4470b75a541ea83
+  check length: 187
+  check hash: f8f40bcaca21099924fb0abee0e12719
+
+Scale.pde
+  source length: 625
+  source hash: 8e2b246ce3b58a17a6a302fdf90e6cf3
+  check length: 105
+  check hash: 2a8c8b1e65a7d20adbdcbba582645782
+
+ScaleShape.pde
+  source length: 555
+  source hash: 77e04668799d43342d34da0da247b959
+  check length: 136
+  check hash: f60b1f59d959b3a7168c1226f78b6791
+
+SetupDraw.pde
+  source length: 705
+  source hash: d8318d4694d94eb0246449dd60893d4e
+  check length: 99
+  check hash: 26dcc2e9f1b038c482450e6c469bfebd
+
+ShapePrimitives.pde
+  source length: 534
+  source hash: 01cbb33bf2053a080f283d09d1d97c0d
+  check length: 23
+  check hash: 9a47ffd726f50f1a5bb54fb0a194cff4
+
+SimpleCurves.pde
+  source length: 1446
+  source hash: 2ad83ed123ff9d08e56b561e860e4b58
+  check length: 234
+  check hash: 5d7c03c3a6199ef7f789995ef955ee96
+
+Sine.pde
+  source length: 628
+  source hash: 1f93b5c975d03592c2d184bce7273d8f
+  check length: 183
+  check hash: c0b6232334bc91d317ae19c589078453
+
+SineCosine.pde
+  source length: 1021
+  source hash: 6877923f4aabf7c35135934abe24b3fe
+  check length: 186
+  check hash: bc5a4215d44c73446ba724843419f961
+
+SineWave.pde
+  source length: 1290
+  source hash: 86c20fe5a0b4df86393b3ba700210c61
+  check length: 362
+  check hash: 5ed9be1a8bb2721965faf566227cce70
+
+Sprite.pde
+  source length: 738
+  source hash: cd6b660b52540a4d233a798e29691c4d
+  check length: 220
+  check hash: 26c31cb8b5b5651f85f5566db2fa81e2
+
+StatementsComments.pde
+  source length: 754
+  source hash: 250630dc0faf332db75eb78204f4ea1b
+  check length: 23
+  check hash: 9a47ffd726f50f1a5bb54fb0a194cff4
+
+StoringInput.pde
+  source length: 820
+  source hash: a9ce35d0cd0dd8d81c628dd382f9993e
+  check length: 134
+  check hash: c7809aaac01731e3e79d17a9d1b19f16
+
+Translate.pde
+  source length: 733
+  source hash: 722464c7302af547673f53b3b6908452
+  check length: 130
+  check hash: 9299eb1aadbbd7071f102bf84b0798cd
+
+Transparency.pde
+  source length: 639
+  source hash: f516d5b50b09be393b30ca9e50365c8d
+  check length: 179
+  check hash: 8d6c4a2c3496a700ca2c32e5d7123902
+
+TriangleFlower.pde
+  source length: 967
+  source hash: 25806e885578820d0ddd1e69ffacb8a5
+  check length: 214
+  check hash: 4e35240a459f3938726ae44790934e38
+
+TriangleStrip.pde
+  source length: 767
+  source hash: 02ca216cfd0dbc970ed77d820299dfe6
+  check length: 94
+  check hash: 82ca377cb84e9e2a6ea4211d6b241a5f
+
+TrueFalse.pde
+  source length: 653
+  source hash: 72afcd5e3c2437955b9124fc1e9494c3
+  check length: 46
+  check hash: dd4244607aac88f029c2c3f14899ecf1
+
+VariableScope.pde
+  source length: 1622
+  source hash: 6fd7729bd0b075fc69ffeeb2beccce3a
+  check length: 221
+  check hash: 124984225a9743b4e905e735965e360b
+
+Variables.pde
+  source length: 385
+  source hash: 329bd169c0a3f98e7b128afa62486b83
+  check length: 61
+  check hash: d4d11198c05c7ed20d824b19242fca42
+
+Vertices.pde
+  source length: 910
+  source hash: 2ccc90a3794e97a4b1d871fcb5dc667a
+  check length: 23
+  check hash: 9a47ffd726f50f1a5bb54fb0a194cff4
+
+WaveGradient.pde
+  source length: 948
+  source hash: c110d886d60dca0d62537a92b947a6c6
+  check length: 214
+  check hash: f1950ecc041b835f5e25901ee303d20c
+
+WidthHeight.pde
+  source length: 319
+  source hash: a44f98dc868df71a86557053aad9865b
+  check length: 43
+  check hash: 83684c0632cae5009b0ed5ef8271220f
+
+Words.pde
+  source length: 759
+  source hash: f983c97e1e0330ef036fe455f734f4c7
+  check length: 123
+  check hash: b1fcbb788b5186284e9b07e6cc8a87e4
+

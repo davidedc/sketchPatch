@@ -1,0 +1,669 @@
+<html>
+<head><title>P5Lint - online Processing syntax checker</title>
+<style>
+fieldset {
+    background-color: blanchedalmond;
+    border-top: 1px dotted black;
+    color: black;
+    margin: 1em;
+    padding: 8px;
+    text-align: left;
+}
+legend {
+    background-color: thistle;
+    border-top: 1px dotted black;
+    color: black;
+    padding: 8px;
+}
+i {
+    font-family: serif;
+    font-style: italic;
+}
+p {
+    padding-left: 30pt;
+    width: 80%;
+}
+input[type="button"] {
+    background-color: navajowhite;
+    border-top: 1px dotted black;
+    color: black;
+}
+input[type="button"]:hover {
+    background-color: lightsteelblue;
+    text-decoration: underline;
+}
+input[type="button"]:active {
+    background-color: indianred;
+    text-decoration: none;
+}
+
+input[type="text"] {
+    border-top: 1px dotted black;
+    text-align: center;
+}
+
+a:link {
+    color: darkblue;
+}
+a:visited {
+    color: purple;
+}
+a:hover {
+    color: blue;
+}
+a:active {
+    color: red;
+}
+body {
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+
+.leftcolumn {
+    float: left;
+    margin: 1em;
+}
+
+#errors {
+    margin: 1em;
+	border-top: 1px dotted black; 
+	padding: 1em;
+    background-color: SeaShell;
+}
+#errors p {
+    margin-left: 40px;
+    width: 80%;
+}
+#errors p.evidence {
+    margin-left: 0;
+    font-family: monospace;
+}
+
+#functions {
+    background-color: white;
+}
+#members {
+    background-color: peachpuff;
+}
+
+#functions, #members {
+	border-top: 1px dotted black; 
+	font-family: monospace;
+    margin: 1em;
+    padding: 1em;
+}
+#functions div {
+    margin-left: 10em;
+    text-indent: -5em;
+}
+#functions div.function {
+    margin-left: 0;
+    text-indent: 0;
+}
+.style2 {font-size: x-small}
+</style></head>
+<body>
+<table width="599" border="0">
+  <tr>
+    <td width="175">&nbsp;</td>
+    <td width="5">&nbsp;</td>
+    <td width="75%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="175"><small><img src="./v0.1821Jan10/images/P5LintLogo.gif" width="175" height="161"></small></td>
+    <td width="5">&nbsp;</td>
+    <td><p><img src="./v0.1821Jan10/images/WriteHeader.gif" width="587" height="101"></p>
+    <p><small>V0.18 21 Jan 2010<br>Based on <a target="_blank" href="http://www.crockford.com/">Douglas Crockford's</a> <a href="http://www.JSLint.com/lint.html">JSLint</a></small></p></td>
+  </tr>
+  <tr>
+    <td width="175">&nbsp;</td>
+    <td width="5">&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+<p>
+  <script src="./v0.1821Jan10/P5LintJs/removeComments.js"></script>
+  <script src="./v0.1821Jan10/P5LintJs/webjslint.js"></script>
+
+ <script>
+//"use strict";
+ADSAFE.id("JSLINT_");
+</script>
+
+<script src="./v0.1821Jan10/P5LintJs/widget.js"></script>
+
+
+  <script language="Javascript">
+
+
+var fetchedPrograms = 0;
+
+function xmlhttpPost(strURL) {
+    var xmlHttpReq = false;
+    var self = this;
+    // Mozilla/Safari
+    if (window.XMLHttpRequest) {
+        self.xmlHttpReq = new XMLHttpRequest();
+    }
+    // IE
+    else if (window.ActiveXObject) {
+        self.xmlHttpReq = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    self.xmlHttpReq.open('POST', strURL, true);
+    self.xmlHttpReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    self.xmlHttpReq.onreadystatechange = function() {
+        if (self.xmlHttpReq.readyState == 4) {
+            updatepage(self.xmlHttpReq.responseText);
+            fetchedPrograms ++;
+        }
+    }
+    self.xmlHttpReq.send(strURL);
+}
+
+
+function updatepage(str){
+    document.getElementById("JSLINT_INPUT").value = str;
+}</script>
+
+<script>
+
+if(document.URL.indexOf("file:") !== -1 && navigator.appName.indexOf("Explorer") !== -1){
+
+document.write("(You are viewing this page from local filesystem on IE: for security reasons you are prevented from automatically opening source files. If you used Firefox, or viewed this page online, you could automatically load a set of prepared source files and run automatic tests.)");
+
+}
+else {
+document.write("<big><a href=\"javascript:;\" onMouseDown=\"if(document.getElementById('TestList').style.display == 'none'){ document.getElementById('TestList').style.display = 'block'; }else{ document.getElementById('TestList').style.display = 'none'; }\">View/Hide</a> the test list, or write/paste a Processing program here below.</big></p>");
+}
+
+</script>
+
+
+<script>
+var testList = new Array();
+testList.push("StringCreationWithLiteral.pde");
+testList.push("IntMultidimentionalArrayWithLiteral.pde");
+testList.push("AdditiveWave.pde");
+testList.push("Alphamask.pde");
+testList.push("Arctangent.pde");
+testList.push("Arm.pde");
+testList.push("Array.pde");
+testList.push("Array2D.pde");
+testList.push("ArrayObjects.pde");
+testList.push("BackgroundImage.pde");
+testList.push("Bezier.pde");
+testList.push("BezierEllipse.pde");
+testList.push("Brightness.pde");
+testList.push("CharactersStrings.pde");
+testList.push("Clock.pde");
+testList.push("ColorWheel.pde");
+testList.push("CompositeObjects.pde");
+testList.push("Conditionals1.pde");
+testList.push("Conditionals2.pde");
+testList.push("Constrain.pde");
+testList.push("Coordinates.pde");
+testList.push("CreateGraphics.pde");
+testList.push("CreateImage.pde");
+testList.push("Creating.pde");
+testList.push("DatatypeConversion.pde");
+testList.push("DisableStyle.pde");
+testList.push("Distance1D.pde");
+testList.push("Distance2D.pde");
+testList.push("DoubleRandom.pde");
+testList.push("Easing.pde");
+testList.push("EmbeddedIteration.pde");
+testList.push("EmbeddedLinks.pde");
+testList.push("Functions.pde");
+testList.push("GetChild.pde");
+testList.push("Graphing2DEquation.pde");
+testList.push("Hue.pde");
+testList.push("IncrementDecrement.pde");
+testList.push("Inheritance.pde");
+testList.push("IntegersFloats.pde");
+testList.push("Iteration.pde");
+testList.push("Keyboard.pde");
+testList.push("KeyboardFunctions.pde");
+testList.push("Letters.pde");
+testList.push("LinearGradient.pde");
+testList.push("LoadDisplayImage.pde");
+testList.push("LoadDisplayShape.pde");
+testList.push("LoadingImages.pde");
+testList.push("LogicalOperators.pde");
+testList.push("Loop.pde");
+testList.push("Milliseconds.pde");
+testList.push("Modulo.pde");
+testList.push("Mouse1D.pde");
+testList.push("Mouse2D.pde");
+testList.push("MouseFunctions.pde");
+testList.push("MousePress.pde");
+testList.push("MouseSignals.pde");
+testList.push("MultipleConstructors.pde");
+testList.push("Neighborhood.pde");
+testList.push("NoLoop.pde");
+testList.push("Noise1D.pde");
+testList.push("Noise2D.pde");
+testList.push("Noise3D.pde");
+testList.push("NoiseWave.pde");
+testList.push("Objects.pde");
+testList.push("OperatorPrecedence.pde");
+testList.push("PieChart.pde");
+testList.push("Pointillism.pde");
+testList.push("PointsLines.pde");
+testList.push("PolarToCartesian.pde");
+testList.push("RadialGradient.pde");
+testList.push("RadialGradient.pde");
+testList.push("Random.pde");
+testList.push("Reading.pde");
+testList.push("Recursion.pde");
+testList.push("Recursion2.pde");
+testList.push("Redraw.pde");
+testList.push("Relativity.pde");
+testList.push("RequestImage.pde");
+testList.push("Rotate.pde");
+testList.push("Saturation.pde");
+testList.push("Scale.pde");
+testList.push("ScaleShape.pde");
+testList.push("SetupDraw.pde");
+testList.push("ShapePrimitives.pde");
+testList.push("SimpleCurves.pde");
+testList.push("Sine.pde");
+testList.push("SineCosine.pde");
+testList.push("SineWave.pde");
+testList.push("Sprite.pde");
+testList.push("StatementsComments.pde");
+testList.push("StoringInput.pde");
+testList.push("Translate.pde");
+testList.push("Transparency.pde");
+testList.push("TriangleFlower.pde");
+testList.push("TriangleStrip.pde");
+testList.push("TrueFalse.pde");
+testList.push("VariableScope.pde");
+testList.push("Variables.pde");
+testList.push("Vertices.pde");
+testList.push("WaveGradient.pde");
+testList.push("WidthHeight.pde");
+testList.push("Words.pde");
+</script>
+
+<script src="./v0.1821Jan10/P5LintJs/md5.js"></script>
+
+  <script language="Javascript">
+
+var totalHash = '';
+
+function runNextTests(originalFetchedPrograms){
+
+ 		
+			//alert('waking up');
+
+		if (originalFetchedPrograms === fetchedPrograms) {
+			setTimeout("runNextTests("+originalFetchedPrograms+")",200);
+			//alert('not yet ready, set the timeout in 5 seconds');
+			return;
+		}
+
+			//alert('program has arrived, proceeding with next one');
+	    	var testHash = hex_md5(document.getElementById("JSLINT_INPUT").value.replace(/\r\n|\r/g, '\n')).toLowerCase();
+	    	document.getElementById("theCheckButton").click();
+	    	var testResultHash = hex_md5(document.getElementById("P5LINT_OUTPUT").value.replace(/\r\n|\r/g, '\n')).toLowerCase();
+	    	
+	    	
+	    	totalHash += testList[originalFetchedPrograms] + '\n  source length: '+document.getElementById("JSLINT_INPUT").value.replace(/\r\n|\r/g, '\n').length + '\n  source hash: '+testHash +  '\n  check length: '+ document.getElementById("P5LINT_OUTPUT").value.replace(/\r\n|\r/g, '\n').length + '\n  check hash: '+testResultHash + '\n\n';	    	
+	    	document.getElementById("TEST_HASHES").value = totalHash;
+
+ 		if ((originalFetchedPrograms+1) == testList.length ){
+			var hashOfHashes = hex_md5(document.getElementById("TEST_HASHES").value.replace(/\r\n|\r/g, '\n')).toLowerCase();
+	    	document.getElementById("TEST_HASHES").value = "Hash of entire summary: "+hashOfHashes+"\n\n"+ document.getElementById("TEST_HASHES").value;
+ 			alert('done all ');
+ 			return;
+ 		}
+
+	    	xmlhttpPost("./tests/"+testList[originalFetchedPrograms+1]);
+
+
+			setTimeout("runNextTests("+(originalFetchedPrograms+1)+")",200);
+}
+
+function runAllTests(){
+fetchedPrograms = 0;
+xmlhttpPost("./tests/"+testList[0]);
+runNextTests(0);
+}
+</script>
+
+
+<div id="TestList" style="text-align: left; display:none; ">
+
+<p> <b> Click on a test name and then the check button, or
+<a href="javascript:;" onMouseDown="if(document.getElementById('TEST_HASHES_DIV').style.display == 'none'){ document.getElementById('TEST_HASHES_DIV').style.display = 'block'; runAllTests();}else{ document.getElementById('TEST_HASHES_DIV').style.display = 'none'; }"> run all the tests</a> (takes a minute). </b>
+<br>
+( <a target="_blank" href="./v0.1821Jan10/v0.1821Jan10TestSuiteSummary.txt"> here </a> is the test suite summary, you can compare it with test results of other versions using <a target="_blank" href="http://snowtide.com/files/media/jsdifflib/jsdifflibtest.html"> jsdiff </a> )
+<table border="0" align="left">
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+
+    <script>
+    var i =0;
+    var numberOfColumns = 6;
+	for(var columns=0; columns< numberOfColumns;columns++){
+	    document.write('<td><span class="style2"><a href="#">');
+		for(; i< (columns+1)*testList.length/numberOfColumns;){
+	    	document.write('<\/a><a href=\"javascript:void(null)\" onclick=\'xmlhttpPost(\".\/tests\/'+testList[i]+'\");\'>'+testList[i]+'<br>');
+	    	i++;
+		}
+	    document.write('<\/a><\/span><\/td>');
+	}
+    </script>
+
+	<script>
+	function showTheReport(ErrorWarningStructure) {
+				document.getElementById("P5LINT_OUTPUT").value = '';
+				document.getElementById("P5LINT_OUTPUT").value = ErrorWarningStructure[3];
+				document.getElementById("P5LINT_OUTPUT").value += '\n\nSummary of warning/errors ---------------------';
+			
+			for (var i = 0; i < ErrorWarningStructure[1].length; i += 1) {
+				document.getElementById("P5LINT_OUTPUT").value += "\n";	
+				if (ErrorWarningStructure[0][i] !== '')
+					document.getElementById("P5LINT_OUTPUT").value += "line: " + ErrorWarningStructure[0][i] + " ";	
+				document.getElementById("P5LINT_OUTPUT").value += ErrorWarningStructure[1][i] + " " + ErrorWarningStructure[2][i];
+			}
+	}
+
+	</script>
+	
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+</p>
+<p>&nbsp;</p>
+<br>
+
+<div id="TEST_HASHES_DIV" style="display:none;">
+<textarea id="TEST_HASHES" style="
+    border: 1px dotted black;
+    color: black;
+    font-family: monospace;
+    height: 3in;
+    overflow: auto;
+    padding: 0.5em;
+    margin-left: 40px;
+    width: 80%;"></textarea>
+</div>    
+
+</div>
+
+<div id="JSLINT_">
+<p style="background-color: transparent;"><textarea id="JSLINT_INPUT" style="
+    border: 1px dotted black;
+    color: black;
+    font-family: monospace;
+    height: 3in;
+    overflow: auto;
+    padding: 0.5em;
+    width: 100%;"></textarea>
+</p>
+
+	<p>
+
+<P><INPUT TYPE=CHECKBOX checked=yes name="tolerate_print_println_checkbox">Tolerate print/println<P>
+<INPUT TYPE=CHECKBOX name="tolerate_text_fonts_checkbox">Tolerate Text/Font features<P>
+<INPUT TYPE=CHECKBOX name="tolerate_3d_checkbox">Tolerate 3d features<P>
+<INPUT TYPE=CHECKBOX name="tolerate_imports_checkbox">Tolerate imports<P>
+		
+		<input id='theCheckButton' type="image" name="jslint" value="Check" onclick="showTheReport(P5LintDoTheChecks(document.getElementById('JSLINT_INPUT').value));" src="./v0.1821Jan10/images/CheckItButton.gif">
+	    	    
+	</p>
+
+<br clear="all">
+
+
+<p><big>P5Lint output</big></p>
+<DIV style="border-top: 1px dotted black; padding-left: 0px; left: 0px; margin-left: 40px; width: 80%;"></div>
+<textarea id="P5LINT_OUTPUT" style="
+    border: 1px dotted black;
+    color: black;
+    font-family: monospace;
+    height: 3in;
+    overflow: auto;
+    padding: 0.5em;
+    margin-left: 40px;
+    width: 80%;"></textarea>
+	
+
+<p><big><a href="javascript:;" onMouseDown="if(document.getElementById('JSLINT_OUTPUT').style.display == 'none'){ document.getElementById('JSLINT_OUTPUT').style.display = 'block'; }else{ document.getElementById('JSLINT_OUTPUT').style.display = 'none'; }">View/Hide</a> the JSLint output</big></p>  
+<DIV style="border-top: 1px dotted black; padding-left: 0px; left: 0px; margin-left: 40px; width: 80%;"></div>
+<div id="JSLINT_OUTPUT" style="text-align: left; display:none; margin-left: 40px; width: 80%;">
+
+</div>
+
+  <div class="leftcolumn">
+
+<div class="leftcolumn">
+    <label for="JSLINT_PREDEF" title="predef">Predefined&nbsp;<small>(&nbsp;<code>,</code>&nbsp;separated)</small></label>&nbsp;<input id="JSLINT_PREDEF" type="text" size="72" autocomplete=off>
+  </div>
+<br clear=all>
+<p id=JSLINT_JSLINTSTRING style="
+    background-color: peachpuff;
+    border-top: 1px dotted black;
+    font-family: monospace;
+    margin: 1em;
+    padding: 1em;"></p>
+</fieldset>
+
+</div>
+
+<p><big><a href="javascript:;" onMouseDown="if(document.getElementById('STEP_BY_STEP_TRANSFORMATIONS').style.display == 'none'){ document.getElementById('STEP_BY_STEP_TRANSFORMATIONS').style.display = 'block'; }else{ document.getElementById('STEP_BY_STEP_TRANSFORMATIONS').style.display = 'none'; }">View/Hide</a> the step-by-step transformations</big></p>
+<DIV style="border-top: 1px dotted black; padding-left: 0px; left: 0px; margin-left: 40px; width: 80%;"></div>
+<div id="STEP_BY_STEP_TRANSFORMATIONS" style="text-align: left; display:none; margin-left: 40px; width: 80%;">
+
+      <div style="text-align: left;">Stripping comments and adding line numbers. This is so that we can keep information of the line the error was in.</div>
+      <div id="WITH_LINE_NUMBERS" style="text-align: left ;margin: 1em; border-top: 1px dotted black; padding: 1em; background-color: SeaShell;">
+
+      </div>
+
+<div style="text-align: left;">
+
+      <div style="text-align: left;"><big>List of classes</big></div>
+      <div id="LIST_OF_CLASSES_OUTPUT" style="text-align: left ;margin: 1em; border-top: 1px dotted black; padding: 1em; background-color: SeaShell;">
+
+      </div>
+</div>
+ 
+<div style="text-align: left;">
+
+      <div style="text-align: left;"><big>Simplifying stuff like bilingualQuestion(question, new String[][] {{ "Yes", "No" },{ "Oui", "Non" }});</big>
+
+    </div>
+      <div id="simplifyStringArrayDeclarationsWithLiteralInit" style="text-align: left ;margin: 1em; border-top: 1px dotted black; padding: 1em; background-color: SeaShell;">
+
+      </div>
+</div>
+
+<div style="text-align: left;">
+
+      <div style="text-align: left;"><big>Highlighting all the left sides of array declarations</big><br>this is because lines like "float [] coswave;" will have to become "var coswave;"</div>
+      <div id="ARRAY_DECLARATIONS_LEFT_SIDES" style="text-align: left ;margin: 1em; border-top: 1px dotted black; padding: 1em; background-color: SeaShell;">
+
+      </div>
+</div>
+
+<div style="text-align: left;">
+
+      <div style="text-align: left;"><big>Replacing all of the empty bits in the right side of array declarations</big><br>...</div>
+      <div id="programWithoutEmptyArrayDeclarations" style="text-align: left ;margin: 1em; border-top: 1px dotted black; padding: 1em; background-color: SeaShell;">
+
+      </div>
+</div>
+
+<div style="text-align: left;">
+
+      <div style="text-align: left;"><big>Highlighting all the right sides of array declarations</big><br>this is because lines like "float [] coswave = float [width];" will have to become "var coswave = new Array(width);"</div>
+      <div id="ARRAY_DECLARATIONS_RIGHT_SIDES" style="text-align: left ;margin: 1em; border-top: 1px dotted black; padding: 1em; background-color: SeaShell;">
+
+      </div>
+</div>
+
+
+
+<div style="text-align: left;">
+
+      <div style="text-align: left;"><big>Highlighting all the types inside the function definitions</big><br>this is because lines like "float functionName( float a, int b) {" will have to become "float functionName(a, b) {"</div>
+      <div id="TYPE_INSIDE_FUNCTION_DEFINITION" style="text-align: left ;margin: 1em; border-top: 1px dotted black; padding: 1em; background-color: SeaShell;">
+
+      </div>
+</div>
+
+<div style="text-align: left;">
+
+      <div style="text-align: left;"><big>Cleaning all constructors</big><br>...</div>
+      <div id="CLEAN_CONSTRUCTORS" style="text-align: left ;margin: 1em; border-top: 1px dotted black; padding: 1em; background-color: SeaShell;">
+
+      </div>
+</div>
+
+
+<div style="text-align: left;">
+
+      <div style="text-align: left;"><big>Getting rid of all remainders from multidimentional  definitions</big><br>this is because lines like "float[][] aFloat;" first become "var[] aFloat;" and now they will have to become "var aFloat;"</div>
+      <div id="ELIMINATED_MULTIDIM_DEFINITIONS" style="text-align: left ;margin: 1em; border-top: 1px dotted black; padding: 1em; background-color: SeaShell;">
+
+      </div>
+</div>
+
+
+<div style="text-align: left;">
+
+      <div style="text-align: left;"><big>Highlighting all of the types inside castings</big><br>this is because lines like "float aFloat = (float)2;" will have to become "float aFloat = 2;"</div>
+      <div id="TYPE_INSIDE_CASTING" style="text-align: left ;margin: 1em; border-top: 1px dotted black; padding: 1em; background-color: SeaShell;">
+
+      </div>
+</div>
+
+
+<div style="text-align: left;">
+
+      <div style="text-align: left;"><big>Highlighting all other declarations</big><br>this is because lines like "for (int i = 0; i... {" will have to become "for (var i = 0; i..."</div>
+      <div id="ALL_OTHER_DECLARATIONS" style="text-align: left ;margin: 1em; border-top: 1px dotted black; padding: 1em; background-color: SeaShell;">
+
+      </div>
+</div>
+
+<div style="text-align: left;">
+
+      <div style="text-align: left;"><big>Removing extends or implements</big><br>...</div>
+      <div id="NO_EXTENDS_IMPLEMENTS" style="text-align: left ;margin: 1em; border-top: 1px dotted black; padding: 1em; background-color: SeaShell;">
+
+      </div>
+</div>
+
+<div style="text-align: left;">
+
+      <div style="text-align: left;"><big>Turning classes into functions</big><br>this is because lines like "class thisandthat {" will have to become "function thisandthat () {"</div>
+      <div id="TURNED_CLASSES_IN_FUNCTIONS" style="text-align: left ;margin: 1em; border-top: 1px dotted black; padding: 1em; background-color: SeaShell;">
+
+      </div>
+</div>
+
+<div style="text-align: left;">
+
+      <div style="text-align: left;"><big>Converting array inits</big><br>...</div>
+      <div id="CONVERTED_ARRAY_INIT" style="text-align: left ;margin: 1em; border-top: 1px dotted black; padding: 1em; background-color: SeaShell;">
+
+      </div>
+</div>
+
+<div style="text-align: left;">
+
+      <div style="text-align: left;"><big>Simplifying other odd literals</big><br>hex color literals and float literals like #FFFFFF and 1.2f are replaced with placeholders</div>
+      <div id="NO_ODD_LITERALS" style="text-align: left ;margin: 1em; border-top: 1px dotted black; padding: 1em; background-color: SeaShell;">
+
+      </div>
+</div>
+
+<div style="text-align: left;">
+
+      <div style="text-align: left;"><big>Simplifying public/private static final tokens</big><br></div>
+      <div id="NO_PUBLIC_PRIVATE_STATIC_FINAL" style="text-align: left ;margin: 1em; border-top: 1px dotted black; padding: 1em; background-color: SeaShell;">
+
+      </div>
+</div>
+
+<div style="text-align: left;">
+
+      <div style="text-align: left;"><big>Eliminating all of the imports</big><br></div>
+      <div id="NO_IMPORTS" style="text-align: left ;margin: 1em; border-top: 1px dotted black; padding: 1em; background-color: SeaShell;">
+
+      </div>
+</div>
+
+</div> <!-- this one closes the whole transformations debug div -->
+
+
+<br clear="all">
+<fieldset id="JSLINT_OPTIONS" style="background-color: linen; width: 80%; margin-left: 40px;"><legend>JSLint Options</legend>
+  <div class="leftcolumn">
+
+    <!-- <input type="checkbox" id="JSLINT_PASSFAIL" title="passfail"><label for="JSLINT_PASSFAIL" title="passfail">Stop on first error</label>
+  <br> -->
+    <!-- <input type="checkbox" id="JSLINT_WHITE" title="white" name=goodpart><label for="JSLINT_WHITE" title="white">Strict white space</label>
+  <br> -->
+    <!-- <input type="checkbox" id="JSLINT_ONEVAR" title="onevar" name=goodpart><label for="JSLINT_ONEVAR" title="onevar">Allow one <tt>var</tt> statement per function</label>
+  <br> -->
+
+    <!-- <input type="checkbox" id="JSLINT_BROWSER" title="browser"><label for="JSLINT_BROWSER" title="browser">Assume a browser</label>
+  <br> -->
+    <!-- <input type="checkbox" id="JSLINT_WIDGET" title="widget"><label for="JSLINT_WIDGET" title="widget">Assume a
+        <a href="http://widgets.yahoo.com/tools/">Yahoo Widget</a></label>
+  <br> -->
+   <!--  <input type="checkbox" id="JSLINT_SIDEBAR" title="sidebar"><label for="JSLINT_SIDEBAR" title="sidebar">Assume a
+        <a href="http://msdn2.microsoft.com/en-us/library/aa965850(VS.85).aspx">Windows Sidebar Gadget</a></label>
+  <br> -->
+
+    <!--  <input type="checkbox" id="JSLINT_RHINO" title="rhino"><label for="JSLINT_RHINO" title="rhino">Assume
+        <a href="http://www.mozilla.org/rhino/">Rhino</a></label>
+  <br> -->
+   <!--  <input type="checkbox" id="JSLINT_SAFE" title="safe"><label for="JSLINT_SAFE" title="safe">Safe Subset</label>
+  <br> -->
+   <!--  <input type="checkbox" id="JSLINT_ADSAFE" title="adsafe"><label for="JSLINT_ADSAFE" title="adsafe"><a href="http://www.ADsafe.org">ADsafe</a></label> -->
+  </div>
+  
+  <div class="leftcolumn">
+
+   <!-- <input type="checkbox" id="JSLINT_DEBUG" title="debug"><label for="JSLINT_DEBUG" title="debug">Tolerate <tt>debugger</tt> statements</label>
+  <br> -->
+   <!-- <input type="checkbox" id="JSLINT_EVIL" title="evil"><label for="JSLINT_EVIL" title="evil">Tolerate <tt>eval</tt></label>
+  <br> -->
+   <input type="checkbox" id="JSLINT_LAXBREAK" title="laxbreak"><label for="JSLINT_LAXBREAK" title="laxbreak">Tolerate sloppy line breaking</label>
+
+  <br>
+   <!-- <input type="checkbox" id="JSLINT_FORIN" title="forin"><label for="JSLINT_FORIN" title="forin">Tolerate <a href="http://yuiblog.com/blog/2006/09/26/for-in-intrigue/">unfiltered</a> <tt>for</tt> <tt>in</tt></label>
+  <br> -->
+   <input type="checkbox" id="JSLINT_SUB" title="sub"><label for="JSLINT_SUB" title="sub">Tolerate inefficient subscripting</label>
+  <br>
+
+   <!-- <input type="checkbox" id="JSLINT_CSS" title="css"><label for="JSLINT_CSS" title="css">Tolerate CSS workarounds</label>
+  <br> -->
+   <!-- <input type="checkbox" id="JSLINT_CAP" title="cap"><label for="JSLINT_CAP" title="cap">Tolerate <tt>HTML</tt> case</label>
+  <br> -->
+   <!-- <input type="checkbox" id="JSLINT_ON" title="on"><label for="JSLINT_ON" title="on">Tolerate <tt>HTML</tt> event handlers</label>
+
+  <br> -->
+   <!-- <input type="checkbox" id="JSLINT_FRAGMENT" title="fragment"><label for="JSLINT_FRAGMENT" title="fragment">Tolerate <tt>HTML</tt> fragments</label> -->
+  </div>
+
+</body></html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<meta http-equiv="Content-Type" content="text/xhtml; charset=ISO-8859-1" />
+<title>sketchPatch_About</title>
+<link href="./style.css" rel="stylesheet" type="text/css" />
+
+
+<script type="text/javascript" id="miao">
+//<![CDATA[
+
+     function deleteClientSideUserInfoCookies(){
+		deleteCookie('user.user_id');
+		deleteCookie('user.is_current_user_admin');
+		deleteCookie('user.user');
+		deleteCookie('user.nickname');
+		deleteCookie('user.firstLogin');
+	}
+
+    function readCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0 ; i < ca.length ; i++) {
+                var c = ca[i];
+                while (c.charAt(0)==' ') c = c.substring(1,c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+        }
+        return null;
+    }
+
+
+
+    //]]>
+    </script>	
+	
+</head>
+
+
+
+<body>
+
+<div id="page">
+
+
+		<div id="header">
+			<div id="menu">
+				<a href="/index.html"> home</a> |
+				<a href="/Featured_Sketches.html"> featured sketches</a> |
+				<a href="/gallery.html"> gallery</a> |
+				<a href="/create"> write a sketch</a> |
+				<a href="http://community.sketchpatch.net/"> community</a>
+                <script language="JavaScript" type="text/javascript">
+//<![CDATA[
+                if ( readCookie("user.user") != "None") {
+                        document.write(" |<a href=\"\/mySketches\">my sketches<\/a>");
+                }
+
+              //]]>
+              </script>
+				
+			</div>
+			
+	<div id="headerPageText"> Group login </div>		
+			
+		</div>
+			
+
+				
+<br><br>
+<DIV ALIGN=CENTER>
+<img src="/imgs/Doh.png">
+<br>
+<br>
+<br>
+Hmmm that word doesn't look right,<br>
+try again.
+</DIV>
+<br>
+
+<form name="secretWord" method="post"  action="./groupLogin.html" style="width: 200px ;margin-left: auto; margin-right: auto;">
+<input type="text" name="secretWord" style="margin-left: auto; margin-right: auto;" >
+<br>
+<INPUT  TYPE=submit NAME=submitit value="shhhh!" style="margin-left: auto; margin-top: 20px; margin-right: auto;">
+</form>		
+
+				
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-8776965-1");
+pageTracker._setDomainName(".sketchpatch.net");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+
+
+</body>
+</html>
+
+

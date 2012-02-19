@@ -1,0 +1,258 @@
+<!DOCTYPE html PUBLIC"-// W3C//DTD XHTML 1.0 Transitional//EN"" http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/xhtml; charset=us-ascii"/>
+    <title>
+      sketchPatch - The programming playground
+    </title>
+    <link href="/style.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="/jquery-tooltip/jquery.tooltip.css" type="text/css"/>
+    <!--  <link rel="stylesheet" href="./jquery-tooltip/demo/screen.css" />  -->
+
+<script src="/jquery-tooltip/lib/jquery.js" type="text/javascript">
+</script>
+<script src="/jquery-tooltip/lib/jquery.bgiframe.js" type="text/javascript">
+</script>
+<script src="/jquery-tooltip/lib/jquery.dimensions.js" type="text/javascript">
+</script>
+<script src="/jquery-tooltip/jquery.tooltip.js" type="text/javascript">
+</script>
+<script src="/jquery-tooltip/demo/chili-1.7.pack.js" type="text/javascript">
+</script>
+<script type="text/javascript" src="/corner/justcorners.js"></script>
+
+<script language="JavaScript" type="text/javascript">
+
+    </script>
+
+    {% include 'readCookieCode.html' %}
+
+  </head>
+  <body>
+    <div id="page">
+
+      {% include 'headerTemplate.html' %}
+
+
+
+
+
+
+      <br/>
+
+
+
+      <div id="content" style="margin-top:0px">
+
+        <div class="profileTitle">
+          <h6>{{name}}
+          </h6> 
+
+
+		<script language="JavaScript" type="text/javascript">
+		// this bit only shows the edit profile link if the identity of the user is the same as the
+		// one of the profile owner
+				var notAGroupLogin = false;
+				if ("None" == readCookie("groupLoginCode")) {
+					notAGroupLogin = true;
+					}
+					else
+					{
+					notAGroupLogin = false;
+					}
+				// if you are the admin then you can delete
+				// if you are anonymous then you can't delete
+				// if you are a group login then you can't delete
+				// if you own the sketch and you are neither anonymous nor a group login then you can delete
+				//alert("readCookie(user.user_id): " + readCookie("user.user_id")  + "  user id passed from template:  {{user_id}} ");
+                if ((readCookie("user.is_current_user_admin")=="True")||((( readCookie("user.user_id") != "None") && ("{{user_id}}" == readCookie("user.user_id"))) && notAGroupLogin)){
+                        document.write('<a href="/myPageEdit/">   <img alt="edit" style="margin-left:20px; " src="/imgs/editPROFILE_soph.png"/><\/a>');
+                } 
+          //]]>
+          </script>
+          
+		  
+
+
+        </div>
+        <div id="profileTEXT">
+          <p>{{profileText}}
+          </p>
+        </div>
+
+        <div id="profileMETA">
+          <h8>http://
+          </h8>  
+          <a href="http://{{url1}}">{{url1}}
+          </a>
+          <br/>
+          <h8>http://
+          </h8>  
+          <a href="http://{{url2}}">{{url2}}
+          </a>
+          <br/>
+          <h8>http://
+          </h8>  
+          <a href="http://{{url3}}">{{url3}}
+          </a>
+          <br/>
+          <h8>http://
+          </h8>  
+          <a href="http://{{url4}}">{{url4}}
+          </a>
+          <br/>
+          <br/>
+          <h8>Location:
+          </h8>{{location}}
+
+        </div>
+
+        <div id="profilePIC">
+          <img alt="edit" src="/avatar/{{userNickname}}-{{userIDasString}}.png">
+        </div>
+
+<div style="width:800px; float:left;">
+        <h6>Latest sketches:
+        </h6>
+</div>
+
+        <!-- this is the part snipped from the gallery -->    
+        <div id="gallerypagination1">
+          {% ifnotequal bookmark "sketch" %}{% endifnotequal %} {% ifnotequal next "" %}
+          <a href="/byUploader/{{userNickname}}-{{userIDasString}}">more
+          </a>{% endifnotequal %}
+        </div>
+        <div id="gallerycontent">
+          {% for sketch in sketches %}
+          <div id="sketchBox">
+            <div class="sketchBoximage">
+              {% ifnotequal sketch.published Null %}{% if not sketch.published %}
+              <div class="lock">
+                <img src="/imgs/padlock.png" alt="unpublished sketch" width="12"/>
+              </div>
+              {% endif %}{% endifnotequal %}
+              <a href="/view/{{sketch.randomID}}/">
+                {% ifequal action "gallery" %} 
+                <img src="/thumbnailsForGallery/{{sketch.randomID}}.jpg" class="corners iradius2" class="floatLeft" alt="sketchPatch" width="50" height="50"/>
+              </a>
+              {% endifequal %} {% ifequal action "mySketches" %} 
+              <img src="/thumbnailsForMyPage/{{sketch.randomID}}.jpg" class="corners iradius2" class="floatLeft" alt="sketchPatch" width="50" height="50"/>
+            </a>
+            {% endifequal %} {% ifequal action "sketchesByUploader" %} 
+            <img src="/thumbnailsByUploader/{{sketch.randomID}}.jpg" class="corners iradius2" class="floatLeft" alt="sketchPatch" width="50" height="50"/>
+          </a>
+          {% endifequal %}
+        </div>
+        <div class="galleryinfotext">
+          <p>
+            {{sketch.title}}{% ifequal action "gallery" %} by 
+            <br/>
+            <strong>{{sketch.author_nickname}}
+            </strong>{% endifequal %}
+          <p>
+            {{sketch.stringtags}}
+          </p>
+        </div>
+      </div>
+      {% endfor %}
+<script type="TEXT/JAVASCRIPT">
+// arrays for the stuff that changes
+// replace the variable bits in a string with " +variable+ "
+// put the for loop here. And put the whole document.write (that is your html script) inside it
+for(i=0; i<26; i++) { 
+   document.writeln("\
+<div id=\"sketchBox\"><a href=\"sketchpage\"> <img src=\"./imgs/Picture_"+i+".png\" class=\"corners iradius2\" class=\"floatLeft\" alt=\"sketchPatch\" width=\"50\" height=\"50\"</a>\ 
+<p>Sketch Title Author Name  Tags, tags , and tags</p></div>\
+"); 
+}
+		</script>
+    </div>
+    <!-- end of part snipped from the gallery -->    
+
+
+  </div>
+
+
+  <div id="footer"> 
+<script language="JavaScript" type="text/javascript">
+                //<![CDATA[
+                if ( readCookie("user.user") != "None") {
+                logout_url = "{{logout_url}}";
+                        document.write(" <div style=\"  margin: 0px 0px 10px 245px;\">");
+                }
+                else {
+                        document.write(" <div style=\"  margin: 0px 0px 10px 280px;\">");
+                }
+                </script>
+
+    <a href="/about.html">About
+    </a> | 
+    <a href="mailto:sketchpatch.temp.acc@googlemail.com">Contact
+    </a> | 
+    <a href="/credits.html">Credits
+    </a>                
+<script language="JavaScript" type="text/javascript">
+                //<![CDATA[
+                if ( readCookie("user.user") != "None") {
+                logout_url = "{{logout_url}}";
+                        document.write(" | <a href=\""+logout_url+"\" onclick=\"deleteClientSideUserInfoCookies();\">Sign out<\/a>");
+                }
+                //else {
+                //        document.write(readCookie("user.user"));
+                //}
+                </script>
+  </div>		
+  <div style=" margin: 0px 0px 0px 263px;"> 
+    <a target="_blank" href="http://community.sketchpatch.net/blog/rss.xml"> 
+      <img style="margin-right:5px;" src="/imgs/feed.png"/> 
+    </a> 
+    <a target="_blank" href="http://twitter.com/home/?status=Checkin%27%20out%20http://www.sketchpatch.net/%20by%20@sketchPatch"> 
+      <img style="margin-right:5px;" src="/imgs/twitter.png"/> 
+    </a>
+    <a target="_blank" href="http://www.facebook.com/share.php?u=www.sketchpatch.net"> 
+      <img style="margin-right:5px;" src="/imgs/facebook.png"/> 
+    </a>
+    <a target="_blank" href="http://www.flickr.com/groups/sketchpatch/pool/"> 
+      <img style="margin-right:5px;" src="/imgs/flickr.png"/> 
+    </a>
+    <a target="_blank" href="http://del.icio.us/post?url=http://www.sketchpatch.net&title=sketchpatch.net&notes=the%20programming%20playground"> 
+      <img style="margin-right:5px;" src="/imgs/delicious.png"/> 
+    </a>
+    <a target="_blank" href="http://digg.com/submit?phase=2&url=http://sketchpatch.net/&title=sketchpatch.net"> 
+      <img style="margin-right:5px;" src="/imgs/digg.png"/> 
+    </a>
+    <a target="_blank" href="http://www.stumbleupon.com/submit?url=http://www.sketchpatch.net&title=sketchpatch.net"> 
+      <img style="margin-right:5px;" src="/imgs/stumble.png"/> 
+    </a> 
+    <a target="_blank" href="http://www.reddit.com/submit?url=http://www.sketchpatch.net/&title=sketchpatch.net"> 
+      <img style="margin-right:5px;" src="/imgs/reddit.png"/> 
+    </a> 
+  </div> <!-- closed div of the style-->
+
+</div> <!-- closed div of the footer-->
+
+
+
+
+</div> <!-- closed div of the page-->
+
+
+
+
+<script language="JavaScript" type="text/javascript">
+//<![CDATA[
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    //]]>
+    </script>
+<script language="JavaScript" type="text/javascript">
+//<![CDATA[
+    try {
+    var pageTracker = _gat._getTracker("UA-8776965-1");
+    pageTracker._setDomainName(".sketchpatch.net");
+    pageTracker._trackPageview();
+    } catch(err) {}
+    //]]>
+    </script>
+</body>
+</html>

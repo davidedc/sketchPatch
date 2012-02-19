@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>sketchPatch - The programming playground - SKELETAL</title>
+
+{% include 'readCookieCode.js' %}
+</head>
+
+<body>
+
+<a href="/create" >write a sketch</a> / 
+  
+  <script language="JavaScript" type="text/javascript">
+	if ( readCookie("user.user") == "None") document.write('<a href="{{login_url}}" >login<\/a> / '); 
+	else document.write('<a href="\/mySketches" >my sketches<\/a> / '); 
+	
+	if ( readCookie("user.user") != "None") document.write('<a href="{{logout_url}}">sign out<\/a> / ');
+  </script>
+  
+<a href="/gallery.html" >gallery</a>
+
+<br><br>latest sketches:
+<a href="/view/{{sketches.0.randomID}}/" > {{sketches.0.title}} by {{sketches.0.author_nickname}} </a> /
+<a href="/view/{{sketches.1.randomID}}/" > {{sketches.1.title}} by {{sketches.1.author_nickname}} </a> /
+<a href="/view/{{sketches.2.randomID}}/" > {{sketches.2.title}} by {{sketches.2.author_nickname}} </a> /
+<a href="/view/{{sketches.3.randomID}}/" > {{sketches.3.title}} by {{sketches.3.author_nickname}} </a> /
+<a href="/view/{{sketches.4.randomID}}/" > {{sketches.4.title}} by {{sketches.4.author_nickname}} </a> /
+<a href="/view/{{sketches.5.randomID}}/" > {{sketches.5.title}} by {{sketches.5.author_nickname}} </a> /
+<a href="/view/{{sketches.6.randomID}}/" > {{sketches.6.title}} by {{sketches.6.author_nickname}} </a> /
+<a href="/view/{{sketches.7.randomID}}/" > {{sketches.7.title}} by {{sketches.7.author_nickname}} </a> /
+<a href="/view/{{sketches.8.randomID}}/" > {{sketches.8.title}} by {{sketches.8.author_nickname}} </a> /
+<a href="/view/{{sketches.9.randomID}}/" > {{sketches.9.title}} by {{sketches.9.author_nickname}} </a> /
+<a href="/view/{{sketches.10.randomID}}/" > {{sketches.10.title}} by {{sketches.10.author_nickname}} </a> /
+<a href="/view/{{sketches.11.randomID}}/" > {{sketches.11.title}} by {{sketches.11.author_nickname}} </a> /
+<a href="/view/{{sketches.12.randomID}}/" > {{sketches.12.title}} by {{sketches.12.author_nickname}} </a> /
+<a href="/view/{{sketches.13.randomID}}/" > {{sketches.13.title}} by {{sketches.13.author_nickname}} </a> /
+<a href="/view/{{sketches.14.randomID}}/" > {{sketches.14.title}} by {{sketches.14.author_nickname}} </a> /
+<a href="/view/{{sketches.15.randomID}}/" > {{sketches.15.title}} by {{sketches.15.author_nickname}} </a> /
+<a href="/view/{{sketches.16.randomID}}/" > {{sketches.16.title}} by {{sketches.16.author_nickname}} </a> /
+<a href="/view/{{sketches.17.randomID}}/" > {{sketches.17.title}} by {{sketches.17.author_nickname}} </a> /
+<a href="/view/{{sketches.18.randomID}}/" > {{sketches.18.title}} by {{sketches.18.author_nickname}} </a> /
+<a href="/view/{{sketches.19.randomID}}/" > {{sketches.29.title}} by {{sketches.29.author_nickname}} </a> /
+<a href="/view/{{sketches.20.randomID}}/" > {{sketches.20.title}} by {{sketches.20.author_nickname}} </a> /
+<a href="/view/{{sketches.21.randomID}}/" > {{sketches.21.title}} by {{sketches.21.author_nickname}} </a> /
+<a href="/view/{{sketches.22.randomID}}/" > {{sketches.22.title}} by {{sketches.22.author_nickname}} </a> /
+<a href="/view/{{sketches.23.randomID}}/" > {{sketches.23.title}} by {{sketches.23.author_nickname}} </a>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br>latest sketches with images:
+<a href="/view/{{sketches.0.randomID}}/" > <img src="/thumbnailsForGallery/{{sketches.0.randomID}}.jpg"> {{sketches.0.title}} by {{sketches.0.author_nickname}} </a>
+<a href="/view/{{sketches.1.randomID}}/" > <img src="/thumbnailsForGallery/{{sketches.1.randomID}}.jpg"> {{sketches.1.title}} by {{sketches.1.author_nickname}} </a>
+<a href="/view/{{sketches.2.randomID}}/" > <img src="/thumbnailsForGallery/{{sketches.2.randomID}}.jpg"> {{sketches.2.title}} by {{sketches.2.author_nickname}} </a>
+<a href="/view/{{sketches.3.randomID}}/" > <img src="/thumbnailsForGallery/{{sketches.3.randomID}}.jpg"> {{sketches.3.title}} by {{sketches.3.author_nickname}} </a>
+<a href="/view/{{sketches.4.randomID}}/" > <img src="/thumbnailsForGallery/{{sketches.4.randomID}}.jpg"> {{sketches.4.title}} by {{sketches.4.author_nickname}} </a>
+<a href="/view/{{sketches.5.randomID}}/" > <img src="/thumbnailsForGallery/{{sketches.5.randomID}}.jpg"> {{sketches.5.title}} by {{sketches.5.author_nickname}} </a>
+<a href="/view/{{sketches.6.randomID}}/" > <img src="/thumbnailsForGallery/{{sketches.6.randomID}}.jpg"> {{sketches.6.title}} by {{sketches.6.author_nickname}} </a>
+<a href="/view/{{sketches.7.randomID}}/" > <img src="/thumbnailsForGallery/{{sketches.7.randomID}}.jpg"> {{sketches.7.title}} by {{sketches.7.author_nickname}} </a>
+<a href="/view/{{sketches.8.randomID}}/" > <img src="/thumbnailsForGallery/{{sketches.8.randomID}}.jpg"> {{sketches.8.title}} by {{sketches.8.author_nickname}} </a>
+<a href="/view/{{sketches.9.randomID}}/" > <img src="/thumbnailsForGallery/{{sketches.9.randomID}}.jpg"> {{sketches.9.title}} by {{sketches.9.author_nickname}} </a>
+<a href="/view/{{sketches.10.randomID}}/" > <img src="/thumbnailsForGallery/{{sketches.10.randomID}}.jpg"> {{sketches.10.title}} by {{sketches.10.author_nickname}} </a>
+<a href="/view/{{sketches.11.randomID}}/" > <img src="/thumbnailsForGallery/{{sketches.11.randomID}}.jpg"> {{sketches.11.title}} by {{sketches.11.author_nickname}} </a>
+<a href="/view/{{sketches.12.randomID}}/" > <img src="/thumbnailsForGallery/{{sketches.12.randomID}}.jpg"> {{sketches.12.title}} by {{sketches.12.author_nickname}} </a>
+<a href="/view/{{sketches.13.randomID}}/" > <img src="/thumbnailsForGallery/{{sketches.13.randomID}}.jpg"> {{sketches.13.title}} by {{sketches.13.author_nickname}} </a>
+<a href="/view/{{sketches.14.randomID}}/" > <img src="/thumbnailsForGallery/{{sketches.14.randomID}}.jpg"> {{sketches.14.title}} by {{sketches.14.author_nickname}} </a>
+<a href="/view/{{sketches.15.randomID}}/" > <img src="/thumbnailsForGallery/{{sketches.15.randomID}}.jpg"> {{sketches.15.title}} by {{sketches.15.author_nickname}} </a>
+<a href="/view/{{sketches.16.randomID}}/" > <img src="/thumbnailsForGallery/{{sketches.16.randomID}}.jpg"> {{sketches.16.title}} by {{sketches.16.author_nickname}} </a>
+<a href="/view/{{sketches.17.randomID}}/" > <img src="/thumbnailsForGallery/{{sketches.17.randomID}}.jpg"> {{sketches.17.title}} by {{sketches.17.author_nickname}} </a>
+<a href="/view/{{sketches.18.randomID}}/" > <img src="/thumbnailsForGallery/{{sketches.18.randomID}}.jpg"> {{sketches.18.title}} by {{sketches.18.author_nickname}} </a>
+<a href="/view/{{sketches.19.randomID}}/" > <img src="/thumbnailsForGallery/{{sketches.19.randomID}}.jpg"> {{sketches.29.title}} by {{sketches.29.author_nickname}} </a>
+<a href="/view/{{sketches.20.randomID}}/" > <img src="/thumbnailsForGallery/{{sketches.20.randomID}}.jpg"> {{sketches.20.title}} by {{sketches.20.author_nickname}} </a>
+<a href="/view/{{sketches.21.randomID}}/" > <img src="/thumbnailsForGallery/{{sketches.21.randomID}}.jpg"> {{sketches.21.title}} by {{sketches.21.author_nickname}} </a>
+<a href="/view/{{sketches.22.randomID}}/" > <img src="/thumbnailsForGallery/{{sketches.22.randomID}}.jpg"> {{sketches.22.title}} by {{sketches.22.author_nickname}} </a>
+<a href="/view/{{sketches.23.randomID}}/" > <img src="/thumbnailsForGallery/{{sketches.23.randomID}}.jpg"> {{sketches.23.title}} by {{sketches.23.author_nickname}} </a>
+
+ 
+    
+
+  
+</body>
+</html>

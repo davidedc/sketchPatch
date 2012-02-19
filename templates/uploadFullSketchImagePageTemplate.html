@@ -1,0 +1,457 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta name="generator" content=
+    "HTML Tidy for Linux/x86 (vers 11 February 2007), see www.w3.org" />
+    <meta http-equiv="Content-Type" content="text/xhtml; charset=us-ascii" />
+    <title>
+      sketchPatch - upload full sketch picture
+    </title>
+    <link href="/style.css" rel="stylesheet" type="text/css" />
+    
+  
+
+  
+<!-- BOXY  -->
+ 	<script type="text/javascript" src="/boxy/javascripts/jquery.js"></script>
+      <script type="text/javascript" src="/boxy/javascripts/jquery_002.js"></script>
+
+
+    <!-- per Project stuff -->
+            <script type='text/javascript' src='/boxy/javascripts/jquery.boxy.js'></script>
+      
+      <STYLE TYPE="text/css" MEDIA="screen, projection">
+<!--
+  @import url(/boxy/stylesheets/boxy.css);
+-->
+textarea#styled {
+	border: none;
+	padding: 5px;
+	border:2px dotted #ff33ff;
+	font-family: Tahoma, sans-serif;
+	background-position: top left;
+	background-repeat: no-repeat;
+}
+</STYLE>
+
+<script type="text/javascript" src="/jscripts/swfobject.js"></script>
+
+    <!-- END per project stuff -->
+
+		<!-- Dependencies for syntax highlighting -->
+		<script type="text/javascript" src="/jscripts/codemirror/highlight.js"></script>
+		<script type="text/javascript" src="/jscripts/codemirror/stringstream.js"></script>
+		<script type="text/javascript" src="/jscripts/codemirror/tokenize.js"></script>
+		<script type="text/javascript" src="/jscripts/codemirror/tokenizejavascript.js"></script>
+		<script type="text/javascript" src="/jscripts/codemirror/parsejavascript.js"></script>
+		<link href="/jscripts/codemirror/jscolors.css"  rel="stylesheet" type="text/css">
+		<script type="text/javascript">
+			function ltrim(stringToTrim) {
+				return stringToTrim.replace(/^\s+/,"");
+			}
+			function doSyntaxHighlighting() {
+				var el = document.getElementById("theSourceCode");
+				var text = ltrim(deHTML(el.innerHTML));
+				el.innerHTML = ""
+				highlightText(text, el);
+				el.innerHTML = "<pre>" + el.innerHTML + "<\/pre>";
+			}
+		</script>
+		<!-- End of stuff syntax hightlighting -->
+  </head>
+  <body>
+    <script type="text/javascript" src="/sketchPlayer/sandbox_files/processingas.js">
+</script>
+
+
+{% include 'readCookieCode.html' %}
+
+
+<script type="text/javascript" >
+//<![CDATA[
+
+    var Processing = null;
+
+    function getFlashMovie() {
+   		return document.getElementById("processingViewer");
+    }
+
+
+    function ProcessingASonLoad() {
+        // swf loaded
+        
+        var browser=navigator.userAgent;
+        var programMadeRight = fetchProgram();      
+
+        //alert("your browser is: " + navigator.appName);
+        Processing = getFlashMovie();
+        Processing.start();
+        Processing.run(programMadeRight, null);
+        //alert("processing started and runned");
+
+        // alert("processing started");
+        // sketchy loadImage pre-processing
+        //alert(programMadeRight);
+        
+        doSyntaxHighlighting();
+        
+    }
+
+    function fetchProgram() {
+        return deHTML(document.getElementById("theSourceCode").innerHTML);
+    }
+
+    function deHTML(original) {
+    	//programMadeRight = unescape(original);
+    	var programMadeRight = original.replace(/<br>/g,"\n");
+    	programMadeRight = programMadeRight.replace(/<BR>/g,"\n");
+    	programMadeRight = programMadeRight.replace(/&nbsp;/g," ");
+    	programMadeRight = programMadeRight.replace(/&lt;/g,"<");
+    	programMadeRight = programMadeRight.replace(/&gt;/g,">");
+    	programMadeRight = programMadeRight.replace(/<pre>/g," ");
+    	programMadeRight = programMadeRight.replace(/&amp;/g,"&");
+    	programMadeRight = programMadeRight.replace(/&quot;/g,"\"");
+    	return programMadeRight;
+    }
+        
+    ProcessingAS.onResize = function (w, h) {
+        document.getElementById('sketchWindow').style.width = w+'px';
+		document.getElementById('sketchWindow').style.height = h+'px';
+
+        // Processing canvas resized
+        Processing.width = w;
+        Processing.height = h;
+    };
+
+    function sendToJavaScript(val)
+    {
+        var oldSketchWidth = document.getElementById('sketchWindow').style.width;
+		var oldSketchHeight = document.getElementById('sketchWindow').style.height;
+
+        document.getElementById('sketchWindow').style.width = 100+'px';
+		document.getElementById('sketchWindow').style.height = 100+'px';
+        Processing.width = 100;
+        Processing.height = 100;
+
+		//alert('should have resized');
+
+        Boxy.ask("This sketch seems slow... do you want to continue?", {"1":"No", "2":"Continue"}, function(r) {document.getElementById('sketchWindow').style.width = oldSketchWidth; document.getElementById('sketchWindow').style.height = oldSketchHeight; Processing.width = oldSketchWidth; Processing.height = oldSketchHeight; if (r=="2") {callToActionscript('moreTime');} });
+    }
+
+    var printoutString="";
+    var printOutTextAreaAlreadyVisible = false;
+    //var textAreaContentLength = 0;
+    function printSomething(val)
+    {
+        if (!printOutTextAreaAlreadyVisible){
+
+			if (document.getElementById) { // DOM3 = IE5, NS6
+				document.getElementById('thePrintoutAreaDiv').style.visibility = 'visible';
+				document.getElementById('thePrintoutAreaDiv').style.display = 'block';
+			}
+			else {
+				if (document.layers) { // Netscape 4
+					document.thePrintoutAreaDiv.visibility = 'visible';
+					document.thePrintoutAreaDiv.display = 'block';
+				}
+				else { // IE 4
+					document.all.thePrintoutAreaDiv.style.visibility = 'visible';
+					document.all.thePrintoutAreaDiv.style.display = 'block';
+				}
+			} 
+
+        document.thePrintoutAreaForm.thePrintoutArea.rows = 9;
+        document.thePrintoutAreaForm.thePrintoutArea.cols = 90;
+        document.thePrintoutAreaForm.thePrintoutArea.width = 789;
+        document.thePrintoutAreaForm.thePrintoutArea.height = 207;
+        //document.thePrintoutAreaForm.thePrintoutArea.visibility = block;
+        
+
+        }
+        //textAreaContentLength += val.length;
+        //if (textAreaContentLength > 1500) {
+        //    textAreaContentLength = 0;
+        //    document.thePrintoutAreaForm.thePrintoutArea.value = "";
+        //}
+        var newContent = document.thePrintoutAreaForm.thePrintoutArea.value + val;
+        var lengthOfTextArea = newContent.length;
+        //alert(lengthOfTextArea)
+        
+        if (lengthOfTextArea > 700) {
+        //alert('shrinking')
+        	document.thePrintoutAreaForm.thePrintoutArea.value = newContent.substring(lengthOfTextArea-700);
+        }
+        else {
+        	document.thePrintoutAreaForm.thePrintoutArea.value = newContent;
+        }
+        document.thePrintoutAreaForm.thePrintoutArea.scrollTop = document.thePrintoutAreaForm.thePrintoutArea.scrollHeight - document.thePrintoutAreaForm.thePrintoutArea.clientHeight;
+        printOutTextAreaAlreadyVisible = true; 
+    }
+
+
+    function callToActionscript(str) 
+    {
+     getFlashMovie().sendToActionscript(str);
+    }
+    //////////////////////////////////////////////////////////////////////
+
+
+    //]]>
+    </script><script type="text/javascript" language="javascript">
+//<![CDATA[
+    var http = false;
+
+    if(navigator.appName == "Microsoft Internet Explorer") {
+    http = new ActiveXObject("Microsoft.XMLHTTP");
+    } else {
+    http = new XMLHttpRequest();
+    } 
+
+    function sendThumbnailToJavascript(test) {
+      //document.getElementById('foo').innerHTML = "from flash: <br/>" + test + "<br/> escaped: <br/>" + escape(test);
+      doit(test);
+    }
+    function doit(test) {
+
+      var poststr = "thumb=" + escape(test).replace(/\+/g, "-");
+
+      http.open('POST', "/thumbnailUpload/{{sketch.randomID}}", true);
+      http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      http.setRequestHeader("Content-length", poststr.length);
+      http.setRequestHeader("Connection", "close");
+      http.send(poststr);
+
+      http.send(null);
+    }
+
+    //]]>
+    </script>
+    <div id="page">
+{% include 'headerTemplate.html' %}
+      <div id="content">
+        <div id="sketchWindow" style="width:1px; height:1px;">
+
+        </div>
+        
+        <script type="text/javascript">
+		// <![CDATA[
+
+      	var fo = new SWFObject("/sketchPlayer/sandbox_files/processing.swf", "processingViewer", "1", "1", "8.0.15", "#ffffff", true);
+      	// need this next line for local testing, it's optional if your swf is on the same domain as your html page
+      	fo.addParam("allowScriptAccess", "always");
+      	fo.addParam("allowFullScreen", "true");
+		$(document).ready(function() {fo.write("sketchWindow");});
+
+		// ]]>
+        </script>
+
+<div id="thePrintoutAreaDiv" style="visibility:hidden; display:none;">
+<form name=thePrintoutAreaForm>
+<textarea name="thePrintoutArea" id="styled" width=0px height=0px rows="0" cols="0" readonly>
+</textarea>
+</form> 
+</div>  
+
+        <!--<div class="sketchWindowIcons"><img src="/imgs/play-symbol.gif" alt="play"  height="25px"/></div> -->
+        <!--<div class="sketchWindowIcons"><img src="/imgs/full_screen.jpg" height="25px"  /></div>--><br />
+
+
+          <script language="JavaScript" type="text/javascript">
+
+        document.thePrintoutAreaForm.thePrintoutArea.rows = 0;
+        document.thePrintoutAreaForm.thePrintoutArea.cols = 0;
+        document.thePrintoutAreaForm.thePrintoutArea.width = 0;
+        document.thePrintoutAreaForm.thePrintoutArea.height = 0;
+
+		if (document.getElementById) { // DOM3 = IE5, NS6
+			document.getElementById('thePrintoutAreaDiv').style.visibility = 'hidden';
+			document.getElementById('thePrintoutAreaDiv').style.display = 'none';
+		}
+		else {
+			if (document.layers) { // Netscape 4
+				document.thePrintoutAreaDiv.visibility = 'hidden';
+				document.thePrintoutAreaDiv.display = 'none';
+			}
+			else { // IE 4
+				document.all.thePrintoutAreaDiv.style.visibility = 'hidden';
+				document.all.thePrintoutAreaDiv.style.display = 'none';
+			}
+		} 
+          </script>
+
+        <div id="sketchWindowIcons">
+        
+
+          <script language="JavaScript" type="text/javascript">
+//<![CDATA[
+
+                        // if you have uploaded the sketch or you are an admin than you can edit it
+                if (  (readCookie("user.is_current_user_admin")=="True") || ("{{ sketch.author_user_id}}" == readCookie("user.user_id"))   ){
+                        document.write("<div class='sketchWindowIcons'><a href='/edit/{{sketch.randomID}}/'><img src='/imgs/pencil.jpg' alt='edit' /> Edit<\/a><\/div>");
+                } 
+          //]]>
+          </script>
+          <div class="sketchWindowIcons">
+            <a href='/copy/{{sketch.randomID}}/'><img src="/imgs/sheep_clone.png" alt=
+            "copy" /> Copy</a>
+          </div><script language="JavaScript" type="text/javascript">
+//<![CDATA[
+
+                if ((readCookie("user.is_current_user_admin")=="True")||(( readCookie("user.user_id") != "None") && ("{{ sketch.author_user_id}}" == readCookie("user.user_id")))){
+                        document.write("<div class='sketchWindowIcons'><a href='/delete/{{sketch.randomID}}/'><img src='/imgs/delete.gif' alt='delete'/> Delete<\/a><\/div>");
+                } 
+          //]]>
+          </script>
+          <script language="JavaScript" type="text/javascript">
+//<![CDATA[
+
+                        // if you have uploaded the sketch or you are an admin than you can take a thumbnail of it
+                if (  (readCookie("user.is_current_user_admin")=="True") || ("{{ sketch.author_user_id}}" == readCookie("user.user_id"))   ){ 
+                        document.write("<div class='sketchWindowIcons'><a href='#' id='screenshot' onclick=\"javascript:callToActionscript('screenshot');\"><img src=\"\/imgs\/i-mona-lisa-graphics.png\" alt='thumbnail' \/> Make thumbnail<\/a><\/div>");
+                } 
+          //]]>
+          </script>
+        </div>
+        <div id="contentleft">
+          <div id="sketchCode">
+            <h1>
+              {{sketch.dateSaved|date:"l, F d, Y"}}
+            </h1>
+            <h2>
+              {{sketch.title}}
+            </h2>
+            <div id="theSourceCode">
+              {{sketch.sourceCode}}
+            </div>
+          </div>
+        </div>
+        
+           
+              
+        <div id="contentright">
+          <div id="info">
+            <br />
+            <h2>
+              info<img src="/imgs/info.gif" alt="info" />
+            </h2><strong>submitted by:</strong> <a class="timestamp-link" href=
+            "/byUploader/{{sketch.author_nickname}}-{{sketch.author_string_user_id}}/">{{sketch.author_nickname}}</a><br />
+            </h2><strong>views:&nbsp;</strong>
+                <script language="JavaScript" type="text/javascript">
+                   document.write(readCookie("pageViews"));
+                </script><br />
+
+            <br />
+            {{sketch.description}}<br />
+            <br />
+		{% ifnotequal sketch.parentSketchRandomID "" %}
+<img src="/imgs/tree.jpg" alt="tree" />This sketch has a <a href="/view/{{sketch.parentSketchRandomID}}/">parent</a>
+{% endifnotequal %}
+
+		
+		<div id="tags">	<strong>Tags: </strong>{% for tag in sketch.tags %}
+            {{ tag|unquote }}{% if not forloop.last %},{% endif %}
+            {% endfor %}
+<br />
+            </div>
+          </div>
+          <div id="usercomments">
+            <div id="commentIcons">
+              <h2>
+                comments<img src="/imgs/comment.png" alt="comment" />
+              </h2>
+            </div>
+            <div id="latestComments">
+              <img src="/imgs/ajaxSpinner.gif" alt="loading" title="loading" />
+              loading...
+            </div><script type="text/javascript">
+//<![CDATA[
+                                var http2 = false;
+
+                                if(navigator.appName == "Microsoft Internet Explorer") {
+                                  http2 = new ActiveXObject("Microsoft.XMLHTTP");
+                                } else {
+                                  http2 = new XMLHttpRequest();
+                                } 
+
+                                function loadLatestComments() {
+                                        http2.open("GET", "/latestComments/{{sketch.randomID}}/", true);
+                                        http2.onreadystatechange = function() {
+                                                if(http2.readyState == 4) {
+                                                        document.getElementById('latestComments').innerHTML = http2.responseText;
+                                                }
+                                        };
+                                        http2.send(null);
+                                }
+
+                                loadLatestComments();
+
+            //]]>
+            </script>
+            <p>
+              &nbsp;
+            </p>
+            <p>
+              Add a comment:
+            </p>
+            <div id="addcomment">
+             
+<form method="post" action='/addComment/{{sketch.randomID}}/'>
+
+                  <textarea id="text_input" name="text_input" rows="5" cols="40">
+</textarea>
+<br />
+                <input id="submit_comment" name="submit_addreply" type="submit" value=
+                "submit" /><br />
+                <br />
+ </form>
+                </div>
+                 
+                
+                
+                
+                
+                
+                <script language="JavaScript" type="text/javascript">
+//<![CDATA[
+
+
+                if ( readCookie("user.user") == "None") {
+                        document.getElementById('text_input').disabled=true;
+                        document.getElementById('submit_comment').disabled=true;
+                        var login_url = "{{login_url}}";
+                        document.write("( you need to <a href=\""+login_url+"\"> log in<\/a> to leave a comment )<br\/>");
+                }
+
+              //]]>
+              </script>
+            </div>
+          </div><!-- contentright end -->
+        
+        
+        </div><!-- content end -->
+                 
+     
+     
+
+{% include 'footerTemplate.html' %}
+      
+      
+    </div><!-- close div page -->
+    
+    <script type="text/javascript">
+//<![CDATA[
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    //]]>
+    </script><script type="text/javascript">
+//<![CDATA[
+    try {
+    var pageTracker = _gat._getTracker("UA-8776965-1");
+    pageTracker._setDomainName(".sketchpatch.net");
+    pageTracker._trackPageview();
+    } catch(err) {}
+    //]]>
+    </script>
+  </body>
+</html>

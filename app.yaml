@@ -1,0 +1,195 @@
+application: sketchpatch
+version: 3
+runtime: python
+api_version: 1
+skip_files: |
+ ^(.*/)?(
+ (app\.yaml)|
+ (app\.yml)|
+ (index\.yaml)|
+ (index\.yml)|
+ (#.*#)|
+ (.*~)|
+ (.*\.py[co])|
+ (.*/RCS/.*)|
+ (\..*)|
+ (.*/\.svn/.*)|
+ (.*/Thumbs\.db)|
+ )$
+
+
+handlers:
+
+- url: /sketchNotMadePublicNotice.html
+  static_files: sketchNotMadePublicNotice.html
+  upload: sketchNotMadePublicNotice.html
+
+- url: /gallery.html
+  static_files: galleryPage/gallery.html
+  upload: galleryPage/gallery.html
+
+- url: /galleryPage/
+  static_dir: galleryPage/
+
+- url: /galleryview_files/
+  static_dir: galleryPage/galleryview_files/
+
+- url: /tutorial/
+  static_dir: tutorial/
+
+- url: /groupLoginNotOK.html
+  static_files: groupLoginNotOK.html
+  upload: groupLoginNotOK.html
+
+- url: /frontPageFiles/images
+  static_dir: frontPageFiles/images
+  expiration: "1h"
+
+- url: /P5Lint/tests
+  static_dir: P5Lint/tests
+  mime_type: text.plain
+
+- url: /P5Lint
+  static_dir: P5Lint
+
+- url: /demo
+  static_dir: demo
+
+- url: /rocket/.*
+  script: rocket/rocket.py
+  
+- url: /sandbox.html
+  static_dir: sandbox_files
+
+- url: /sketchPlayer
+  static_dir: sketchPlayer
+
+- url: /stylesheets
+  static_dir: stylesheets
+
+- url: /img
+  static_dir: img
+
+- url: /wallpapers
+  static_dir: wallpapers
+
+- url: /jscripts
+  static_dir: jscripts
+
+- url: /favicon.ico
+  static_files: img/favicon.ico
+  upload: img/favicon.ico
+
+- url: /Page2.html
+  static_files: Page2.html
+  upload: Page2.html
+
+- url: /about.html
+  static_files: about.html
+  upload: about.html
+
+- url: /500th.html
+  static_files: 500th.html
+  upload: 500th.html
+
+- url: /editSketch.html
+  static_files: editSketch.html
+  upload: editSketch.html
+  
+- url: /Featured_artist.html
+  static_files: Featured_artist.html
+  upload: Featured_artist.html
+
+- url: /FA_Alex_May.html
+  static_files: FA_Alex_May.html
+  upload: FA_Alex_May.html 
+
+- url: /FS_Ric.html
+  static_files: FS_Ric.html
+  upload: FS_Ric.html 
+  
+- url: /FS_EvanRaskob.html
+  static_files: FS_EvanRaskob.html
+  upload: FS_EvanRaskob.html
+
+- url: /FS_KimAsendorf.html
+  static_files: FS_KimAsendorf.html
+  upload: FS_KimAsendorf.html
+
+- url: /FS_slub.html
+  static_files: FS_slub.html
+  upload: FS_slub.html
+
+- url: /FS_CoLAI.html
+  static_files: FS_CoLAI.html
+  upload: FS_CoLAI.html
+
+- url: /FS_MattApplgate.html
+  static_files: FS_MattApplgate.html
+  upload: FS_MattApplgate.html
+  
+- url: /FS_WillPearson.html
+  static_files: FS_WillPearson.html
+  upload: FS_WillPearson.html
+
+- url: /Featured_Sketches.html
+  static_files: Featured_Sketches.html
+  upload: Featured_Sketches.html
+
+- url: /comments.html
+  static_files: comments.html
+  upload: comments.html
+  
+- url: /footer.html
+  static_files: footer.html
+  upload: footer.html
+  
+- url: /referenceGalleryDesign.html
+  static_files: referenceGalleryDesign.html
+  upload: referenceGalleryDesign.html
+  
+- url: /links.html
+  static_files: links.html
+  upload: links.html
+  
+- url: /newSketch.html
+  static_files: newSketch.html
+  upload: newSketch.html
+  
+- url: /Tutorial.html
+  static_files: Tutorial.html
+  upload: Tutorial.html
+
+- url: /style.css
+  static_files: style.css
+  upload: style.css
+    
+- url: /jquery.boxy.js
+  static_files: jquery.boxy.js
+  upload: jquery.boxy.js
+  
+- url: /static
+  static_dir: static
+
+- url: /imgs
+  static_dir: imgs
+
+- url: /jquery-tooltip
+  static_dir: jquery-tooltip
+  
+- url: /cornerTest.html
+  static_files: cornerTest.html
+  upload: cornerTest.html
+  
+- url: /corner
+  static_dir: corner
+  
+- url: /boxy
+  static_dir: boxy
+
+# these two should be the last ones
+
+  
+- url: /.*
+  script: main.py
+
