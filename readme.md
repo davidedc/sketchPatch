@@ -5,11 +5,9 @@ sketchPatch is a portal where anyone can collect and play with Processing sketch
 
 Why?
 ====
-We liked the idea of a site which a) let people code Processing sketches online and b) collected the sketches and linked "forks" c) is accessible to old browsers e.g. IE6
+We liked the idea of a site which a) lets people code Processing sketches online and b) collects the sketches and links "forks" c) is accessible to old browsers e.g. IE6 (sketchPatch is used a teaching platform - and schools don't necessarily have the latest and greatest set-ups and browsers).
 
-The aim is to use sketchPatch as a teaching help - and schools don't necessarily have the latest and greatest browsers.
-
-Although there were similar sites for other languages, there wasn't anything quite like that at the time, so we gave it a go.
+Although there were similar sites for Processing other languages, there wasn't anything quite like what we wanted, so we gave it a go.
 
 
 How?
