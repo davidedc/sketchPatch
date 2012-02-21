@@ -491,6 +491,9 @@ def doesItContainProfanity(value):
 
     value = value.lower()
     logging.info('checking for profanities ')
+    # note that for keywords in non-latin characters I had to concatenate unicode characters
+    # and I used this tool for finding out the
+    # unicodes: http://pinyin.info/tools/converter/chars2uninumbers.html
     bad_words =  [
     '@$$','%20teen','%20teen%20','2g1c','ababa','acrotomophilia','adult','ahole',
     'alprazolam','amateur','amatour','amatur','amcik','amoxil','anal','andskota',
