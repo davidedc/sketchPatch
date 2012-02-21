@@ -1,42 +1,22 @@
-cpedialog - python blog for appengine.
-======================================
-version 1.0, August 28, 2008
+What?
+--
 
-Instructions
-------------
-Unzip to installation directory.
+sketchPatch is a portal where anyone can collect and play with Processing sketches. More about the project here: http://www.sketchpatch.net/about.html
 
-Latest Documentation:
+Why?
+--
+We liked the idea of a site which a) let people code Processing sketches online and b) collected the sketches and linked "forks" c) is accessible to old browsers e.g. IE6
 
-   http://code.google.com/p/cpedialog/w/list
+The aim is to use sketchPatch as a teaching help - and schools don't necessarily have the latest and greatest browsers.
 
-   Project overview:
-   http://code.google.com/p/cpedialog/ 
-
-   How to install cpedialog on appengine:
-   http://code.google.com/p/cpedialog/wiki/How_To_Install_cpedialog
-
-   How to integrate picasaweb album with cpedialog:
-   http://code.google.com/p/cpedialog/wiki/How_to_integrate_picasaweb_album_with_cpedialog
+Although there were similar sites for other languages, there wasn't anything quite like that at the time, so we gave it a go.
 
 
-Bug Reports:
-   
-   http://code.google.com/p/cpedialog/issues/list
+How?
+--
+sketchPatch uses Processing.as by Tim Cameron Ryan where flash is available, and Processing.js otherwise. sketchPatch also uses a modified version of the CPedia blog engine by Ping Chen. Countless other libraries are used.
 
-Free Technical Support:
 
-   http://blog.cpedia.com
-   
-   
-Other Stuff
------------
-This software is distributed under the terms of the Apache License 2.0 
-(see http://www.apache.org/licenses/LICENSE-2.0).
-
-This product use some other open source toolkits or free services.
-Yahoo YUI: http://developer.yahoo.com/yui
-Del.icio.us: http://delicious.com
-Picasaweb Album: http://picasaweb.google.com
-Google AJAX Feed API: http://code.google.com/apis/ajaxfeeds/
-Google Data APIs: http://code.google.com/apis/gdata/basics.html
+Can I use it?
+--
+Sure go ahead! The site is quite "branded", so you might want to change those visual references to sketchPatch. Also sketchPatch runs on Google App Engine. It's probably very easy to port it to a "neutral" host, since we used very few AppEngine-specific APIs, and the data model is very simple.
