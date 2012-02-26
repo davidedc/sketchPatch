@@ -495,7 +495,7 @@ def doesItContainProfanity(value):
     # and I used this tool for finding out the
     # unicodes: http://pinyin.info/tools/converter/chars2uninumbers.html
     bad_words =  [
-    '@$$','%20teen','%20teen%20','2g1c','ababa','acrotomophilia','adult','ahole',
+    '@$$','%20teen','%20teen%20','2g1c','ababa','abercrombie','acrotomophilia','adult','ahole',
     'alprazolam','amateur','amatour','amatur','amcik','amoxil','anal','andskota',
     'anilingus','anus','ariset','arschloch','arse','aryan','asexual','ash0le','ash0les',
     'asholes','asshole','assmunch','assrammer','autoerotic','ayir','azzhole','b!+ch','b!tch',
@@ -520,7 +520,7 @@ def doesItContainProfanity(value):
     'fascist','fatass','fcuk','fecal','feces','feg','felch','felcher','fellatio','feltch',
     'femdom','feminazi','fetish','ficken','figging','fingering','fioricet','fisting','fitt',
     'flikker','footjob','foreclosure','foreplay','foreskin','forex','fornicate','fotze','foursome',
-    'freemegavideo','freeones','frotting','fuck','fudge','fudgepacker','fuk','fukah','fuken',
+    'freemegavideo','freeones','frotting','fuck','fuckbook','fudge','fudgepacker','fuk','fukah','fuken',
     'fuker','fukin','fukk','fukkah','fukken','fukker','fukkin','futanari','futkretzn','fux0r',
     'g00k','gambling','gangbang','gay','gayboy','gaygirl','gays','gayz','genitals','goatcx',
     'goatse','god-damned','gokkun','golliwog','goodpoop','goodvibes','gook','goregasm','greaser',

@@ -132,6 +132,10 @@ handlers:
   static_files: FS_WillPearson.html
   upload: FS_WillPearson.html
 
+- url: /FS_Samiat.html
+  static_files: FS_Samiat.html
+  upload: FS_Samiat.html
+
 - url: /Featured_Sketches.html
   static_files: Featured_Sketches.html
   upload: Featured_Sketches.html
