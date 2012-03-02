@@ -1,1 +1,804 @@
-nothing to see here
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>sketchPatch - The programming playground</title>
+		<script language="JavaScript" type="text/javascript">
+			{% include 'frontPageTooltip.js' %}
+		</script>
+		{% include 'readCookieCode.js' %}
+		<script language="JavaScript" type="text/javascript">
+			//<![CDATA[
+			
+			    $(function () {
+
+			    $('#FavouriteTile1, #FavouriteTile2, #FavouriteTile3, #FavouriteTile4, #FavouriteTile5, #FavouriteTile6, #FavouriteTile7, #FavouriteTile8, #FavouriteTile9, #FavouriteTile10, #FavouriteTile11,#FavouriteTile12,#FavouriteTile13,#FavouriteTile14,#FavouriteTile15,#FavouriteTile16,#FavouriteTile17,#FavouriteTile18,#FavouriteTile19,#FavouriteTile20,#FavouriteTile21,#FavouriteTile22,#FavouriteTile23,#FavouriteTile24,#RecentTile1, #RecentTile2, #RecentTile3, #RecentTile4, #RecentTile5, #RecentTile6, #RecentTile7, #RecentTile8, #RecentTile9, #RecentTile10, #RecentTile11,#RecentTile12,#RecentTile13,#RecentTile14,#RecentTile15,#RecentTile16,#RecentTile17,#RecentTile18,#RecentTile19,#RecentTile20,#RecentTile21,#RecentTile22,#RecentTile23,#RecentTile24,#BigThumb1,#BigThumb2,#BigThumb3,#BigThumb4').tooltip({
+			        track: true,
+			        delay: 0,
+			        showURL: false,
+			        showBody: " - ",
+			        extraClass: "pretty",
+			        fixPNG: true,
+			        left: 0
+			        
+			    });
+			        
+			    });  
+			    //]]>
+			    
+		</script>
+		<style type="text/css">
+			#tooltip {
+			position: absolute;
+			z-index: 3000;
+			border: 1px solid #111;
+			background-color: #eee;
+			padding: 5px;
+			}
+			#tooltip h3, #tooltip div { margin: 0; }
+			#tooltip.pretty {
+			font-family:Verdana, Geneva, Arial, helvetica, sans-serif;
+			border: none;
+			width: 125px;
+			height: 40px;
+			background: url(./frontPageFiles/images/hoverImagesPuzzle2Mar2012.png)
+			0px -485px no-repeat;
+			padding:10px;
+			text-align:center;
+			}
+			#tooltip.pretty h3 {
+			margin-bottom: 0.75em;
+			margin-top: 2px;
+			font-size: 10px;
+			width: 125px;
+			text-align: center;
+			color:#333333;
+			}
+			#tooltip.pretty div { width: 20px; text-align: left; }
+			#mainDiv {
+			position:absolute;
+			left:1px;
+			top:2px;
+			width:794px;
+			height:808px;
+			z-index:1;
+			left: 50%;
+			margin-left: -397px;
+			}
+			div {
+			background-repeat: no-repeat;
+			}
+			#ProcessingLink {
+			position:absolute;
+			left:614px;
+			top:87px;
+			width:66px;
+			height:17px;
+			z-index:1;
+			}
+			#WallpapersLink {
+			position:absolute;
+			left:180px;
+			top:89px;
+			width:84px;
+			height:51px;
+			z-index:4;
+			}
+			#Menuabout {
+			position:absolute;
+			left:28px;
+			top:60px;
+			width:35px;
+			height:10px;
+			z-index:4;
+			}
+			#Menuabout:hover {
+			/*background: url(./frontPageFiles/images/hoverImagesPuzzle19June.png)*/
+			background: url(./frontPageFiles/images/hoverImagesPuzzle2Mar2012.png)
+			0px -15px no-repeat;
+			}
+			#MenufeaturedSketchesMenuLink {
+			position:absolute;
+			left:28px;
+			top:78px;
+			width:102px;
+			height:10px;
+			z-index:5;
+			}
+			#MenufeaturedSketchesMenuLink:hover {
+			/*	background: url(./frontPageFiles/images/hoverImagesPuzzle19June.png)
+			*/ 	background: url(./frontPageFiles/images/hoverImagesPuzzle2Mar2012.png)
+			0px 0px no-repeat;
+			}
+			#MenuWriteASketch {
+			position:absolute;
+			left:28px;
+			top:113px;
+			width:80px;
+			height:10px;
+			z-index:22;
+			}
+			#MenuWriteASketch:hover {
+			/*	background: url(./frontPageFiles/images/hoverImagesPuzzle19June.png)
+			*/ 	background: url(./frontPageFiles/images/hoverImagesPuzzle2Mar2012.png)
+			0px -75px no-repeat;
+			}
+			#MenuMySketches {
+			position:absolute;
+			left:28px;
+			top:149px;
+			width:71px;
+			/*width:58px;*/
+			height:13px;
+			z-index:23;
+			/*	background: url(./frontPageFiles/images/hoverImagesPuzzle19June.png)
+			*/ 	background: url(./frontPageFiles/images/hoverImagesPuzzle2Mar2012.png)
+			0px -472px no-repeat;
+			}
+			#MenuMySketches:hover {
+			/*	background: url(./frontPageFiles/images/hoverImagesPuzzle19June.png)
+			*/ 	background: url(./frontPageFiles/images/hoverImagesPuzzle2Mar2012.png)
+			0px -90px no-repeat;
+			}
+			#MenuLogin {
+			position:absolute;
+			left:28px;
+			top:149px;
+			width:71px;
+			height:13px;
+			z-index:23;
+			}
+			#MenuLogin:hover {
+			/*	background: url(./frontPageFiles/images/hoverImagesPuzzle19June.png)
+			*/ 	background: url(./frontPageFiles/images/hoverImagesPuzzle2Mar2012.png)
+			0px -60px no-repeat;
+			}
+			#MenuGallery {
+			position:absolute;
+			left:28px;
+			top:95px;
+			width:40px;
+			height:13px;
+			z-index:24;
+			}
+			#MenuGallery:hover {
+			/*	background: url(./frontPageFiles/images/hoverImagesPuzzle19June.png)
+			*/ 	background: url(./frontPageFiles/images/hoverImagesPuzzle2Mar2012.png)
+			0px -30px no-repeat;
+			}
+			#FeaturedBox {
+			position:absolute;
+			left:20px;
+			top:290px;
+			width:105px;
+			height:157px;
+			z-index:8;
+			}
+			#FeaturedMore {
+			position:absolute;
+			left:734px;
+			top:290px;
+			width:51px;
+			height:156px;
+			z-index:9;
+			}
+			#FeaturedMore:hover {
+			/*	background: url(./frontPageFiles/images/hoverImagesPuzzle19June.png)
+			*/ 	background: url(./frontPageFiles/images/hoverImagesPuzzle2Mar2012.png)
+			0px -211px no-repeat;
+			}
+			#FavouritesBox {
+			position:absolute;
+			left:20px;
+			top:477px;
+			width:104px;
+			height:45px;
+			z-index:10;
+			}
+			#FavouritesMore {
+			position:absolute;
+			left:734px;
+			top:476px;
+			width:51px;
+			height:105px;
+			z-index:11;
+			}
+			#FavouritesMore:hover {
+			/*	background: url(./frontPageFiles/images/hoverImagesPuzzle19June.png)
+			*/ 	background: url(./frontPageFiles/images/hoverImagesPuzzle2Mar2012.png)
+			0px -105px no-repeat;
+			}
+			#rssIcon {
+			position:absolute;
+			left:283px;
+			top:793px;
+			width:16px;
+			height:16px;
+			z-index:12;
+			}
+			#AboutContactSignOut {
+			position:absolute;
+			left:265px;
+			top:771px;
+			width:240px;
+			height:19px;
+			z-index:13;
+			}
+			#mainDiv #AboutContactSignOut {
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: small;
+			width: 214px;
+			}
+			#FavouriteTile1,#FavouriteTile2,#FavouriteTile3,#FavouriteTile4,#FavouriteTile5,#FavouriteTile6,#FavouriteTile7,#FavouriteTile8,#FavouriteTile9,#FavouriteTile10,#FavouriteTile11,#FavouriteTile12,#FavouriteTile13,#FavouriteTile14,#FavouriteTile15,#FavouriteTile16,#FavouriteTile17,#FavouriteTile18,#FavouriteTile19,#FavouriteTile20,#FavouriteTile21,#FavouriteTile22,#FavouriteTile23,#FavouriteTile24 {
+			position:absolute;
+			left:130px;
+			top:475px;
+			width:50px;
+			height:50px;
+			z-index:14;
+			}
+			#FavouriteTile1:hover,#FavouriteTile2:hover,#FavouriteTile3:hover,#FavouriteTile4:hover,#FavouriteTile5:hover,#FavouriteTile6:hover,#FavouriteTile7:hover,#FavouriteTile8:hover,#FavouriteTile9:hover,#FavouriteTile10:hover,#FavouriteTile11:hover,#FavouriteTile12:hover,#FavouriteTile13:hover,#FavouriteTile14:hover,#FavouriteTile15:hover,#FavouriteTile16:hover,#FavouriteTile17:hover,#FavouriteTile18:hover,#FavouriteTile19:hover,#FavouriteTile20:hover,#FavouriteTile21:hover,#FavouriteTile22:hover,#FavouriteTile23:hover,#FavouriteTile24:hover {
+			border: 1px solid white;
+			}
+			#FavouriteTile1:hover,#FavouriteTile2:hover,#FavouriteTile3:hover,#FavouriteTile4:hover,#FavouriteTile5:hover,#FavouriteTile6:hover,#FavouriteTile7:hover,#FavouriteTile8:hover,#FavouriteTile9:hover,#FavouriteTile10:hover,#FavouriteTile11:hover,#FavouriteTile12:hover,#FavouriteTile13:hover,#FavouriteTile14:hover,#FavouriteTile15:hover,#FavouriteTile16:hover,#FavouriteTile17:hover,#FavouriteTile18:hover,#FavouriteTile19:hover,#FavouriteTile20:hover,#FavouriteTile21:hover,#FavouriteTile22:hover,#FavouriteTile23:hover,#FavouriteTile24:hover {
+			color: red; /* irrelevant definition to overcome IE bug */
+			}
+			#RecentTile1,#RecentTile2,#RecentTile3,#RecentTile4,#RecentTile5,#RecentTile6,#RecentTile7,#RecentTile8,#RecentTile9,#RecentTile10,#RecentTile11,#RecentTile12,#RecentTile13,#RecentTile14,#RecentTile15,#RecentTile16,#RecentTile17,#RecentTile18,#RecentTile19,#RecentTile20,#RecentTile21,#RecentTile22,#RecentTile23,#RecentTile24 {
+			position:absolute;
+			/*startOfCommentForSkeletalCSS*/ 
+			left:185px;
+			top:615px;
+			/*endOfCommentForSkeletalCSS*/ 
+			width:50px;
+			height:50px;
+			z-index:2;
+			background-image: url(/thumbnailsForGallery/{{sketches.0.randomID}}.jpg);
+			}
+			/* this next css property is normally overridden. It's only used when in skeleton mode.*/
+			#RecentTile12,#RecentTile13,#RecentTile14,#RecentTile15,#RecentTile16,#RecentTile17,#RecentTile18,#RecentTile19,#RecentTile20,#RecentTile21,#RecentTile22,#RecentTile23,#RecentTile24 {
+			top:50px;
+			}
+			#RecentTile1:hover,#RecentTile2:hover,#RecentTile3:hover,#RecentTile4:hover,#RecentTile5:hover,#RecentTile6:hover,#RecentTile7:hover,#RecentTile8:hover,#RecentTile9:hover,#RecentTile10:hover,#RecentTile11:hover,#RecentTile12:hover,#RecentTile13:hover,#RecentTile14:hover,#RecentTile15:hover,#RecentTile16:hover,#RecentTile17:hover,#RecentTile18:hover,#RecentTile19:hover,#RecentTile20:hover,#RecentTile21:hover,#RecentTile22:hover,#RecentTile23:hover,#RecentTile24:hover {
+			border: 1px solid white;
+			}
+			#RecentTile1:hover,#RecentTile2:hover,#RecentTile3:hover,#RecentTile4:hover,#RecentTile5:hover,#RecentTile6:hover,#RecentTile7:hover,#RecentTile8:hover,#RecentTile9:hover,#RecentTile10:hover,#RecentTile11:hover,#RecentTile12:hover,#RecentTile13:hover,#RecentTile14:hover,#RecentTile15:hover,#RecentTile16:hover,#RecentTile17:hover,#RecentTile18:hover,#RecentTile19:hover,#RecentTile20:hover,#RecentTile21:hover,#RecentTile22:hover,#RecentTile23:hover,#RecentTile24:hover {
+			color: red; /* irrelevant definition to overcome IE bug */
+			}
+			.cornerLB {
+			position:absolute;
+			left:0px;
+			top:49px;
+			width:1px;
+			height:1px;
+			z-index:1;
+			/*	background: url(./frontPageFiles/images/hoverImagesPuzzle19June.png)
+			*/ 	background: url(./frontPageFiles/images/hoverImagesPuzzle2Mar2012.png)
+			0px 0px no-repeat;
+			}
+			.cornerRB {
+			position:absolute;
+			left:49px;
+			top:49px;
+			width:1px;
+			height:1px;
+			z-index:1;
+			/*	background: url(./frontPageFiles/images/hoverImagesPuzzle19June.png)
+			*/ 	background: url(./frontPageFiles/images/hoverImagesPuzzle2Mar2012.png)
+			0px 0px no-repeat;
+			}
+			.cornerLT {
+			position:absolute;
+			left:0px;
+			top:0px;
+			width:1px;
+			height:1px;
+			z-index:1;
+			/*	background: url(./frontPageFiles/images/hoverImagesPuzzle19June.png)
+			*/ 	background: url(./frontPageFiles/images/hoverImagesPuzzle2Mar2012.png)
+			0px 0px no-repeat;
+			}
+			.cornerRT {
+			position:absolute;
+			left:49px;
+			top:0px;
+			width:1px;
+			height:1px;
+			z-index:1;
+			/*	background: url(./frontPageFiles/images/hoverImagesPuzzle19June.png)
+			*/ 	background: url(./frontPageFiles/images/hoverImagesPuzzle2Mar2012.png)
+			0px 0px no-repeat;
+			}
+			#FavouritesBoxTextBlurb {
+			position:absolute;
+			left:7px;
+			top:15px;
+			width:77px;
+			height:23px;
+			z-index:1;
+			font-size: small;
+			color: #FFF;
+			font-weight: bold;
+			}
+			#FeaturedSketchesTextBlurb {
+			position:absolute;
+			left:4px;
+			top:2px;
+			width:95px;
+			height:122px;
+			z-index:1;
+			color: #FFF;
+			}
+			body,td,th {
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: small;
+			}
+			#mainDiv #FeaturedBox #FeaturedSketchesTextBlurb p {
+			margin: 0px;
+			padding: 0px;
+			}
+			#FeaturedSketchesTextBlurb a { color:#FFFFFF }
+			a {
+			background-repeat: no-repeat;
+			}
+			#BigThumb1 {
+			position:absolute;
+			left:123px;
+			top:289px;
+			width:106px;
+			height:154px;
+			z-index:18;
+			}
+			#BigThumb1:hover {
+			border: 1px solid white;
+			}
+			#BigThumb2 {
+			position:absolute;
+			left:230px;
+			top:289px;
+			width:160px;
+			height:154px;
+			z-index:18;
+			}
+			#BigThumb2:hover {
+			border: 1px solid white;
+			}
+			#BigThumb3 {
+			position:absolute;
+			left:390px;
+			top:289px;
+			width:125px;
+			height:154px;
+			z-index:18;
+			}
+			#BigThumb3:hover {
+			border: 1px solid white;
+			}
+			#BigThumb4 {
+			position:absolute;
+			left:516px;
+			top:289px;
+			width:218px;
+			height:154px;
+			z-index:18;
+			}
+			#BigThumb4:hover {
+			border: 1px solid white;
+			}
+			#RecentBox {
+			position:absolute;
+			left:20px;
+			top:615px;
+			width:104px;
+			height:45px;
+			z-index:26;
+			}
+			#TextPart {
+			position:absolute;
+			left:7px;
+			top:15px;
+			width:96px;
+			height:23px;
+			z-index:1;
+			font-size: small;
+			color: #FFF;
+			font-weight: bold;
+			}
+			#RecentMore {
+			position:absolute;
+			left:734px;
+			top:615px;
+			width:51px;
+			height:105px;
+			z-index:27;
+			}
+			#RecentMore:hover {
+			/*	background: url(./frontPageFiles/images/hoverImagesPuzzle19June.png)
+			*/ 	background: url(./frontPageFiles/images/hoverImagesPuzzle2Mar2012.png)
+			0px -367px no-repeat;
+			}
+			#mainDiv #rssIcon {
+			}
+			#twitterIcon {
+			position:absolute;
+			left:307px;
+			top:793px;
+			width:16px;
+			height:16px;
+			z-index:28;
+			}
+			#facebookIcon {
+			position:absolute;
+			left:332px;
+			top:793px;
+			width:16px;
+			height:16px;
+			z-index:29;
+			}
+			#flickrIcon {
+			position:absolute;
+			left:356px;
+			top:793px;
+			width:16px;
+			height:16px;
+			z-index:30;
+			}
+			#deliciousIcon {
+			position:absolute;
+			left:380px;
+			top:793px;
+			width:16px;
+			height:16px;
+			z-index:31;
+			}
+			#diggIcon {
+			position:absolute;
+			left:406px;
+			top:793px;
+			width:16px;
+			height:16px;
+			z-index:32;
+			}
+			#stumbleUponIcon {
+			position:absolute;
+			left:431px;
+			top:793px;
+			width:16px;
+			height:16px;
+			z-index:33;
+			}
+			#redditIcon {
+			position:absolute;
+			left:455px;
+			top:793px;
+			width:16px;
+			height:16px;
+			z-index:34;
+			}
+			#menuCommunity {
+			position:absolute;
+			left:27px;
+			top:131px;
+			width:68px;
+			height:13px;
+			z-index:35;
+			}
+			#menuCommunity:hover {
+			/*	background: url(./frontPageFiles/images/hoverImagesPuzzle19June.png)
+			*/ 	background: url(./frontPageFiles/images/hoverImagesPuzzle2Mar2012.png)
+			0px -45px no-repeat;
+			}
+			#backGroundImage {
+			position:absolute;
+			left:17px;
+			top:39px;
+			width:775px;
+			height:788px;
+			z-index:2;
+			/*startOfCommentForSkeletalCSS*/
+			background-image: url(frontPageFiles/images/FirstPageBackground2Mar2012.png);
+			/*endOfCommentForSkeletalCSS*/
+			}
+			#preloadShadow {
+			position:absolute;
+			left:9px;
+			top:773px;
+			width:1px;
+			height:1px;
+			z-index:99;
+			background-image: url(./frontPageFiles/images/hoverImagesPuzzle2Mar2012.png);
+			}
+			#preloadHoverImages {
+			position:absolute;
+			left:11px;
+			top:773px;
+			width:1px;
+			height:1px;
+			z-index:99;
+			/*	background: url(./frontPageFiles/images/hoverImagesPuzzle19June.png)
+			*/ 	background: url(./frontPageFiles/images/hoverImagesPuzzle2Mar2012.png)
+			}
+		</style>
+		<script type="text/javascript">
+			var _gaq = _gaq || [];
+			_gaq.push(['_setAccount', 'UA-8776965-1']);
+			_gaq.push(['_trackPageview']);
+			
+			(function() {
+			  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
+			})();
+			
+		</script>
+	</head>
+	<body>
+		<div id="mainDiv">
+			<div id="backGroundImage">
+				<a id="ProcessingLink" href="http://www.processing.org"></a>
+			</div>
+			<a id="WallpapersLink" href="/500th.html">
+				<!--startOfCommentForSkeletalHTML 500th endOfCommentForSkeletalHTML-->
+			</a>
+			<a id="Menuabout" href="/about.html">
+				<!--startOfCommentForSkeletalHTML about endOfCommentForSkeletalHTML-->
+			</a>
+			<a id="MenufeaturedSketchesMenuLink" href="/Featured_Sketches.html">
+				<!--startOfCommentForSkeletalHTML featured sketches endOfCommentForSkeletalHTML-->
+			</a>
+			<a id="MenuWriteASketch" href="/create">
+				<!--startOfCommentForSkeletalHTML create endOfCommentForSkeletalHTML-->
+			</a>
+			<script language="JavaScript" type="text/javascript">
+				//<![CDATA[
+				
+				
+				                if ( readCookie("user.user") == "None") {
+				                		login_url = "{{login_url}}";
+				                		document.write('<a id="MenuLogin" href="' + login_url + '" ><\/a>'); 
+				                }
+				                else {
+				                		document.write('<a id="MenuMySketches" href="\/mySketches" ><\/a>'); 
+				                		//document.write('<a id="MenuMySketches" href="\/profileEdit" ><\/a>'); 
+				                }
+				
+				              //]]>
+				              
+			</script>
+			<a id="MenuGallery" href="/gallery.html"></a><a id="rssIcon" href="http://community.sketchpatch.net/blog/rss.xml"></a>
+			<a id="menuCommunity" href="http://community.sketchpatch.net/"></a>
+			<a id="RecentMore" href="/latest.html"></a>
+			<a id="RecentTile1" style="left:130px; background-image: url(/thumbnailsForGallery/{{sketches.0.randomID}}.jpg);" href="/view/{{sketches.0.randomID}}/" title="{{sketches.0.title}} by {{sketches.0.author_nickname}}">
+				<div class="cornerLB"></div>
+				<div class="cornerLT"></div>
+				<div class="cornerRB"></div>
+				<div class="cornerRT"></div>
+			</a>
+			<a id="RecentTile2" style="left:185px; background-image: url(/thumbnailsForGallery/{{sketches.1.randomID}}.jpg);" href="/view/{{sketches.1.randomID}}/" title="{{sketches.1.title}} by {{sketches.1.author_nickname}}">
+				<div class="cornerLB"></div>
+				<div class="cornerLT"></div>
+				<div class="cornerRB"></div>
+				<div class="cornerRT"></div>
+			</a>
+			<a id="RecentTile3" style="left:240px; background-image: url(/thumbnailsForGallery/{{sketches.2.randomID}}.jpg);" href="/view/{{sketches.2.randomID}}/" title="{{sketches.2.title}} by {{sketches.2.author_nickname}}">
+				<div class="cornerLB"></div>
+				<div class="cornerLT"></div>
+				<div class="cornerRB"></div>
+				<div class="cornerRT"></div>
+			</a>
+			<a id="RecentTile4" style="left:295px; background-image: url(/thumbnailsForGallery/{{sketches.3.randomID}}.jpg);" href="/view/{{sketches.3.randomID}}/" title="{{sketches.3.title}} by {{sketches.3.author_nickname}}">
+				<div class="cornerLB"></div>
+				<div class="cornerLT"></div>
+				<div class="cornerRB"></div>
+				<div class="cornerRT"></div>
+			</a>
+			<a id="RecentTile5" style="left:350px; background-image: url(/thumbnailsForGallery/{{sketches.4.randomID}}.jpg);" href="/view/{{sketches.4.randomID}}/" title="{{sketches.4.title}} by {{sketches.4.author_nickname}}">
+				<div class="cornerLB"></div>
+				<div class="cornerLT"></div>
+				<div class="cornerRB"></div>
+				<div class="cornerRT"></div>
+			</a>
+			<a id="RecentTile6" style="left:405px; background-image: url(/thumbnailsForGallery/{{sketches.5.randomID}}.jpg);" href="/view/{{sketches.5.randomID}}/" title="{{sketches.5.title}} by {{sketches.5.author_nickname}}">
+				<div class="cornerLB"></div>
+				<div class="cornerLT"></div>
+				<div class="cornerRB"></div>
+				<div class="cornerRT"></div>
+			</a>
+			<a id="RecentTile7" style="left:460px; background-image: url(/thumbnailsForGallery/{{sketches.6.randomID}}.jpg);" href="/view/{{sketches.6.randomID}}/" title="{{sketches.6.title}} by {{sketches.6.author_nickname}}">
+				<div class="cornerLB"></div>
+				<div class="cornerLT"></div>
+				<div class="cornerRB"></div>
+				<div class="cornerRT"></div>
+			</a>
+			<a id="RecentTile8" style="left:515px; background-image: url(/thumbnailsForGallery/{{sketches.7.randomID}}.jpg);" href="/view/{{sketches.7.randomID}}/" title="{{sketches.7.title}} by {{sketches.7.author_nickname}}">
+				<div class="cornerLB"></div>
+				<div class="cornerLT"></div>
+				<div class="cornerRB"></div>
+				<div class="cornerRT"></div>
+			</a>
+			<a id="RecentTile9" style="left:570px; background-image: url(/thumbnailsForGallery/{{sketches.8.randomID}}.jpg);" href="/view/{{sketches.8.randomID}}/" title="{{sketches.8.title}} by {{sketches.8.author_nickname}}">
+				<div class="cornerLB"></div>
+				<div class="cornerLT"></div>
+				<div class="cornerRB"></div>
+				<div class="cornerRT"></div>
+			</a>
+			<a id="RecentTile10" style="left:625px; background-image: url(/thumbnailsForGallery/{{sketches.9.randomID}}.jpg);" href="/view/{{sketches.9.randomID}}/" title="{{sketches.9.title}} by {{sketches.9.author_nickname}}">
+				<div class="cornerLB"></div>
+				<div class="cornerLT"></div>
+				<div class="cornerRB"></div>
+				<div class="cornerRT"></div>
+			</a>
+			<a id="RecentTile11" style="left:680px; background-image: url(/thumbnailsForGallery/{{sketches.10.randomID}}.jpg);" href="/view/{{sketches.10.randomID}}/" title="{{sketches.10.title}} by {{sketches.10.author_nickname}}">
+				<div class="cornerLB"></div>
+				<div class="cornerLT"></div>
+				<div class="cornerRB"></div>
+				<div class="cornerRT"></div>
+			</a>
+			<a id="RecentTile12" style="left:20px; background-image: url(/thumbnailsForGallery/{{sketches.11.randomID}}.jpg); /*startOfCommentForSkeletalCSS*/ top:670px; /*endOfCommentForSkeletalCSS*/" href="/view/{{sketches.11.randomID}}/" title="{{sketches.11.title}} by {{sketches.11.author_nickname}}">
+				<div class="cornerLB"></div>
+				<div class="cornerLT"></div>
+				<div class="cornerRB"></div>
+				<div class="cornerRT"></div>
+			</a>
+			<a id="RecentTile13" style="left:75px; background-image: url(/thumbnailsForGallery/{{sketches.12.randomID}}.jpg); /*startOfCommentForSkeletalCSS*/ top:670px; /*endOfCommentForSkeletalCSS*/;" href="/view/{{sketches.12.randomID}}/" title="{{sketches.12.title}} by {{sketches.12.author_nickname}}">
+				<div class="cornerLB"></div>
+				<div class="cornerLT"></div>
+				<div class="cornerRB"></div>
+				<div class="cornerRT"></div>
+			</a>
+			<a id="RecentTile14" style="left:130px; background-image: url(/thumbnailsForGallery/{{sketches.13.randomID}}.jpg); /*startOfCommentForSkeletalCSS*/ top:670px; /*endOfCommentForSkeletalCSS*/;" href="/view/{{sketches.13.randomID}}/" title="{{sketches.13.title}} by {{sketches.13.author_nickname}}">
+				<div class="cornerLB"></div>
+				<div class="cornerLT"></div>
+				<div class="cornerRB"></div>
+				<div class="cornerRT"></div>
+			</a>
+			<a id="RecentTile15" style="left:185px; background-image: url(/thumbnailsForGallery/{{sketches.14.randomID}}.jpg); /*startOfCommentForSkeletalCSS*/ top:670px; /*endOfCommentForSkeletalCSS*/;" href="/view/{{sketches.14.randomID}}/" title="{{sketches.14.title}} by {{sketches.14.author_nickname}}">
+				<div class="cornerLB"></div>
+				<div class="cornerLT"></div>
+				<div class="cornerRB"></div>
+				<div class="cornerRT"></div>
+			</a>
+			<a id="RecentTile16" style="left:240px; background-image: url(/thumbnailsForGallery/{{sketches.15.randomID}}.jpg); /*startOfCommentForSkeletalCSS*/ top:670px; /*endOfCommentForSkeletalCSS*/;" href="/view/{{sketches.15.randomID}}/" title="{{sketches.15.title}} by {{sketches.15.author_nickname}}">
+				<div class="cornerLB"></div>
+				<div class="cornerLT"></div>
+				<div class="cornerRB"></div>
+				<div class="cornerRT"></div>
+			</a>
+			<a id="RecentTile17" style="left:295px; background-image: url(/thumbnailsForGallery/{{sketches.16.randomID}}.jpg); /*startOfCommentForSkeletalCSS*/ top:670px; /*endOfCommentForSkeletalCSS*/;" href="/view/{{sketches.16.randomID}}/" title="{{sketches.16.title}} by {{sketches.16.author_nickname}}">
+				<div class="cornerLB"></div>
+				<div class="cornerLT"></div>
+				<div class="cornerRB"></div>
+				<div class="cornerRT"></div>
+			</a>
+			<a id="RecentTile18" style="left:350px; background-image: url(/thumbnailsForGallery/{{sketches.17.randomID}}.jpg); /*startOfCommentForSkeletalCSS*/ top:670px; /*endOfCommentForSkeletalCSS*/;" href="/view/{{sketches.17.randomID}}/" title="{{sketches.17.title}} by {{sketches.17.author_nickname}}">
+				<div class="cornerLB"></div>
+				<div class="cornerLT"></div>
+				<div class="cornerRB"></div>
+				<div class="cornerRT"></div>
+			</a>
+			<a id="RecentTile19" style="left:405px; background-image: url(/thumbnailsForGallery/{{sketches.18.randomID}}.jpg); /*startOfCommentForSkeletalCSS*/ top:670px; /*endOfCommentForSkeletalCSS*/;" href="/view/{{sketches.18.randomID}}/" title="{{sketches.18.title}} by {{sketches.18.author_nickname}}">
+				<div class="cornerLB"></div>
+				<div class="cornerLT"></div>
+				<div class="cornerRB"></div>
+				<div class="cornerRT"></div>
+			</a>
+			<a id="RecentTile20" style="left:460px; background-image: url(/thumbnailsForGallery/{{sketches.19.randomID}}.jpg); /*startOfCommentForSkeletalCSS*/ top:670px; /*endOfCommentForSkeletalCSS*/;" href="/view/{{sketches.19.randomID}}/" title="{{sketches.19.title}} by {{sketches.19.author_nickname}}">
+				<div class="cornerLB"></div>
+				<div class="cornerLT"></div>
+				<div class="cornerRB"></div>
+				<div class="cornerRT"></div>
+			</a>
+			<a id="RecentTile21" style="left:515px; background-image: url(/thumbnailsForGallery/{{sketches.20.randomID}}.jpg); /*startOfCommentForSkeletalCSS*/ top:670px; /*endOfCommentForSkeletalCSS*/;" href="/view/{{sketches.20.randomID}}/" title="{{sketches.20.title}} by {{sketches.20.author_nickname}}">
+				<div class="cornerLB"></div>
+				<div class="cornerLT"></div>
+				<div class="cornerRB"></div>
+				<div class="cornerRT"></div>
+			</a>
+			<a id="RecentTile22" style="left:570px; background-image: url(/thumbnailsForGallery/{{sketches.21.randomID}}.jpg); /*startOfCommentForSkeletalCSS*/ top:670px; /*endOfCommentForSkeletalCSS*/;" href="/view/{{sketches.21.randomID}}/" title="{{sketches.21.title}} by {{sketches.21.author_nickname}}">
+				<div class="cornerLB"></div>
+				<div class="cornerLT"></div>
+				<div class="cornerRB"></div>
+				<div class="cornerRT"></div>
+			</a>
+			<a id="RecentTile23" style="left:625px; background-image: url(/thumbnailsForGallery/{{sketches.22.randomID}}.jpg); /*startOfCommentForSkeletalCSS*/ top:670px; /*endOfCommentForSkeletalCSS*/;" href="/view/{{sketches.22.randomID}}/" title="{{sketches.22.title}} by {{sketches.22.author_nickname}}">
+				<div class="cornerLB"></div>
+				<div class="cornerLT"></div>
+				<div class="cornerRB"></div>
+				<div class="cornerRT"></div>
+			</a>
+			<a id="RecentTile24" style="left:680px; background-image: url(/thumbnailsForGallery/{{sketches.23.randomID}}.jpg); /*startOfCommentForSkeletalCSS*/ top:670px; /*endOfCommentForSkeletalCSS*/;" href="/view/{{sketches.23.randomID}}/" title="{{sketches.23.title}} by {{sketches.23.author_nickname}}">
+				<div class="cornerLB"></div>
+				<div class="cornerLT"></div>
+				<div class="cornerRB"></div>
+				<div class="cornerRT"></div>
+			</a>
+			<div id="RecentBox">
+				<div id="TextPart">most recent &gt;</div>
+			</div>
+			<a id="BigThumb1" href="/view/rFzo4zsUPjp/" title="First Sketch"></a>
+			<a id="BigThumb2" href="/view/TDd1wMci5Vs/" title="Furry Ball"></a>
+			<a id="BigThumb3" href="/view/01pslKOfbTa" title="Final Project"></a>
+			<a id="BigThumb4" href="/view/01pslKOfbTa" title="Final Project"></a>
+			<div id="FeaturedBox">
+				<div id="FeaturedSketchesTextBlurb">
+					<p><a href="/FS_Samiat.html">Samiat Kolawole aka kolawolesammy</a></p>
+					<p>&nbsp;</p>
+					<p>winner of the 3Day Creative Coding Workshop... <a href="./FS_Samiat.html">more</a> </p>
+				</div>
+			</div>
+			<a id="FeaturedMore" href="/FS_Samiat.html"></a>
+			<div id="FavouritesBox">
+				<div id="FavouritesBoxTextBlurb"><font face="Arial, Helvetica, sans-serif">favourites &gt;</font></div>
+			</div>
+			<a id="FavouritesMore" href="/gallery.html"></a>
+			<div id="AboutContactSignOut">
+				<div align="center">
+					<a href="/groupLogin.html">Group login</a> | <a href="mailto:info@sketchpatch.net">Contact</a>
+					<script language="JavaScript" type="text/javascript">
+						//<![CDATA[
+						if ( readCookie("user.user") != "None") {
+						logout_url = "{{logout_url}}";
+						        document.write('| <a onclick="deleteClientSideUserInfoCookies();" href="' + logout_url + '">Sign out<\/a>');
+						}
+					</script>
+				</div>
+			</div>
+			<a id="FavouriteTile1" style="" href="http://www.sketchpatch.net/view/GViIzvLXEmp/" title="Squares by PsychicTeeth">
+			</a>
+			<a id="FavouriteTile2" style="left:185px;" href="http://www.sketchpatch.net/view/xUUwT67N7pH/" title="Orange by Minierzsolt">
+			</a>
+			<a id="FavouriteTile3" style="left:240px;" href="http://www.sketchpatch.net/view/57lUfbniRe3/" title="velocity tree by PsychicTeeth">
+			</a>
+			<a id="FavouriteTile4" style="left:295px;" href="http://www.sketchpatch.net/view/77oNK44aa46/" title="alexZv3 by lxyxpx">
+			</a>
+			<a id="FavouriteTile5" style="left:350px;" href="http://www.sketchpatch.net/view/5hBs8BemIyz/" title="colour shapes by sophie.mcdonald">
+			</a>
+			<a id="FavouriteTile6" style="left:405px;" href="http://www.sketchpatch.net/view/IZQCuRafYRK/" title="Forest I by jon_stutters">
+			</a>
+			<a id="FavouriteTile7" style="left:460px;" href="http://www.sketchpatch.net/view/4S1IYv5eQFy/" title="Furryball by DARYL_Gamma">
+			</a>
+			<a id="FavouriteTile8" style="left:515px;" href="http://www.sketchpatch.net/view/o5yf4WtqKep/" title="dorkbot09v7 by evanraskob">
+			</a>
+			<a id="FavouriteTile9" style="left:570px;" href="http://www.sketchpatch.net/view/4y0SZzfUcDi/" title="Recursion4 by PsychicTeeth">
+			</a>
+			<a id="FavouriteTile10" style="left:625px;" href="http://www.sketchpatch.net/view/UmCAqISj9dP/" title="Throwing lines around v0 by DARYL_Gamma">
+			</a>
+			<a id="FavouriteTile11" style="left:680px;" href="http://www.sketchpatch.net/view/46QbXrk14Pm/" title="Gradient Circles by DARYL_Gamma">
+			</a>
+			<a id="FavouriteTile12" style="left:20px; top:530px;" href="http://www.sketchpatch.net/view/Ba1UgMFM6Cr/" title="Triangles by Anonymous">
+			</a>
+			<a id="FavouriteTile13" style="left:75px; top:530px;" href="http://www.sketchpatch.net/view/RSxz9Jddifw/" title="brokendongle v7 by chris33dd">
+			</a>
+			<a id="FavouriteTile14" style="left:130px; top:530px;" href="http://www.sketchpatch.net/view/Ag3HSm9o1MC/" title="Sliding colors by Conroy">
+			</a>
+			<a id="FavouriteTile15" style="left:185px; top:530px;" href="http://www.sketchpatch.net/view/jJBMeJum7VA/" title="A&amp;B Spiralling out of control by sophie.mcdonald">
+			</a>
+			<a id="FavouriteTile16" style="left:240px; top:530px;" href="http://www.sketchpatch.net/view/59lnpFTooqs/" title="squaresnake V2 by DARYL_Gamma">
+			</a>
+			<a id="FavouriteTile17" style="left:295px; top:530px;" href="http://www.sketchpatch.net/view/EVa9BMEEkTK/" title="Sweatshop by ric_lmc">
+			</a>
+			<a id="FavouriteTile18" style="left:350px; top:530px;" href="http://www.sketchpatch.net/view/NWM2ZArDOAu/" title="Untitled by mar_canet">
+			</a>
+			<a id="FavouriteTile19" style="left:405px; top:530px;" href="http://www.sketchpatch.net/view/5sdH0BnpJJw/" title="random Animator by ric_lmc">
+			</a>
+			<a id="FavouriteTile20" style="left:460px; top:530px;" href="http://www.sketchpatch.net/view/TQaNvNNAyCe/" title="bobblesketchV6 by lxyxpx">
+			</a>
+			<a id="FavouriteTile21" style="left:515px; top:530px;" href="http://www.sketchpatch.net/view/b64kja6VnGc/" title="Spiralling rotating square by jon_stutters">
+			</a>
+			<a id="FavouriteTile22" style="left:570px; top:530px;" href="http://www.sketchpatch.net/view/rbnHg2yNjrl/" title="for blocks by sophie.mcdonald">
+			</a>
+			<a id="FavouriteTile23" style="left:625px; top:530px;" href="http://www.sketchpatch.net/view/0eLYBS0qTpl/" title="Gradient Rotating Square 2 by DARYL_Gamma">
+			</a>
+			<a id="FavouriteTile24" style="left:680px; top:530px;" href="http://www.sketchpatch.net/view/cDG8AbZ9mOH/" title="Anenomes by jon_stutters">
+			</a>
+			<a id="twitterIcon" href="http://twitter.com/home/?status=Checkin%27%20out%20http://www.sketchpatch.net/%20by%20@sketchPatch"></a>
+			<a id="facebookIcon" href="http://www.facebook.com/share.php?u=www.sketchpatch.net"></a>
+			<a id="flickrIcon" href="http://www.flickr.com/groups/sketchpatch/pool/"></a>
+			<a id="deliciousIcon" href="http://del.icio.us/post?url=http://www.sketchpatch.net&amp;title=sketchpatch.net&amp;notes=the%20programming%20playground"></a>
+			<a id="diggIcon" href="http://digg.com/submit?phase=2&amp;url=http://sketchpatch.net/&amp;title=sketchpatch.net"></a>
+			<a id="stumbleUponIcon" href="http://www.stumbleupon.com/submit?url=http://www.sketchpatch.net&amp;title=sketchpatch.net"></a>
+			<a id="redditIcon" href="http://www.reddit.com/submit?url=http://www.sketchpatch.net/&amp;title=sketchpatch.net"></a>
+			<div id="preloadShadow"></div>
+			<div id="preloadHoverImages"></div>
+		</div>
+	</body>
+</html>
