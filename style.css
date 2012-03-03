@@ -168,17 +168,6 @@ img.floatLeft {
 
 
 
-#header_home {
-	width:800px;
-	height:185px;
-	margin:auto;
-	/*startOfCommentForSkeletalCSS*/
-	background: no-repeat url(./imgs/sketchPatchHome_header01.png);
-	/*endOfCommentForSkeletalCSS*/
-}
-
-
-
 #header {
 	width:800px;
 	height:85px;
@@ -560,42 +549,6 @@ ul.recent li {
 	text-decoration:none;
 }
 
-
-/*//////////// BUBBLES /////////////////*/
-
-
-
-#tooltip.pretty {
-	font-family:Verdana, Geneva, Arial, helvetica, sans-serif;
-	border: none;
-	width: 125px;
-	height: 40px;
-	opacity: 0.8;
-	background: no-repeat url('./imgs/shadow.png') ;
-	padding:10px;
-	text-align:center;
-	
-}
-
-#tooltip.pretty h3 {
-	margin-bottom: 0.75em;
-	margin-top: 2px;
-	font-size: 10px;
-	width: 125px;
-	text-align: center;
-	color:#333333;
-}
-#tooltip.pretty div { width: 20px; text-align: left; }
-
-
-/* remember to define focus styles! */
-
-/*
-:focus {
-	outline: 0;
-}
-
-*/
 
 /*//////////// gallery pages /////////////////*/
 
