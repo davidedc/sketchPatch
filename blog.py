@@ -39,9 +39,6 @@ from google.appengine.api import memcache
 from google.appengine.ext import search
 from google.appengine.api import images
 
-from cpedia.pagination.GqlQueryPaginator import GqlQueryPaginator,GqlPage
-from cpedia.pagination.paginator import InvalidPage,Paginator
-
 from model import Sketcher,Weblog,WeblogReactions,Sketch,GallerySketch,MySketchesSketch,AuthorSketchesSketch,SketchComment,DeletedSketch
 import authorized
 import view

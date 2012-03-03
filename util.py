@@ -28,9 +28,6 @@ from google.appengine.ext import db
 from google.appengine.api import memcache
 from google.appengine.api import urlfetch
 
-from cpedia.pagination.GqlQueryPaginator import GqlQueryPaginator,GqlPage
-from cpedia.pagination.paginator import InvalidPage,Paginator
-
 from model import Weblog,WeblogReactions,CPediaLog
 import cgi
 import urllib, hashlib
@@ -81,40 +78,6 @@ def getRecentReactions():
 
     return recentReactions
 
-#get list of sketches saved not even once. Not Cached. By Davide Della Casa
-#def getSketchesSavedNotEvenOncePagination(page):
-#    blogs_query = db.GqlQuery("select * from Weblog WHERE savedAtLeastOnce = :1", True)
-#    try:
-#        cpedialog = getCPedialog()
-#        obj_page  =  GqlQueryPaginator(blogs_query,page,cpedialog.num_post_per_page).page()
-#    except InvalidPage:
-#        return None
-#    
-#    return obj_page
-
-
-#get blog pagination. Cached.
-def getBlogPagination(page):
-    key_ = "blog_pages_key"
-    try:
-        obj_pages = memcache.get(key_)
-    except Exception:
-        obj_pages = None
-    if obj_pages is None or page not in obj_pages:
-        blogs_query = Weblog.all().filter('entrytype','post').order('-date')
-        try:
-            cpedialog = getCPedialog()
-            obj_page  =  GqlQueryPaginator(blogs_query,page,cpedialog.num_post_per_page).page()
-            if obj_pages is None:
-                obj_pages = {}
-            obj_pages[page] = obj_page
-            memcache.add(key=key_, value=obj_pages, time=3600)
-        except InvalidPage:
-            return None
-    else:
-        logging.debug("getBlogPagination from cache. ")
-
-    return obj_pages[page]
 
 
 #get tag list. Cached.
