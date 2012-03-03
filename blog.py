@@ -1252,34 +1252,6 @@ class FetchSourceCode(BaseRequestHandler):
           }
         self.generate('sourcecode_view.html',template_values)
 
-
-class SiteMapHandler(BaseRequestHandler):    #for live.com SEO
-    def get(self):
-
-        blogs = Weblog.all().order('-date')
-        template_values = {
-          'allblogs': blogs,
-          }
-        self.generate('site_map.html',template_values)
-
-
-class TagHandler(BaseRequestHandler):
-    def get(self, encoded_tag):
-
-        #tag =  re.sub('(%25|%)(\d\d)', lambda cmatch: chr(string.atoi(cmatch.group(2), 16)), encoded_tag)   # No urllib.unquote in AppEngine?
-        #tag =  urllib.unquote(encoded_tag.encode('utf8'))
-        tag = encoded_tag
-        blogs = Weblog.all().filter('tags', tag).order('-date')
-        recentReactions = util.getRecentReactions()
-        template_values = {
-          'blogs':blogs,
-          'tag':tag,
-          'recentReactions':recentReactions,
-          }
-        self.generate('tag.html',template_values)
-
-
-    
 class SearchHandler(BaseRequestHandler):
     def get(self,search_term):
 
