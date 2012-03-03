@@ -79,10 +79,6 @@ handlers:
   static_files: 500th.html
   upload: 500th.html
 
-- url: /editSketch.html
-  static_files: editSketch.html
-  upload: editSketch.html
-  
 - url: /Featured_artist.html
   static_files: Featured_artist.html
   upload: Featured_artist.html
