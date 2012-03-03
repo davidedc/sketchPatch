@@ -100,41 +100,8 @@ handlers:
   static_files: Featured_artist.html
   upload: Featured_artist.html
 
-- url: /FA_Alex_May.html
-  static_files: FA_Alex_May.html
-  upload: FA_Alex_May.html 
-
-- url: /FS_Ric.html
-  static_files: FS_Ric.html
-  upload: FS_Ric.html 
-  
-- url: /FS_EvanRaskob.html
-  static_files: FS_EvanRaskob.html
-  upload: FS_EvanRaskob.html
-
-- url: /FS_KimAsendorf.html
-  static_files: FS_KimAsendorf.html
-  upload: FS_KimAsendorf.html
-
-- url: /FS_slub.html
-  static_files: FS_slub.html
-  upload: FS_slub.html
-
-- url: /FS_CoLAI.html
-  static_files: FS_CoLAI.html
-  upload: FS_CoLAI.html
-
-- url: /FS_MattApplgate.html
-  static_files: FS_MattApplgate.html
-  upload: FS_MattApplgate.html
-  
-- url: /FS_WillPearson.html
-  static_files: FS_WillPearson.html
-  upload: FS_WillPearson.html
-
-- url: /FS_Samiat.html
-  static_files: FS_Samiat.html
-  upload: FS_Samiat.html
+- url: /featuredSketches
+  static_dir: featuredSketches
 
 - url: /Featured_Sketches.html
   static_files: Featured_Sketches.html
