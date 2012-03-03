@@ -1,116 +1,98 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 
 <meta http-equiv="Content-Type" content="text/xhtml; charset=ISO-8859-1" />
-<title>sketchPatch - Comments</title>
+<title>sketchPatch_Comments</title>
 <link href="/style.css" rel="stylesheet" type="text/css" />
+
+
+{% include 'readCookieCode.html' %}
+	
 	
 </head>
 
 
 
-<body>
 
+<body>
 
 <div id="page">
 
-		<div id="header">
-			<div id="menu">
-				<a href="/index.html"> home</a> |
-				<a href="/create"> write a sketch</a> |
-				<a href="/mySketches"> my sketches</a> |
-				<a href="/gallery.html"> gallery</a> |
-				<a href="/Featured_artist.html"> featured artists</a>
-				
-			</div>
-			
-	<div id="headerPageText"> Comments </div>		
-			
-		</div>
+{% include 'headerTemplate.html' %}
 			
 
 
-		<div id="content">
-		
-		  <div id="gallerycontent">
-			
-<SCRIPT LANGUAGE="JavaScript">
 
-function readCookie(name) {
-	var nameEQ = name + "=";
-	var ca = document.cookie.split(';');
-	for(var i=0;i < ca.length;i++) {
-		var c = ca[i];
-		while (c.charAt(0)==' ') c = c.substring(1,c.length);
-		if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
-	}
-	return null;
-}
- 
-</SCRIPT>
+	<div id="content">
+	
+	
+		<div class="commentsPageBox">
+
 
 {% for sketchComment in sketchComments %}
 
-    	{{sketchComment.body}}
-    	<br>by <A href="/byUploader/{{sketchComment.author_nickname}}-{{sketchComment.author_string_user_id}}/">{{sketchComment.author_nickname}}</A><br>
+
+
+
+		<div class="commentTextBox"> <strong><a href="/byUploader/{{sketchComment.author_nickname}}-{{sketchComment.author_string_user_id}}/">
+		{{sketchComment.author_nickname}}'s</a>
+		comment  </strong> <br /> <p>{{sketchComment.body}}<p>
+
+    	
 
 		{# is the user a) an admin b) the owner of the sketch c) the owner of the comment? #}
 		
-		 <br>sketchComment.author_user_id: {{sketchComment.author_user_id}}<br>
-		 sketchComment.sketch_author_user_id: {{sketchComment.sketch_author_user_id}}<br>
-
 
     	<script type="text/javascript">
-    			document.write("<br>user.user_id: " + readCookie("user.user_id"));
-    			document.write("<br>user.is_current_user_admin: " + readCookie("user.is_current_user_admin"));
     		if ((( readCookie("user.user_id") != "None"))&&( ("{{sketchComment.author_user_id}}" == readCookie("user.user_id")) || (readCookie("user.is_current_user_admin") == "True") || ("{{sketchComment.sketch_author_user_id}}" == readCookie("user.user_id")) )) {
-    			document.write("<br><A href=\"/deleteComment/{{sketchComment.key().name()}}/?backTo="+location.href+"\">delete</A>");
+    			document.write("<div class=\"commentdelete\"><a href=\"/deleteComment/{{sketchComment.keyname}}/?backTo="+location.href+"\"><img src='/imgs/delete.gif' alt='delete'/>Delete<\/a><\/div>");
     		}
     	</script>
-<br><br>
+ </div>
 
 {% endfor %}
 
 
-				
-				
-					
 		
-		{# bookmark: {{bookmark}} #}
-		{# randomID: {{randomID}} #}
-		{# next: {{next}} #}
-        <a href="javascript:history.go(-1)">Back</a>
 
+
+				
+		<div style="float:right; margin-bottom:70px;"><strong> <a href=""> < back </a>
 		{% ifnotequal next "" %}
-        <a href="./?bookmark={{next}}">Next</a>
+		| <a href="./?bookmark={{next}}"> next > </a> 
         {% endifnotequal %}
+        </strong>
+</div>
+		
+		
+		<div class="yourcommentsetxt"> <h4>Add your comments about the sketch<img src="/imgs/comment.png"  /></h4>
+ </div>
+ 	</div>
 
+ <div class="FORMtextdiv">
+<form method="post" action='/addComment/{{sketch.randomID}}/'>
 
-        <br><br><a href="/view/{{randomID}}/">Back to the sketch</a>
+                  <textarea id="text_input" name="text_input" rows="5" cols="40">
+</textarea>
+<br />
+                <input id="submit_comment" name="submit_addreply" type="submit" value=
+                "submit" /><br />
+                <br />
+ </form>
 
-		<div id="footer"> <a href="./about.html"> about</a>|<a href=""> Contact </a>|<a href=""> Site Map </a>|<a href=""> Credits </a> </div>
+		
 		
 		</div>
-
-
-<br><br><b>Cookies:</b><br><br>
-
-<SCRIPT LANGUAGE="JavaScript">
-
-    var cookies=document.cookie.split(";");
-    for (var i=0; i<cookies.length; i++)
-    {
-    document.write(cookies[i] + "<br>");
-    }
- 
-</SCRIPT>
-
-</div>
-
-
+		
+		</div>
+		  
 {% include 'footerTemplate.html' %}
 
+
+</div>
 
 <script type="text/javascript">
 var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");

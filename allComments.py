@@ -99,5 +99,4 @@ class allComments(BaseRequestHandler):
           'next':next,
           'randomID':randomID,
           }
-        #self.generate('commentsTemplate.html',template_values)
-        self.generate('commentsTemplate2.html',template_values)
+        self.generate('commentsTemplate.html',template_values)

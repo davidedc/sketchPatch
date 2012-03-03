@@ -152,23 +152,6 @@ class GroupLogin(BaseRequestHandler):
    self.redirect("/groupLoginNotOK.html")
 
 
-class PageHandle(BaseRequestHandler):
-  def get(self,pagenum):
-
-    page = int(pagenum)
-    #get blog pagination from cache.
-    obj_page = util.getBlogPagination(page)
-    if obj_page is None:
-        self.redirect('/index.html')
-
-    recentReactions = util.getRecentReactions()
-    template_values = {
-      'page':obj_page,
-      'recentReactions':recentReactions,
-      }
-    self.generate('blog_main.html',template_values)
-
-
 class AddBlog(BaseRequestHandler):
 #  @authorized.role("admin")
   def get(self):
