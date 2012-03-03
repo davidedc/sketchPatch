@@ -58,9 +58,6 @@ handlers:
 - url: /sketchPlayer
   static_dir: sketchPlayer
 
-- url: /stylesheets
-  static_dir: stylesheets
-
 - url: /img
   static_dir: img
 
