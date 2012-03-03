@@ -52,9 +52,6 @@ handlers:
 - url: /P5Lint
   static_dir: P5Lint
 
-- url: /demo
-  static_dir: demo
-
 - url: /rocket/.*
   script: rocket/rocket.py
   
