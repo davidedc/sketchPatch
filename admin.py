@@ -69,88 +69,8 @@ class MainPage(BaseRequestHandler):
 
         template_values = {
           }
-        self.generate('admin_main.html',template_values)
+        self.generate('admin.html',template_values)
 
-
-class AdminCachePage(BaseRequestHandler):
-  @authorized.role('admin')
-  def get(self):
-
-        if not authorized.checkIfUserIsInWhiteList():
-        	self.redirect(authorized.getLoginPage())
-
-        cache_stats = memcache.get_stats()
-        template_values = {
-          'cache_stats':cache_stats,
-          }
-        self.generate('admin/admin_cache.html',template_values)
-
-
-class AdminSystemPage(BaseRequestHandler):
-  @authorized.role('admin')
-  def get(self):
-
-        if not authorized.checkIfUserIsInWhiteList():
-        	self.redirect(authorized.getLoginPage())
-
-        template_values = {
-          }
-        self.generate('admin/admin_system.html',template_values)
-
-  @authorized.role('admin')
-  def post(self):
-
-        if not authorized.checkIfUserIsInWhiteList():
-        	self.redirect(authorized.getLoginPage())
-
-        cpedialog = util.getCPedialog()
-        cpedialog.title = self.request.get("title")
-        cpedialog.author = self.request.get("author")
-        cpedialog.email = users.GetCurrentUser().email()
-        cpedialog.root_url = self.request.get("root_url")
-        if(int(self.request.get("num_post_per_page"))!=cpedialog.num_post_per_page):
-            cpedialog.num_post_per_page = int(self.request.get("num_post_per_page"))
-            util.flushBlogPagesCache()        
-        cpedialog.cache_time = int(self.request.get("cache_time"))
-        if self.request.get("debug"):
-            cpedialog.debug = True
-        else:
-            cpedialog.debug = False
-        cpedialog.host_ip = self.request.remote_addr
-        cpedialog.host_domain = self.request.get("SERVER_NAME")
-
-        cpedialog.put()
-        util.flushCPedialog()
-        return True
-
-        
-class AdminPagesPage(BaseRequestHandler):
-  @authorized.role('admin')
-  def get(self):
-
-        if not authorized.checkIfUserIsInWhiteList():
-        	self.redirect(authorized.getLoginPage())
-
-        pages = Weblog.all().filter('entrytype','page').order('-date')
-        template_values = {
-            'pages':pages,
-          }
-        self.generate('admin/admin_pages.html',template_values)
-
-
-
-class AdminTagsPage(BaseRequestHandler):
-  @authorized.role('admin')
-  def get(self):
-
-        if not authorized.checkIfUserIsInWhiteList():
-        	self.redirect(authorized.getLoginPage())
-
-        tags = Tag.all().order('-entrycount')
-        template_values = {
-           'tags':tags,
-          }
-        self.generate('admin/admin_tags.html',template_values)
 
 class UserIdPage(BaseRequestHandler):
 
