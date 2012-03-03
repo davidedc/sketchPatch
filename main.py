@@ -32,7 +32,6 @@ import allComments
 
 from google.appengine.ext.webapp import template
 template.register_template_library('cpedia.filter.replace')
-template.register_template_library('cpedia.filter.gravatar')
 
 
 def main():
