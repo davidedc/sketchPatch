@@ -1252,29 +1252,6 @@ class FetchSourceCode(BaseRequestHandler):
           }
         self.generate('sourcecode_view.html',template_values)
 
-class SearchHandler(BaseRequestHandler):
-    def get(self,search_term):
-
-        pageStr = self.request.get('page')
-        if pageStr:
-            page = int(pageStr)
-        else:
-            page = 1;
-        query = db.Query(Weblog).filter('tags =', search_term).order('-date')
-        try:
-            cpedialog = util.getCPedialog()
-            obj_page  =  Paginator(query,1000)
-        except InvalidPage:
-            self.redirect('/index.html')
-
-        recentReactions = util.getRecentReactions()
-        template_values = {
-          'search_term':search_term,
-          'page':obj_page,
-          'recentReactions':recentReactions,
-          }
-        self.generate('blog_main.html',template_values)
-
 class showLatestSketches(BaseRequestHandler):
 
   def get(self):
