@@ -86,6 +86,9 @@ handlers:
 - url: /featuredSketches
   static_dir: featuredSketches
 
+- url: /labs
+  static_dir: labs
+
 - url: /Featured_Sketches.html
   static_files: Featured_Sketches.html
   upload: Featured_Sketches.html
