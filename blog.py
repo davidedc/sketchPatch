@@ -1148,7 +1148,6 @@ class ArticleHandler(BaseRequestHandler):
           numberOfViews = pagecount.IncrPageCount(randomID, 1)
           if sketch.author_string_user_id != 'anonymous':
             authorViews = pagecount.IncrPageCount(sketch.author_string_user_id, 1)
-          util.insertPageviewsCookie(self, numberOfViews)
         else:
           numberOfViews = pagecount.GetPageCount(randomID)
 
@@ -1172,6 +1171,7 @@ class ArticleHandler(BaseRequestHandler):
         template_values = {
           'sketch': sketch,
           'headerTitle':"Playground",
+          'numberOfViews':numberOfViews,
           #'blog': blog,
           #'reactions': reactions,
           }
@@ -1217,7 +1217,6 @@ class ArticleHandlerEmbed(BaseRequestHandler):
           numberOfViews = pagecount.IncrPageCount(randomID, 1)
           if sketch.author_string_user_id != 'anonymous':
             authorViews = pagecount.IncrPageCount(sketch.author_string_user_id, 1)
-          util.insertPageviewsCookie(self, numberOfViews)
         else:
           numberOfViews = pagecount.GetPageCount(randomID)
 
@@ -1233,6 +1232,7 @@ class ArticleHandlerEmbed(BaseRequestHandler):
         template_values = {
           'sketch': sketch,
           'headerTitle':"Playground",
+          'numberOfViews':numberOfViews,
           }
         self.generate('embedSketchTemplate.html',template_values)
 

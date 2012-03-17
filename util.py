@@ -447,9 +447,6 @@ def insertUsersideCookies(requester):
         			requester.response.headers.add_header('Set-Cookie', 'user.nickname=%s; expires=Fri, 31-Dec-2020 23:59:59 GMT; path=/' % "Anonymous")
         
 
-def insertPageviewsCookie(requester, numberOfViews):
-        requester.response.headers.add_header('Set-Cookie', 'pageViews=%s; expires=Fri, 31-Dec-2020 23:59:59 GMT' % str(numberOfViews))
-
 def doesItContainProfanity(value):
 
     value = value.lower()
