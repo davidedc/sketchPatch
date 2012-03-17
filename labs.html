@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/xhtml; charset=ISO-8859-1" />
+		<title>sketchPatch - Labs</title>
+		<link href="./style.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" id="miao">
+			//<![CDATA[
+			
+			     function deleteClientSideUserInfoCookies(){
+					deleteCookie('user.user_id');
+					deleteCookie('user.is_current_user_admin');
+					deleteCookie('user.user');
+					deleteCookie('user.nickname');
+					deleteCookie('user.firstLogin');
+				}
+			
+			    function readCookie(name) {
+			        var nameEQ = name + "=";
+			        var ca = document.cookie.split(';');
+			        for(var i=0 ; i < ca.length ; i++) {
+			                var c = ca[i];
+			                while (c.charAt(0)==' ') c = c.substring(1,c.length);
+			                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+			        }
+			        return null;
+			    }
+			
+			
+			
+			    //]]>
+			    
+		</script>	
+	</head>
+	<body>
+		<div id="page" />
+		<div id="header">
+			<div id="menu">
+				<a href="/index.html"> home</a> |
+				<a href="/Featured_Sketches.html"> featured sketches</a> |
+				<a href="/gallery.html"> gallery</a> |
+				<a href="/create"> write a sketch</a> |
+				<a href="http://community.sketchpatch.net/discussion/"> forum</a>
+				<script language="JavaScript" type="text/javascript">
+					//<![CDATA[
+					                if ( readCookie("user.user") != "None") {
+					                        document.write(" |<a href=\"\/mySketches\">my sketches<\/a>");
+					                }
+					
+					              //]]>
+					              
+				</script>
+			</div>
+			<div id="headerPageText"> Labs </div>
+		</div>
+		<div id="content">
+			<div style="width:100%">
+				<div style="width:550px; margin-left:50px;">
+					<h2>Labs</h2>
+					<p>Links to source code/programs/libraries/prototypes we made that you might find interesting or useful.</p>
+					<br />
+				</div>
+			</div>
+			<div style="width:100%">
+				<div style="width:550px; margin-left:50px;">
+					<p>
+					<table border="0" cellspacing="5" cellpadding="5" width="100%" align="left">
+						<tbody>
+							<tr>
+								<td width="2%">&nbsp;</td>
+								<td width="10%" valign="top"><span class="full-image-block ssNonEditable"><span><a href="https://github.com/davidedc/sketchPatch"><img src="/imgs/sketchPatchIcon.png" alt="" /></a></span></span></td>
+								<td width="31%" valign="top">
+									<p><strong><a href="https://github.com/davidedc/sketchPatch">sketchPatch</a></strong></p>
+									<p>by Davide Della Casa and Sophie McDonald, with contributions from Jonny Stutters. Built starting from the CPedia blog engine by Ping Chen.</p>
+								</td>
+								<td width="2%">&nbsp;</td>
+								<td width="10%" valign="top"><span class="full-image-block ssNonEditable"><span><a href="https://github.com/davidedc/processing.as"><img src="/imgs/processingASIcon.png" alt="" /></a></span></span></td>
+								<td width="31%" valign="top">
+									<p><strong><a href="https://github.com/davidedc/processing.as">processing.as</a></strong></p>
+									<p>a way to run Processing programs in browsers which don't support the Canvas element. Started by Tim Cameron Ryan. Currently maintained by Davide Della Casa.</p>
+								</td>
+								<td width="14%">&nbsp;</td>
+							</tr>
+							<tr>
+								<td>&nbsp;</td>
+								<td valign="top"><span class="full-image-block ssNonEditable"><span><a href="https://github.com/davidedc/P5Lint"><img src="/imgs/P5LintIcon.png" alt="" /></a></span></span></td>
+								<td valign="top">
+									<p><strong><a href="https://github.com/davidedc/P5Lint">P5Lint</a></strong></p>
+									<p>a processing syntax checker in javascript. Or: the fluffy friend of fluffy processing programmers. Piggibacks on the legendary JSLint from Douglas Crockford.</p>
+								</td>
+								<td>&nbsp;</td>
+								<td valign="top"><span class="full-image-block ssNonEditable"><span><a href="#"><img src="/imgs/sketchesArchiveIcon.png" alt="" /></a></span></span></td>
+								<td valign="top">
+									<p><strong><a href="#">all the sketches on the site</a></strong></p>
+									<p>Coming soon.</p>
+								</td>
+								<td>&nbsp;</td>
+							</tr>
+							<tr>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+							</tr>
+						</tbody>
+					</table>
+					</p>
+					<br />
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+			document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+		<script type="text/javascript">
+			try {
+			var pageTracker = _gat._getTracker("UA-8776965-1");
+			pageTracker._setDomainName(".sketchpatch.net");
+			pageTracker._trackPageview();
+			} catch(err) {}
+		</script>
+	</body>
+</html>
