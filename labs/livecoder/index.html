@@ -27,88 +27,21 @@
 		  .CodeMirror {border: none; }
 		</style>
 
-		<!-- start of navigation menu-->
-				<style type="text/css">
-				
-				body {
-					font-family: arial, helvetica, serif;
-					background-color:#00ff00;
-				}
-				
-
-				#nav {
-					position: absolute;
-					top: 5px;
-					left: 5px;
-					margin-top:10px;
-					height:25px;
-					width:100%;
-					z-index:1;
-					background-color:#00ff00;
-				}
-
-				#nav, #nav ul { /* all lists */
-					padding: 0;
-					margin: 0;
-					list-style: none;
-					line-height: 1;
-				}
-				
-				#nav a {
-					display: block;
-					width: 10em;
-					text-decoration:none;
-					vertical-align:middle;
-				}
-				
-				#nav li { /* all list items */
-					float: left;
-					width: 10em; /* width needed or else Opera goes nuts */
-				}
-				
-				#nav li ul { /* second-level lists */
-					position: absolute;
-					background: #00ff00;
-					width: 10em;
-					left: -999em; /* using left instead of display to hide menus because display: none isn't read by screen readers */
-				}
-				
-				#nav li ul ul { /* third-and-above-level lists */
-					margin: -1em 0 0 10em;
-				}
-				
-				#nav li:hover ul ul, #nav li.sfhover ul ul {
-					left: -999em;
-				}
-				
-				#nav li:hover ul, #nav li li:hover ul, #nav li.sfhover ul, #nav li li.sfhover ul { /* lists nested under hovered list items */
-					left: auto;
-				}
-				
-				#content {
-					clear: left;
-					color: #ccc;
-				}
-				
-				</style>
-				
-				<script type="text/javascript"><!--//--><![CDATA[//><!--
-				
-				sfHover = function() {
-					var sfEls = document.getElementById("nav").getElementsByTagName("LI");
-					for (var i=0; i<sfEls.length; i++) {
-						sfEls[i].onmouseover=function() {
-							this.className+=" sfhover";
-						}
-						sfEls[i].onmouseout=function() {
-							this.className=this.className.replace(new RegExp(" sfhover\\b"), "");
-						}
-					}
-				}
-				if (window.attachEvent) window.attachEvent("onload", sfHover);
-				
-				//--><!]]></script>
-		<!-- end of navigation menu-->
+		<!-- second drop-down menu -->
+			<style type="text/css">
+					.dd_menu {background:green; padding:0px; margin:0; list-style-type:none; height:30px;}
+					.dd_menu li {float:left; height:30px; border-right: solid 1px white;}
+					.dd_menu li a {padding:9px 20px; display:block; color:#fff; text-decoration:none; font:12px arial, verdana, sans-serif; font-weight: bold;}
+					.dd_menu li:hover a {text-decoration:underline;}
+					
+					.dd_menu ul { z-index:1; position:absolute; left:-9999px; top:-9999px; list-style-type:none;}
+					.dd_menu li:hover {position:relative; background:red;}
+					.dd_menu li:hover ul {left:0px; top:30px; background:lavender; padding:3px; border:1px solid grey; width:160px;}
+					.dd_menu li:hover ul li {height:18px; border:none;}
+					.dd_menu li:hover ul li a {height:18px; padding:0px; display:block; font-size:11px; width:158px; line-height:18px; text-indent:5px; color:#444; background-color:lavender; text-decoration:none; border:1px solid transparent;}
+					.dd_menu li:hover ul li a:hover {height:18px; background:silver; color:#000; border:solid 1px #444;}
+			</style>
+		<!-- end of second drop-down menu -->
 
 		<!-- start boxy stuff-->
 			<script type="text/javascript" src="./boxy_files/project.js"></script>
@@ -121,7 +54,7 @@
 <body>
 
 
-<ul id="nav">
+<ul class='dd_menu'>
 
 	<li><a href="#">Help</a>
 		<ul>
