@@ -18,19 +18,21 @@
     height:100%;
   }
 
+
       .cm-tab:after {
-        content: "\2587";
+        /* content: "\25A3"; */
+        content: "\258C";
+        font-size: 70%;
         display: -moz-inline-block;
         display: -webkit-inline-block;
         display: inline-block;
         width: 0px;
         position: relative;
         overflow: visible;
-        left: -1.2em;
-        color: #333333;
-        margin-top: -0.1em;
+        left: -0.6em;
+        top: -0.19em;
+        color: #FF0000;
       }
-
 
 .cm-s-night { background: transparent; color: white; }
 .cm-s-night span.CodeMirror-selected { background: #a8f !important; }
