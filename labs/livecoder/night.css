@@ -22,7 +22,6 @@
       .cm-tab:after {
         /* content: "\25A3"; */
         content: "\258C";
-        font-size: 70%;
         display: -moz-inline-block;
         display: -webkit-inline-block;
         display: inline-block;
@@ -30,7 +29,6 @@
         position: relative;
         overflow: visible;
         left: -0.6em;
-        top: -0.19em;
         color: #FF0000;
       }
 
