@@ -75,7 +75,7 @@ box
 			</div>
 
 
-<ul class='dd_menu'>
+<ul class='dd_menu' id="theMenu">
 
 	<li><a href="#">Help</a>
 		<ul>
@@ -764,7 +764,7 @@ function loadExample(whichExample) {
         indentUnit: 2,
         indentWithTabs: true,
         lineWrapping: true,
-        onChange: (function(){editor.refresh();changesHappened = true})
+        // onChange: (function(){editor.refresh();changesHappened = true})
         //onScroll: (function(){alert('scroll')})
   });
 
@@ -775,8 +775,26 @@ function loadExample(whichExample) {
     editor.setOption("theme", theme);
   }
 
+// resizing the text area is necessary otherwise
+// as the user types to the end of it, instead of just scrolling
+// the content leaving all the other parts of the page where
+// they are, it expands and it pushes down
+// the view of the page, meaning that the canvas goes up and
+// the menu disappears
+// so we have to resize it at launch and also every time the window
+// is resized.
+
+function resizeTextArea() {
+	//alert("code height:" + $('#code').height());
+	//alert("window height:" + window.innerHeight);
+	//alert("code height:" + $('.CodeMirror-scroll').css('height'));
+	//alert("menu height:" + $('#theMenu').height());
+	$('.CodeMirror-scroll').css('height',window.innerHeight - $('#theMenu').height()); 
+}
+
 $(document).ready(function(){
 	editor.focus();
+	resizeTextArea()
 });
 
 
@@ -799,7 +817,7 @@ function fullscreenify(canvas) {
     var style = canvas.getAttribute('style') || '';
     //alert('style: ' +  style);
     
-    window.addEventListener('resize', function () {resize(canvas);}, false);
+    window.addEventListener('resize', function () {	resizeTextArea(); resize(canvas);}, false);
 
     resize(canvas);
 

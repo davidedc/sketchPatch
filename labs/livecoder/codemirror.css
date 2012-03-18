@@ -52,6 +52,17 @@
   overflow-x: hidden;
 }
 
+.CodeMirror-scroll {
+  height: 300px;
+  /*
+  These two don't seem to do anything, so
+  I'm removing them.
+  overflow-y: hidden;
+  overflow-x: auto;
+  */
+  width: 100%
+}
+
 .CodeMirror textarea {
   outline: none !important;
 }
