@@ -68,7 +68,7 @@
 }
 
 .CodeMirror pre.CodeMirror-cursor {
-  z-index: 10;
+  z-index: 2;
   position: absolute;
   visibility: hidden;
   border-left: 1px solid black;
