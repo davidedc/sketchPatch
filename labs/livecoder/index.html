@@ -710,7 +710,10 @@ rotate = function(a, b, c) {
 };
 
 scale = function(a, b, c) {
-  if(arguments.length == 1){
+  if(arguments.length == 0){
+  	  return;
+  }
+  else if(arguments.length == 1){
   	  b=a; c=a;
   }
   else if(arguments.length == 2){
