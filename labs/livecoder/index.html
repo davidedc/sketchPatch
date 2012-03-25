@@ -518,7 +518,13 @@ function runCode() {
         
         
         elaboratedSource =  elaboratedSource.replace(/(\d+)\s+times/g, ";( $1 + 0).times ->" );
+
         elaboratedSource =  elaboratedSource.replace(/^(\s*)([a-z]+[a-zA-Z1-9]+)[ ]*$/gm, "$1;$2()" );
+        // we don't want if and for to undergo the same tratment as, say, box
+        // so put those back to normal.
+        elaboratedSource =  elaboratedSource.replace(/;if\(\)/g, ";if" );
+        elaboratedSource =  elaboratedSource.replace(/;for\(\)/g, ";for" );
+
         elaboratedSource =  elaboratedSource.replace(/\/\//g, "#" );
         elaboratedSource =  elaboratedSource.replace(/scale(\s)+/g, ";scale$1" );
         elaboratedSource =  elaboratedSource.replace(/rotate(\s)+/g, ";rotate$1" );
