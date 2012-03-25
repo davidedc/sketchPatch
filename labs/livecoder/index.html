@@ -145,8 +145,8 @@ box
   // creating a geometry is expensive
   // so we need to create ONE cube of dimensions 1,1,1
   // if we need a cube of different size, then we need to
-  // scale it. Note that the scale for the cube shouldn't
-  // influence the stack, so we need to create a sccale node,
+  // scale it. Note that the scale for the specific cube shouldn't
+  // influence the stack, so we need to create a scale node,
   // and then go up a node.
   var isWebGLUsed = false;
   var normalMaterial = new THREE.MeshNormalMaterial()
@@ -336,8 +336,9 @@ var frameCount = 0;
 if( !init() )	animate();
 
 function clearDisplayList() {
-	for(var i in scene.objects){
-		scene.remove( scene.objects[i]);
+	for(var i = 0; i < scene.objects.length; ++i) {
+			scene.remove(scene.objects[i]);
+			i--;
 	}
 }
 
@@ -501,16 +502,15 @@ function runCode() {
         
         //elaboratedSource =  elaboratedSource.replace(/^([a-z]+[a-zA-Z1-9]+)\s*$/gm, "$1 = ->" );
         elaboratedSource =  elaboratedSource.replace(/(\d+)\s+times/g, "( $1 + 0).times ->" );
-        elaboratedSource =  elaboratedSource.replace(/^([\s*[a-z]+[a-zA-Z1-9]+)[ ]*$/gm, "$1()" );
+        elaboratedSource =  elaboratedSource.replace(/^(\s*[a-z]+[a-zA-Z1-9]+)[ ]*$/gm, "$1()" );
         elaboratedSource =  elaboratedSource.replace(/\/\//g, "#" );
         
-        //alert(elaboratedSource);
       
         out = CoffeeScript.compile(elaboratedSource, {
           bare: "on"
         });
-        //$("#coffee2js .error").hide();
-        //return output.getSession().setValue(out);
+        //alert(elaboratedSource + "---" + out);
+        
       } catch (e) {
 			$('#dangerSignText').css('color','red')
 			$('#errorMessageText').text(""+e)
@@ -572,7 +572,7 @@ function background(red, green, blue) {
 				setTimeout( 'animate();', 1000 / wantedFramesPerSecond );
 			}
 
-			clearDisplayList();
+			//clearDisplayList();
 			worldMatrix.identity();
 
 			// the sound list needs to be cleaned
@@ -598,7 +598,7 @@ function background(red, green, blue) {
 
 			// do the render
 			render();
-			//clearDisplayList();
+			clearDisplayList();
 
 			// update stats
 			stats.update();
@@ -713,8 +713,11 @@ rotate = function(a, b, c) {
 };
 
 scale = function(a, b, c) {
-  if(arguments.length === 1){
+  if(arguments.length == 1){
   	  b=a; c=a;
+  }
+  else if(arguments.length == 2){
+  	  c=1;
   }
 
   /*
@@ -758,6 +761,7 @@ scale = function(a, b, c) {
     mesh.matrix.copy(worldMatrix);
   	if( a !== 1 || b !== 1 || c !== 1){
       mesh.matrix.scale(new THREE.Vector3(a,b,c));
+      mesh.boundRadiusScale = Math.max(a,b,c);
     }
     
     scene.add(mesh);
