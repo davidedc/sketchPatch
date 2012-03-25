@@ -76,7 +76,7 @@
 			<h3>What is this?</h3>
 			<p>This is a livecoding environment: you type a program and it is immediately executed for you.<br><br>Try copy/pasting these two lines into the main window:
 <xmp>
-rotate 0,1,frameCount/100
+rotate 0,1,frame/100
 box
 </xmp></p>
 			</div>
@@ -87,7 +87,7 @@ box
 
 	<li><a href="#">Help</a>
 		<ul>
-			<!--<li><a href="#" onclick='Boxy.alert("This is a livecoding environment:<br><br>you type a program and it is immediately executed for you.<br><br>Try copying this and pasting it in the main window:<br><br><xmp>rotate 0,1,frameCount/100\nbox</xmp>");' >What is this?</a></li> -->
+			<!--<li><a href="#" onclick='Boxy.alert("This is a livecoding environment:<br><br>you type a program and it is immediately executed for you.<br><br>Try copying this and pasting it in the main window:<br><br><xmp>rotate 0,1,frame/100\nbox</xmp>");' >What is this?</a></li> -->
 			<li><a href="#" onclick="$('#basic-modal-content').modal();">What is this?</a></li>
 		</ul>
 	</li>
@@ -330,7 +330,7 @@ var lastStableProgram;
 		
 		
 var drawLoopTimer = null;
-var frameCount = 0;
+var frame = 0;
 
 
 if( !init() )	animate();
@@ -396,7 +396,7 @@ function runCode() {
 			// so we can perform some basic syntax checking.
 			// Note that when we remove the comments we also need to
 			// take into account strings because otherwise we mangle a line like
-       	 	// print "frameCount/100 //"
+       	 	// print "frame/100 //"
        	 	// where we need to now that that single comment is actually the content
        	 	// of a string.
 		
@@ -589,7 +589,7 @@ function background(red, green, blue) {
 
 			if (typeof(draw) != "undefined") { 
 			  draw();
-			  frameCount++;
+			  frame++;
 			  consecutiveFramesWithoutRunTimeError++;
 			  if (consecutiveFramesWithoutRunTimeError == 5) {
 			  	lastStableProgram = out;
@@ -800,8 +800,8 @@ addSound 'additional1'  ,'zzxz z zzzzzzzzzzx'
 addSound 'additional8'  ,'xzzx z zzxzzzxzzxz'
 addSound 'additional6' ,'xxzz x zxzxzxxxxxx'
 addSound 'additional4' ,'zxzxzzzxzxxzzzxx'
-scale 2*Math.sin(frameCount/33)
-rotate frameCount/10,frameCount/250,frameCount/50
+scale 2*Math.sin(frame/33)
+rotate frame/10,frame/250,frame/50
 box
 
 //////////////////////////////
@@ -809,18 +809,18 @@ box
 */
 
 var simpleCubeExample = ""+
-	"rotate 0, 1, frameCount/100\n"+
+	"rotate 0, 1, frame/100\n"+
 	"box\n";
 
 var twoCubesExample = ""+
 ""+		"2 times\n"+
-"\t"+		"rotate 0, 1, frameCount/200\n"+
+"\t"+		"rotate 0, 1, frame/200\n"+
 "\t"+		"box\n";
 
 var cubesAndSpikes = ""+
 ""+		"scale 2.1\n"+
 ""+		"5 times\n"+
-"\t"+			"rotate 0,1,frameCount/500\n"+
+"\t"+			"rotate 0,1,frame/500\n"+
 "\t"+			"box 0.1,0.1,0.1\n"+
 "\t"+			"translate 0,0.1,0.1\n"+
 "\t"+			"3 times\n"+
@@ -829,24 +829,24 @@ var cubesAndSpikes = ""+
 
 var turbineExample = ""+
 ""+		"70 times\n"+
-"\t"+		"rotate frameCount/101,1,frameCount/1000\n"+
+"\t"+		"rotate frame/101,1,frame/1000\n"+
 "\t"+		"box\n";
 
 var yellowBackgroundExample = ""+
 ""+		"background 255,255,0\n"+
-""+		"rotate 0,frameCount/20,frameCount/20\n"+
+""+		"rotate 0,frame/20,frame/20\n"+
 ""+		"box\n";
 
 var simpleSoundExample = ""+
-""+		"rotate 0,1,frameCount/100\n"+
+""+		"rotate 0,1,frame/100\n"+
 ""+		"box\n"+
-""+		"if frameCount % 20 == 0\n"+
+""+		"if frame % 20 == 0\n"+
 "\t"+		"soundManager.play('s12')\n";
 
 var littleSpiralOfCubes = ""+
 ""+		"scale 0.1\n"+
 ""+		"10 times\n"+
-"\t"+		"rotate 0,1,frameCount/100\n"+
+"\t"+		"rotate 0,1,frame/100\n"+
 "\t"+		"translate 1,1,1\n"+
 "\t"+		"box\n";
 
@@ -855,7 +855,7 @@ var tentacleExample = ""+
 ""+		"3 times\n"+
 "\t"+		"rotate 0,1,1\n"+
 "\t"+		"10 times\n"+
-"\t\t"+		"rotate 0,1,frameCount/100\n"+
+"\t\t"+		"rotate 0,1,frame/100\n"+
 "\t\t"+		"scale 0.9\n"+
 "\t\t"+		"translate 1,1,1\n"+
 "\t\t"+		"box\n";
@@ -867,7 +867,7 @@ var simpleRhythmExample = ""+
 ""+		"addSound 's2'  ,'xzzxzzxzzxxxxxxx'\n"+
 ""+		"addSound 's3'  ,'zzzxzzzxzzzxzzxz'\n"+
 ""+		"addSound 's5'  ,'xxzxxzxxzxxzxxxx'\n"+
-""+		"rotate 0,1,frameCount/50\n"+
+""+		"rotate 0,1,frame/50\n"+
 ""+		"box\n";
 
 var industrialMusicExample = ""+
