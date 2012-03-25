@@ -548,7 +548,7 @@ function runCode() {
 
 	// see here for the deepest examination ever of "eval"
 	// http://perfectionkills.com/global-eval-what-are-the-options/
-	// note that exeptions are caught by the window.onerror callback
+	// note that exceptions are caught by the window.onerror callback
 	consecutiveFramesWithoutRunTimeError = 0;
 	window.eval(out);
 
@@ -793,7 +793,9 @@ scale = function(a, b, c) {
     mesh.matrix.copy(worldMatrix);
   	if( a !== 1 || b !== 1 || c !== 1){
       mesh.matrix.scale(new THREE.Vector3(a,b,c));
-      mesh.boundRadiusScale = Math.max(a,b,c);
+      // in theory the docs say that we should change the boundradius
+      // but I don't think that we need it...
+      //mesh.boundRadiusScale = Math.max(a,b,c);
     }
     
     scene.add(mesh);
