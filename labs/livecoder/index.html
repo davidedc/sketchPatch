@@ -497,9 +497,36 @@ function runCode() {
         
         
         //elaboratedSource =  elaboratedSource.replace(/^([a-z]+[a-zA-Z1-9]+)\s*$/gm, "$1 = ->" );
-        elaboratedSource =  elaboratedSource.replace(/(\d+)\s+times/g, "( $1 + 0).times ->" );
+        
+        // some replacements add a semicolon for the
+        // following reason: coffeescript allows you to split arguments
+        // over multiple lines.
+        // So if you have:
+        //   rotate 0,0,1
+        //   box
+        // and you want to add a scale like so:
+        //   scale 2,2,2
+        //   rotate 0,0,1
+        //   box
+        // What happens is that as you are in the middle of typing:
+        //   scale 2,
+        //   rotate 0,0,1
+        //   box
+        // coffeescript takes the rotate as the second argument of scale
+        // causing mayhem.
+        // Instead, all is good if rotate is prepended with a semicolon.
+        
+        
+        elaboratedSource =  elaboratedSource.replace(/(\d+)\s+times/g, ";( $1 + 0).times ->" );
         elaboratedSource =  elaboratedSource.replace(/^(\s*[a-z]+[a-zA-Z1-9]+)[ ]*$/gm, "$1()" );
         elaboratedSource =  elaboratedSource.replace(/\/\//g, "#" );
+        elaboratedSource =  elaboratedSource.replace(/scale(\s)+/g, ";scale$1" );
+        elaboratedSource =  elaboratedSource.replace(/rotate(\s)+/g, ";rotate$1" );
+        elaboratedSource =  elaboratedSource.replace(/translate(\s)+/g, ";translate$1" );
+        
+        // the semicolo mangles the first line of the function definitions
+        // coffeescript doesn't like that
+        elaboratedSource =  elaboratedSource.replace(/->(\s+);/g, "->$1" );
         
       
         //alert(elaboratedSource );
@@ -719,6 +746,11 @@ scale = function(a, b, c) {
   else if(arguments.length == 2){
   	  c=1;
   }
+  
+  // odd things happen setting scale to zero
+  if (a < 0.000000001) a = 0.000000001;
+  if (b < 0.000000001) b = 0.000000001;
+  if (c < 0.000000001) c = 0.000000001;
 
   /*
   currentObject = new THREE.Object3D();
