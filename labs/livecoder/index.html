@@ -40,6 +40,13 @@
 					.dd_menu li:hover ul li {height:18px; border:none;}
 					.dd_menu li:hover ul li a {height:18px; padding:0px; display:block; font-size:11px; width:158px; line-height:18px; text-indent:5px; color:#444; background-color:lavender; text-decoration:none; border:1px solid transparent;}
 					.dd_menu li:hover ul li a:hover {height:18px; background:silver; color:#000; border:solid 1px #444;}
+					
+					#dangerSignText {color:green; text-decoration:none;}
+					#dangerSign:hover {background:green;}
+
+					#errorMessageText {text-decoration:none;}
+					#errorMessage:hover {background:green;}
+					
 			</style>
 		<!-- end of second drop-down menu -->
 
@@ -99,6 +106,10 @@ box
 			<li><a href="#" onclick="loadExample('simpleRhythmExample');">Simple rhythm</a></li>
 			<li><a href="#" onclick="loadExample('industrialMusicExample');">Industrial music</a></li>
 		</ul>
+	</li>
+	<li id="dangerSign"><a href="#" id="dangerSignText" style="font-size:2em;margin-top:-0.5em;">&#9888;</a>
+	</li>
+	<li id="errorMessage"><a href="#" id="errorMessageText" ></a>
 	</li>
 
 </ul>
@@ -168,6 +179,11 @@ var soundLoops = [];
 soundLoops.soundIDs = [];
 soundLoops.beatStrings = [];
 
+var programHasBasicError = false;
+var reasonOfBasicError = "";
+var consecutiveFramesWithoutRunTimeError = 0;
+var out;
+var lastStableProgram;
 
 		// init the scene
 		function init(){
@@ -329,15 +345,148 @@ function runCode() {
     
 
       try {
-        var editorContent = "\t"+editor.getValue().replace(
-// Replace out the new line character.
-new RegExp( "\\n", "g" ),
- 
-// Put in ... so we can see a visual representation of where
-// the new line characters were replaced out.
-"\n\t"
-);
-        var verbatimSource = "draw = ->\n"+editorContent;
+      
+        var editorContent = editor.getValue();
+        var copyOfEditorContent;
+        var programIsMangled = false;
+        var programContainsStringsOrComments = false;
+        var characterBeingExamined;
+        var nextCharacterBeingExamined;
+        
+        // according to jsperf, this is the fastest way to count for
+        // occurrences of a character. We count apostrophes
+
+
+		// check whether the program potentially
+		// contains strings or comments
+		// if it doesn't then we can do some
+		// simple syntactic checks that are likely
+		// to be much faster than attempting a
+		// coffescript to javascript translation
+        copyOfEditorContent = editorContent;
+		while (copyOfEditorContent.length) {
+			characterBeingExamined = copyOfEditorContent.charAt(0);
+			nextCharacterBeingExamined = copyOfEditorContent.charAt(1);
+		  if (characterBeingExamined === "'" ||
+		  	characterBeingExamined === '"' ||
+		  	(characterBeingExamined === "/" &&
+		  		(
+		  		nextCharacterBeingExamined === "*" ||
+		  		nextCharacterBeingExamined === "/"
+		  		)
+		  	)
+		  	) {
+			  programContainsStringsOrComments = true;
+			  //alert('program contains strings or comments');
+			  break;
+		   }
+		   copyOfEditorContent = copyOfEditorContent.slice(1);
+		}
+
+        // let's do a quick check:
+        // these groups of characters should be in even number:
+        // ", ', (), {}, []
+        
+		if (programContainsStringsOrComments) {
+			// OK the program contains comments and/or strings
+			// so this is what we are going to do:
+			// first we remove all the comments for good
+			// then we create a version without the strings
+			// so we can perform some basic syntax checking.
+			// Note that when we remove the comments we also need to
+			// take into account strings because otherwise we mangle a line like
+       	 	// print "frameCount/100 //"
+       	 	// where we need to now that that single comment is actually the content
+       	 	// of a string.
+		
+			// modified from Processing.js (search for: "masks strings and regexs")
+			// this is useful to remove all comments but keeping all the strings
+			// the difference is that here I don't treat regular expressions.
+			// Note that string take precedence over comments i.e.
+			// is a string, not half a string with a quote in a comment
+
+			// get rid of the comments for good.
+			editorContent = editorContent.replace(/("(?:[^"\\\n]|\\.)*")|('(?:[^'\\\n]|\\.)*')|(\/\/[^\n]*\n)|(\/\*(?:(?!\*\/)(?:.|\n))*\*\/)/g,
+			function(all, quoted, aposed, singleComment, comment) {
+			  // strings are kept as they are
+			  if(quoted) {
+				return '"' + quoted + '"';
+			  }
+			  else if(aposed) {
+				return "'" + aposed + "'";
+			  }
+			  // eliminate comments
+			  else {
+				return "";
+			  }
+			});
+			
+			// ok now in the version we use for syntax checking we delete all the strings
+			copyOfEditorContent = editorContent.replace(/("(?:[^"\\\n]|\\.)*")|('(?:[^'\\\n]|\\.)*')/g,"");
+
+		}
+		else {
+		    copyOfEditorContent = editorContent;
+		}
+		
+			var aposCount = 0;
+			var quoteCount = 0;
+			var roundBrackCount = 0;
+			var curlyBrackCount = 0;
+			var squareBrackCount = 0;
+			
+			while (copyOfEditorContent.length) {
+				characterBeingExamined = copyOfEditorContent.charAt(0)
+			
+			  if ( characterBeingExamined === "'") {
+				  aposCount += 1;
+				}
+			  else if (characterBeingExamined === '"') {
+				  quoteCount += 1;
+				}
+			  else if (characterBeingExamined === '(' || characterBeingExamined === ')' ) {
+				  roundBrackCount += 1;
+				}
+			  else if (characterBeingExamined === '{' || characterBeingExamined === '}' ) {
+				  curlyBrackCount += 1;
+				}
+			  else if (characterBeingExamined === '[' || characterBeingExamined === ']' ) {
+				  squareBrackCount += 1;
+				}
+			   copyOfEditorContent = copyOfEditorContent.slice(1);
+			}
+			
+			// according to jsperf, the fastest way to check if number is even/odd
+			if (
+				aposCount & 1 ||
+				quoteCount & 1 ||
+				roundBrackCount & 1 ||
+				curlyBrackCount & 1 ||
+				squareBrackCount & 1
+			){
+				programHasBasicError = true;
+				//alert("basic error");
+				//alert("p:" + $('#dangerSignText').css('color'));
+				$('#dangerSignText').css('color','red')
+
+			if (aposCount & 1) reasonOfBasicError = "Missing '";
+			if (quoteCount & 1) reasonOfBasicError = 'Missing "';
+			if (roundBrackCount & 1) reasonOfBasicError = "Unbalanced ()";
+			if (curlyBrackCount & 1) reasonOfBasicError = "Unbalanced {}";
+			if (squareBrackCount & 1) reasonOfBasicError = "Unbalanced []";
+
+				$('#errorMessageText').text(reasonOfBasicError)
+				
+				
+				return;
+			}
+		
+        
+      	// indent the code
+        var elaboratedSource = "\t"+editorContent.replace(
+			new RegExp( "\\n", "g" ), "\n\t"
+		);
+        elaboratedSource = "draw = ->\n" + elaboratedSource;
         
         // little trick. This is mangled up in the translation from coffeescript
         // (1).times ->
@@ -348,7 +497,8 @@ new RegExp( "\\n", "g" ),
         // TODO: you should be a little smarter about the substitution of the draw method
         // You can tell a method declaration because the line below is indented
         // so you should check that.
-        var elaboratedSource = verbatimSource;
+        
+        
         //elaboratedSource =  elaboratedSource.replace(/^([a-z]+[a-zA-Z1-9]+)\s*$/gm, "$1 = ->" );
         elaboratedSource =  elaboratedSource.replace(/(\d+)\s+times/g, "( $1 + 0).times ->" );
         elaboratedSource =  elaboratedSource.replace(/^([\s*[a-z]+[a-zA-Z1-9]+)[ ]*$/gm, "$1()" );
@@ -362,19 +512,36 @@ new RegExp( "\\n", "g" ),
         //$("#coffee2js .error").hide();
         //return output.getSession().setValue(out);
       } catch (e) {
-        //alert("" + e);
+			$('#dangerSignText').css('color','red')
+			$('#errorMessageText').text(""+e)
         return;
       }
 
-    // this is so that the global variables are kept, see:
-    // http://weblogs.java.net/blog/driscoll/archive/2009/09/08/eval-javascript-global-context
-    window.eval.call(window,out);
+				programHasBasicError = false;
+				reasonOfBasicError = "";
+				$('#dangerSignText').css('color','green')
+				$('#errorMessageText').text(reasonOfBasicError)
 
-// callTheDrawLoopIfItExists();
+	// see here for the deepest examination ever of "eval"
+	// http://perfectionkills.com/global-eval-what-are-the-options/
+	// note that exeptions are caught by the window.onerror callback
+	consecutiveFramesWithoutRunTimeError = 0;
+	window.eval(out);
 
       
 }
 
+window.onerror=function(msg, url, linenumber){
+ $('#dangerSignText').css('color','red');
+ $('#errorMessageText').text(msg);
+ 
+ // we set this to 6 because we save it as stable
+ // when it's 5, so we avoid re-saving.
+ consecutiveFramesWithoutRunTimeError = 6;
+ window.eval(lastStableProgram);
+
+ return true
+}
 
 function background(red, green, blue) {
 
@@ -423,6 +590,10 @@ function background(red, green, blue) {
 			if (typeof(draw) != "undefined") { 
 			  draw();
 			  frameCount++;
+			  consecutiveFramesWithoutRunTimeError++;
+			  if (consecutiveFramesWithoutRunTimeError == 5) {
+			  	lastStableProgram = out;
+			  }
 			}
 
 			// do the render
@@ -433,19 +604,7 @@ function background(red, green, blue) {
 			stats.update();
 		}
 
-function callTheDrawLoopIfItExists() {
-	clearTimeout(drawLoopTimer);
-	drawLoopTimer = null;
-	
-	if (typeof(draw) != "undefined") { 
-	  draw();
-	  frameCount++;
-	}
-	if (drawLoopTimer === null) {
-		drawLoopTimer=setTimeout('callTheDrawLoopIfItExists();',30);
-	}
-}
-
+	/*
 	var lastkey = 0
 	 document.onkeydown = function(e){
 		// CTRL-K compiles and runs
@@ -460,16 +619,16 @@ function callTheDrawLoopIfItExists() {
 		if(e.which==38 || e.which==40){
 			runCode();
 			return true;
-		}
-		
-		
+		}		
 	};
+
 	document.onkeyup = function(e){
 		
 		if(e.which==17){
 			lastkey = 0;
 		}
 	};
+		*/	
 
 
 var parentObject, rootObject, rotate, translate;
@@ -752,7 +911,10 @@ function loadExample(whichExample) {
 			editor.setValue(industrialMusicExample);
 			break;
 	}
-	runCode();
+	
+	// setting the value of the editor triggers the
+	// codeMirror onChange callback, and that runs
+	// the example.
 }
 
 	</script>
@@ -770,8 +932,8 @@ function loadExample(whichExample) {
         // One of those little wonders: you have to pause a little
         // before giving the editor focus, otherwise for some reason
         // the focus is not regained. Go figure.
-        onBlur: (function(){ setTimeout('editor.focus()',30) })
-        //onChange: (function(){editor.refresh();changesHappened = true})
+        onBlur: (function(){ setTimeout('editor.focus()',30) }),
+        onChange: (function(){runCode();})
         //onScroll: (function(){alert('scroll')})
   });
 
