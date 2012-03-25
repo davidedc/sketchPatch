@@ -74,11 +74,7 @@
 		<!-- modal content -->
 		<div id="basic-modal-content">
 			<h3>What is this?</h3>
-			<p>This is a livecoding environment: you type a program and it is immediately executed for you.<br><br>Try copy/pasting these two lines into the main window:
-<xmp>
-rotate 0,1,frame/100
-box
-</xmp></p>
+			<p>This is a livecoding environment: you type a program and it is immediately executed for you.<br><br>Try one of the examples from the "Examples" menu.
 			</div>
 
 <div id="theMenu" style="position: absolute;  z-index:3; top: 0px; left: 0px;">
@@ -411,10 +407,10 @@ function runCode() {
 			function(all, quoted, aposed, singleComment, comment) {
 			  // strings are kept as they are
 			  if(quoted) {
-				return '"' + quoted + '"';
+				return quoted;
 			  }
 			  else if(aposed) {
-				return "'" + aposed + "'";
+				return aposed;
 			  }
 			  // eliminate comments
 			  else {
@@ -506,10 +502,11 @@ function runCode() {
         elaboratedSource =  elaboratedSource.replace(/\/\//g, "#" );
         
       
+        //alert(elaboratedSource );
         out = CoffeeScript.compile(elaboratedSource, {
           bare: "on"
         });
-        //alert(elaboratedSource + "---" + out);
+        //alert("in javascript: " + out);
         
       } catch (e) {
 			$('#dangerSignText').css('color','red')
