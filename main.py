@@ -38,6 +38,7 @@ def main():
     cpedialog = util.getCPedialog()
     application = webapp.WSGIApplication(
                                        [
+                                        ('/admin/manageAnonymousSketches.html', blog.showAnonymousSketches), #DDC
                                         ('/thumbnailStringDownload/(.*)/*$', thumbnailStringDownload.thumbnailStringDownload), #DDC
                                         ('/thumbnailsForGallery/(.*)/*$', thumbnailDownload.thumbnailDownloadGallery), #DDC
                                         ('/thumbnailsForMyPage/(.*)/*$', thumbnailDownload.thumbnailDownloadMySketches), #DDC
