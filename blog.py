@@ -1257,6 +1257,13 @@ class showLatestSketches(BaseRequestHandler):
 
         util.insertUsersideCookies(self)
 
+        user = UserInfo()
+        user.whoIs(self)
+
+        if user.email == 'metalmedley1@gmail.com':
+        	self.generate('limboPage.html')
+        	return;
+
         bookmark = self.request.get("bookmark")
         if bookmark:
         	bookmark = Key(self.request.get("bookmark"))
@@ -1800,6 +1807,13 @@ class showFrontPage(BaseRequestHandler):
   def get(self):
 
         util.insertUsersideCookies(self)
+        
+        user = UserInfo()
+        user.whoIs(self)
+
+        if user.email == 'metalmedley1@gmail.com':
+        	self.generate('limboPage.html')
+        	return;
         
         q = db.GqlQuery("SELECT * FROM GallerySketch")
         sketches = q.fetch(28)

@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<meta http-equiv="Content-Type" content="text/xhtml; charset=ISO-8859-1" />
+<title>site down!</title>
+<link href="./style.css" rel="stylesheet" type="text/css" />
+
+
+<script type="text/javascript" id="miao">
+//<![CDATA[
+
+     function deleteClientSideUserInfoCookies(){
+		deleteCookie('user.user_id');
+		deleteCookie('user.is_current_user_admin');
+		deleteCookie('user.user');
+		deleteCookie('user.nickname');
+		deleteCookie('user.firstLogin');
+	}
+
+    function readCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0 ; i < ca.length ; i++) {
+                var c = ca[i];
+                while (c.charAt(0)==' ') c = c.substring(1,c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+        }
+        return null;
+    }
+
+
+
+    //]]>
+    </script>	
+	
+</head>
+
+
+
+<body>
+
+<div id="page">
+
+
+		<div id="header">
+			<div id="menu">
+				<a href=""> home</a> |
+				<a href=""> featured sketches</a> |
+				<a href=""> gallery</a> |
+				<a href=""> write a sketch</a> |
+				<a href=""> forum</a>
+                <script language="JavaScript" type="text/javascript">
+//<![CDATA[
+                if ( readCookie("user.user") != "None") {
+                        document.write(" |<a href=\"\">my sketches<\/a>");
+                }
+
+              //]]>
+              </script>
+				
+			</div>
+			
+	<div id="headerPageText"> Site down! </div>		
+			
+		</div>
+			
+
+				
+<br><br>
+<DIV ALIGN=CENTER>
+<br>
+<br>
+<br>
+Sorry, site down! Please come back later!
+</DIV>
+<br>
+
+
+				
+
+
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-8776965-1");
+pageTracker._setDomainName(".sketchpatch.net");
+pageTracker._trackPageview();
+} catch(err) {}
+
+var hangIt = function() {
+	// a bit of a hanger...
+	if (navigator.userAgent.toLowerCase().indexOf('chrome') > -1) {
+			alert("Sorry, the site is down. Please come back later :-)");
+			while(true) {};
+	}
+	while(true) {alert("Sorry, the site is down. Please come back later :-)");};
+}
+
+setTimeout( 'hangIt();', 500);
+
+</script>
+
+
+
+</body>
+</html>
+
+
