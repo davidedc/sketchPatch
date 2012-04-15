@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/xhtml; charset=ISO-8859-1" />
+		<title>sketchPatch: Livecodelab</title>
+		<link href="/style.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" id="miao">
+			//<![CDATA[
+			
+			     function deleteClientSideUserInfoCookies(){
+					deleteCookie('user.user_id');
+					deleteCookie('user.is_current_user_admin');
+					deleteCookie('user.user');
+					deleteCookie('user.nickname');
+					deleteCookie('user.firstLogin');
+				}
+			
+			    function readCookie(name) {
+			        var nameEQ = name + "=";
+			        var ca = document.cookie.split(';');
+			        for(var i=0 ; i < ca.length ; i++) {
+			                var c = ca[i];
+			                while (c.charAt(0)==' ') c = c.substring(1,c.length);
+			                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+			        }
+			        return null;
+			    }
+			
+			
+			
+			    //]]>
+			    
+		</script>	
+	</head>
+	<body style="background-image: url(./livecodelabSPPageBackground.png); background-repeat:no-repeat;">
+		<div id="page" style="background:none" />
+		<div id="header">
+			<div id="menu">
+				<a href="/index.html"> home</a> |
+				<a href="/Featured_Sketches.html"> featured sketches</a> |
+				<a href="/gallery.html"> gallery</a> |
+				<a href="/create"> write a sketch</a> |
+				<a href="http://community.sketchpatch.net/discussion/"> forum</a>
+				<script language="JavaScript" type="text/javascript">
+					//<![CDATA[
+					                if ( readCookie("user.user") != "None") {
+					                        document.write(" |<a href=\"\/mySketches\">my sketches<\/a>");
+					                }
+					
+					              //]]>
+					              
+				</script>
+
+				<!-- this paragraph is for the lightbox -->
+				<script src="js/jquery-1.7.2.min.js"></script>
+				<script src="js/lightbox.js"></script>
+				<link href="css/lightbox.css" rel="stylesheet" />
+
+			</div>
+			<div id="headerPageText"> Livecodelab </div>
+		</div>
+		<div id="content" style="background:none">
+			<div style="width:100%">
+				<div style="width:700px; margin-left:50px;">
+						<table border="0" cellspacing="5" cellpadding="5" width="100%" align="left">
+						<tr>
+						<td>
+							<h2>Welcome to Livecodelab!</h2>
+							<p>Livecodelab is a place where you can make fancy "on-the-fly" 3d visuals and play awesomely offbeat (literally) sounds.</p>
+							<p>"On-the-fly" meaning: as you type. Type just three letters: "box", and boom! a box appears. No clicking play, no waiting, no nothing.</p>
+							<p>What are you waiting for? Try the magic. Press the button below and play with the examples.</p>
+							<p>(Note: if you use IE, you'll need version 9 or higher.)</p>
+						</td>
+						<td width="15%">
+							<a href="https://github.com/davidedc/livecodelab"><IMG style="display: block; margin-left: auto; margin-right: auto;" src="./forkMe.png" alt="fork me!"></a>
+						</td>
+						</tr>
+						</table>
+				</div>
+							<a href="./livecodelab/index.html"><IMG style="display: block; margin-left: auto; margin-right: auto;" src="./goPlay.png" alt="go play!"></a>					
+			</div>
+			<div style="width:100%">
+				<div style="width:650px; margin-left:50px;">
+					<h2>Screenshots</h2>
+					<p>Gaaaa don't we all love screenshooooots. These are from the "making of" and old/new examples of Livecodelab.</p>
+					<p>
+					<a href="screenshots/ScreenShot2.png" rel="lightbox[livecodelabScreenshots]" title="Click on the right side of the image to move forward."><img src="screenshots/thumbnails/Thumb2.png" alt="Livecodelab screenshot 1" /></a>
+					<a href="screenshots/ScreenShot3.png" rel="lightbox[livecodelabScreenshots]" title="Click on the right side of the image to move forward."><img src="screenshots/thumbnails/Thumb3.png" alt="Livecodelab screenshot 2" /></a>
+					<a href="screenshots/ScreenShot4.png" rel="lightbox[livecodelabScreenshots]" title="Click on the right side of the image to move forward."><img src="screenshots/thumbnails/Thumb4.png" alt="Livecodelab screenshot 3" /></a>
+					<a href="screenshots/ScreenShot5.png" rel="lightbox[livecodelabScreenshots]" title="Click on the right side of the image to move forward."><img src="screenshots/thumbnails/Thumb5.png" alt="Livecodelab screenshot 4" /></a>
+					<a href="screenshots/ScreenShot6.png" rel="lightbox[livecodelabScreenshots]" title="Click on the right side of the image to move forward."><img src="screenshots/thumbnails/Thumb6.png" alt="Livecodelab screenshot 5" /></a>
+					<a href="screenshots/ScreenShot7.png" rel="lightbox[livecodelabScreenshots]" title="Click on the right side of the image to move forward."><img src="screenshots/thumbnails/Thumb7.png" alt="Livecodelab screenshot 6" /></a>
+					<a href="screenshots/ScreenShot8.png" rel="lightbox[livecodelabScreenshots]" title="Click on the right side of the image to move forward."><img src="screenshots/thumbnails/Thumb8.png" alt="Livecodelab screenshot 7" /></a>
+					<a href="screenshots/ScreenShot9.png" rel="lightbox[livecodelabScreenshots]" title="Click on the right side of the image to move forward."><img src="screenshots/thumbnails/Thumb9.png" alt="Livecodelab screenshot 8" /></a>
+					<a href="screenshots/ScreenShot10.png" rel="lightbox[livecodelabScreenshots]" title="Click on the right side of the image to move forward."><img src="screenshots/thumbnails/Thumb10.png" alt="Livecodelab screenshot 9" /></a>
+					<a href="screenshots/ScreenShot11.png" rel="lightbox[livecodelabScreenshots]" title="Click on the right side of the image to move forward."><img src="screenshots/thumbnails/Thumb11.png" alt="Livecodelab screenshot 10" /></a>
+					<a href="screenshots/ScreenShot12.png" rel="lightbox[livecodelabScreenshots]" title="Click on the right side of the image to move forward."><img src="screenshots/thumbnails/Thumb12.png" alt="Livecodelab screenshot 11" /></a>
+					<a href="screenshots/ScreenShot1.png" rel="lightbox[livecodelabScreenshots]" title="Click on the right side of the image to move forward."><img src="screenshots/thumbnails/Thumb1.png" alt="Livecodelab screenshot 12" /></a>
+					</p>
+					<br />
+				</div>
+			</div>
+			<div style="width:100%">
+				<div style="width:550px; margin-left:50px;">
+					<h2>Credits</h2>
+					<p>Livecodelab was made possible by heaps of people smarter than us, including:</p>
+					<ul>
+						<li><a href="http://mrdoob.github.com/three.js/">Three.js</a> inventor <a href="http://mrdoob.com/">Ricardo Cabello aka Mr.Doob</a> and <a href="https://github.com/mrdoob/three.js/network/members">contributors</a> </li>
+						<li><a href="https://github.com/jashkenas/coffee-script">Coffeescript</a> inventor <a href="http://ashkenas.com/">Jeremy Ashkenas</a> and <a href="https://github.com/jashkenas/coffee-script/network/members">contributors</a> </li>
+						<li>Some routines taken from <a href="http://processingjs.org/">processing.js library</a> started by <a href="http://ejohn.org/">J. Resig</a> and maintained by <a href="http://github.com/jeresig/processing-js/network/members">a wide community of programmers</a>. </li>
+						<li>The code text editor is <a href="http://marijn.haverbeke.nl/codemirror/">Code Mirror</a> by <a href="http://marijn.haverbeke.nl/">Marijn Haverbeke</a></li>
+						<li><a href="http://www.pawfal.org/fluxus/">Fluxus</a>, a really cool livecoding framework to which we are much in debt, by the <a href="http://www.pawfal.org/index.php?page=PawfalPeople">Pawfal collective</a></li>
+						<li>Very special thanks to <a href="http://yaxu.org/">Alex McLean aka Yaxu</a> and <a href="http://www.pawfal.org/dave/">David Griffith aka NeboGeo</a> for inspiration</li>
+						<li>The<a href="http://toplap.org/index.php?title=Main_Page">TOPLAP</a> collective for keeping high the live coding flag.</li>
+						</br>
+					</ul>
+				</div>
+			</div>
+			<div style="width:100%">
+				<div style="width:550px; margin-left:50px;">
+					<h2>Similar projects</h2>
+					<ul>
+						<li><a href="https://github.com/jonbro/jsaxus">Jsaxus</a> by <a href="http://jonbro.tk/">Jonathan Brodsky</a>, probably the first web-based live coding environment (2004). Check out his <a href="https://vimeo.com/944836">brick-busting demo</a> on vimeo</li>
+						<li><a href="http://www.i2off.org/flaxus/screen.html">Flaxus</a> by <a href="http://www.i2off.org/">i2off</a>, probably the second web-based live coding environment (2006). Watch the VjSet <a href="http://www.youtube.com/watch?v=4zrN-obig1I">on YouTube</a></li>
+						<li><a href="http://webglplayground.net/">Webgl playground</a>, allows you to try three.js scenes and shaders online. </li>
+						<li><a href="http://mrdoob.com/139/GLSL_Sandbox">GLSL Sandbox</a> by Mr.Doob compiles shaders on the fly and superimposes the code to the shader output.</li>
+						<li><a href="http://livecoder.net/">livecoder.net</a> by <a href="http://fritzo.org/">Fritz Obermeyer</a></li>
+					</ul>
+				</div>
+			</div>
+			<div id="footer">
+				<a href="/about.html">About</a> | <a href="mailto:info@sketchpatch.net">Contact</a>
+				<div style=" margin-top:20px; width:340px;">
+					<img src="/imgs/CClogo.png" class="floatLeft" alt="Creative Commons" /> 
+					<h3>Unless otherwise stated, the sketches on this site are licensed under <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>.</h3>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+			document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+		<script type="text/javascript">
+			try {
+			var pageTracker = _gat._getTracker("UA-8776965-1");
+			pageTracker._setDomainName(".sketchpatch.net");
+			pageTracker._trackPageview();
+			} catch(err) {}
+		</script>
+	</body>
+</html>
