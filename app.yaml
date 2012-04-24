@@ -97,6 +97,9 @@ handlers:
 - url: /labs
   static_dir: labs
 
+- url: /livecodelab
+  static_dir: livecodelab
+
 - url: /Featured_Sketches.html
   static_files: Featured_Sketches.html
   upload: Featured_Sketches.html
