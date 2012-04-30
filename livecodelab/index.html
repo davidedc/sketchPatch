@@ -186,6 +186,7 @@
 			<li><a href="javascript:void(0)" onclick="loadDemoOrTutorial('diceDemo');">Dice</a></li>
 			<li><a href="javascript:void(0)" onclick="loadDemoOrTutorial('lampDemo');">Lamp</a></li>
 			<li><a href="javascript:void(0)" onclick="loadDemoOrTutorial('trillionfeathersDemo');">A trillion feathers</a></li>
+			<li><a href="javascript:void(0)" onclick="loadDemoOrTutorial('monsterblobDemo');">Monster blob</a></li>
 			<li><a href="javascript:void(0)" onclick="loadDemoOrTutorial('industrialMusicDemo');">Sound: Industrial</a></li>
 			<li><a href="javascript:void(0)" onclick="loadDemoOrTutorial('trySoundsDemo');">Sound: Try them all</a></li>
 			<li><a href="javascript:void(0)" onclick="loadDemoOrTutorial('webglalmostvoronoiDemo');">WebGL: Almost Voronoi</a></li>
@@ -193,7 +194,7 @@
 			<li><a href="javascript:void(0)" onclick="loadDemoOrTutorial('webglpinkthreadDemo');">WebGL: Pink thread</a></li>
 			<li><a href="javascript:void(0)" onclick="loadDemoOrTutorial('webgltwocubesDemo');">WebGL: Two cubes</a></li>
 			<li><a href="javascript:void(0)" onclick="loadDemoOrTutorial('webglturbineDemo');">WebGL: Turbine</a></li>
-			<li><a href="javascript:void(0)" onclick="loadDemoOrTutorial('zfightartDemo');">WebGL: Z-fight art!</a></li>
+			<li><a href="javascript:void(0)" onclick="loadDemoOrTutorial('webglzfightartDemo');">WebGL: Z-fight art!</a></li>
 			<li><a href="javascript:void(0)" onclick="loadDemoOrTutorial('webglnuclearOctopusDemo');">WebGL: Nuclear octopus</a></li>
 		</ul>
 	</li>
@@ -3596,7 +3597,7 @@ var webglturbineDemo = ""+
 "\t"+		"rotate time/100000,1,time/100000\n"+
 "\t"+		"box\n";
 
-var zfightartDemo = ""+
+var webglzfightartDemo = ""+
 ""+		"// Explore the artifacts\n"+
 ""+		"// of your GPU!\n"+
 ""+		"// Go Z-fighting, go!\n"+
@@ -3653,6 +3654,18 @@ var trillionfeathersDemo = ""+
 "\t"+		"line\n"+
 "\t"+		"move -0.5,0,0\n"+
 "\t"+		"line";
+
+var monsterblobDemo = ""+
+""+		"ballDetail 6\n"+
+""+		"animationStyle motionBlur\n"+
+""+		"rotate time/5000\n"+
+""+		"simpleGradient fuchsia,aqua,yellow\n"+
+""+		"5 times ->\n"+
+"\t"+		"rotate 0,1,time/5000\n"+
+"\t"+		"move 0,0.1,0.1\n"+
+"\t"+		"3 times ->\n"+
+"\t\t"+			"rotate 0,0,1\n"+
+"\t\t"+			"ball -1.01,0.01,1";
 
 var industrialMusicDemo = ""+
 ""+		"bpm 350\n"+
@@ -4292,8 +4305,8 @@ function loadDemoOrTutorial(whichDemo) {
 		case 'webglturbineDemo':
 			editor.setValue( prependMessage + webglturbineDemo);
 			break;
-		case 'zfightartDemo':
-			editor.setValue( prependMessage + zfightartDemo);
+		case 'webglzfightartDemo':
+			editor.setValue( prependMessage + webglzfightartDemo);
 			break;
 		case 'littleSpiralOfCubes':
 			editor.setValue( prependMessage + littleSpiralOfCubes);
@@ -4306,6 +4319,9 @@ function loadDemoOrTutorial(whichDemo) {
 			break;
 		case 'trillionfeathersDemo':
 			editor.setValue( prependMessage + trillionfeathersDemo);
+			break;
+		case 'monsterblobDemo':
+			editor.setValue( prependMessage + monsterblobDemo);
 			break;
 		case 'industrialMusicDemo':
 			editor.setValue( prependMessage + industrialMusicDemo);
