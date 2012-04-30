@@ -38,23 +38,23 @@
 
 			<style type="text/css">
 					a:hover {cursor: default;}
-					.dd_menu {background:#323232; border-bottom: 1px; border-bottom-color: white; border-bottom-style: dotted; padding:0px; margin:0; list-style-type:none; height:30px;}
+					.dd_menu {background:#000000; border-bottom: 1px; border-bottom-color: white; border-bottom-style: dotted; padding:0px; margin:0; list-style-type:none; height:30px;}
 					.dd_menu li {float:left; height:30px; border-right: solid 1px white; border-right-style: dotted;}
 					.dd_menu li a {padding:9px 20px; display:block; color:#fff; text-decoration:none; font:12px arial, verdana, sans-serif; font-weight: bold; }
 					.dd_menu li:hover a {color:black;}
 					
 					.dd_menu ul { position:absolute; left:-9999px; top:-9999px; list-style-type:none;}
 					.dd_menu li:hover {position:relative; background:white;}
-					.dd_menu li:hover ul {left:0px; top:30px; background:#323232; padding:3px; border:0px solid white; width:160px;}
+					.dd_menu li:hover ul {left:0px; top:30px; background:#000000; padding:3px; border:0px solid white; width:160px;}
 					.dd_menu li:hover ul li {height:18px; border:none; }
-					.dd_menu li:hover ul li a {height:18px; padding:0px; display:block; font-size:11px; width:158px; line-height:18px; text-indent:15px; color:white; background-color:#323232; text-decoration:none;  border-top: 1px; border-top-color: #111111; border-top-style: dotted;}
+					.dd_menu li:hover ul li a {height:18px; padding:0px; display:block; font-size:11px; width:158px; line-height:18px; text-indent:15px; color:white; background-color:#000000; text-decoration:none;  border-top: 1px; border-top-color: #111111; border-top-style: dotted;}
 					.dd_menu li:hover ul li a:hover {height:18px; background:silver; color:#000; border:solid 1px #444; }
 					
-					#dangerSignText {color:#323232; text-decoration:none;}
-					#dangerSign:hover {background:#323232;}
+					#dangerSignText {color:#000000; text-decoration:none;}
+					#dangerSign:hover {background:#000000;}
 
 					#errorMessageText {text-decoration:none;}
-					#errorMessage:hover {background:#323232;}
+					#errorMessage:hover {background:#000000;}
 					
 					.verticalMiddleOfScreen        
 						{
@@ -96,11 +96,12 @@
 			<!-- Scripts -->
 			<script type='text/javascript' src='simpleModal/js/jquery.js'></script>
 			<script type='text/javascript' src='simpleModal/js/jquery.simplemodal.js'></script>
-			<script type='text/javascript' src='simpleModal/js/basic.js'></script>
 		<!-- end simple modal -->
 
 	</head>
 <body>
+
+
 
 <div class="verticalMiddleOfScreen" id="toMove" style="font-size:30em;">
     <div class="fakeAnimationContent" >
@@ -119,73 +120,111 @@
 		</div>
 
 		<div id='startingCourtainScreen' style='width:100%; height:100%; background-color:white; position: absolute;  z-index:4; top: 0px; left: 0px;'>
+			<div class="verticalMiddleOfScreen" id="loading" style="font-size:3em; color: red">
+				loading /</div>
 		</div>
 
 
 		<!-- modal content -->
-		<div id="basic-modal-content">
+		<div id="aboutWindow">
 			<h3>What&apos;s this?</h3>
-			<p>This is a live coding environment: programs run immediately as they are typed.<br><br>Pick something from the "Demos" menu or try the tutorials.
-			<p>Want more info? <a href="http://www.sketchpatch.net/labs/livecodelabIntro.html"> See this.</a>
-			<p>Want to hack this? <a href="https://github.com/davidedc/livecodelab"> Grab the source code!</a>
-			</div>
+			<p>This is a toy live coding environment: programs run immediately as they are typed.<br><br>Pick something from the "Demos" menu or try the tutorials.</p>
+			<p>Want more info? <a href="http://www.sketchpatch.net/labs/livecodelabIntro.html"> See this.</a></p>
+			<p>Want to hack this? <a href="https://github.com/davidedc/livecodelab"> Grab the source code!</a></p>
+		</div>
+
+		<div id="noWebGLMessage">
+			<h3>Drag!</h3>
+			<p>Your browser doesn't seem to support 3D acceleration.</p>
+			<p>You'll still have fun, but you really want to try to <a href="http://www.khronos.org/webgl/wiki/Getting_a_WebGL_Implementation" target="_blank">get the 3D party going in your browser</a>.</p>
+			<p>(psst! - it's worth it!). </p>
+		</div>
+
+		<div id="exampleNeedsWebgl">
+			<h3>Oh nooo.</h3>
+			<p>All these examples starting with "webgl" are going to look silly in your browser (which doesn't seem to support 3D acceleration).</p>
+			<p>Why not try to <a href="http://www.khronos.org/webgl/wiki/Getting_a_WebGL_Implementation" target="_blank">get some awesome 3D action started</a>?</p>
+		</div>
+
+		<div id="noAudioMessage">
+			<h3>Snap!</h3>
+			<p>Your browser doesn't seem to support audio.</p>
+			<p>Be a champion and try <a href="http://browsehappy.com/" target="_blank">a newer browser</a>.</p>
+			<p>(while you are at it, pick one that supports 3D such as Chrome or Firefox).</p>
+		</div>
+
+		<div id="soundSystemIsMangledMessage">
+			<h3>Congrats!</h3>
+			<p>Your unlocked the "I borked the sound system" badge!</p>
+			<p>You probably created a stupendous amount of fast-playing music.</p>
+			<p>Just re-start the browser to get everything back to normal.</p>
+			<p>(We know it's fun, do this all the time, it's OK).</p>
+		</div>
+
+		<div id="noCanvasMessage">
+			<h3>Oh my!</h3>
+			<p>Your browser is way old.</p>
+			<p>We understand. We were there 5 years ago. Why not try <a href="http://browsehappy.com/" target="_blank">a shinier browser</a>?</p>
+			<p>(while you are at it, pick one that supports 3D such as Chrome or Firefox).</p>
+		</div>
 
 <div id="theMenu" style="position: absolute;  z-index:3; top: 0px; left: 0px; width:100%">
 
 <ul class='dd_menu' >
 
-	<li><a href="javascript:void(0)" style="text-decoration:none; color:red;">LIVECODELAB</a>
-		<ul>
-			<li><a href="javascript:void(0)" onclick="$('#basic-modal-content').modal();">What&apos;s this?</a></li>
-		</ul>
+	<li><a href="javascript:void(0)" onclick="$('#aboutWindow').modal();$('#simplemodal-container').height(250);" style="text-decoration:none; color:red;">LIVECODELAB</a>
 	</li>
 
 	<li><a href="javascript:void(0)" style="text-decoration:none;">Demos</a>
 		<ul>
 		
-			<li><a href="javascript:void(0)" onclick="loadDemo('simpleCubeDemo');">Simple cube</a></li>
-			<li><a href="javascript:void(0)" onclick="loadDemo('cubesAndSpikes');">Cubes and spikes</a></li>
-			<li><a href="javascript:void(0)" onclick="loadDemo('littleSpiralOfCubes');">Little spiral</a></li>
-			<li><a href="javascript:void(0)" onclick="loadDemo('tentacleDemo');">Tentacle</a></li>
-			<li><a href="javascript:void(0)" onclick="loadDemo('lampDemo');">Lamp</a></li>
-			<li><a href="javascript:void(0)" onclick="loadDemo('judgementDayDemo');">Sound: judgement day</a></li>
-			<li><a href="javascript:void(0)" onclick="loadDemo('industrialMusicDemo');">Sound: industrial</a></li>
-			<li><a href="javascript:void(0)" onclick="loadDemo('trySoundsDemo');">Sound: try them all</a></li>
-			<li><a href="javascript:void(0)" onclick="loadDemo('planesDemo');">Planes</a></li>
-			<li><a href="javascript:void(0)" onclick="loadDemo('diceDemo');">Dice</a></li>
-			<li><a href="javascript:void(0)" onclick="loadDemo('almostvoronoiDemo');">Almost Voronoi</a></li>
-			<li><a href="javascript:void(0)" onclick="loadDemo('shardsDemo');">Shards</a></li>
-			<li><a href="javascript:void(0)" onclick="loadDemo('pinkthreadDemo');">Pink thread</a></li>
-			<li><a href="javascript:void(0)" onclick="loadDemo('twocubesDemo');">WebGL: two cubes</a></li>
-			<li><a href="javascript:void(0)" onclick="loadDemo('turbineDemo');">WebGL: turbine</a></li>
-			<li><a href="javascript:void(0)" onclick="loadDemo('nuclearOctopusDemo');">WebGL: Nuclear octopus</a></li>
+			<li><a href="javascript:void(0)" onclick="loadDemoOrTutorial('simpleCubeDemo');">Simple cube</a></li>
+			<li><a href="javascript:void(0)" onclick="loadDemoOrTutorial('cubesAndSpikes');">Cubes and spikes</a></li>
+			<li><a href="javascript:void(0)" onclick="loadDemoOrTutorial('littleSpiralOfCubes');">Little spiral</a></li>
+			<li><a href="javascript:void(0)" onclick="loadDemoOrTutorial('tentacleDemo');">Tentacle</a></li>
+			<li><a href="javascript:void(0)" onclick="loadDemoOrTutorial('springysquaresDemo');">Springy squares</a></li>
+			<li><a href="javascript:void(0)" onclick="loadDemoOrTutorial('diceDemo');">Dice</a></li>
+			<li><a href="javascript:void(0)" onclick="loadDemoOrTutorial('lampDemo');">Lamp</a></li>
+			<li><a href="javascript:void(0)" onclick="loadDemoOrTutorial('trillionfeathersDemo');">A trillion feathers</a></li>
+			<li><a href="javascript:void(0)" onclick="loadDemoOrTutorial('industrialMusicDemo');">Sound: Industrial</a></li>
+			<li><a href="javascript:void(0)" onclick="loadDemoOrTutorial('trySoundsDemo');">Sound: Try them all</a></li>
+			<li><a href="javascript:void(0)" onclick="loadDemoOrTutorial('webglalmostvoronoiDemo');">WebGL: Almost Voronoi</a></li>
+			<li><a href="javascript:void(0)" onclick="loadDemoOrTutorial('webglshardsDemo');">WebGL: Shards</a></li>
+			<li><a href="javascript:void(0)" onclick="loadDemoOrTutorial('webglpinkthreadDemo');">WebGL: Pink thread</a></li>
+			<li><a href="javascript:void(0)" onclick="loadDemoOrTutorial('webgltwocubesDemo');">WebGL: Two cubes</a></li>
+			<li><a href="javascript:void(0)" onclick="loadDemoOrTutorial('webglturbineDemo');">WebGL: Turbine</a></li>
+			<li><a href="javascript:void(0)" onclick="loadDemoOrTutorial('zfightartDemo');">WebGL: Z-fight art!</a></li>
+			<li><a href="javascript:void(0)" onclick="loadDemoOrTutorial('webglnuclearOctopusDemo');">WebGL: Nuclear octopus</a></li>
 		</ul>
 	</li>
 	<li><a href="javascript:void(0)" style="text-decoration:none;">Tutorials</a>
 		<ul>		
-			<li><a href="javascript:void(0)" onclick="loadDemo('introTutorial');">intro</a></li>
-			<li><a href="javascript:void(0)" onclick="loadDemo('helloworldTutorial');">hello world</a></li>
-			<li><a href="javascript:void(0)" onclick="loadDemo('somenotesTutorial');">some notes</a></li>
-			<li><a href="javascript:void(0)" onclick="loadDemo('rotateTutorial');">rotate</a></li>
-			<li><a href="javascript:void(0)" onclick="loadDemo('frameTutorial');">frame</a></li>
-			<li><a href="javascript:void(0)" onclick="loadDemo('millisecsTutorial');">millisecs</a></li>
-			<li><a href="javascript:void(0)" onclick="loadDemo('translateTutorial');">translate</a></li>
-			<li><a href="javascript:void(0)" onclick="loadDemo('scaleTutorial');">scale</a></li>
-			<li><a href="javascript:void(0)" onclick="loadDemo('timesTutorial');">times</a></li>
-			<li><a href="javascript:void(0)" onclick="loadDemo('fillTutorial');">fill</a></li>
-			<li><a href="javascript:void(0)" onclick="loadDemo('strokeTutorial');">stroke</a></li>
-			<li><a href="javascript:void(0)" onclick="loadDemo('lightsTutorial');">lights</a></li>
-			<li><a href="javascript:void(0)" onclick="loadDemo('backgroundTutorial');">background</a></li>
-			<li><a href="javascript:void(0)" onclick="loadDemo('gradientTutorial');">gradient</a></li>
-			<li><a href="javascript:void(0)" onclick="loadDemo('lineTutorial');">line</a></li>
-			<li><a href="javascript:void(0)" onclick="loadDemo('sphereTutorial');">sphere</a></li>
-			<li><a href="javascript:void(0)" onclick="loadDemo('pushpopMatrixTutorial');">push and pop</a></li>
-			<li><a href="javascript:void(0)" onclick="loadDemo('animationstyleTutorial');">animation style</a></li>
-			<li><a href="javascript:void(0)" onclick="loadDemo('doonceTutorial');">do once</a></li>
-			<li><a href="javascript:void(0)" onclick="loadDemo('autocodeTutorial');">autocode</a></li>
+			<li><a href="javascript:void(0)" onclick="loadDemoOrTutorial('introTutorial');">intro</a></li>
+			<li><a href="javascript:void(0)" onclick="loadDemoOrTutorial('helloworldTutorial');">hello world</a></li>
+			<li><a href="javascript:void(0)" onclick="loadDemoOrTutorial('somenotesTutorial');">some notes</a></li>
+			<li><a href="javascript:void(0)" onclick="loadDemoOrTutorial('rotateTutorial');">rotate</a></li>
+			<li><a href="javascript:void(0)" onclick="loadDemoOrTutorial('frameTutorial');">frame</a></li>
+			<li><a href="javascript:void(0)" onclick="loadDemoOrTutorial('timeTutorial');">time</a></li>
+			<li><a href="javascript:void(0)" onclick="loadDemoOrTutorial('moveTutorial');">move</a></li>
+			<li><a href="javascript:void(0)" onclick="loadDemoOrTutorial('scaleTutorial');">scale</a></li>
+			<li><a href="javascript:void(0)" onclick="loadDemoOrTutorial('timesTutorial');">times</a></li>
+			<li><a href="javascript:void(0)" onclick="loadDemoOrTutorial('fillTutorial');">fill</a></li>
+			<li><a href="javascript:void(0)" onclick="loadDemoOrTutorial('strokeTutorial');">stroke</a></li>
+			<li><a href="javascript:void(0)" onclick="loadDemoOrTutorial('colornamesTutorial');">color by name</a></li>
+			<li><a href="javascript:void(0)" onclick="loadDemoOrTutorial('lightsTutorial');">lights</a></li>
+			<li><a href="javascript:void(0)" onclick="loadDemoOrTutorial('backgroundTutorial');">background</a></li>
+			<li><a href="javascript:void(0)" onclick="loadDemoOrTutorial('gradientTutorial');">gradient</a></li>
+			<li><a href="javascript:void(0)" onclick="loadDemoOrTutorial('lineTutorial');">line</a></li>
+			<li><a href="javascript:void(0)" onclick="loadDemoOrTutorial('ballTutorial');">ball</a></li>
+			<li><a href="javascript:void(0)" onclick="loadDemoOrTutorial('pushpopMatrixTutorial');">push and pop</a></li>
+			<li><a href="javascript:void(0)" onclick="loadDemoOrTutorial('animationstyleTutorial');">animation style</a></li>
+			<li><a href="javascript:void(0)" onclick="loadDemoOrTutorial('doonceTutorial');">do once</a></li>
+			<li><a href="javascript:void(0)" onclick="loadDemoOrTutorial('autocodeTutorial');">autocode</a></li>
 		</ul>
 	</li>
 	<li id="autocodeIndicatorContainer" onClick="toggleAutocode();"><a id="autocodeIndicator" href="javascript:void(0)"  style="text-decoration:none;">Autocode: off</a>
+	</li>
+	<li id="resetButtonContainer" onClick="triggerReset();"><a id="resetButton" href="javascript:void(0)"  style="text-decoration:none;">Reset</a>
 	</li>
 	<li id="dangerSign" style="border-right:none;"><a href="" id="dangerSignText" style="font-size:2em;margin-top:-0.3em;">!</a>
 	</li>
@@ -230,7 +269,9 @@
 		var linesPool = [];
 		var rectanglesPool = [];
 		var boxesPool = [];
-		// spheres can have different geometries
+		// spheres have different geometries
+		// depending on the detail level,
+		// which can be set at whim
 		var spheresPool = {};
 		var sphereGeometriesPool = {};
 		var ambientLightsPool = [];
@@ -241,8 +282,8 @@
 		var usedAmbientLights = 0;
 		var usedPointLights = 0;
 		var usedSpheres = {};
-		var sphereDefaultDetLevel;
-		var sphereDetLevel;
+		var ballDefaultDetLevel;
+		var ballDetLevel;
 		var currentStrokeSize = 1;
 		var cubeGeometry = new THREE.CubeGeometry(1,1,1);
 		var planeGeometry = new THREE.PlaneGeometry(1,1);
@@ -290,10 +331,177 @@
 		var consecutiveFramesWithoutRunTimeError = 0;
 		var out;
 		var lastStableProgram;
+		
+		// the "spinthingy" is because we want
+		// users who type "box" to see that it's actually
+		// a 3d environment. So the first few primitives
+		// spin for a few moments when they are created.
+		var doTheSpinThingy = true;
+		var resetTheSpinThingy = false;
+		var SPINFRAMES = 30;
+
+		var userWarnedAboutWebglExamples = false;
+
+
+function isCanvasSupported(){
+  var elem = document.createElement('canvas');
+  return !!(elem.getContext && elem.getContext('2d'));
+}
+
+// Color constants, modified from processing.js
+// with added the missing ones from the CSS standard,
+// which includes the spelling "grey" on top of "gray"
+    aliceblue =            0xfff0f8ff ;
+    antiquewhite =         0xfffaebd7 ;
+    aqua =                 0xff00ffff ;
+    aquamarine =           0xff7fffd4 ;
+    azure =                0xfff0ffff ;
+    beige =                0xfff5f5dc ;
+    bisque =               0xffffe4c4 ;
+    black =                0xff000000 ;
+    blanchedalmond =       0xffffebcd ;
+    blue =                 0xff0000ff ;
+    blueviolet =           0xff8a2be2 ;
+    brown =                0xffa52a2a ;
+    burlywood =            0xffdeb887 ;
+    cadetblue =            0xff5f9ea0 ;
+    chartreuse =           0xff7fff00 ;
+    chocolate =            0xffd2691e ;
+    coral =                0xffff7f50 ;
+    cornflowerblue =       0xff6495ed ;
+    cornsilk =             0xfffff8dc ;
+    crimson =              0xffdc143c ;
+    cyan =                 0xff00ffff ;
+    darkblue =             0xff00008b ;
+    darkcyan =             0xff008b8b ;
+    darkgoldenrod =        0xffb8860b ;
+    darkgray =             0xffa9a9a9 ;
+    darkgrey =             0xffa9a9a9 ;
+    darkgreen =            0xff006400 ;
+    darkkhaki =            0xffbdb76b ;
+    darkmagenta =          0xff8b008b ;
+    darkolivegreen =       0xff556b2f ;
+    darkorange =           0xffff8c00 ;
+    darkorchid =           0xff9932cc ;
+    darkred =              0xff8b0000 ;
+    darksalmon =           0xffe9967a ;
+    darkseagreen =         0xff8fbc8f ;
+    darkslateblue =        0xff483d8b ;
+    darkslategray =        0xff2f4f4f ;
+    darkslategrey =        0xff2f4f4f ;
+    darkturquoise =        0xff00ced1 ;
+    darkviolet =           0xff9400d3 ;
+    deeppink =             0xffff1493 ;
+    deepskyblue =          0xff00bfff ;
+    dimgray =              0xff696969 ;
+    dimgrey =              0xff696969 ;
+    dodgerblue =           0xff1e90ff ;
+    firebrick =            0xffb22222 ;
+    floralwhite =          0xfffffaf0 ;
+    forestgreen =          0xff228b22 ;
+    fuchsia =              0xffff00ff ;
+    gainsboro =            0xffdcdcdc ;
+    ghostwhite =           0xfff8f8ff ;
+    gold =                 0xffffd700 ;
+    goldenrod =            0xffdaa520 ;
+    gray =                 0xff808080 ;
+    grey =                 0xff808080 ;
+    green =                0xff008000 ;
+    greenyellow =          0xffadff2f ;
+    honeydew =             0xfff0fff0 ;
+    hotpink =              0xffff69b4 ;
+    indianred =            0xffcd5c5c ;
+    indigo =               0xff4b0082 ;
+    ivory =                0xfffffff0 ;
+    khaki =                0xfff0e68c ;
+    lavender =             0xffe6e6fa ;
+    lavenderblush =        0xfffff0f5 ;
+    lawngreen =            0xff7cfc00 ;
+    lemonchiffon =         0xfffffacd ;
+    lightblue =            0xffadd8e6 ;
+    lightcoral =           0xfff08080 ;
+    lightcyan =            0xffe0ffff ;
+    lightgoldenrodyellow = 0xfffafad2 ;
+    lightgrey =            0xffd3d3d3 ;
+    lightgray =            0xffd3d3d3 ;
+    lightgreen =           0xff90ee90 ;
+    lightpink =            0xffffb6c1 ;
+    lightsalmon =          0xffffa07a ;
+    lightseagreen =        0xff20b2aa ;
+    lightskyblue =         0xff87cefa ;
+    lightslategray =       0xff778899 ;
+    lightslategrey =       0xff778899 ;
+    lightsteelblue =       0xffb0c4de ;
+    lightyellow =          0xffffffe0 ;
+    lime =                 0xff00ff00 ;
+    limegreen =            0xff32cd32 ;
+    linen =                0xfffaf0e6 ;
+    magenta =              0xffff00ff ;
+    maroon =               0xff800000 ;
+    mediumaquamarine =     0xff66cdaa ;
+    mediumblue =           0xff0000cd ;
+    mediumorchid =         0xffba55d3 ;
+    mediumpurple =         0xff9370d8 ;
+    mediumseagreen =       0xff3cb371 ;
+    mediumslateblue =      0xff7b68ee ;
+    mediumspringgreen =    0xff00fa9a ;
+    mediumturquoise =      0xff48d1cc ;
+    mediumvioletred =      0xffc71585 ;
+    midnightblue =         0xff191970 ;
+    mintcream =            0xfff5fffa ;
+    mistyrose =            0xffffe4e1 ;
+    moccasin =             0xffffe4b5 ;
+    navajowhite =          0xffffdead ;
+    navy =                 0xff000080 ;
+    oldlace =              0xfffdf5e6 ;
+    olive =                0xff808000 ;
+    olivedrab =            0xff6b8e23 ;
+    orange =               0xffffa500 ;
+    orangered =            0xffff4500 ;
+    orchid =               0xffda70d6 ;
+    palegoldenrod =        0xffeee8aa ;
+    palegreen =            0xff98fb98 ;
+    paleturquoise =        0xffafeeee ;
+    palevioletred =        0xffd87093 ;
+    papayawhip =           0xffffefd5 ;
+    peachpuff =            0xffffdab9 ;
+    peru =                 0xffcd853f ;
+    pink =                 0xffffc0cb ;
+    plum =                 0xffdda0dd ;
+    powderblue =           0xffb0e0e6 ;
+    purple =               0xff800080 ;
+    red =                  0xffff0000 ;
+    rosybrown =            0xffbc8f8f ;
+    royalblue =            0xff4169e1 ;
+    saddlebrown =          0xff8b4513 ;
+    salmon =               0xfffa8072 ;
+    sandybrown =           0xfff4a460 ;
+    seagreen =             0xff2e8b57 ;
+    seashell =             0xfffff5ee ;
+    sienna =               0xffa0522d ;
+    silver =               0xffc0c0c0 ;
+    skyblue =              0xff87ceeb ;
+    slateblue =            0xff6a5acd ;
+    slategray =            0xff708090 ;
+    slategrey =            0xff708090 ;
+    snow =                 0xfffffafa ;
+    springgreen =          0xff00ff7f ;
+    steelblue =            0xff4682b4 ;
+    tan =                  0xffd2b48c ;
+    teal =                 0xff008080 ;
+    thistle =              0xffd8bfd8 ;
+    tomato =               0xffff6347 ;
+    turquoise =            0xff40e0d0 ;
+    violet =               0xffee82ee ;
+    wheat =                0xfff5deb3 ;
+    white =                0xffffffff ;
+    whitesmoke =           0xfff5f5f5 ;
+    yellow =               0xffffff00 ;
+    yellowgreen =          0xff9acd32 ;
+    
 
 // Functions taken from processing.js
 
-        
 /**
    * NOTE: in releases we replace symbolic Constants.* names with their values.
    * Using Constants.* in code below is fine.  See tools/rewrite-pconstants.js.
@@ -682,7 +890,7 @@ function color$4(aValue1, aValue2, aValue3, aValue4) {
     * @see saturation
     * @see brightness
     */
-    red = function(aColor) {
+    redF = function(aColor) {
       return ((aColor & Constants.RED_MASK) >>> 16) / 255 * colorModeX;
     };
 
@@ -702,7 +910,7 @@ function color$4(aValue1, aValue2, aValue3, aValue4) {
     * @see saturation
     * @see brightness
     */
-    green = function(aColor) {
+    greenF = function(aColor) {
       return ((aColor & Constants.GREEN_MASK) >>> 8) / 255 * colorModeY;
     };
 
@@ -722,7 +930,7 @@ function color$4(aValue1, aValue2, aValue3, aValue4) {
     * @see saturation
     * @see brightness
     */
-    blue = function(aColor) {
+    blueF = function(aColor) {
       return (aColor & Constants.BLUE_MASK) / 255 * colorModeZ;
     };
 
@@ -923,7 +1131,7 @@ function color$4(aValue1, aValue2, aValue3, aValue4) {
       	}
       }
       else {
-		  crgb = color(red(c), green(c), blue(c));
+		  crgb = color(redF(c), greenF(c), blueF(c));
 		  ca = alphaZeroToOne(c);
       }
       //console.log("crgb ca "+crgb + " " + ca);
@@ -1000,7 +1208,7 @@ function color$4(aValue1, aValue2, aValue3, aValue4) {
 			}
 		}
 		else {	
-			crgb = color(red(c), green(c), blue(c));
+			crgb = color(redF(c), greenF(c), blueF(c));
 			ca = alphaZeroToOne(c);
 		}
       //console.log("crgb ca "+crgb + " " + ca);
@@ -1036,7 +1244,7 @@ function color$4(aValue1, aValue2, aValue3, aValue4) {
 
 			if( Detector.webgl && !forceCanvasRenderer ){
 
-				sphereDefaultDetLevel = 16;
+				ballDefaultDetLevel = 16;
 				sceneRenderingCanvas = document.createElement('canvas');
 				
 				renderer = new THREE.WebGLRenderer({
@@ -1067,7 +1275,7 @@ function color$4(aValue1, aValue2, aValue3, aValue4) {
 			
 			 // we always draw the 3d scene off-screen
 				
-				sphereDefaultDetLevel = 2;
+				ballDefaultDetLevel = 6;
 				sceneRenderingCanvas = document.createElement('canvas');
 				sceneRenderingCanvasContext = sceneRenderingCanvas.getContext('2d');
 				renderer	= new THREE.CanvasRenderer({
@@ -1234,7 +1442,6 @@ var drawLoopTimer = null;
 var frame = 0;
 var doLNOnce = [];
 
-if( !init() )	animate();
 
 // By doing some profiling it is apparent that
 // adding and removing objects has a big cost.
@@ -1321,6 +1528,7 @@ function registerCode() {
         }
         
         if (editorContent === '' && !fakeText) {
+			resetTheSpinThingy = true;
     		fakeText = true;
     		window.location.hash = '';
     	
@@ -1515,6 +1723,12 @@ function registerCode() {
 				curlyBrackCount & 1 ||
 				squareBrackCount & 1
 			){
+				 if(autocodeOn) {
+					 editor.undo();
+					 //alert("did an undo");
+					 return;
+				 }
+				
 				programHasBasicError = true;
 				//alert("basic error");
 				//alert("p:" + $('#dangerSignText').css('color'));
@@ -1622,6 +1836,11 @@ function registerCode() {
 				elaboratedSource.match(/[\s\+\;]+draw\s*\(/) ||
 				false
 			){
+				 if(autocodeOn) {
+					 editor.undo();
+					 //alert("did an undo");
+					 return;
+				 }
 				programHasBasicError = true;
 				$('#dangerSignText').css('color','red');
 				$('#errorMessageText').text("You can't call draw()");
@@ -1637,7 +1856,7 @@ function registerCode() {
         elaboratedSource =  elaboratedSource.replace(/\/\//g, "#" );
         elaboratedSource =  elaboratedSource.replace(/scale(\s)+/g, ";scale$1" );
         elaboratedSource =  elaboratedSource.replace(/rotate(\s)+/g, ";rotate$1" );
-        elaboratedSource =  elaboratedSource.replace(/translate(\s)+/g, ";translate$1" );
+        elaboratedSource =  elaboratedSource.replace(/move(\s)+/g, ";move$1" );
         elaboratedSource =  elaboratedSource.replace(/rect(\s)+/g, ";rect$1" );
         elaboratedSource =  elaboratedSource.replace(/line(\s)+/g, ";line$1" );
         elaboratedSource =  elaboratedSource.replace(/bpm(\s)+/g, ";bpm$1" );
@@ -1661,8 +1880,8 @@ function registerCode() {
         elaboratedSource =  elaboratedSource.replace(/noLights(\s)+/g, ";noLights$1" );
         elaboratedSource =  elaboratedSource.replace(/ambientLight(\s)+/g, ";ambientLight$1" );
         elaboratedSource =  elaboratedSource.replace(/pointLight(\s)+/g, ";pointLight$1" );
-        elaboratedSource =  elaboratedSource.replace(/sphere(\s)+/g, ";sphere$1" );
-        elaboratedSource =  elaboratedSource.replace(/sphereDetail(\s)+/g, ";sphereDetail$1" );
+        elaboratedSource =  elaboratedSource.replace(/ball(\s)+/g, ";ball$1" );
+        elaboratedSource =  elaboratedSource.replace(/ballDetail(\s)+/g, ";ballDetail$1" );
 
         // the semicolon mangles the first line of the function definitions
         // coffeescript doesn't like that
@@ -1670,7 +1889,7 @@ function registerCode() {
 
         // the semicolon mangles the first line of if statements
         // coffeescript doesn't like that
-        elaboratedSource =  elaboratedSource.replace(/if\s*([a-zA-Z0-9]*)(\s*);/g, "if $1$2" );
+        elaboratedSource =  elaboratedSource.replace(/(\s)if\s*([a-zA-Z0-9]*)(\s*);/g, "$1if $2$3" );
         
       
         //console.log(elaboratedSource );
@@ -1680,8 +1899,37 @@ function registerCode() {
         //console.log("in javascript: " + out);
         
       } catch (e) {
+
+				 if(autocodeOn) {
+					 editor.undo();
+					 //alert("did an undo");
+					 return;
+				 }
+
 			$('#dangerSignText').css('color','red')
-			$('#errorMessageText').text(""+e)
+			var coffeeScriptErrorMessage = ""+e;
+			if (coffeeScriptErrorMessage.indexOf("Unexpected 'INDENT'") > -1){
+				coffeeScriptErrorMessage = "weird indentation"
+			}
+			else if (coffeeScriptErrorMessage.indexOf("Unexpected 'TERMINATOR'") > -1){
+				coffeeScriptErrorMessage = "line not complete"
+			}
+			else if (coffeeScriptErrorMessage.indexOf("Unexpected 'CALL_END'") > -1){
+				coffeeScriptErrorMessage = "line not complete"
+			}
+			else if (coffeeScriptErrorMessage.indexOf("Unexpected '}'") > -1){
+				coffeeScriptErrorMessage = "something wrong"
+			}
+			else if (coffeeScriptErrorMessage.indexOf("Unexpected 'MATH'") > -1){
+				coffeeScriptErrorMessage = "weird arithmetic there"
+			}
+			else if (coffeeScriptErrorMessage.indexOf("Unexpected 'LOGIC'") > -1){
+				coffeeScriptErrorMessage = "odd expression thingy"
+			}
+			else if (coffeeScriptErrorMessage.indexOf("Unexpected 'NUMBER'") > -1){
+				coffeeScriptErrorMessage = "lost number?"
+			}
+			$('#errorMessageText').text(coffeeScriptErrorMessage)
         return;
       }
 
@@ -1716,7 +1964,7 @@ function registerCode() {
 			  usedMethods[scanningUsedMethods] === "rect" ||
 			  usedMethods[scanningUsedMethods] === "line" ||
 			  usedMethods[scanningUsedMethods] === "box" ||
-			  usedMethods[scanningUsedMethods] === "translate" ||
+			  usedMethods[scanningUsedMethods] === "move" ||
 			  usedMethods[scanningUsedMethods] === "scale" ||
 			  usedMethods[scanningUsedMethods] === "alert" ||
 			  usedMethods[scanningUsedMethods] === "bpm" ||
@@ -1740,8 +1988,8 @@ function registerCode() {
 			  usedMethods[scanningUsedMethods] === "noLights" ||
 			  usedMethods[scanningUsedMethods] === "ambientLight" ||
 			  usedMethods[scanningUsedMethods] === "pointLight" ||
-			  usedMethods[scanningUsedMethods] === "sphere" ||
-			  usedMethods[scanningUsedMethods] === "sphereDetail" ||
+			  usedMethods[scanningUsedMethods] === "ball" ||
+			  usedMethods[scanningUsedMethods] === "ballDetail" ||
 			  false
 		  ){
 		  	continue;
@@ -1750,7 +1998,7 @@ function registerCode() {
 			  error = true;
 			  //alert("used method not declared: " + usedMethods[scanningUsedMethods]);
 			  $('#dangerSignText').css('color','red');
-			  $('#errorMessageText').text(usedMethods[scanningUsedMethods] + " used but not defined");
+			  $('#errorMessageText').text(usedMethods[scanningUsedMethods] + " doesn't exist");
 			  return;
       	  }
 		  for (var scanningDeclaredMethods = 0; scanningDeclaredMethods < declaredMethods.length; scanningDeclaredMethods++){
@@ -1762,7 +2010,7 @@ function registerCode() {
 			  error = true;
 			  //alert("used method not declared: " + usedMethods[scanningUsedMethods]);
 			  $('#dangerSignText').css('color','red');
-			  $('#errorMessageText').text(usedMethods[scanningUsedMethods] + " used but not defined");
+			  $('#errorMessageText').text(usedMethods[scanningUsedMethods] + " doesn't exist");
 			  return;
 		  	}
 		  }
@@ -1771,7 +2019,7 @@ function registerCode() {
 
 				programHasBasicError = false;
 				reasonOfBasicError = "";
-				$('#dangerSignText').css('color','#323232')
+				$('#dangerSignText').css('color','#000000')
 				$('#errorMessageText').text(reasonOfBasicError)
 
 	// see here for the deepest examination ever of "eval"
@@ -1797,6 +2045,17 @@ function registerCode() {
 //var chromeHackUncaughtReferenceNames = [];
 
 window.onerror=function(msg, url, linenumber){
+
+ if(autocodeOn) {
+	 editor.undo();
+	 //alert("did an undo");
+	 return;
+ }
+ 
+if (msg.indexOf("Uncaught ReferenceError: ") > -1){
+	msg = msg.substring(25);
+}
+
  $('#dangerSignText').css('color','red');
  $('#errorMessageText').text(msg);
  
@@ -1847,13 +2106,13 @@ window.onerror=function(msg, url, linenumber){
  return true
 }
 
-function background(red, green, blue) {
+function background(r, g, b) {
 
 			clearDisplayList();
 
 			// canvas renderer
 			theColor = new THREE.Color();
-			theColor.setRGB(red, green,blue);
+			theColor.setRGB(r, g,b);
 			renderer.setClearColor(theColor,1);
 
 
@@ -1862,8 +2121,8 @@ function background(red, green, blue) {
 
 // animation loop
 		var loopInterval;
-		var millisecs;
-		var millisecsAtStart;
+		var time;
+		var timeAtStart;
     	function animate() {
 
 			// loop on request animation loop
@@ -1908,11 +2167,11 @@ function background(red, green, blue) {
 			if (typeof(draw) != "undefined") {
 			  var d = new Date();
 			  if (frame===0) {
-				  millisecsAtStart = d.getTime();
-				  millisecs = 0;
+				  timeAtStart = d.getTime();
+				  time = 0;
 			  }
 			  else {
-				  millisecs = d.getTime() - millisecsAtStart;
+				  time = d.getTime() - timeAtStart;
 			  }
 			  doLNOnce = [];
 			  fill(0xFFFFFFFF);
@@ -1920,7 +2179,7 @@ function background(red, green, blue) {
 			  currentStrokeSize = 1;
  			 defaultNormalFill = true;
  			 defaultNormalStroke = true;
- 			 sphereDetLevel = sphereDefaultDetLevel;
+ 			 ballDetLevel = ballDefaultDetLevel;
 			  noLights();
 			  usedLines = 0;
 			  usedRectangles = 0;
@@ -1930,7 +2189,7 @@ function background(red, green, blue) {
 			  // In theory there is no need to chuck away the
 			  // counter altogether, you could go through
 			  // the existing counters contained in this object
-			  // (one for each sphere detail ever used)
+			  // (one for each ball detail ever used)
 			  // and set it to zero. That would maybe save
 			  // some garbage collection time.
 			  // But it's probably not worth it...
@@ -1944,8 +2203,8 @@ function background(red, green, blue) {
 			  // then we have to catch that case here
 			  // after the program has executed
 			  if (frame===0) {
-				  millisecsAtStart = d.getTime();
-				  millisecs = 0;
+				  timeAtStart = d.getTime();
+				  time = 0;
 			  }
 			  animationStyleUpdateIfChanged();
 			  simpleGradientUpdateIfChanged();
@@ -2040,7 +2299,7 @@ function background(red, green, blue) {
     }
     
 
-var parentObject, rootObject, rotate, translate;
+var parentObject, rootObject, rotate, move;
 parentObject = 0;
 rootObject = 0;
 var currentObject;
@@ -2077,16 +2336,68 @@ soundLoop = function() {
 			//		soundLoopTimer = setTimeout('soundLoop();',(1000*60)/beatsPerMinute);
 			//}
 			
+			if (soundSystemIsMangled) return;
+			
 			beatNumber++;
 			beatNumber = beatNumber % 16;
 
-			//alert(' '+soundLoops.soundIDs.length);
-			for(var i in soundLoops.soundIDs){
+			//console.log('about to loop in '+soundLoops.soundIDs+" of length "+soundLoops.soundIDs.length);
+			for(var loopingTheSoundIDs = 0; loopingTheSoundIDs < soundLoops.soundIDs.length; loopingTheSoundIDs++){
+				var loopedSoundID = soundLoops.soundIDs[loopingTheSoundIDs];
 				var playOrNoPlay;
-				playOrNoPlay = soundLoops.beatStrings[i].charAt(beatNumber);
-				//alert('soundID: ' + soundLoops.soundIDs[i]);
+				playOrNoPlay = soundLoops.beatStrings[loopingTheSoundIDs].charAt(beatNumber);
+				//console.log('checking sound loop '+soundLoops.beatStrings[loopingTheSoundIDs]+" beat "+beatNumber+" : "+playOrNoPlay);
 				if (playOrNoPlay === 'x') {
-					soundManager.play(soundLoops.soundIDs[i])
+					// OK so this is what we do here:
+					// when each Audio object plays, it plays from start to end
+					// and you can't get it to re-start until it's completely done
+					// playing.
+					// This is bad because some sounds last a second or so, and they
+					// need to play more often than one time per second.
+					// So there are two possible solutions:
+					// 1) to have 20 or so sound objects, and all the times that
+					//    a file needs playing, scan them and find one that is free,
+					//    then associate that to the file one wants to play
+					//    this works well in IE and Chrome but really bad in Safari
+					// 2) for each file, give it a queue of audio objects.
+					//    This is more complicated but seems to work
+					//    about right in all browsers. Only caveat is that Safari
+					//    needs the audio objects to be preloaded because otherwise
+					//    it jams. Conversely, IE and Chrome don't like them preloaded
+					//    because they have a limit of 35 or so sounds.
+					// So here we went for 2), and we preload the sounds only for
+					// browsers other than Chrome and IE.
+					var relevantSoundBank = soundBank[loopedSoundID];
+					var lengthOfSoundBank = relevantSoundBank.length;
+					var availableSoundBank = undefined;
+					//console.log('playing  '+loopedSoundID+" length: "+lengthOfSoundBank);
+					for (var checkingAvailableSoundBank = 0; checkingAvailableSoundBank < lengthOfSoundBank; checkingAvailableSoundBank++){
+						var checkingSoundBank = relevantSoundBank[checkingAvailableSoundBank];
+						if (checkingSoundBank.isEnded()) {
+							availableSoundBank = checkingSoundBank;
+							//console.log('sound bank '+checkingAvailableSoundBank+" is available ");
+							break;							
+						}
+						else {
+							//console.log('sound bank '+checkingAvailableSoundBank+" has not ended ");
+						}
+					}
+					if (availableSoundBank === undefined){
+							//console.log('creating new sound object ');
+							if (totalCreatedSoundObjects > 31) {
+								soundSystemIsMangled = true;
+								$('#soundSystemIsMangledMessage').modal();
+								$('#simplemodal-container').height(250);
+							}
+							availableSoundBank = new buzz.sound(soundFiles[loopedSoundID]);
+							soundBank[loopedSoundID].push(availableSoundBank);
+							totalCreatedSoundObjects++;
+					}
+					
+					//console.log('using version: ' + soundBank[soundLoops.soundIDs[i]]['lastUsed']);
+					//console.log('soundID: ' + soundLoops.soundIDs[i] + " " + soundBank[soundLoops.soundIDs[i]][soundBank[soundLoops.soundIDs[i]]['lastUsed']]);
+					availableSoundBank.play()
+					//soundBank[soundLoops.soundIDs[i]]['lastUsed'] = (soundBank[soundLoops.soundIDs[i]]['lastUsed']+1)%CHANNELSPERSOUND;
 				}
 			}
 }
@@ -2094,8 +2405,9 @@ soundLoop = function() {
 
 addSound = function(soundID,beatString) {
     		beatString = beatString.replace(/\s*/g,"");
-    		soundLoops.soundIDs[soundLoops.soundIDs.length] = soundID;
-    		soundLoops.beatStrings[soundLoops.beatStrings.length] = beatString;
+    		soundLoops.soundIDs.push(soundID);
+    		soundLoops.beatStrings.push(beatString);
+    		//console.log('pushing '+soundID+" beat: "+beatString);
 }
 
 var matrixStack = [];
@@ -2115,7 +2427,7 @@ resetMatrix = function(){
 	worldMatrix.identity();
 }
 
-translate = function(a, b, c) {
+move = function(a, b, c) {
   /*
   currentObject = new THREE.Object3D();
   currentObject.position.x = a;
@@ -2130,7 +2442,9 @@ translate = function(a, b, c) {
 rotate = function(a, b, c) {
 
   if(arguments.length == 0){
-  	  return;
+  	  a = time/1000;
+  	  b = a;
+  	  c = a;
   }
   else if(arguments.length == 1){
   	  b=a; c=a;
@@ -2401,6 +2715,7 @@ scale = function(a, b, c) {
 					}
 					if (pooledRectangle.mesh === undefined){
 						pooledRectangle.mesh = new THREE.Mesh(planeGeometry, pooledRectangle.normalMaterial);
+						pooledRectangle.startCountdown = SPINFRAMES;
 					}
 					else {
 						//console.log("associating normal material to existing mesh");
@@ -2426,6 +2741,7 @@ scale = function(a, b, c) {
 					}
 					if (pooledRectangle.mesh === undefined){
 						pooledRectangle.mesh = new THREE.Mesh(planeGeometry, pooledRectangle.basicMaterial);
+						pooledRectangle.startCountdown = SPINFRAMES;
 					}
 					else {
 						pooledRectangle.mesh.material = pooledRectangle.basicMaterial;
@@ -2459,11 +2775,20 @@ scale = function(a, b, c) {
 					}
 					if (pooledRectangle.mesh === undefined){
 						pooledRectangle.mesh = new THREE.Mesh(planeGeometry, pooledRectangle.lambertMaterial);
+						pooledRectangle.startCountdown = SPINFRAMES;
 					}
 					else {
 						pooledRectangle.mesh.material = pooledRectangle.lambertMaterial;
 					}
 			}
+
+			if (resetTheSpinThingy) {
+				pooledRectangle.startCountdown = SPINFRAMES;
+				resetTheSpinThingy = false;
+				doTheSpinThingy = true;
+			}
+			if (doTheSpinThingy) pooledRectangle.startCountdown --;
+			if (pooledRectangle.startCountdown === -1) doTheSpinThingy = false;
 			
 			pooledRectangle.mesh.isLine = false;
 			pooledRectangle.mesh.isRectangle = true;
@@ -2475,9 +2800,20 @@ scale = function(a, b, c) {
 			
 			
 			usedRectangles++;
+
+			if (doTheSpinThingy && pooledRectangle.startCountdown > 0) {
+				pushMatrix();
+				rotate(pooledRectangle.startCountdown/50);			
+				//console.log(""+pooledRectangle.startCountdown);			
+			}
+			
 			pooledRectangle.mesh.matrixAutoUpdate = false;
 			pooledRectangle.mesh.matrix.copy(worldMatrix);
 			pooledRectangle.mesh.matrixWorldNeedsUpdate = true;
+
+			if (doTheSpinThingy && pooledRectangle.startCountdown > 0) {
+				popMatrix();
+			}
 
 			if( a !== 1 || b !== 1){
 				pooledRectangle.mesh.matrix.scale(new THREE.Vector3(a,b,1));
@@ -2539,7 +2875,52 @@ scale = function(a, b, c) {
 
     
   }
+
   var gradStack = [];
+  var defaultGradientColor1 = orange;
+  var defaultGradientColor2 = red;
+  var defaultGradientColor3 = black;
+  var whichDefaultBackground;
+
+  pickRandomDefaultGradient = function() {  
+	if (whichDefaultBackground === undefined) {
+		whichDefaultBackground = Math.floor(Math.random() * 5);
+	}
+	else {
+		whichDefaultBackground = (whichDefaultBackground+1)%5;
+	}
+	
+	  if (whichDefaultBackground === 0){
+		  defaultGradientColor1 = orange;
+		  defaultGradientColor2 = red;
+		  defaultGradientColor3 = black;
+		  $("#fakeStartingBlinkingCursor").css('color','white');
+	  }
+	  else if (whichDefaultBackground === 1){
+		  defaultGradientColor1 = white;
+		  defaultGradientColor2 = khaki;
+		  defaultGradientColor3 = peachpuff;
+		  $("#fakeStartingBlinkingCursor").css('color','LightPink');
+	  }
+	  else if (whichDefaultBackground === 2){
+		  defaultGradientColor1 = lightsteelblue;
+		  defaultGradientColor2 = lightcyan;
+		  defaultGradientColor3 = paleturquoise;
+		  $("#fakeStartingBlinkingCursor").css('color','CadetBlue');
+	  }
+	  else if (whichDefaultBackground === 3){
+		  defaultGradientColor1 = silver;
+		  defaultGradientColor2 = lightgrey;
+		  defaultGradientColor3 = gainsboro;
+		  $("#fakeStartingBlinkingCursor").css('color','white');
+	  }
+	  else if (whichDefaultBackground === 4){
+		  defaultGradientColor1 = color(155,255,155);
+		  defaultGradientColor2 = color(155,255,155);
+		  defaultGradientColor3 = color(155,255,155);
+		  $("#fakeStartingBlinkingCursor").css('color','DarkOliveGreen');
+	  }
+  }
 
   resetGradientStack = function() {
   	currentGradientStackValue = "";
@@ -2548,7 +2929,8 @@ scale = function(a, b, c) {
   	// but I don't think it matters here
   	gradStack = [];
 
-	simpleGradient(color(70),color(30),color(0),1);
+	//simpleGradient(color(70),color(30),color(0),1);
+	simpleGradient(defaultGradientColor1,defaultGradientColor2,defaultGradientColor3);
 
   }
 
@@ -2786,6 +3168,7 @@ scale = function(a, b, c) {
 					}
 					if (pooledBox.mesh === undefined){
 						pooledBox.mesh = new THREE.Mesh(cubeGeometry, pooledBox.normalMaterial);
+						pooledBox.startCountdown = SPINFRAMES;
 					}
 					else {
 						//console.log("associating normal material to existing mesh");
@@ -2810,6 +3193,7 @@ scale = function(a, b, c) {
 					}
 					if (pooledBox.mesh === undefined){
 						pooledBox.mesh = new THREE.Mesh(cubeGeometry, pooledBox.basicMaterial);
+						pooledBox.startCountdown = SPINFRAMES;
 					}
 					else {
 						pooledBox.mesh.material = pooledBox.basicMaterial;
@@ -2842,12 +3226,21 @@ scale = function(a, b, c) {
 					}
 					if (pooledBox.mesh === undefined){
 						pooledBox.mesh = new THREE.Mesh(cubeGeometry, pooledBox.lambertMaterial);
+						pooledBox.startCountdown = SPINFRAMES;
 					}
 					else {
 						pooledBox.mesh.material = pooledBox.lambertMaterial;
 					}
 			}
 			
+			if (resetTheSpinThingy) {
+				pooledBox.startCountdown = SPINFRAMES;
+				resetTheSpinThingy = false;
+				doTheSpinThingy = true;
+			}
+			if (doTheSpinThingy) pooledBox.startCountdown --;
+			if (pooledBox.startCountdown === -1) doTheSpinThingy = false;
+						
 			pooledBox.mesh.isLine = false;
 			pooledBox.mesh.isRectangle = false;
 			pooledBox.mesh.isBox = true;
@@ -2858,9 +3251,20 @@ scale = function(a, b, c) {
 			
 						
 			usedBoxes++;
+			
+			if (doTheSpinThingy && pooledBox.startCountdown > 0) {
+				pushMatrix();
+				rotate(pooledBox.startCountdown/50);			
+				//console.log(""+pooledBox.startCountdown);			
+			}
+			
 			pooledBox.mesh.matrixAutoUpdate = false;
 			pooledBox.mesh.matrix.copy(worldMatrix);
 			pooledBox.mesh.matrixWorldNeedsUpdate = true;
+
+			if (doTheSpinThingy && pooledBox.startCountdown > 0) {
+				popMatrix();
+			}
 
 			// TODO: meshes should be built from geometries that are
 			// ever so slight larger than the "fill" mesh so there
@@ -2877,13 +3281,14 @@ scale = function(a, b, c) {
 
   }
 
-  sphereDetail = function(a) {
+  ballDetail = function(a) {
 	if (a === undefined) return;
 	if (a < 2) a = 2;
-	sphereDetLevel = a;
+	if (a > 30) a = 30;
+	ballDetLevel = a;
   }
 
-  sphere = function(a) {
+  ball = function(a) {
 	var pooledSphereGeometry;
   	// simple case - if there is no fill and
   	// no stroke then there is nothing to do.
@@ -2912,7 +3317,7 @@ scale = function(a, b, c) {
   	//console.log("si: " + startIndex + " endI: " + endIndex );
 
   	if(a === undefined){
-  	  //alert('sphere!')
+  	  //alert('ball!')
   	  a=1;
   	  }
 
@@ -2934,15 +3339,15 @@ scale = function(a, b, c) {
 			colorToBeUsed = currentFillColor;
 			alphaToBeUsed = currentFillAlpha;
 		}
-			if (spheresPool[''+sphereDetLevel] === undefined) {
-				spheresPool[''+sphereDetLevel] = [];
-				//console.log('creating pool for sphere det level ' + sphereDetLevel);
+			if (spheresPool[''+ballDetLevel] === undefined) {
+				spheresPool[''+ballDetLevel] = [];
+				//console.log('creating pool for ball det level ' + ballDetLevel);
 			}
-			if (usedSpheres[''+sphereDetLevel] === undefined) {
-				usedSpheres[''+sphereDetLevel] = 0;
-				//console.log('creating counter for sphere det level ' + sphereDetLevel);
+			if (usedSpheres[''+ballDetLevel] === undefined) {
+				usedSpheres[''+ballDetLevel] = 0;
+				//console.log('creating counter for ball det level ' + ballDetLevel);
 			}
-			var pooledSphere = spheresPool[''+sphereDetLevel][usedSpheres[''+sphereDetLevel]];
+			var pooledSphere = spheresPool[''+ballDetLevel][usedSpheres[''+ballDetLevel]];
 			if ( pooledSphere === undefined){
 			  // each pooled sphere contains a geometry,
 			  // a basic material and a lambert material.
@@ -2965,8 +3370,8 @@ scale = function(a, b, c) {
 					mesh: undefined
 			  };
 			  newSphereCreated = true;
-			  spheresPool[''+sphereDetLevel].push(pooledSphere);
-			  //console.log('making space for pool for sphere , size of pool for spheres of detail ' + sphereDetLevel + ' is ' + spheresPool[''+sphereDetLevel].length);
+			  spheresPool[''+ballDetLevel].push(pooledSphere);
+			  //console.log('making space for pool for sphere , size of pool for spheres of detail ' + ballDetLevel + ' is ' + spheresPool[''+ballDetLevel].length);
 			}
 			var applyDefaultNormalColor = false;
 			if (!strokeTime) {
@@ -3008,13 +3413,14 @@ scale = function(a, b, c) {
 						pooledSphere.normalMaterial.doubleSided = false;
 					}
 					if (pooledSphere.mesh === undefined){
-						pooledSphereGeometry = sphereGeometriesPool[''+sphereDetLevel];
+						pooledSphereGeometry = sphereGeometriesPool[''+ballDetLevel];
 						if ( pooledSphereGeometry === undefined) {
-							pooledSphereGeometry = new THREE.SphereGeometry(1,sphereDetLevel,sphereDetLevel);
-							sphereGeometriesPool[''+sphereDetLevel] = pooledSphereGeometry;
-							//console.log('creating sphere geometry of detail ' + sphereDetLevel);
+							pooledSphereGeometry = new THREE.SphereGeometry(1,ballDetLevel,ballDetLevel);
+							sphereGeometriesPool[''+ballDetLevel] = pooledSphereGeometry;
+							//console.log('creating ball geometry of detail ' + ballDetLevel);
 						}
 						pooledSphere.mesh = new THREE.Mesh(pooledSphereGeometry, pooledSphere.normalMaterial);
+						pooledSphere.startCountdown = SPINFRAMES;
 					}
 					else {
 						//console.log("associating normal material to existing mesh");
@@ -3038,13 +3444,14 @@ scale = function(a, b, c) {
 						pooledSphere.basicMaterial.doubleSided = false;
 					}
 					if (pooledSphere.mesh === undefined){
-						pooledSphereGeometry = sphereGeometriesPool[''+sphereDetLevel];
+						pooledSphereGeometry = sphereGeometriesPool[''+ballDetLevel];
 						if ( pooledSphereGeometry === undefined) {
-							pooledSphereGeometry = new THREE.SphereGeometry(1,sphereDetLevel,sphereDetLevel);
-							sphereGeometriesPool[''+sphereDetLevel] = pooledSphereGeometry;
-							//console.log('creating sphere geometry of detail ' + sphereDetLevel);
+							pooledSphereGeometry = new THREE.SphereGeometry(1,ballDetLevel,ballDetLevel);
+							sphereGeometriesPool[''+ballDetLevel] = pooledSphereGeometry;
+							//console.log('creating ball geometry of detail ' + ballDetLevel);
 						}
 						pooledSphere.mesh = new THREE.Mesh(pooledSphereGeometry, pooledSphere.basicMaterial);
+						pooledSphere.startCountdown = SPINFRAMES;
 					}
 					else {
 						pooledSphere.mesh.material = pooledSphere.basicMaterial;
@@ -3076,32 +3483,52 @@ scale = function(a, b, c) {
 						pooledSphere.lambertMaterial.refractionRatio = refractValue;
 					}
 					if (pooledSphere.mesh === undefined){
-						pooledSphereGeometry = sphereGeometriesPool[''+sphereDetLevel];
+						pooledSphereGeometry = sphereGeometriesPool[''+ballDetLevel];
 						if ( pooledSphereGeometry === undefined) {
-							pooledSphereGeometry = new THREE.SphereGeometry(1,sphereDetLevel,sphereDetLevel);
-							sphereGeometriesPool[''+sphereDetLevel] = pooledSphereGeometry;
-							//console.log('creating sphere geometry of detail ' + sphereDetLevel);
+							pooledSphereGeometry = new THREE.SphereGeometry(1,ballDetLevel,ballDetLevel);
+							sphereGeometriesPool[''+ballDetLevel] = pooledSphereGeometry;
+							//console.log('creating ball geometry of detail ' + ballDetLevel);
 						}
 						pooledSphere.mesh = new THREE.Mesh(pooledSphereGeometry, pooledSphere.lambertMaterial);
+						pooledSphere.startCountdown = SPINFRAMES;
 					}
 					else {
 						pooledSphere.mesh.material = pooledSphere.lambertMaterial;
 					}
 			}
+
+			if (resetTheSpinThingy) {
+				pooledSphere.startCountdown = SPINFRAMES;
+				resetTheSpinThingy = false;
+				doTheSpinThingy = true;
+			}
+			if (doTheSpinThingy) pooledSphere.startCountdown --;
+			if (pooledSphere.startCountdown === -1) doTheSpinThingy = false;
 			
 			pooledSphere.mesh.isLine = false;
 			pooledSphere.mesh.isRectangle = false;
 			pooledSphere.mesh.isBox = false;
 			pooledSphere.mesh.isAmbientLight = false;
 			pooledSphere.mesh.isPointLight = false;
-			pooledSphere.mesh.isSphere = sphereDetLevel;
+			pooledSphere.mesh.isSphere = ballDetLevel;
 			pooledSphere.mesh.doubleSided = false;
 			
 						
-			usedSpheres[''+sphereDetLevel] = usedSpheres[''+sphereDetLevel]+1;
+			usedSpheres[''+ballDetLevel] = usedSpheres[''+ballDetLevel]+1;
+
+			if (doTheSpinThingy && pooledSphere.startCountdown > 0) {
+				pushMatrix();
+				rotate(pooledSphere.startCountdown/50);			
+				//console.log(""+pooledSphere.startCountdown);			
+			}
+
 			pooledSphere.mesh.matrixAutoUpdate = false;
 			pooledSphere.mesh.matrix.copy(worldMatrix);
 			pooledSphere.mesh.matrixWorldNeedsUpdate = true;
+
+			if (doTheSpinThingy && pooledSphere.startCountdown > 0) {
+				popMatrix();
+			}
 
 			// TODO: meshes should be built from geometries that are
 			// ever so slight larger than the "fill" mesh so there
@@ -3139,45 +3566,54 @@ http://www.macromedia.com/support/documentation/en/flashplayer/help/settings_man
 */
 
 var simpleCubeDemo = ""+
-""+		"background 255,255,0\n"+
-""+		"rotate 0,millisecs/2000,millisecs/2000\n"+
+""+		"// there you go!\n"+
+""+		"// a simple cube!\n"+
+""+		"\n"+
+""+		"background yellow\n"+
+""+		"rotate 0,time/2000,time/2000\n"+
 ""+		"box\n";
 
-var twocubesDemo = ""+
-""+		"// this drawing will only make sense\n"+
-""+		"// in a WebGL-enabled browser\n"+
-""+		"\n"+
+var webgltwocubesDemo = ""+
 ""+		"background 155,255,255\n"+
 ""+		"2 times ->\n"+
-"\t"+		"rotate 0, 1, millisecs/2000\n"+
+"\t"+		"rotate 0, 1, time/2000\n"+
 "\t"+		"box\n";
 
 var cubesAndSpikes = ""+
-""+		"simpleGradient color(255,0,255),color(100,200,200),color(255,255,0)\n"+
+""+		"simpleGradient fuchsia,color(100,200,200),yellow\n"+
 ""+		"scale 2.1\n"+
 ""+		"5 times ->\n"+
-"\t"+			"rotate 0,1,millisecs/5000\n"+
+"\t"+			"rotate 0,1,time/5000\n"+
 "\t"+			"box 0.1,0.1,0.1\n"+
-"\t"+			"translate 0,0.1,0.1\n"+
+"\t"+			"move 0,0.1,0.1\n"+
 "\t"+			"3 times ->\n"+
 "\t\t"+				"rotate 0,1,1\n"+
 "\t\t"+				"box 0.01,0.01,1\n";
 
-var turbineDemo = ""+
-""+		"// this drawing will only make sense\n"+
-""+		"// in a WebGL-enabled browser\n"+
-""+		"\n"+
+var webglturbineDemo = ""+
 ""+		"background 155,55,255\n"+
 ""+		"70 times ->\n"+
-"\t"+		"rotate millisecs/100000,1,millisecs/100000\n"+
+"\t"+		"rotate time/100000,1,time/100000\n"+
 "\t"+		"box\n";
 
+var zfightartDemo = ""+
+""+		"// Explore the artifacts\n"+
+""+		"// of your GPU!\n"+
+""+		"// Go Z-fighting, go!\n"+
+""+		"scale 5\n"+
+""+		"rotate\n"+
+""+		"fill red\n"+
+""+		"box\n"+
+""+		"rotate 0.000001\n"+
+""+		"fill yellow\n"+
+""+		"box";
+
 var littleSpiralOfCubes = ""+
-""+		"background 255,155,0\n"+
+""+		"background orange\n"+
 ""+		"scale 0.1\n"+
 ""+		"10 times ->\n"+
-"\t"+		"rotate 0,1,millisecs/1000\n"+
-"\t"+		"translate 1,1,1\n"+
+"\t"+		"rotate 0,1,time/1000\n"+
+"\t"+		"move 1,1,1\n"+
 "\t"+		"box\n";
 
 var tentacleDemo = ""+
@@ -3186,30 +3622,37 @@ var tentacleDemo = ""+
 ""+		"3 times ->\n"+
 "\t"+		"rotate 0,1,1\n"+
 "\t"+		"10 times ->\n"+
-"\t\t"+		"rotate 0,1,millisecs/1000\n"+
+"\t\t"+		"rotate 0,1,time/1000\n"+
 "\t\t"+		"scale 0.9\n"+
-"\t\t"+		"translate 1,1,1\n"+
+"\t\t"+		"move 1,1,1\n"+
 "\t\t"+		"box\n";
 
 var lampDemo = ""+
 ""+		"animationStyle motionBlur\n"+
-""+		"simpleGradient color(255,0,0),color(255,255,0),color(255,0,255)\n"+
+""+		"simpleGradient red,yellow,color(255,0,255)\n"+
 ""+		"//animationStyle paintOver\n"+
 ""+		"scale 2\n"+
-""+		"rotate millisecs/4000, millisecs/4000,  millisecs/4000\n"+
+""+		"rotate time/4000, time/4000,  time/4000\n"+
 ""+		"90 times ->\n"+
-"\t"+		"rotate millisecs/200000, millisecs/200000,  millisecs/200000\n"+
+"\t"+		"rotate time/200000, time/200000,  time/200000\n"+
 "\t"+		"line\n"+
-"\t"+		"translate 0.5,0,0\n"+
+"\t"+		"move 0.5,0,0\n"+
 "\t"+		"line\n"+
-"\t"+		"translate -0.5,0,0\n"+
+"\t"+		"move -0.5,0,0\n"+
 "\t"+		"line\n"+
 "\t"+		"line\n";
 
-var judgementDayDemo = ""+
-""+		"bpm 390\n"+
-""+		"addSound 'thump' ,'xxzx zxxz zzzz zzzz'\n";
-
+var trillionfeathersDemo = ""+
+""+		"animationStyle paintOver\n"+
+""+		"move 2,0,0\n"+
+""+		"scale 2\n"+
+""+		"rotate\n"+
+""+		"20 times ->\n"+
+"\t"+		"rotate\n"+
+"\t"+		"move 0.25,0,0\n"+
+"\t"+		"line\n"+
+"\t"+		"move -0.5,0,0\n"+
+"\t"+		"line";
 
 var industrialMusicDemo = ""+
 ""+		"bpm 350\n"+
@@ -3228,7 +3671,7 @@ var trySoundsDemo = ""+
 ""+		"\n"+
 ""+		"// uncomment the sounds you want to try\n"+
 ""+		"//addSound 'toc','zzxz zzzz zzxz zzzz'\n"+
-""+		"//addSound 'highHatOpen','zzxz zzzz zzxz zzzz'\n"+
+""+		"//addSound 'highHatClosed','zzxz zzzz zzxz zzzz'\n"+
 ""+		"//addSound 'highHatOpen','zzxz zzzz zzxz zzzz'\n"+
 ""+		"//addSound 'toc2','zzxz zzzz zzxz zzzz'\n"+
 ""+		"//addSound 'toc3','zzxz zzzz zzxz zzzz'\n"+
@@ -3259,79 +3702,77 @@ var trySoundsDemo = ""+
 ""+		"//addSound 'hello','zzxz zzzz zzxz zzzz'\n"+
 ""+		"//addSound 'alienBeep','zzxz zzzz zzxz zzzz'\n";
 
-var planesDemo = ""+
+var springysquaresDemo = ""+
 ""+		"animationStyle motionBlur\n"+
-""+		"simpleGradient color(255,0,255),color(100,200,200),color(255,255,0)\n"+
+""+		"simpleGradient fuchsia,color(100,200,200),yellow\n"+
 ""+		"scale 0.3\n"+
 ""+		"3 times ->\n"+
-"\t"+		"translate 0,0,0.5\n"+
+"\t"+		"move 0,0,0.5\n"+
 "\t"+		"5 times ->\n"+
-"\t\t"+		"rotate millisecs/2000\n"+
-"\t\t"+	   "translate 0.7,0,0\n"+
+"\t\t"+		"rotate time/2000\n"+
+"\t\t"+	   "move 0.7,0,0\n"+
 "\t\t"+		"rect";
 
 var diceDemo = ""+
 ""+		"animationStyle motionBlur\n"+
-""+		"simpleGradient color(255),color(255,255,0),color(255,255,0)\n"+
+""+		"simpleGradient color(255),moccasin,peachpuff\n"+
 ""+		"stroke 255,100,100,255\n"+
-""+		"fill 255,0,0,155\n"+
-""+		"translate -0.5,0,0\n"+
+""+		"fill red,155\n"+
+""+		"move -0.5,0,0\n"+
 ""+		"scale 0.3\n"+
 ""+		"3 times ->\n"+
-"\t"+		"translate 0,0,0.5\n"+
+"\t"+		"move 0,0,0.5\n"+
 "\t"+		"1 times ->\n"+
-"\t\t"+		"rotate millisecs/1000\n"+
-"\t\t"+		"translate 2,0,0\n"+
+"\t\t"+		"rotate time/1000\n"+
+"\t\t"+		"move 2,0,0\n"+
 "\t\t"+		"box";
 
-var almostvoronoiDemo = ""+
+var webglalmostvoronoiDemo = ""+
 ""+		"scale 10\n"+
 ""+		"2 times ->\n"+
-"\t"+		"rotate 0,1,millisecs/10000\n"+
-"\t"+		"sphere -1";
+"\t"+		"rotate 0,1,time/10000\n"+
+"\t"+		"ball -1";
 
-var shardsDemo = ""+
+var webglshardsDemo = ""+
 ""+		"scale 10\n"+
 ""+		"fill 0\n"+
 ""+		"strokeSize 7\n"+
 ""+		"5 times ->\n"+
-"\t"+		"rotate 0,1,millisecs/20000\n"+
-"\t"+		"sphere \n"+
+"\t"+		"rotate 0,1,time/20000\n"+
+"\t"+		"ball \n"+
 "\t"+		"rotate 0,1,1\n"+
-"\t"+		"sphere -1.01";
+"\t"+		"ball -1.01";
 
-var pinkthreadDemo = ""+
+var webglpinkthreadDemo = ""+
 ""+		"scale 10.5\n"+
-""+		"stroke 255,55,255\n"+
+""+		"background black\n"+
+""+		"stroke red\n"+
 ""+		"noFill\n"+
 ""+		"strokeSize 7\n"+
 ""+		"5 times ->\n"+
-"\t"+		"rotate millisecs/20000\n"+
-"\t"+		"sphere\n"+
+"\t"+		"rotate time/20000\n"+
+"\t"+		"ball\n"+
 "\t"+		"rotate 0,1,1\n"+
-"\t"+		"sphere";
+"\t"+		"ball";
 
-var nuclearOctopusDemo = ""+
-""+		"// this drawing will only be smooth\n"+
-""+		"// in a WebGL-enabled browser\n"+
-""+		"\n"+
-""+		"simpleGradient 0,color(0,0,(millisecs/5)%255),0\n"+
+var webglnuclearOctopusDemo = ""+
+""+		"simpleGradient black,color(0,0,(time/5)%255),black\n"+
 ""+		"scale 0.2\n"+
-""+		"translate 5\n"+
+""+		"move 5\n"+
 ""+		"animationStyle motionBlur\n"+
 ""+		"//animationStyle paintOver\n"+
 ""+		"stroke 255,0,0,120\n"+
-""+		"fill millisecs%255,0,0\n"+
+""+		"fill time%255,0,0\n"+
 ""+		"pushMatrix\n"+
 ""+		"count = 0\n"+
 ""+		"3 times ->\n"+
 "\t"+		"count++\n"+
 "\t"+		"pushMatrix\n"+
-"\t"+		"rotate count+3+millisecs/1000,2+count + millisecs/1000,4+count\n"+
+"\t"+		"rotate count+3+time/1000,2+count + time/1000,4+count\n"+
 "\t"+		"120 times ->\n"+
 "\t\t"+		"scale 0.9\n"+
-"\t\t"+		"translate 1,1,0\n"+
-"\t\t"+		"rotate millisecs/100\n"+
+"\t\t"+		"move 1,1,0\n"+
+"\t\t"+		"rotate time/100\n"+
 "\t\t"+		"box\n"+
 "\t"+		"popMatrix";
 
@@ -3359,7 +3800,7 @@ var helloworldTutorial = ""+
 
 var somenotesTutorial = ""+
 ""+		"// If this makes sense to you:\n"+
-""+		"// the syntax used is Coffeescript\n"+
+""+		"// the syntax is similar to Coffeescript\n"+
 ""+		'// and the commands are almost\n'+
 ""+		'// like Processing.\n'+
 ""+		"\n"+
@@ -3390,30 +3831,30 @@ var frameTutorial = ""+
 ""+		"// always incrementing as\n"+
 ""+		"// the screen is re-drawn.\n"+
 ""+		'// (use "frame/100" to slow it down)\n'+
-""+		"// next-tutorial:millisecs";
+""+		"// next-tutorial:time";
 
-var millisecsTutorial = ""+
+var timeTutorial = ""+
 ""+		'// "frame/100" has one problem:\n'+
 ""+		'// faster computers will make\n'+
 ""+		'// the cube spin too fast.\n'+
-""+		'// Replace it with "millisecs/2000".\n'+
+""+		'// Replace it with "time/2000".\n'+
 ""+		"\n"+
 ""+		"rotate frame/100\n"+
 ""+		"box\n"+
 ""+		"\n"+
-""+		'// "millisecs" counts the\n'+
+""+		'// "time" counts the\n'+
 ""+		"// number of milliseconds since\n"+
 ""+		"// the program started, so it's\n"+
 ""+		"// independent of how fast\n"+
 ""+		"// the computer is at drawing.\n"+
-""+		"// next-tutorial:translate";
+""+		"// next-tutorial:move";
 
-var translateTutorial = ""+
+var moveTutorial = ""+
 ""+		"// you can move any object\n"+
-""+		'// by using "translate"\n'+
+""+		'// by using "move"\n'+
 ""+		"\n"+
 ""+		"box\n"+
-""+		"translate 1,1,0\n"+
+""+		"move 1,1,0\n"+
 ""+		"box\n"+
 ""+		"\n"+
 ""+		'// try to use a rotate before \n'+
@@ -3427,7 +3868,7 @@ var scaleTutorial = ""+
 ""+		"\n"+
 ""+		"rotate 3\n"+
 ""+		"box\n"+
-""+		"translate 1\n"+
+""+		"move 1\n"+
 ""+		"scale 2\n"+
 ""+		"box\n"+
 ""+		"\n"+
@@ -3437,29 +3878,31 @@ var scaleTutorial = ""+
 ""+		"// next-tutorial:times";
 
 var timesTutorial = ""+
-""+		'// "times" can be used to\n'+
+""+		'// "times" (not to be confused with\n'+
+""+		'// "time"!) can be used to\n'+
 ""+		'// repeat operations like so:\n'+
 ""+		"\n"+
 ""+		"rotate 1\n"+
 ""+		"3 times ->\n"+
-"\t"+		"translate 0.2,0.2,0.2\n"+
+"\t"+		"move 0.2,0.2,0.2\n"+
 "\t"+		"box\n"+
 ""+		"\n"+
-""+		'// note that the tabs indicate \n'+
+""+		'// note how the tabs indicate \n'+
 ""+		"// exactly the block of code\n"+
 ""+		"// to be repeated.\n"+
 ""+		"// next-tutorial:fill";
 
 var fillTutorial = ""+
 ""+		'// "fill" changes the\n'+
-""+		'// color of all the surfaces:\n'+
+""+		'// color of all the faces:\n'+
 ""+		"\n"+
 ""+		"fill 255,255,0\n"+
 ""+		"box\n"+
 ""+		"\n"+
 ""+		'// the three numbers indicate \n'+
 ""+		"// red green and blue values.\n"+
-""+		"// Also: try replacing the numbers with\n"+
+""+		"// You can also use color names such as indigo\n"+
+""+		"// Try replacing the numbers with\n"+
 ""+		'// "angleColor"\n'+
 ""+		"// next-tutorial:stroke";
 
@@ -3472,12 +3915,28 @@ var strokeTutorial = ""+
 ""+		"stroke 255,255,255\n"+
 ""+		"box\n"+
 ""+		"\n"+
-""+		'// the three numbers are RGB \n'+
-""+		"// but you can also use the\n"+
-""+		'// special color "angleColor"\n'+
+""+		'// the three numbers are RGB\n'+
+""+		"// but you can also use the color names\n"+
+""+		'// or the special color "angleColor"\n'+
 ""+		'// Also you can use "strokeSize"\n'+
 ""+		'// to specify the thickness.\n'+
+""+		"// next-tutorial:color_names";
+
+var colornamesTutorial = ""+
+""+		'// you can call color by name\n'+
+""+		'// try to un-comment one line:\n'+
+""+		"\n"+
+""+		"//fill greenyellow\n"+
+""+		"//fill indigo\n"+
+""+		"//fill lemonchiffon // how about that!\n"+
+""+		"rotate 1\n"+
+""+		"box\n"+
+""+		"\n"+
+""+		'// more color names here:\n'+
+""+		'// http://html-color-codes.info/color-names/\n'+
+""+		'// (just use them in lower case)\n'+
 ""+		"// next-tutorial:lights";
+
 
 var lightsTutorial = ""+
 ""+		'// "ambientLight" creates an\n'+
@@ -3485,7 +3944,7 @@ var lightsTutorial = ""+
 ""+		'// some sort of shading:\n'+
 ""+		"\n"+
 ""+		"ambientLight 0,255,255\n"+
-""+		"rotate millisecs/1000\n"+
+""+		"rotate time/1000\n"+
 ""+		"box\n"+
 ""+		"\n"+
 ""+		'// you can turn that light on and \n'+
@@ -3498,7 +3957,7 @@ var backgroundTutorial = ""+
 ""+		'// solid background:\n'+
 ""+		"\n"+
 ""+		"background 0,0,255\n"+
-""+		"rotate millisecs/1000\n"+
+""+		"rotate time/1000\n"+
 ""+		"box\n"+
 ""+		"\n"+
 ""+		"// next-tutorial:gradient";
@@ -3508,7 +3967,7 @@ var gradientTutorial = ""+
 ""+		'// background gradient:\n'+
 ""+		"\n"+
 ""+		"simpleGradient color(190,10,10),color(30,90,100),color(0)\n"+
-""+		"rotate millisecs/1000\n"+
+""+		"rotate time/1000\n"+
 ""+		"box\n"+
 ""+		"\n"+
 ""+		"// next-tutorial:line";
@@ -3517,35 +3976,35 @@ var lineTutorial = ""+
 ""+		'// draw lines like this:\n'+
 ""+		"\n"+
 ""+		"20 times ->\n"+
-"\t"+		"rotate millisecs/9000\n"+
+"\t"+		"rotate time/9000\n"+
 "\t"+		"line\n"+
 ""+		"\n"+
-""+		"// next-tutorial:sphere";
+""+		"// next-tutorial:ball";
 
-var sphereTutorial = ""+
-""+		'// draw spheres like this:\n'+
+var ballTutorial = ""+
+""+		'// draw balls like this:\n'+
 ""+		"\n"+
-""+		"sphereDetail 10\n"+
+""+		"ballDetail 10\n"+
 ""+		"3 times ->\n"+
-"\t"+		"translate 0.2,0.2,0.2\n"+
-"\t"+		"sphere\n"+
+"\t"+		"move 0.2,0.2,0.2\n"+
+"\t"+		"ball\n"+
 ""+		"\n"+
-""+		'// ("sphereDetail" is optional)\n'+
+""+		'// ("ballDetail" is optional)\n'+
 ""+		"// next-tutorial:pushpopMatrix";
 
 var pushpopMatrixTutorial = ""+
 ""+		'// pushMatrix creates a bookmark of\n'+
 ""+		'// the position, which you can\n'+
-""+		'// return to later by using popMatrix\n'+
-""+		'// You can reset using "resetMatrix"\n'+
+""+		'// return to later by using popMatrix.\n'+
+""+		'// You can reset using "resetMatrix".\n'+
 ""+		"\n"+
-""+		"rotate millisecs/1000\n"+
+""+		"rotate time/1000\n"+
 ""+		'pushMatrix // bookmark the position after the rotation\n'+
 ""+		"line\n"+
-""+		"translate 0.5,0,0\n"+
+""+		"move 0.5,0,0\n"+
 ""+		"line\n"+
 ""+		"popMatrix // go back to the bookmarked position\n"+
-""+		"translate -0.5,0,0\n"+
+""+		"move -0.5,0,0\n"+
 ""+		"line\n"+
 ""+		"resetMatrix // resets the position\n"+
 ""+		"line // not affected by initial rotation\n"+
@@ -3566,11 +4025,11 @@ var animationstyleTutorial = ""+
 var doonceTutorial = ""+
 ""+		'// delete either check mark below\n'+
 ""+		"\n"+
-""+		"rotate millisecs/1000\n"+
+""+		"rotate time/1000\n"+
 ""+		"✓doOnce ->\n"+
 "\t"+	   "background 255\n"+
 "\t"+	   "fill 255,0,0\n"+
-""+		"✓doOnce -> sphere\n"+
+""+		"✓doOnce -> ball\n"+
 ""+		"box\n"+
 ""+		"\n"+
 ""+		'// ...the line or block of code\n'+
@@ -3587,7 +4046,7 @@ var autocodeTutorial = ""+
 ""+		'// You can interrupt the Autocoder at\n'+
 ""+		'// any time by pressing the button again,\n'+
 ""+		'// or you can press CTRL-Z\n'+
-""+		'// (or CMD-Z on Macs) to undo some of\n'+
+""+		'// (or CMD-Z on Macs) to undo (or re-do) some of\n'+
 ""+		'// the steps even WHILE the autocoder is running,\n'+
 ""+		'// if you see that things got\n'+
 ""+		'// boring down a particular path of changes.';
@@ -3599,7 +4058,7 @@ var blinkingAutocoderStatus = false;
 function blinkAutocodeIndicator() {
 	blinkingAutocoderStatus = !blinkingAutocoderStatus;
 	if (blinkingAutocoderStatus){
-		$("#autocodeIndicatorContainer").css("background-color",'#323232');
+		$("#autocodeIndicatorContainer").css("background-color",'');
 	}
 	else {
 		$("#autocodeIndicatorContainer").css("background-color",'#FF0000');
@@ -3613,7 +4072,7 @@ function toggleAutocode() {
 	if (!autocodeOn) {
 		$("#autocodeIndicator").html("Autocode: off");
 		clearInterval(blinkingAutocoderTimeout);
-		$("#autocodeIndicatorContainer").css("background-color",'#323232');
+		$("#autocodeIndicatorContainer").css("background-color",'');
 	}
 	else {
 		$("#autocodeIndicator").html("Autocode: on");
@@ -3625,7 +4084,7 @@ function toggleAutocode() {
 				(window.location.hash.indexOf("autocodeTutorial")!==-1)
 			)
 
-		) loadDemo('cubesAndSpikes');
+		) loadDemoOrTutorial('cubesAndSpikes');
 	}
 }
 
@@ -3636,11 +4095,11 @@ function mutate() {
 		else if (whichMutation == 1)
 		replaceAnInteger();
 		else if (whichMutation == 2)
-		replaceABoxWithASphere();
+		replaceABoxWithABall();
 		else if (whichMutation == 3)
-		replaceASphereWithABox();
+		replaceABallWithABox();
 		//else if (whichMutation == 4)
-		//replaceMillisecsWithAConstant();
+		//replacetimeWithAConstant();
 		
 }
 
@@ -3681,14 +4140,14 @@ function replaceAFloat() {
 				else if (whichOp == 10)
 				return Math.floor(parseFloat(match));
 				else if (whichOp == 11)
-				return 'millisecs/1000';
+				return 'time/1000';
 			}
 				return match;
 		});
 		editor.setValue(editorContent);
 }
 
-function replaceABoxWithASphere() {
+function replaceABoxWithABall() {
         var editorContent = editor.getValue();
 		var rePattern = /(box)/gi;
 
@@ -3701,16 +4160,16 @@ function replaceABoxWithASphere() {
 		editorContent = editorContent.replace(rePattern, function(match, text, urlId){
 			countWhichOneToSwap++;
 			if (countWhichOneToSwap === whichOneToChange){
-				return "sphere";
+				return "ball";
 			}
 				return match;
 		});
 		editor.setValue(editorContent);
 }
 
-function replaceMillisecsWithAConstant() {
+function replaceTimeWithAConstant() {
         var editorContent = editor.getValue();
-		var rePattern = /(millisecs)/gi;
+		var rePattern = /(time)/gi;
 
 		var allMatches = editorContent.match(rePattern);
 		if (allMatches === null) numberOfResults = 0;
@@ -3728,9 +4187,9 @@ function replaceMillisecsWithAConstant() {
 		editor.setValue(editorContent);
 }
 
-function replaceASphereWithABox() {
+function replaceABallWithABox() {
         var editorContent = editor.getValue();
-		var rePattern = /(sphere)/gi;
+		var rePattern = /(ball)/gi;
 
 		var allMatches = editorContent.match(rePattern);
 		if (allMatches === null) numberOfResults = 0;
@@ -3775,15 +4234,31 @@ function replaceAnInteger() {
 				else if (whichOp == 5)
 				return Math.floor(parseFloat(match)/5);
 				else if (whichOp == 6)
-				return 'Math.floor(1+millisecs/1000)';
+				return 'Math.floor(1+time/1000)';
 			}
 				return match;
 		});
 		editor.setValue(editorContent);
 
 }
-function loadDemo(whichDemo) {
 
+function triggerReset() {
+	pickRandomDefaultGradient();
+	if (autocodeOn) toggleAutocode();
+	editor.setValue('');
+	$("#resetButtonContainer").css("background-color",'#FF0000');
+	setTimeout('$("#resetButtonContainer").css("background-color","");',200);
+}
+
+function loadDemoOrTutorial(whichDemo) {
+
+	if (!Detector.webgl && !userWarnedAboutWebglExamples && whichDemo.indexOf('webgl') === 0) {
+		userWarnedAboutWebglExamples = true;
+		$('#exampleNeedsWebgl').modal();
+		$('#simplemodal-container').height(200);
+	}
+	
+	
 	// set the demo as a hash state
 	// so that ideally people can link directly to
 	// a specific demo they like.
@@ -3794,115 +4269,130 @@ function loadDemo(whichDemo) {
 	if (fakeText) shrinkFakeText();
 	undimEditor();
 	
+	doTheSpinThingy = false;
+	
+	var prependMessage = "";
+	if (!Detector.webgl && whichDemo.indexOf('webgl') === 0) {
+		prependMessage = ""+
+		"// this drawing makes much more sense\n"+
+		"// in a WebGL-enabled browser\n"+
+		"\n";
+	}
 
 	switch(whichDemo) {
 		case 'simpleCubeDemo':
-			editor.setValue(simpleCubeDemo);
+			editor.setValue( prependMessage + simpleCubeDemo);
 			break;
-		case 'twocubesDemo':
-			editor.setValue(twocubesDemo);
+		case 'webgltwocubesDemo':
+			editor.setValue( prependMessage + webgltwocubesDemo);
 			break;
 		case 'cubesAndSpikes':
-			editor.setValue(cubesAndSpikes);
+			editor.setValue( prependMessage + cubesAndSpikes);
 			break;
-		case 'turbineDemo':
-			editor.setValue(turbineDemo);
+		case 'webglturbineDemo':
+			editor.setValue( prependMessage + webglturbineDemo);
+			break;
+		case 'zfightartDemo':
+			editor.setValue( prependMessage + zfightartDemo);
 			break;
 		case 'littleSpiralOfCubes':
-			editor.setValue(littleSpiralOfCubes);
+			editor.setValue( prependMessage + littleSpiralOfCubes);
 			break;
 		case 'tentacleDemo':
-			editor.setValue(tentacleDemo);
+			editor.setValue( prependMessage + tentacleDemo);
 			break;
 		case 'lampDemo':
-			editor.setValue(lampDemo);
+			editor.setValue( prependMessage + lampDemo);
 			break;
-		case 'judgementDayDemo':
-			editor.setValue(judgementDayDemo);
+		case 'trillionfeathersDemo':
+			editor.setValue( prependMessage + trillionfeathersDemo);
 			break;
 		case 'industrialMusicDemo':
-			editor.setValue(industrialMusicDemo);
+			editor.setValue( prependMessage + industrialMusicDemo);
 			break;
 		case 'trySoundsDemo':
-			editor.setValue(trySoundsDemo);
+			editor.setValue( prependMessage + trySoundsDemo);
 			break;
-		case 'planesDemo':
-			editor.setValue(planesDemo);
+		case 'springysquaresDemo':
+			editor.setValue( prependMessage + springysquaresDemo);
 			break;
 		case 'diceDemo':
-			editor.setValue(diceDemo);
+			editor.setValue( prependMessage + diceDemo);
 			break;
-		case 'almostvoronoiDemo':
-			editor.setValue(almostvoronoiDemo);
+		case 'webglalmostvoronoiDemo':
+			editor.setValue( prependMessage + webglalmostvoronoiDemo);
 			break;
-		case 'shardsDemo':
-			editor.setValue(shardsDemo);
+		case 'webglshardsDemo':
+			editor.setValue( prependMessage + webglshardsDemo);
 			break;
-		case 'pinkthreadDemo':
-			editor.setValue(pinkthreadDemo);
+		case 'webglpinkthreadDemo':
+			editor.setValue( prependMessage + webglpinkthreadDemo);
 			break;
-		case 'nuclearOctopusDemo':
-			editor.setValue(nuclearOctopusDemo);
+		case 'webglnuclearOctopusDemo':
+			editor.setValue( prependMessage + webglnuclearOctopusDemo);
 			break;
 		case 'introTutorial':
-			editor.setValue(introTutorial);
+			editor.setValue( prependMessage + introTutorial);
 			break;
 		case 'helloworldTutorial':
-			editor.setValue(helloworldTutorial);
+			editor.setValue( prependMessage + helloworldTutorial);
 			break;
 		case 'somenotesTutorial':
-			editor.setValue(somenotesTutorial);
+			editor.setValue( prependMessage + somenotesTutorial);
 			break;
 		case 'rotateTutorial':
-			editor.setValue(rotateTutorial);
+			editor.setValue( prependMessage + rotateTutorial);
 			break;
 		case 'frameTutorial':
-			editor.setValue(frameTutorial);
+			editor.setValue( prependMessage + frameTutorial);
 			break;
-		case 'millisecsTutorial':
-			editor.setValue(millisecsTutorial);
+		case 'timeTutorial':
+			editor.setValue( prependMessage + timeTutorial);
 			break;
-		case 'translateTutorial':
-			editor.setValue(translateTutorial);
+		case 'moveTutorial':
+			editor.setValue( prependMessage + moveTutorial);
 			break;
 		case 'scaleTutorial':
-			editor.setValue(scaleTutorial);
+			editor.setValue( prependMessage + scaleTutorial);
 			break;
 		case 'timesTutorial':
-			editor.setValue(timesTutorial);
+			editor.setValue( prependMessage + timesTutorial);
 			break;
 		case 'fillTutorial':
-			editor.setValue(fillTutorial);
+			editor.setValue( prependMessage + fillTutorial);
 			break;
 		case 'strokeTutorial':
-			editor.setValue(strokeTutorial);
+			editor.setValue( prependMessage + strokeTutorial);
+			break;
+		case 'colornamesTutorial':
+			editor.setValue( prependMessage + colornamesTutorial);
 			break;
 		case 'lightsTutorial':
-			editor.setValue(lightsTutorial);
+			editor.setValue( prependMessage + lightsTutorial);
 			break;
 		case 'backgroundTutorial':
-			editor.setValue(backgroundTutorial);
+			editor.setValue( prependMessage + backgroundTutorial);
 			break;
 		case 'gradientTutorial':
-			editor.setValue(gradientTutorial);
+			editor.setValue( prependMessage + gradientTutorial);
 			break;
 		case 'lineTutorial':
-			editor.setValue(lineTutorial);
+			editor.setValue( prependMessage + lineTutorial);
 			break;
-		case 'sphereTutorial':
-			editor.setValue(sphereTutorial);
+		case 'ballTutorial':
+			editor.setValue( prependMessage + ballTutorial);
 			break;
 		case 'pushpopMatrixTutorial':
-			editor.setValue(pushpopMatrixTutorial);
+			editor.setValue( prependMessage + pushpopMatrixTutorial);
 			break;
 		case 'animationstyleTutorial':
-			editor.setValue(animationstyleTutorial);
+			editor.setValue( prependMessage + animationstyleTutorial);
 			break;
 		case 'doonceTutorial':
-			editor.setValue(doonceTutorial);
+			editor.setValue( prependMessage + doonceTutorial);
 			break;
 		case 'autocodeTutorial':
-			editor.setValue(autocodeTutorial);
+			editor.setValue( prependMessage + autocodeTutorial);
 			break;
 
 	}
@@ -3960,7 +4450,7 @@ function loadDemo(whichDemo) {
   url = url.replace(/\/\/\s*next-tutorial\:/,"");
   url = url.replace("_","");
   //alert(""+url);
-  loadDemo(url+"Tutorial");
+  loadDemoOrTutorial(url+"Tutorial");
 });
 
   editor.setOption("theme", 'night');
@@ -3992,7 +4482,7 @@ function fakeCursorBlinking()
 {
   $("#fakeStartingBlinkingCursor").animate(
   {
-    opacity: 0
+    opacity: 0.2
   }, "fast", "swing").animate(
   {
     opacity: 1
@@ -4041,7 +4531,108 @@ function dimIfNoCursorActivity(){
 	}
 }
 
+var closeAndCheckAudio = function(){
+		//$('#noWebGLMessage').close();
+		$.modal.close();
+		setTimeout('checkAudio();',500);
+}
+
+var checkAudio = function(){
+	if (!buzz.isSupported()) {
+	//if (true) {
+		$('#noAudioMessage').modal();
+		$('#simplemodal-container').height(200);
+	}
+}
+
+var loadAndTestAllTheSounds = function() {
+	//console.log("loading and testing all sounds");
+	for (var cycleSoundDefs = 0; cycleSoundDefs < numberOfSounds; cycleSoundDefs++){
+	
+		if (buzz.isMP3Supported()) soundDef[cycleSoundDefs].soundFile = soundDef[cycleSoundDefs].soundFile+".mp3";
+		else if (buzz.isOGGSupported()) soundDef[cycleSoundDefs].soundFile = soundDef[cycleSoundDefs].soundFile+".ogg";
+		else {break}
+	
+		soundBank[soundDef[cycleSoundDefs].soundName] = [];
+		soundFiles[soundDef[cycleSoundDefs].soundName] = soundDef[cycleSoundDefs].soundFile;
+		
+		// Chrome can deal with dynamic loading
+		// of many files but doesn't like loading too many audio objects
+		// so fast - it crashes.
+		// At the opposite end, Safari doesn't like loading sound dynamically
+		// and instead works fine by loading sound all at the beginning.
+		if (navigator.userAgent.toLowerCase().indexOf('chrome') === -1 && !(/MSIE (\d+\.\d+);/.test(navigator.userAgent)) ) {
+			for (var preloadSounds = 0; preloadSounds < CHANNELSPERSOUND; preloadSounds++){
+				// if you load and play all the channels of all the sounds all together
+				// the browser freezes, and the OS doesn't feel too well either
+				// so better stagger the checks in time.
+				setTimeout("checkSound("+cycleSoundDefs+");", 200* cycleSoundDefs);
+			}
+		}
+	
+	} // end of the for loop
+
+	if (navigator.userAgent.toLowerCase().indexOf('chrome') > -1 || (/MSIE (\d+\.\d+);/.test(navigator.userAgent)) ) {
+		startEnvironment();
+	}
+}
+
+var checkSound = function(cycleSoundDefs){
+		var newSound = new buzz.sound(soundDef[cycleSoundDefs].soundFile);
+		//console.log("loading sound "+ soundDef[cycleSoundDefs].soundFile);
+		newSound.mute()
+		newSound.load();
+		newSound.bind("ended", function(e) {
+			this.unbind("ended");
+			this.unmute();
+			endedFirstPlay++;
+			if (endedFirstPlay%10 === 0) $('#loading').append('/');
+			//console.log("tested "+endedFirstPlay+" sounds");
+			if (endedFirstPlay === numberOfSounds * CHANNELSPERSOUND) {
+				//console.log("tested all sounds");
+				startEnvironment();
+			}
+		});
+		newSound.play();
+		soundBank[soundDef[cycleSoundDefs].soundName].push(newSound);
+}
+	
 $(document).ready(function(){
+	//console.log("document ready");
+	if (!isCanvasSupported) {
+		$('#noCanvasMessage').modal({onClose: function(){$('#loading').text('sorry :-(');$.modal.close();}});
+		$('#simplemodal-container').height(200);
+		return;
+	}
+
+	loadAndTestAllTheSounds();
+});
+
+startEnvironment = function(){
+	pickRandomDefaultGradient();
+		
+	//console.log("startEnvironment");
+	if( !init() )	animate();
+
+	if (!Detector.webgl) {
+		//$('#noWebGLMessage').modal()
+		$('#noWebGLMessage').modal({onClose: closeAndCheckAudio});
+		$('#simplemodal-container').height(200);
+	}
+	
+	//alert('resizing canvas');
+	var canvas = document.getElementById('backGroundCanvas');
+	
+	if (fullScreenifyBackground) {
+		fullscreenify(canvas);
+	}
+	resetGradientStack();
+	simpleGradientUpdateIfChanged();
+		
+
+	$('#startingCourtainScreen').fadeOut();
+	$("#formCode").css('opacity',0);
+
 	editor.focus();
 	adjustCodeMirrorHeight();
 	
@@ -4050,45 +4641,16 @@ $(document).ready(function(){
 	// otherwise we do as usual.
 	if (window.location.hash.indexOf("bookmark")!==-1){
 		var demoToLoad = window.location.hash.substring("bookmark".length + 2);
-		//setTimeout ( "loadDemo('"+demoToLoad+"');",500);
-		loadDemo(demoToLoad);
+		//setTimeout ( "loadDemoOrTutorial('"+demoToLoad+"');",500);
+		loadDemoOrTutorial(demoToLoad);
 	}
 	fakeCursorInterval = setInterval ( "fakeCursorBlinking()", 800 );
 	setInterval ( "dimIfNoCursorActivity()", 2000 );
 	
-	// if we don't set these two layers to be thin,
-	// in firefox this embedded objects gets the mouse
-	// clicks of the user trying to place the cursor
-	// and then captures all the key presses.
-	// which is annoying.
-	setInterval ( "$('#sm2-container').css('width','10px')", 2000 );
-	setInterval ( "$('#sm2movie').css('width','10px')", 2000 );
-	
-});
+}
 
 
 ///////////////////////////////////////////////
-
-window.addEventListener(
-    'load',
-    function () {
-        //alert('resizing canvas');
-        var canvas = document.getElementById('backGroundCanvas');
-
-        if (fullScreenifyBackground) {
-        	fullscreenify(canvas);
-        }
-		resetGradientStack();
-		simpleGradientUpdateIfChanged();
-		
-
-		$('#startingCourtainScreen').fadeOut();
-
-		  $("#formCode").css('opacity',0);
-
-    },
-    false
-);
 
 function fullscreenify(canvas) {
     var style = canvas.getAttribute('style') || '';
@@ -4133,9 +4695,55 @@ function fullscreenify(canvas) {
 
 
 
-<script type="text/javascript" src="./script/soundmanager2.js"></script>
-<script type="text/javascript" src="./script/mpc.js"></script>
+<script type="text/javascript" src="./sound/buzz.js"></script>
+<script>
+var totalCreatedSoundObjects = 0;
+var soundSystemIsMangled = false;
+var CHANNELSPERSOUND = 6;
+var soundDef = [];
+var soundDefCounter = 0;
+// first value here below of soundDefCounter is zero.
+soundDef[soundDefCounter++] = {soundName: 'toc', soundFile: './sound/audioFiles/AMB_BD_1'};
+soundDef[soundDefCounter++] = {soundName: 'highHatClosed', soundFile: './sound/audioFiles/AMB_HHCL'};
+soundDef[soundDefCounter++] = {soundName: 'highHatOpen', soundFile: './sound/audioFiles/AMB_HHOP'};
+soundDef[soundDefCounter++] = {soundName: 'toc2', soundFile: './sound/audioFiles/AMB_HTM'};
+soundDef[soundDefCounter++] = {soundName: 'toc3', soundFile: './sound/audioFiles/AMB_LTM2'};
+soundDef[soundDefCounter++] = {soundName: 'toc4', soundFile: './sound/audioFiles/AMB_RIM1'};
+soundDef[soundDefCounter++] = {soundName: 'snare', soundFile: './sound/audioFiles/AMB_SN13'};
+soundDef[soundDefCounter++] = {soundName: 'snare2', soundFile: './sound/audioFiles/AMB_SN_5'};
+soundDef[soundDefCounter++] = {soundName: 'china', soundFile: './sound/audioFiles/CHINA_1'};
+soundDef[soundDefCounter++] = {soundName: 'crash', soundFile: './sound/audioFiles/CRASH_1'};
+soundDef[soundDefCounter++] = {soundName: 'crash2', soundFile: './sound/audioFiles/CRASH_5'};
+soundDef[soundDefCounter++] = {soundName: 'crash3', soundFile: './sound/audioFiles/CRASH_6'};
+soundDef[soundDefCounter++] = {soundName: 'ride', soundFile: './sound/audioFiles/RIDE_1'};
 
+soundDef[soundDefCounter++] = {soundName: 'glass', soundFile: './sound/audioFiles/glass2'};
+soundDef[soundDefCounter++] = {soundName: 'glass1', soundFile: './sound/audioFiles/glass3'};
+soundDef[soundDefCounter++] = {soundName: 'glass2', soundFile: './sound/audioFiles/glass4'};
+soundDef[soundDefCounter++] = {soundName: 'glass3', soundFile: './sound/audioFiles/glass5'};
+
+soundDef[soundDefCounter++] = {soundName: 'thump', soundFile: './sound/audioFiles/8938__patchen__piano-hits-hand-03v2'};
+soundDef[soundDefCounter++] = {soundName: 'lowFlash', soundFile: './sound/audioFiles/9569__thanvannispen__industrial-low-flash04'};
+soundDef[soundDefCounter++] = {soundName: 'lowFlash2', soundFile: './sound/audioFiles/9570__thanvannispen__industrial-low-flash07'};
+soundDef[soundDefCounter++] = {soundName: 'tranceKick2', soundFile: './sound/audioFiles/24004__laya__dance-kick3'};
+soundDef[soundDefCounter++] = {soundName: 'tranceKick', soundFile: './sound/audioFiles/33325__laya__trance-kick01'};
+soundDef[soundDefCounter++] = {soundName: 'wosh', soundFile: './sound/audioFiles/33960__krlox__pudricion-4'};
+soundDef[soundDefCounter++] = {soundName: 'voltage', soundFile: './sound/audioFiles/49255__keinzweiter__bonobob-funk'};
+soundDef[soundDefCounter++] = {soundName: 'beepA', soundFile: './sound/audioFiles/100708__steveygos93__bleep_a'};
+soundDef[soundDefCounter++] = {soundName: 'beepB', soundFile: './sound/audioFiles/100708__steveygos93__bleep_b'};
+soundDef[soundDefCounter++] = {soundName: 'beepC', soundFile: './sound/audioFiles/100708__steveygos93__bleep_c'};
+soundDef[soundDefCounter++] = {soundName: 'beepD', soundFile: './sound/audioFiles/100708__steveygos93__bleep_d'};
+soundDef[soundDefCounter++] = {soundName: 'beep', soundFile: './sound/audioFiles/116508_Beep'};
+soundDef[soundDefCounter++] = {soundName: 'hello', soundFile: './sound/audioFiles/116508_Hello'};
+soundDef[soundDefCounter++] = {soundName: 'alienBeep', soundFile: './sound/audioFiles/132389__blackie666__alienbleep'};
+
+numberOfSounds = soundDefCounter;
+
+var soundBank = {};
+var soundFiles = {};
+var endedFirstPlay = 0;
+
+</script>
 
 
 </body>
