@@ -156,7 +156,7 @@
 		<div id="soundSystemIsMangledMessage">
 			<h3>Congrats!</h3>
 			<p>Your unlocked the "I borked the sound system" badge!</p>
-			<p>You probably created a stupendous amount of fast-playing music.</p>
+			<p>This sometime happens when playing lots of music.</p>
 			<p>Just re-start the browser to get everything back to normal.</p>
 			<p>(We know it's fun, do this all the time, it's OK).</p>
 		</div>
@@ -246,7 +246,7 @@
 
 
 
-		<form id="formCode" autocapitalize="off" autocorrect="off" wrap="off"><textarea id="code" name="code" style="z-index:1;" autocapitalize="off" autocorrect="off" wrap="off" ></textarea></form>
+		<form id="formCode" autocapitalize="off" autocorrect="off" wrap="off" ><textarea id="code" name="code" style="z-index:1;" autocapitalize="off" autocorrect="off" wrap="off" ></textarea></form>
 
       </div>
 
@@ -1243,16 +1243,16 @@ function color$4(aValue1, aValue2, aValue3, aValue4) {
 			scaledBackgroundWidth = Math.floor(window.innerWidth / backGroundFraction);
 			scaledBackgroundHeight = Math.floor(window.innerHeight / backGroundFraction);
 
-			if( Detector.webgl && !forceCanvasRenderer ){
+			if( !forceCanvasRenderer && Detector.webgl && !forceCanvasRenderer ){
 
 				ballDefaultDetLevel = 16;
 				sceneRenderingCanvas = document.createElement('canvas');
 				
 				renderer = new THREE.WebGLRenderer({
 					canvas: sceneRenderingCanvas,
-					antialias		: true,	// to get smoother output					
 					preserveDrawingBuffer	: false,	// to allow screenshot
-					clearColor: 0x000000, clearAlpha: 0, antialias: false
+					antialias: false,
+					premultipliedAlpha: false
 				});
 			   
 			   //renderer.autoClearColor = false;
@@ -2114,7 +2114,7 @@ function background(r, g, b) {
 			// canvas renderer
 			theColor = new THREE.Color();
 			theColor.setRGB(r, g,b);
-			renderer.setClearColor(theColor,1);
+			//renderer.setClearColor(theColor,1);
 
 
 
@@ -2311,6 +2311,12 @@ var beatNumber = 0;
 
 bpm = function(a) {
 
+	// timid attempt at sanity check.
+	// the sound system might well bork out
+	// even below 500 bpm.
+	if (a > 500) a = 500;
+	if (a < 0) a = 0;
+	
 	beatsPerMinute = a;
 	updateBpmIfChanged();
 }
@@ -3572,13 +3578,13 @@ var simpleCubeDemo = ""+
 ""+		"\n"+
 ""+		"background yellow\n"+
 ""+		"rotate 0,time/2000,time/2000\n"+
-""+		"box\n";
+""+		"box";
 
 var webgltwocubesDemo = ""+
 ""+		"background 155,255,255\n"+
 ""+		"2 times ->\n"+
 "\t"+		"rotate 0, 1, time/2000\n"+
-"\t"+		"box\n";
+"\t"+		"box";
 
 var cubesAndSpikes = ""+
 ""+		"simpleGradient fuchsia,color(100,200,200),yellow\n"+
@@ -3589,13 +3595,13 @@ var cubesAndSpikes = ""+
 "\t"+			"move 0,0.1,0.1\n"+
 "\t"+			"3 times ->\n"+
 "\t\t"+				"rotate 0,1,1\n"+
-"\t\t"+				"box 0.01,0.01,1\n";
+"\t\t"+				"box 0.01,0.01,1";
 
 var webglturbineDemo = ""+
 ""+		"background 155,55,255\n"+
 ""+		"70 times ->\n"+
 "\t"+		"rotate time/100000,1,time/100000\n"+
-"\t"+		"box\n";
+"\t"+		"box";
 
 var webglzfightartDemo = ""+
 ""+		"// Explore the artifacts\n"+
@@ -3615,7 +3621,7 @@ var littleSpiralOfCubes = ""+
 ""+		"10 times ->\n"+
 "\t"+		"rotate 0,1,time/1000\n"+
 "\t"+		"move 1,1,1\n"+
-"\t"+		"box\n";
+"\t"+		"box";
 
 var tentacleDemo = ""+
 ""+		"background 155,255,155\n"+
@@ -3626,7 +3632,7 @@ var tentacleDemo = ""+
 "\t\t"+		"rotate 0,1,time/1000\n"+
 "\t\t"+		"scale 0.9\n"+
 "\t\t"+		"move 1,1,1\n"+
-"\t\t"+		"box\n";
+"\t\t"+		"box";
 
 var lampDemo = ""+
 ""+		"animationStyle motionBlur\n"+
@@ -3641,7 +3647,7 @@ var lampDemo = ""+
 "\t"+		"line\n"+
 "\t"+		"move -0.5,0,0\n"+
 "\t"+		"line\n"+
-"\t"+		"line\n";
+"\t"+		"line";
 
 var trillionfeathersDemo = ""+
 ""+		"animationStyle paintOver\n"+
@@ -3675,7 +3681,7 @@ var industrialMusicDemo = ""+
 ""+		"addSound 'lowFlash'  ,'zzxz zzzz zzzz zzzz'\n"+
 ""+		"addSound 'beepB'  ,'xzzx zzzz zxzz zxzz'\n"+
 ""+		"addSound 'voltage' ,'xzxz zxzz xzxx xzxx'\n"+
-""+		"addSound 'tranceKick' ,'zxzx zzzx xzzz zzxx'\n";
+""+		"addSound 'tranceKick' ,'zxzx zzzx xzzz zzxx'";
 
 var trySoundsDemo = ""+
 ""+		"bpm 350\n"+
@@ -3713,7 +3719,7 @@ var trySoundsDemo = ""+
 ""+		"//addSound 'beepD','zzxz zzzz zzxz zzzz'\n"+
 ""+		"//addSound 'beep','zzxz zzzz zzxz zzzz'\n"+
 ""+		"//addSound 'hello','zzxz zzzz zzxz zzzz'\n"+
-""+		"//addSound 'alienBeep','zzxz zzzz zzxz zzzz'\n";
+""+		"//addSound 'alienBeep','zzxz zzzz zzxz zzzz'";
 
 var springysquaresDemo = ""+
 ""+		"animationStyle motionBlur\n"+
@@ -3797,7 +3803,6 @@ var introTutorial = ""+
 ""+		'// in order to create an animation.\n'+
 ""+		"\n"+
 ""+		"// Click the link below to start the tutorial.\n"+
-""+		"// (it might need multiple clicks, it's weird like that)\n"+
 ""+		"// next-tutorial:hello_world";
 
 var helloworldTutorial = ""+
@@ -3936,12 +3941,12 @@ var strokeTutorial = ""+
 ""+		"// next-tutorial:color_names";
 
 var colornamesTutorial = ""+
-""+		'// you can call color by name\n'+
+""+		'// you can call colors by name\n'+
 ""+		'// try to un-comment one line:\n'+
 ""+		"\n"+
 ""+		"//fill greenyellow\n"+
 ""+		"//fill indigo\n"+
-""+		"//fill lemonchiffon // how about that!\n"+
+""+		"//fill lemonchiffon // whaaaat?\n"+
 ""+		"rotate 1\n"+
 ""+		"box\n"+
 ""+		"\n"+
@@ -4265,7 +4270,7 @@ function triggerReset() {
 
 function loadDemoOrTutorial(whichDemo) {
 
-	if (!Detector.webgl && !userWarnedAboutWebglExamples && whichDemo.indexOf('webgl') === 0) {
+	if ((!Detector.webgl || forceCanvasRenderer)  && !userWarnedAboutWebglExamples && whichDemo.indexOf('webgl') === 0) {
 		userWarnedAboutWebglExamples = true;
 		$('#exampleNeedsWebgl').modal();
 		$('#simplemodal-container').height(200);
@@ -4285,7 +4290,7 @@ function loadDemoOrTutorial(whichDemo) {
 	doTheSpinThingy = false;
 	
 	var prependMessage = "";
-	if (!Detector.webgl && whichDemo.indexOf('webgl') === 0) {
+	if ((!Detector.webgl || forceCanvasRenderer) && whichDemo.indexOf('webgl') === 0) {
 		prependMessage = ""+
 		"// this drawing makes much more sense\n"+
 		"// in a WebGL-enabled browser\n"+
@@ -4411,6 +4416,8 @@ function loadDemoOrTutorial(whichDemo) {
 			editor.setValue( prependMessage + autocodeTutorial);
 			break;
 
+		// bring the cursor to the top
+		editor.setCursor(0,0);
 	}
 	
 	// setting the value of the editor triggers the
@@ -4454,21 +4461,11 @@ function loadDemoOrTutorial(whichDemo) {
         onBlur: (function(){ setTimeout('editor.focus()',30) }),
         onChange: (function(){registerCode();}),
         mode: "links",
-        onCursorActivity: (function(){undimIfCursorActivity();}),
+        onCursorActivity: (function(){suspendDimmingAndCheckIfLink();}),
         //onScroll: (function(){alert('scroll')})
   });
 
   
-  $('#formCode').delegate(".cm-link", "click", function(event) {
-  //alert('clicked');
-  var url;
-  url = $(event.target).text();
-  url = url.replace(/\/\/\s*next-tutorial\:/,"");
-  url = url.replace("_","");
-  //alert(""+url);
-  loadDemoOrTutorial(url+"Tutorial");
-});
-
   editor.setOption("theme", 'night');
   function selectTheme(node) {
     var theme = node.options[node.selectedIndex].innerHTML;
@@ -4505,7 +4502,97 @@ function fakeCursorBlinking()
   }, "fast", "swing");
 }
 
-function undimIfCursorActivity(){
+///////////// START OF MOUSEWHEEL HANDLER CODE
+
+// I couldn't quote get the exact Javascript plugin below to
+// work in its original form, so I only took the
+// "calculation" routine.
+function wheel(event){
+
+	/*! Copyright (c) 2011 Brandon Aaron (http://brandonaaron.net)
+	 * Licensed under the MIT License (LICENSE.txt).
+	 *
+	 * Thanks to: http://adomas.org/javascript-mouse-wheel/ for some pointers.
+	 * Thanks to: Mathias Bank(http://www.mathias-bank.de) for a scope bug fix.
+	 * Thanks to: Seamus Leahy for adding deltaX and deltaY
+	 *
+	 * Version: 3.0.6
+	 * 
+	 * Requires: 1.2.2+
+	 */
+ 
+	var orgEvent = event || window.event, args = [].slice.call( arguments, 1 ), delta = 0, returnValue = true, deltaX = 0, deltaY = 0;
+    event = $.event.fix(orgEvent);
+    event.type = "mousewheel";
+    
+    // Old school scrollwheel delta
+    if ( orgEvent.wheelDelta ) { delta = orgEvent.wheelDelta/120; }
+    if ( orgEvent.detail     ) { delta = -orgEvent.detail/3; }
+    
+    // New school multidimensional scroll (touchpads) deltas
+    deltaY = delta;
+    
+    // Gecko
+    if ( orgEvent.axis !== undefined && orgEvent.axis === orgEvent.HORIZONTAL_AXIS ) {
+        deltaY = 0;
+        deltaX = -1*delta;
+    }
+    
+    // Webkit
+    if ( orgEvent.wheelDeltaY !== undefined ) { deltaY = orgEvent.wheelDeltaY/120; }
+    if ( orgEvent.wheelDeltaX !== undefined ) { deltaX = -1*orgEvent.wheelDeltaX/120; }
+    
+    //console.log(""+deltaX+" "+deltaY);
+    if (deltaY > 0.2) {
+		var cursorPositio = editor.getCursor(true);
+		// this is to prevent that when the cursor reaches the
+		// last line, then it goes to the END of the line
+		// we avoid that because of a nasty workaround
+		// where we check whether the cursor is in the
+		// first few characters of the line to avoid
+		// following a "next-tutorial" link.
+		//console.log(cursorPositio.line+" "+editor.lineCount())
+		if (cursorPositio.line !== editor.lineCount()-1) {
+			editor.setCursor(cursorPositio.line +1, cursorPositio.ch);
+		}
+    }
+    else if (deltaY < -0.2) {
+		var cursorPositio = editor.getCursor(true);
+		editor.setCursor(cursorPositio.line -1, cursorPositio.ch);
+    }
+}
+
+/* Initialization code. */
+if (window.addEventListener)
+	window.addEventListener('DOMMouseScroll', wheel, false);
+window.onmousewheel = document.onmousewheel = wheel;
+
+///////////// END OF MOUSEWHEEL HANDLER CODE
+
+// this function is called when the cursor moves
+// and we handle this in two ways
+// 1) we suspend the dimming countdown
+// 2) we undim the editor if it is dimmed
+// 3) we check whether the user moved the cursor over a link
+function suspendDimmingAndCheckIfLink(){
+
+	// Now this is kind of a nasty hack: we check where the
+	// cursor is, and if it's over a line containing the
+	// link then we follow it.
+	// There was no better way, for some reason some onClick
+	// events are lost, so what happened is that one would click on
+	// the link and nothing would happen.
+	var cursorP = editor.getCursor(true);
+	if (cursorP.ch > 2){
+		var currentLineContent = editor.getLine(cursorP.line);
+		if (currentLineContent.indexOf('// next-tutorial:') === 0){
+			currentLineContent = currentLineContent.substring(17);		
+			currentLineContent = currentLineContent.replace("_","");
+			//alert(""+url);
+			setTimeout('loadDemoOrTutorial("'+currentLineContent+'Tutorial");',200);
+		}
+	}
+
 	if (fakeText || editor.getValue() === '') return;
 	//console.log('cursor activity! opacity: ' + $("#formCode").css('opacity'));
 	cursorActivity = true;
@@ -4630,7 +4717,7 @@ startEnvironment = function(){
 	//console.log("startEnvironment");
 	if( !init() )	animate();
 
-	if (!Detector.webgl) {
+	if (!Detector.webgl || forceCanvasRenderer) {
 		//$('#noWebGLMessage').modal()
 		$('#noWebGLMessage').modal({onClose: closeAndCheckAudio});
 		$('#simplemodal-container').height(200);
