@@ -56,6 +56,7 @@
 				<script src="js/lightbox.js"></script>
 				<link href="css/lightbox.css" rel="stylesheet" />
 
+
 			</div>
 			<div id="headerPageText"> Livecodelab </div>
 		</div>
@@ -69,15 +70,14 @@
 							<p>Livecodelab is a special secret place where you can make fancy "on-the-fly" 3d visuals and play awesomely offbeat (literally) sounds.</p>
 							<p>"On-the-fly" meaning: as you type. Type just three letters: "box", and boom! a box appears. No clicking play, no waiting, no nothing.</p>
 							<p>What are you waiting for? Try the magic. Press the button below and play with the examples.</p>
-							<p>(Note: if you use IE, you'll need version 9 or higher.)</p>
 						</td>
 						<td width="15%">
-							<a href="https://github.com/davidedc/livecodelab"><IMG style="display: block; margin-left: auto; margin-right: auto;" src="./forkMe.png" alt="fork me!"></a>
+							<a  href="https://github.com/davidedc/livecodelab"><IMG style="display: block; margin-left: auto; margin-right: auto;" src="./forkMe.png" alt="fork me!"></a>
 						</td>
 						</tr>
 						<tr>
 						<td colspan="2">
-							<a href="/livecodelab/index.html" ><IMG style="display: block; margin-left: auto; margin-right: auto; width:400px;" src="./goPlay.png" alt="go play!"></a>					
+							<a id="linkOfCallToAction" href="/livecodelab/index.html" ><IMG id="callToActionImage" style="display: block; margin-left: auto; margin-right: auto; width:400px;" src="./goPlay.png" alt="go play!"></a>					
 						</td>
 						</tr>
 						</table>
@@ -121,13 +121,14 @@
 					<h2>Credits</h2>
 					<p>Livecodelab was made possible by heaps of people smarter than us, including:</p>
 					<ul>
-						<li><a href="http://mrdoob.github.com/three.js/">Three.js</a> inventor <a href="http://mrdoob.com/">Ricardo Cabello aka Mr.Doob</a> and <a href="https://github.com/mrdoob/three.js/network/members">contributors</a> </li>
-						<li><a href="https://github.com/jashkenas/coffee-script">Coffeescript</a> inventor <a href="http://ashkenas.com/">Jeremy Ashkenas</a> and <a href="https://github.com/jashkenas/coffee-script/network/members">contributors</a> </li>
-						<li>Some routines taken from <a href="http://processingjs.org/">processing.js library</a> started by <a href="http://ejohn.org/">J. Resig</a> and maintained by <a href="http://github.com/jeresig/processing-js/network/members">a wide community of programmers</a>. </li>
+						<li><a href="http://mrdoob.github.com/three.js/">Three.js</a> inventor <a href="http://mrdoob.com/">Ricardo Cabello aka Mr.doob</a> and <a href="https://github.com/mrdoob/three.js/graphs/contributors">contributors</a> </li>
+						<li><a href="https://github.com/jashkenas/coffee-script">Coffeescript</a> inventor <a href="http://ashkenas.com/">Jeremy Ashkenas</a> and <a href="https://github.com/jashkenas/coffee-script/graphs/contributors">contributors</a> </li>
+						<li>Some routines taken from <a href="http://processingjs.org/">processing.js library</a> started by <a href="http://ejohn.org/">J. Resig</a> and maintained by <a href="http://github.com/jeresig/processing-js/graphs/contributors">a wide community of programmers</a>. </li>
 						<li>The code editor is <a href="http://marijn.haverbeke.nl/codemirror/">Code Mirror</a> by <a href="http://marijn.haverbeke.nl/">Marijn Haverbeke</a></li>
 						<li><a href="http://www.pawfal.org/fluxus/">Fluxus</a>, a really cool livecoding framework to which we are much in debt, by the <a href="http://www.pawfal.org/index.php?page=PawfalPeople">Pawfal collective</a></li>
 						<li>Very special thanks to <a href="http://yaxu.org/">Alex McLean aka Yaxu</a> and <a href="http://www.pawfal.org/dave/">David Griffith aka NeboGeo</a> for inspiration</li>
 						<li>The <a href="http://toplap.org/index.php?title=Main_Page">TOPLAP</a> collective for keeping high the live coding flag.</li>
+						<li>Scrollwheel handler by <a href="http://brandonaaron.net/">Brandon Aaron</a>.</li>
 						</br>
 					</ul>
 				</div>
@@ -139,7 +140,7 @@
 						<li><a href="https://github.com/jonbro/jsaxus">Jsaxus</a> by <a href="http://jonbro.tk/">Jonathan Brodsky</a>, probably the first web-based live coding environment (2004). Check out his <a href="https://vimeo.com/944836">brick-busting demo</a> on vimeo</li>
 						<li><a href="http://www.i2off.org/flaxus/screen.html">Flaxus</a> by <a href="http://www.i2off.org/">i2off</a>, probably the second web-based live coding environment (2006). Watch the VjSet <a href="http://www.youtube.com/watch?v=4zrN-obig1I">on YouTube</a></li>
 						<li><a href="http://webglplayground.net/">Webgl playground</a>, allows you to try three.js scenes and shaders online. </li>
-						<li><a href="http://mrdoob.com/139/GLSL_Sandbox">GLSL Sandbox</a> by Mr.Doob compiles shaders on the fly and superimposes the code to the shader output.</li>
+						<li><a href="http://mrdoob.com/139/GLSL_Sandbox">GLSL Sandbox</a> by Mr.doob compiles shaders on the fly and superimposes the code to the shader output.</li>
 						<li><a href="http://livecoder.net/">livecoder.net</a> by <a href="http://fritzo.org/">Fritz Obermeyer</a></li>
 					</ul>
 				</div>
@@ -152,6 +153,19 @@
 				</div>
 			</div>
 		</div>
+						<script>
+					// if the browser doesn't support canvas then change the call to action
+					var isCanvasSupported = function(){
+					  var elem = document.createElement('canvas');
+					  return !!(elem.getContext && elem.getContext('2d'));
+					}
+					if (!isCanvasSupported){
+						$("#callToActionImage").attr("src", "browserWontWork.png");
+						$("#linkOfCallToAction").attr("href", "https://www.google.com/chrome/");
+					}
+
+				</script>
+
 		<script type="text/javascript">
 			var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
 			document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
