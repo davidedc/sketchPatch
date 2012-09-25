@@ -40,7 +40,7 @@ handlers:
   script: admin.py
   login: required
 
-- url: /admin/link|/admin/category|/admin/(post|page)|/admin/lang|/admin/filemanager|/admin/upload|/admin/uploadex
+- url: /admin/link|/admin/category|/admin/(post|page)|/admin/lang|/admin/filemanager|/admin/upload|/blog/admin/uploadex
   script: admin.py
   login: required
 

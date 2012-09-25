@@ -187,7 +187,7 @@ handlers:
   script: BLOG/admin.py
   login: required
 
-- url: /blog/admin/link|/blog/admin/category|/blog/admin/(post|page)|/blog/admin/lang|/blog/admin/filemanager|/blog/admin/upload|/admin/uploadex
+- url: /blog/admin/link|/blog/admin/category|/blog/admin/(post|page)|/blog/admin/lang|/blog/admin/filemanager|/blog/admin/upload|/blog/admin/uploadex
   script: BLOG/admin.py
   login: required
 

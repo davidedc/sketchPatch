@@ -25,9 +25,9 @@ class xheditor(Plugin):
 <script type="text/javascript">
 $(function(){
   $("#content").xheditor(true,{
-  upImgUrl:'!/admin/uploadex?ext=jpg|png|jpeg|gif',
-  upFlashUrl:'!/admin/uploadex?ext=swf',
-  upMediaUrl:'!/admin/uploadex?ext=wmv|avi|wma|mp3|mid'});
+  upImgUrl:'!/blog/admin/uploadex?ext=jpg|png|jpeg|gif',
+  upFlashUrl:'!/blog/admin/uploadex?ext=swf',
+  upMediaUrl:'!/blog/admin/uploadex?ext=wmv|avi|wma|mp3|mid'});
 });
 
 </script>'''%js

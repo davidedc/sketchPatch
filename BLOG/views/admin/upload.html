@@ -21,7 +21,7 @@ $(function(){
 $('#listBody tr').hover(function(){$(this).addClass('hover');},function(){$(this).removeClass('hover');});
 var button = $('#divAddFiles'), interval,msg=$('#msg');
 new AjaxUpload(button, {
-        action: '/admin/uploadex',
+        action: '/blog/admin/uploadex',
 
         onSubmit : function(file , ext){
                 /*if (! (ext && /^({{ext}})$/i.test(ext))){
@@ -70,7 +70,7 @@ if (typeof callback=="undefined")
 
 	callback=function(e){
 	        var win = tinyMCEPopup.getWindowArg("window");
-	        //¾Ε⿤¹ؼ�_URIӦ¸ēɷ��	        win.document.getElementById(tinyMCEPopup.getWindowArg("input")).value = e;
+	        win.document.getElementById(tinyMCEPopup.getWindowArg("input")).value = e;
 	        tinyMCEPopup.close();
 	}
 }
