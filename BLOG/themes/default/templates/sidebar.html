@@ -1,0 +1,53 @@
+<div class="sidebar">
+<ul>
+<li>
+ <p id="rss_feed" style="padding-bottom:5px;" ><a href="/blog/feed" class="feed-link">Blog RSS</a></p>
+</li>
+<li>
+<p style="font-size: 150%;"><span><a href="http://www.sketchpatch.net/">&lt; back to sketchPatch</a></span></p>
+
+</li>
+<li id="searchbox">
+
+<form method="get" id="searchform" action="http://www.google.com/search">
+                <input type="text" value="Search..." onfocus="if (this.value == 'Search...') {this.value = '';}" onblur="if (this.value == '') {this.value = 'Search...';}" name="as_q" id="s" />
+                <input type="image" src="/blog/themes/{{blog.theme_name}}/images/transparent.gif" id="go" alt="Search" title="Search" />
+                <input name="as_sitesearch" value="{{blog.domain}}" type="hidden">
+
+                </form>
+
+</li>
+{% comment %}
+<li>
+
+<h2>Recent Comments</h2>
+        <ul>
+        {% for comment in recent_comments %}
+        <li><a href="/{{comment.entry.link}}#comment-{{comment.key.id}}">{{comment.author}}:{{comment.shortcontent}}...</a> </li>
+        {%endfor%}
+        </ul>
+</li>
+{% endcomment %}
+<li>
+ <h2></h2>
+  <ul>
+ 	{%for cate in categories%}
+  <li class="cate_li">	<a href="/blog/category/{{cate.slug|urlencode}}">{{cate.name}}({{cate.count}})</a></li>
+ 	{%endfor%}
+ 	</ul>
+
+</li>
+{% comment %}
+<li>
+<h2>Blog roll</h2>
+<ul>
+{%for link in blogroll%}
+<li><a href="{{link.href}}">{{link.linktext}}</a></li>
+{%endfor%}
+
+</ul>
+</li>
+{% endcomment %}
+
+</ul>
+</div>

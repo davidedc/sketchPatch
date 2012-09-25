@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %} {{entry.title}} - {{blog.title}} {% endblock %}
+{% block content%}
+
+<div class="ctop"></div>
+<div class="box">
+
+{% if entry %}
+
+<div id="post-{{entry.key}}">
+<div class="nifty"><h2 style="font-family: Arial, Helvetica, Geneva, sans-serif;
+font-size: 28px;"><a href="/blog/{{ entry.link }}" rel="bookmark" class = "titlelink" title="Permanent Link to {{entry.title}}">{{entry.title}}</a>
+ </h2></div>
+<div style="font-size: 10px;text-transform: uppercase;color: #A6A6A6;">
+  <span class="date">{{entry.date|datetz:"F jS, Y"}}</span>
+</div>
+
+<div class="en_body">
+{%mf entry_content %}
+{{ entry.content|safe }}
+{%endmf%}
+{%mf after_entry_content%}
+	{%if relateposts%}
+                <h4>Relate Posts:</h4>
+                  <ul>
+                {%for post in relateposts%}
+                  <li><a href="/blog/{{post.link}}">{{post.title}}</a></li>
+                {%endfor%}
+                </ul>
+                {%endif%}
+</div>
+<div class="meta">
+{% if entry.strtags %}Tags: {%for tag in entry.tags%}<a href="/blog/tag/{{tag|urlencode}}">{{tag}}</a> {%endfor%}<br><br>{%endif%}  Posted in {%for cate in entry.categories%} <a href="/blog/category/{{cate.slug}}">{{cate.name}}</a> {%endfor%} | {%if self.is_admin%}<a href="/blog{{entry.edit_url|safe}}">Edit</a>  {%endif%}
+{%if blog.allow_trackback and entry.allow_trackback%}
+<div style="padding:2px 0">
+Trackback:<a href='{{entry.trackbackurl|safe}}'>{{entry.trackbackurl}}</a>
+</div>
+{%endif%}
+</div>
+{%endmf%}
+</div>
+</div>
+<div class="cbottom"></div>
+<div class="space"></div>
+
+
+<div class="ctop"></div>
+<div class="box">
+{% include "comments.html" %}
+</div>
+<div class="cbottom"></div>
+<div class="space"></div>
+
+{%endif%}
+</div>
+{% include "sidebar.html" %}
+{% endblock %}
