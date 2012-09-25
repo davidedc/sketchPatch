@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head profile="http://gmpg.org/xfn/11">
+{%mf head%}
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8;" />
+<title>{% block title %} {{ blog.title}}{% endblock %}</title>
+<link rel="stylesheet" href="/blog/themes/{{ blog.theme_name }}/style.css" type="text/css" media="screen" />
+<link rel="alternate" type="application/rss+xml" title="{{ blog.title }} RSS Feed" href="{{ blog.feedurl }}" />
+<link rel="shortcut icon" href="/favicon.ico" >
+<link href="/blog/static/wlwmanifest.xml" type="application/wlwmanifest+xml" rel="wlwmanifest"/>
+<script type="text/javascript" src="/blog/themes/{{ blog.theme_name }}/rounded_corners_lite.inc.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+{% block head_block %}{% endblock %}
+
+{%endmf%}
+</head>
+
+<body>
+<div id="main">
+<div id="wrapper">
+
+<div id="top">
+<div id="logo"><h1><a href="{{blog.baseurl}}/blog/" title="{{blog.title}}"><img src="http://community.sketchpatch.net/storage/sketchPatchCommunityBanner5.jpg"/></a></h1>
+</div>
+
+<div id="menu">
+<ul>
+{% comment %}
+		<li class="{%if ishome%}current_page_item{%else%}page_item{%endif%}" >
+			<a  href="{{ blog.baseurl }}/blog/"  >Home</a>
+		</li>
+		{{self.m_list_pages|safe}}
+    <li class="page_item" ><a href="/blog/{{blog.feedurl}}">(RSS)</a></li>
+    {% block topmenu %}{% endblock %}
+
+    {%if self.is_admin or self.author%}
+     <li><a href="/blog/admin">Admin</a> </li>
+    {%endif%}
+{% endcomment %}
+      <li>
+     {%if self.is_login%}
+
+       <a href="{{self.logouturl}}">Logout</a>
+
+     {%else%}
+       <a href="/blog/admin">Login</a>
+
+     {%endif%}
+         </li>
+{%mf nav_menu%}
+{%endmf%}
+<li id="searchbox">
+
+</li>
+
+</ul>
+</div>
+
+</div>
+<div id="content">
+<div id="split">
+
+{%block content %}{%endblock%}
+
+
+</div>
+</div>
+</div>
+
+
+<div id="push"></div>
+<div id="footer">
+{%mf footer%}
+	<div class="footer">
+	    <p class="fooleft">
+
+              <a href="http://www.sketchpatch.net/about.html">About</a> | <a href="mailto:sketchpatch.temp.acc@googlemail.com">Contact</a> | <a href="http://www.sketchpatch.net/credits.html">Credits</a>
+</p>
+		<p class="fooright"></p>
+	</div>
+{%endmf%}
+</div>
+</div>
+</body>
+</html>

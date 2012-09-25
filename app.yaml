@@ -1,4 +1,4 @@
-application: sketchpatch
+application: provasketch
 version: 3
 runtime: python
 api_version: 1
@@ -154,6 +154,54 @@ handlers:
   
 - url: /boxy
   static_dir: boxy
+# ------------- BLOG -------------
+
+- url: /tinymce/.*
+  script: $PYTHON_LIB/google/appengine/ext/zipserve
+
+#- url: /tinymce
+#  static_dir: BLOG/tinymce  
+  
+- url: /blog/static
+  static_dir: BLOG/static
+
+- url: /BLOG/rpc|/BLOG/xmlrpc\.php|/BLOG/rpc/.*
+  script: BLOG/api_rpc.py
+
+- url: /blog/themes/default/style.css
+  static_files: BLOG/themes/default/style.css
+  upload: BLOG/themes/default/style.css
+
+- url: /blog/themes/.*
+  script: BLOG/theme_files.py
+
+- url: /blog/myadmin/.*|/blog/myadmin
+  script: $PYTHON_LIB/google/appengine/ext/admin
+  login: admin
+
+- url: /blog/admin/post|/blog/admin/entries/(post|page)|/blog/admin/links|/blog/admin/categories|/blog/admin/comments
+  script: BLOG/admin.py
+  login: required
+
+- url: /blog/admin/{0,1}
+  script: BLOG/admin.py
+  login: required
+
+- url: /blog/admin/link|/blog/admin/category|/blog/admin/(post|page)|/blog/admin/lang|/blog/admin/filemanager|/blog/admin/upload|/admin/uploadex
+  script: BLOG/admin.py
+  login: required
+
+- url: /blog/admin/.*
+  script: BLOG/admin.py
+  login: admin
+  
+- url: /blog/remote_api
+  script: $PYTHON_LIB/google/appengine/ext/remote_api/handler.py
+  login: admin
+
+- url: /blog/.*
+  script: BLOG/blog.py
+
 
 # these two should be the last ones
 
