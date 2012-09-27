@@ -19,7 +19,7 @@ font-size: 28px;"><a href="/blog/{{ entry.link }}" rel="bookmark" class = "title
 {{entry.content_excerpt|safe}}
 </div>
 
-<div class="meta">{% if entry.strtags %}Tags: {%for tag in entry.tags%}<a href="/blog/tag/{{tag|urlencode}}">{{tag}}</a> {%endfor%}<br><br>{%endif%}  Posted in {%for cate in entry.categories%} <a href="/blog/category/{{cate.slug}}">{{cate.name}}</a> {%endfor%} | {%if self.is_admin%}<a href="/blog/{{entry.edit_url}}">Edit</a> | {%endif%}  <a href="/blog/{{entry.link}}#comments">Comments({{entry.commentcount}})&#187;</a></div>
+<div class="meta">{% if entry.strtags %}Tags: {%for tag in entry.tags%}<a href="/blog/tag/{{tag|urlencode}}">{{tag}}</a> {%endfor%}<br><br>{%endif%}  Posted in {%for cate in entry.categories%} <a href="/blog/category/{{cate.slug}}">{{cate.name}}</a> {%endfor%} | {%if self.is_admin%}<a href="/blog{{entry.edit_url}}">Edit</a> | {%endif%}  <a href="/blog/{{entry.link}}#comments">Comments({{entry.commentcount}})&#187;</a></div>
 </div>
 
 </div>
