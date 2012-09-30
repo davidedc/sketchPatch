@@ -54,3 +54,7 @@ jscripts/.DS_Store
 jscripts/.DS_Store
 
 frontPageFiles/.DS_Store
+
+BLOG/*.pyc
+*.pyc
+FORUM/*.pyc

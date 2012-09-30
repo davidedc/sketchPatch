@@ -181,3 +181,58 @@ indexes:
   properties:
   - name: mtype
   - name: date
+
+- kind: Post
+  properties:
+  - name: forum
+  - name: is_deleted
+  - name: created_on
+    direction: desc
+
+- kind: Post
+  properties:
+  - name: forum
+  - name: is_deleted
+  - name: topic
+  - name: created_on
+
+- kind: Post
+  properties:
+  - name: forum
+  - name: topic
+  - name: created_on
+
+- kind: Post
+  properties:
+  - name: is_deleted
+  - name: topic
+  - name: created_on
+
+- kind: Post
+  properties:
+  - name: topic
+  - name: created_on
+
+- kind: Post
+  properties:
+  - name: topic
+  - name: created_on
+    direction: desc
+
+- kind: Topic
+  properties:
+  - name: forum
+  - name: created_on
+
+- kind: Topic
+  properties:
+  - name: forum
+  - name: created_on
+    direction: desc
+
+- kind: Topic
+  properties:
+  - name: forum
+  - name: is_deleted
+  - name: created_on
+    direction: desc

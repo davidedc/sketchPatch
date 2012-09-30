@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+	<title>{{ forum.title_or_url }}</title>
+	<link href="/forum/static/default.css" rel="stylesheet" type="text/css">
+	<script language="javascript" src="/forum/static/default.js" type="text/javascript"></script>
+	<link type="application/rss+xml" rel="alternate" title="Discussion Group" href="{{ siteroot }}rss">
+</head>
+
+<body>
+<div id="tbTop">{{ log_in_out|safe }}</div>
+<table>
+<tbody>
+<tr>
+	<td  colspan = "2" class="header">
+		<div id="logo">
+			<!-- <h1><a href="{{ siteroot }}" class="green">{{ forum.title_or_url }}</a></h1>
+			<p>{{ forum.tagline }}</p> -->
+                        <img src="/blog/static/images/sketchPatchCommunityBanner5.jpg">
+		</div>
+		<a href="{{ siteroot }}rss" title="RSS feed"><img src="/forum/img/rss.gif" alt="RSS feed" align="right" valign="middle" border="0" height="14" width="36"></a><br />
+	</td>
+</tr>
+<tr>
+	<td class="sidebar" style="width:150px;">
+              <div id="sidebar_div">
+                <p style="font-size: 150%;">
+                <a href="http://www.sketchpatch.net/">
+                  <span style="color: #BF0072;">
+                    &lt; back to sketchPatch
+                  </span>
+                </a>
+                </p>
+                    <br/>
+                    <br/>
+                    <br/>
+		<form method="get" action="http://google.com/search">
+			<input type="hidden" name="IncludeBlogs" value="1">
+			<input type="hidden" name="as_sitesearch" value="{{ siteurl }}">
+			<div class="searchBox">
+						<div><label for="search">Search</label><br> </div>
+						<input name="q" id="search" value="" type="text">
+						<input class="button" value="Go" type="submit">&nbsp;
+			</div>
+		</form>
+              </div>
+	</td>
+	<td class="contents">
+		<div class="topics">
+                <h2 class="document-title">Discussion</h2>
+                <div class="header-topics">
+                  <p>Confused? Pleased? Got some time to kill? Leave a message after the beep.</p>
+                </div>
+		{% if not topics %}
+			There are no topics. You better create one.
+		{% else %}
+                <table class="discussion-table" cellspacing="0" cellpadding="0">
+<thead>
+<tr class="discussion-table-header">
+<td class="icon-cell"> </td>
+<td class="topic-cell">Topic</td>
+<td class="replycount-cell">Replies</td>
+<td class="viewcount-cell">Views</td>
+<td class="updated-cell">Updated</td>
+</tr>
+</thead>
+<tbody>
+		{% for topic in topics %}
+			{% if not forloop.first %}
+				<tr><td colspan="10"><div class="dateline"></td></tr></div>
+			{% endif %}
+                <tr class="discussion-table-row">
+                   <td class="icon-cell">&nbsp;</td>
+                   <td class="topic-cell">
+                       <div class="topic-title">
+		        {% if topic.is_deleted %}
+				<a class="deleted" href="{{ siteroot }}topic?id={{ topic.key.id }}{% if topic.ncomments %}&comments={{ topic.ncomments }}{% endif %}" title="{{ topic.msg_short|striptags|escape }}">{{ topic.subject|escape }} </a>
+			{% else %}
+				<a href="{{ siteroot }}topic?id={{ topic.key.id }}{% if topic.ncomments %}&comments={{ topic.ncomments }}{% endif %}" title="{{ topic.msg_short|striptags|escape }}">{{ topic.subject|escape }} </a>
+			{% endif %}
+                       <div class="topic-author">by 
+                         <!-- <a title="Unregistered Commenter" href="/contributor/20300562">
+                            <img style="background:transparent url(/universal/images/core-resources/icons/smalllight/user-unregistered.png) top left no-repeat;" src="/universal/images/transparent.png" rel="smalllight" class="inline-icon" alt="Unregistered Commenter" title="Unregistered Commenter">soccercleats
+                         </a> -->
+                         {{ topic.created_by|striptags|escape }}
+                       </div>
+                       <div class="topic-created">{{topic.created_on|date:"F jS, Y g:ia" }}</div>
+                 
+                   </td>
+                   <td class="replycount-cell">{{ topic.ncomments }}</td>
+                   <td class="viewcount-cell"></td>
+                   <td class="updated-cell">
+                     <div class="reply-date">{{topic.updated_time|date:"F j, Y"}}</div>
+                     <div class="reply-author">-</div>
+                   </td>
+                 </tr>
+			
+			<br />
+		{% endfor %}
+
+		</div>
+                </tbody>
+                </table>
+		{% endif %}
+		<div class="buttons">
+		<a accesskey="n" href="{{ siteroot }}post"><img src="/forum/img/new.gif" alt="New topic" border="0" height="14" width="13"> <u>N</u>ew topic</a>
+		{% if new_from %}
+			<a accesskey="t" href="{{ siteroot }}?from={{ new_from}}"><img src="/forum/img/archive.gif" alt="Older topics" border="0" height="14" width="13">Older <u>t</u>opics</a>
+		{% endif %}
+		</div>
+	</td>
+</tr>
+</tbody>
+</table>
+<br>
+
+{% if analytics_code %}
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("{{ analytics_code }}");
+pageTracker._initData();
+pageTracker._trackPageview();
+</script>
+{% endif %}
+
+</body>
+</html>

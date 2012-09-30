@@ -202,6 +202,17 @@ handlers:
 - url: /blog/.*
   script: BLOG/blog.py
 
+### FORUM ###
+
+- url: /forum/static
+  static_dir: FORUM/static
+
+- url: /forum/img
+  static_dir: FORUM/img
+
+- url: /forum/.*
+  script: FORUM/main.py
+
 
 # these two should be the last ones
 
