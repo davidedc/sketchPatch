@@ -85,7 +85,7 @@ height:30px; }
 .sidebar ul { }
 .sidebar ul li { padding-bottom:10px;}
 .sidebar ul li a {/* background:url(images/bullet.gif) no-repeat 0 3px; padding-left:15px;*/ display:block;}
-#rss_feed {border-top: 1px solid #B3B5AC;border-bottom: 1px solid #B3B5AC; padding-left:16px;background-image: url(http://community.sketchpatch.net/universal/images/xml/feed-icon-12x12-orange.png);background-repeat: no-repeat;background-position: center left;padding-top:5px;padding-bottom:5px;}
+#rss_feed {border-top: 1px solid #B3B5AC;border-bottom: 1px solid #B3B5AC; padding-left:16px;background-image: url(/blog/static/images/feed-icon-12x12-orange.png);background-repeat: no-repeat;background-position: center left;padding-top:5px;padding-bottom:5px;}
 .cate_li{border-bottom: 1px solid #B3B5AC;}
 
 /*...... misc ........*/
