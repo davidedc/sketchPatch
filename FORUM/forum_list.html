@@ -14,7 +14,7 @@
 			<p>Available forums:
 				<ul>
 					{% for f in forums %}
-					<li> <a href="/{{ f.url }}"> {{ f.title_or_url }}</a></li>
+					<li> <a href="/forum/{{ f.url }}"> {{ f.title_or_url }}</a></li>
 					{% endfor %}
 				</ul>
 			</p>
@@ -28,9 +28,5 @@
 	</div>
 
 <hr>
-<center>Powered by <a href="http://blog.kowalczyk.info/software/fofou">fofou</a> 
-(<b><font color="blue">Fo</font></b>rums <b><font color="blue">Fo</font></b>r Yo<b><font color="blue">u</font></b>,
-created by <a href="http://blog.kowalczyk.info">Krzysztof Kowalczyk</a>)</center>
-<br>
 </body>
 </html>
