@@ -51,11 +51,11 @@ function onSidebarFieldChange() {
 				Existing forums:
 				<ul>
 					{% for f in forums %}
-					<li> <a href="{{ f.url }}">{{ f.title_or_url }}</a>
+					<li> <a href="/forum/{{ f.url }}">{{ f.title_or_url }}</a>
 						{% if f.no_edit_link %}
 							edit
 						{% else %}
-						  <a href="/manageforums?forum_key={{ f.key }}">edit</a>
+						  <a href="/edit/manageforums?forum_key={{ f.key }}">edit</a>
 						{% endif %}
 						&nbsp;<a href="{{ f.enable_disable_url }}">{{ f.enable_disable_txt }}</a></li>
 					{% endfor %}
@@ -63,7 +63,7 @@ function onSidebarFieldChange() {
 				{% endif %}
 			</p>
 			<p>Create a new forum:</p>
-			<form action="/forum/manageforums" method="post">
+			<form action="/forumList/manageforums" method="post">
 			<table class="form">
 					<tr>
 						<td>Url</td>
