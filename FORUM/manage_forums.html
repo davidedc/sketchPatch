@@ -3,8 +3,8 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 	<title>Create a forum</title>
-	<link href="/forum/static/default.css" rel="stylesheet" type="text/css">
-	<script language="javascript" src="/forum/static/default.js" type="text/javascript"></script>
+	<link href="/forumManagement/static/default.css" rel="stylesheet" type="text/css">
+	<script language="javascript" src="/forumManagement/static/default.js" type="text/javascript"></script>
 </head>
 <body>
 <script>
@@ -41,32 +41,35 @@ function onSidebarFieldChange() {
 			{{ forum.sidebar_non_empty }}
 		</td>
 		<td class="contents">
-			<p>Welcome to <b><font color="blue">Fo</font></b>rums <b><font color="blue">Fo</font></b>r Yo<b><font color="blue">u</font></b>!</p>
+			<p>Welcome Admin,<br />
+			in theory this page would allow you to manage an arbitrary number of forums.<br />
+			In practice, the original forum engine has been simplified to only manage ONE forum named test3 .<br />
+			Once you created it, you can do minor edits via the edit link below. You can add more forums but they will be unusable. Also disabling the forum won't work.</p>
 			{% if msg %}<div class="manageforumsmsg">{{ msg }}</div>{% endif %}
 
 			<p>
 				{% if not forums %}
 				You haven't created any forums yet.
 				{% else %}
-				Existing forums:
+				Existing forums (only ONE forum named test3 will be actually functional):
 				<ul>
 					{% for f in forums %}
-					<li> <a href="/forum/{{ f.url }}">{{ f.title_or_url }}</a>
+					<li> <a href="/forumManagement/{{ f.url }}">{{ f.title_or_url }}</a>
 						{% if f.no_edit_link %}
 							edit
 						{% else %}
-						  <a href="/edit/manageforums?forum_key={{ f.key }}">edit</a>
+						  <a href="/forumManagement/manageforums?forum_key={{ f.key }}">edit</a>
 						{% endif %}
 						&nbsp;<a href="{{ f.enable_disable_url }}">{{ f.enable_disable_txt }}</a></li>
 					{% endfor %}
 				</ul>
 				{% endif %}
 			</p>
-			<p>Create a new forum:</p>
-			<form action="/forum/manageforums" method="post">
+			<p>Create a new forum (only create ONE forum in the test3 directory ) :</p>
+			<form action="/forumManagement/manageforums" method="post">
 			<table class="form">
 					<tr>
-						<td>Url</td>
+						<td>Url (type test3 here)</td>
 						<td><input class="{{ urlclass }}" type="edit" size="60" maxlength="60" name="url" id="urlFieldId" onchange="return onUrlFieldChange();" onkeyup="return onUrlFieldChange();" value="{{ prevurl|escape }}"></input>
 							<div>{{ errmsg }}</div>
 							<div id="underUrlTxt">Full url: {{ hosturl }}/{{ forum.url }}</div>

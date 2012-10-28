@@ -246,7 +246,7 @@ def valid_email(txt):
     return False
   return True
       
-def forum_root(forum): return "/forum/" + forum.url + "/"
+def forum_root(forum): return "/forumManagement/" + forum.url + "/"
 
 def clear_forums_memcache():
   memcache.delete(FORUMS_MEMCACHE_KEY)
@@ -361,7 +361,7 @@ class ManageForums(FofouBase):
 
   def post(self):
     if not users.is_current_user_admin():
-      return self.redirect("/forum/")
+      return self.redirect("/forumManagement/")
 
     forum_key = self.request.get('forum_key')
     forum = None
@@ -369,7 +369,7 @@ class ManageForums(FofouBase):
       forum = db.get(db.Key(forum_key))
       if not forum:
         # invalid key - should not happen so go to top-level
-        return self.redirect("/forum/")
+        return self.redirect("/forumManagement/")
 
     vals = ['url','title', 'tagline', 'sidebar', 'disable', 'enable', 'analyticscode']
     (url, title, tagline, sidebar, disable, enable, analytics_code) = req_get_vals(self.request, vals)
@@ -412,12 +412,12 @@ class ManageForums(FofouBase):
       forum = Forum(url=url, title=title, tagline=tagline, sidebar=sidebar, analytics_code = analytics_code)
       forum.put()
       msg = "Forum '%s' has been created." % title_or_url
-    url = "/forum/manageforums?msg=%s" % urllib.quote(to_utf8(msg))
+    url = "/forumManagement/manageforums?msg=%s" % urllib.quote(to_utf8(msg))
     return self.redirect(url)
 
   def get(self):
     if not users.is_current_user_admin():
-      return self.redirect("/forum/")
+      return self.redirect("/forumManagement/")
 
     # if there is 'forum_key' argument, this is editing an existing forum.
     forum = None
@@ -426,7 +426,7 @@ class ManageForums(FofouBase):
       forum = db.get(db.Key(forum_key))
       if not forum:
         # invalid forum key - should not happen, return to top level
-        return self.redirect("/forum/")
+        return self.redirect("/forumManagement/")
 
     tvals = {
       'hosturl' : self.request.host_url,
@@ -447,7 +447,7 @@ class ManageForums(FofouBase):
           forum.is_disabled = False
           forum.put()
           msg = "Forum %s has been enabled." % title_or_url
-        return self.redirect("/forum/manageforums?msg=%s" % urllib.quote(to_utf8(msg)))
+        return self.redirect("/forumManagement/manageforums?msg=%s" % urllib.quote(to_utf8(msg)))
     self.render_rest(tvals, forum)
 
   def render_rest(self, tvals, forum=None):
@@ -456,7 +456,7 @@ class ManageForums(FofouBase):
     forums = []
     for f in forumsq:
       f.title_or_url = f.title or f.url
-      edit_url = "/forum/manageforums?forum_key=" + str(f.key())
+      edit_url = "/forumManagement/manageforums?forum_key=" + str(f.key())
       if f.is_disabled:
         f.enable_disable_txt = "enable"
         f.enable_disable_url = edit_url + "&enable=yes"
@@ -482,10 +482,10 @@ class ManageForums(FofouBase):
 
 # responds to /, shows list of available forums or redirects to
 # forum management page if user is admin
-class ForumList(FofouBase):
+class forumManagement(FofouBase):
   def get(self):
     if users.is_current_user_admin():
-      return self.redirect("/forum/manageforums")
+      return self.redirect("/forumManagement/manageforums")
     MAX_FORUMS = 256 # if you need more, tough
     forums = db.GqlQuery("SELECT * FROM Forum").fetch(MAX_FORUMS)
     for f in forums:
@@ -493,7 +493,7 @@ class ForumList(FofouBase):
     tvals = {
       'forums' : forums,
       'isadmin' : users.is_current_user_admin(),
-      'log_in_out' : get_log_in_out("/forum/")
+      'log_in_out' : get_log_in_out("/forumManagement/")
     }
     self.template_out("forum_list.html", tvals)
 
@@ -502,7 +502,7 @@ class PostDelUndel(webapp.RequestHandler):
   def get(self):
     (forum, siteroot, tmpldir) = forum_siteroot_tmpldir_from_url(self.request.path_info)
     if not forum or forum.is_disabled:
-      return self.redirect("/forum/")
+      return self.redirect("/forumManagement/")
     is_moderator = users.is_current_user_admin()
     if not is_moderator or forum.is_disabled:
       return self.redirect(siteroot)
@@ -583,7 +583,7 @@ class TopicList(FofouBase):
     logging.info("forum = %s" % forum)
     logging.info("siteroot = %s" % siteroot)
     if not forum or forum.is_disabled:
-      return self.redirect("/forum/")
+      return self.redirect("/forumManagement/")
     off = self.request.get("from") or 0
     is_moderator = users.is_current_user_admin()
     MAX_TOPICS = 75
@@ -608,7 +608,7 @@ class TopicForm(FofouBase):
     logging.info("TopicForm /////////")
     (forum, siteroot, tmpldir) = forum_siteroot_tmpldir_from_url(self.request.path_info)
     if not forum or forum.is_disabled:
-      return self.redirect("/forum/")
+      return self.redirect("/forumManagement/")
     forum.title_or_url = forum.title or forum.url
     logging.info("forum.title_or_url = %s" % forum.title_or_url)
 
@@ -742,7 +742,7 @@ class EmailForm(FofouBase):
   def get(self):
     (forum, siteroot, tmpldir) = forum_siteroot_tmpldir_from_url(self.request.path_info)
     if not forum or forum.is_disabled:
-      return self.redirect("/forum/")
+      return self.redirect("/forumManagement/")
     (num1, num2) = (random.randint(1,9), random.randint(1,9))
     post_id = self.request.get("post_id")
     if not post_id: return self.redirect(siteroot)
@@ -768,7 +768,7 @@ class EmailForm(FofouBase):
   def post(self):
     (forum, siteroot, tmpldir) = forum_siteroot_tmpldir_from_url(self.request.path_info)
     if not forum or forum.is_disabled:
-      return self.redirect("/forum/")
+      return self.redirect("/forumManagement/")
     if self.request.get('Cancel'): self.redirect(siteroot)
     post_id = self.request.get("post_id")
     #logging.info("post_id = %s" % str(post_id))
@@ -791,7 +791,7 @@ class PostForm(FofouBase):
   def get(self):
     (forum, siteroot, tmpldir) = forum_siteroot_tmpldir_from_url(self.request.path_info)
     if not forum or forum.is_disabled:
-      return self.redirect("/forum/")
+      return self.redirect("/forumManagement/")
 
     ip = get_remote_ip()
     if ip in BANNED_IPS:
@@ -837,7 +837,7 @@ class PostForm(FofouBase):
   def post(self):
     (forum, siteroot, tmpldir) = forum_siteroot_tmpldir_from_url(self.request.path_info)
     if not forum or forum.is_disabled:
-      return self.redirect("/forum/")
+      return self.redirect("/forumManagement/")
     if self.request.get('Cancel'): 
       return self.redirect(siteroot)
 
@@ -967,16 +967,16 @@ class PostForm(FofouBase):
 
 def main():
   application = webapp.WSGIApplication(
-     [  ('/forum/', ForumList),
-        ('/forum/manageforums', ManageForums),
-        ('/forum/[^/]+/postdel', PostDelUndel),
-        ('/forum/[^/]+/postundel', PostDelUndel),
-        ('/forum/[^/]+/post', PostForm),
-        ('/forum/[^/]+/topic', TopicForm),
-        ('/forum/[^/]+/email', EmailForm),
-        ('/forum/[^/]+/rss', RssFeed),
-        ('/forum/[^/]+/rssall', RssAllFeed),
-        ('/forum/[^/]+/?', TopicList),
+     [  ('/forumManagement/', forumManagement),
+        ('/forumManagement/manageforums', ManageForums),
+        ('/forumManagement/[^/]+/postdel', PostDelUndel),
+        ('/forumManagement/[^/]+/postundel', PostDelUndel),
+        ('/forumManagement/[^/]+/post', PostForm),
+        ('/forumManagement/[^/]+/topic', TopicForm),
+        ('/forumManagement/[^/]+/email', EmailForm),
+        ('/forumManagement/[^/]+/rss', RssFeed),
+        ('/forumManagement/[^/]+/rssall', RssAllFeed),
+        ('/forumManagement/[^/]+/?', TopicList),
         ('/test3/index.html', TopicList),
         ('/test3/', TopicList),
         ('/test3/postdel', PostDelUndel),

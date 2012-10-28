@@ -204,19 +204,16 @@ handlers:
 
 ### FORUM ###
 
-- url: /forum/static
+- url: /forumManagement/static
   static_dir: FORUM/static
 
-- url: /forum/img
+- url: /forumManagement/img
   static_dir: FORUM/img
 
-- url: /forum/.*
+- url: /forumManagement/.*
   script: FORUM/main.py
 
 - url: /test3/.*
-  script: FORUM/main.py
-
-- url: /forumList/.*
   script: FORUM/main.py
 
 # these two should be the last ones

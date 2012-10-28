@@ -3,8 +3,8 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 	<title>{{ forum.title_or_url }}</title>
-	<link href="/forum/static/default.css" rel="stylesheet" type="text/css">
-	<script language="javascript" src="/forum/static/default.js" type="text/javascript"></script>
+	<link href="/forumManagement/static/default.css" rel="stylesheet" type="text/css">
+	<script language="javascript" src="/forumManagement/static/default.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -18,7 +18,7 @@
 			<p>{{ forum.tagline }}</p> -->
                         <img src="/blog/static/images/sketchPatchCommunityBanner5.jpg">
 		</div>
-		<a href="{{ siteroot }}rss" title="RSS feed"><img src="/forum/img/rss.gif" alt="RSS feed" align="right" valign="middle" border="0" height="14" width="36"></a><br />
+		<a href="{{ siteroot }}rss" title="RSS feed"><img src="/forumManagement/img/rss.gif" alt="RSS feed" align="right" valign="middle" border="0" height="14" width="36"></a><br />
 	</td>
 </tr>
 <tr>
@@ -48,11 +48,11 @@
 	<td class="contents">
 		<script language="javascript" type="text/javascript">
 		<!--
-		rolloverInit('link', '/forum/img/link_over.jpg');
-		rolloverInit('email', '/forum/img/email_over.jpg');
-		rolloverInit('web', '/forum/img/web_over.jpg');
-		rolloverInit('delete', '/forum/img/delete_over.jpg');
-		rolloverInit('undo', '/forum/img/undo_over.jpg');
+		rolloverInit('link', '/forumManagement/img/link_over.jpg');
+		rolloverInit('email', '/forumManagement/img/email_over.jpg');
+		rolloverInit('web', '/forumManagement/img/web_over.jpg');
+		rolloverInit('delete', '/forumManagement/img/delete_over.jpg');
+		rolloverInit('undo', '/forumManagement/img/undo_over.jpg');
 		// -->
 		</script>
 		<div class="posts" style="width:400px;">
@@ -73,9 +73,9 @@
                                          </div>
 						{% if is_moderator %}
 							{% if post.is_deleted %}
-								<a href="{{ siteroot }}postundel?{{ post.key.id }}" title="Undelete Post" onmouseover="rolloverOn('undo', {{ post.key.id }});" onmouseout="rolloverOff();"><img align="right" id="undo{{ post.key.id }}" src="/forum/img/undo.jpg" width="16" height="16" border="0" /></a>
+								<a href="{{ siteroot }}postundel?{{ post.key.id }}" title="Undelete Post" onmouseover="rolloverOn('undo', {{ post.key.id }});" onmouseout="rolloverOff();"><img align="right" id="undo{{ post.key.id }}" src="/forumManagement/img/undo.jpg" width="16" height="16" border="0" /></a>
 							{% else %}
-								<a href="{{ siteroot }}postdel?{{ post.key.id }}" title="Delete Post" onmouseover="rolloverOn('delete', {{ post.key.id }});" onmouseout="rolloverOff();"><img align="right" id="delete{{ post.key.id }}" src="/forum/img/delete.jpg" width="16" height="16" border="0" /></a>
+								<a href="{{ siteroot }}postdel?{{ post.key.id }}" title="Delete Post" onmouseover="rolloverOn('delete', {{ post.key.id }});" onmouseout="rolloverOff();"><img align="right" id="delete{{ post.key.id }}" src="/forumManagement/img/delete.jpg" width="16" height="16" border="0" /></a>
 							{% endif %}
 						{% endif %}
                                         </div>
@@ -87,13 +87,13 @@
 				{% endif %}
 
 				<a accesskey="t" href="{{ siteroot }}">
-					<img src="/forum/img/topics.gif" alt="Other recent topics" border="0" height="14" width="13">
+					<img src="/forumManagement/img/topics.gif" alt="Other recent topics" border="0" height="14" width="13">
 					Other recent <u>t</u>opics
 				</a>
 
 				{% if not is_archived %}
 				<a accesskey="r" href="{{ siteroot }}post?id={{ topic.key.id }}">
-					<img src="/forum/img/edit.gif" alt="Reply to this topic" border="0" height="14" width="13">
+					<img src="/forumManagement/img/edit.gif" alt="Reply to this topic" border="0" height="14" width="13">
 					<u>R</u>eply to this topic
 				</a>
 				{% endif %}
