@@ -16,7 +16,7 @@
 		<div id="logo">
 			<!-- <h1><a href="{{ siteroot }}" class="green">{{ forum.title_or_url }}</a></h1>
 			<p>{{ forum.tagline }}</p> -->
-                        <img src="/blog/static/images/sketchPatchCommunityBanner5.jpg">
+                        <a href="/forum/"> <img src="/forumManagement/img/sketchPatchForumBanner.gif"> </a>
 		</div>
 		<a href="{{ siteroot }}rss" title="RSS feed"><img src="/forumManagement/img/rss.gif" alt="RSS feed" align="right" valign="middle" border="0" height="14" width="36"></a><br />
 	</td>
@@ -25,7 +25,7 @@
 	<td class="sidebar" style="width:150px;">
               <div id="sidebar_div">
                 <p style="font-size: 150%;">
-                <a href="http://www.sketchpatch.net/">
+                <a href="/">
                   <span style="color: #BF0072;">
                     &lt; back to sketchPatch
                   </span>
@@ -56,7 +56,7 @@
 		// -->
 		</script>
 		<div class="posts" style="width:400px;">
-                        <h2 class="document-title"><a href="/{{forum.url}}/" style="color: #BF0072;">Discussion</a> &gt; {{ topic.subject|escape }}</h2>
+                        <h2 class="document-title"><a href="/{{forum.url}}/" style="color: #BF0072;">Forum</a> &gt; {{ topic.subject|escape }}</h2>
 			{% for post in posts %}
                                         <div class="comment-wrapper authored-by-None">
                                         <div id="post{{post.key.id}}" class="comment">

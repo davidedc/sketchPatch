@@ -264,7 +264,7 @@ def get_forum_by_url(forumurl):
     
     memcache.set(FORUMS_MEMCACHE_KEY, forums)
   for forum in forums:
-    if forumurl == "test3":
+    if forumurl == "forum":
       return forum
   return None
 
@@ -276,11 +276,11 @@ def forum_siteroot_tmpldir_from_url(url):
     (forumurl, rest) = path.split("/", 1)
   else:
     forumurl = path
-  forum = get_forum_by_url('test3')
+  forum = get_forum_by_url('forum')
   if not forum:
     return (None, None, None)
   siteroot = forum_root(forum)
-  siteroot = '/test3/'
+  siteroot = '/forum/'
   skin_name = forum.skin
   if skin_name not in SKINS:
     skin_name = SKINS[0]
@@ -588,7 +588,7 @@ class TopicList(FofouBase):
     is_moderator = users.is_current_user_admin()
     MAX_TOPICS = 75
     (topics, new_off) = get_topics_for_forum(forum, is_moderator, off, MAX_TOPICS)
-    forum.title_or_url = 'test3'
+    forum.title_or_url = 'forum'
     tvals = {
       'siteroot' : siteroot,
       'siteurl' : self.request.url,
@@ -977,15 +977,15 @@ def main():
         ('/forumManagement/[^/]+/rss', RssFeed),
         ('/forumManagement/[^/]+/rssall', RssAllFeed),
         ('/forumManagement/[^/]+/?', TopicList),
-        ('/test3/index.html', TopicList),
-        ('/test3/', TopicList),
-        ('/test3/postdel', PostDelUndel),
-        ('/test3/postundel', PostDelUndel),
-        ('/test3/post', PostForm),
-        ('/test3/topic', TopicForm),
-        ('/test3/email', EmailForm),
-        ('/test3/rss', RssFeed),
-        ('/test3/rssall', RssAllFeed),
+        ('/forum/index.html', TopicList),
+        ('/forum/', TopicList),
+        ('/forum/postdel', PostDelUndel),
+        ('/forum/postundel', PostDelUndel),
+        ('/forum/post', PostForm),
+        ('/forum/topic', TopicForm),
+        ('/forum/email', EmailForm),
+        ('/forum/rss', RssFeed),
+        ('/forum/rssall', RssAllFeed),
         ],
      debug=True)
   wsgiref.handlers.CGIHandler().run(application)

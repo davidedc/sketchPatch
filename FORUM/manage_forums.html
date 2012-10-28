@@ -43,7 +43,7 @@ function onSidebarFieldChange() {
 		<td class="contents">
 			<p>Welcome Admin,<br />
 			in theory this page would allow you to manage an arbitrary number of forums.<br />
-			In practice, the original forum engine has been simplified to only manage ONE forum named test3 .<br />
+			In practice, the original forum engine has been simplified to only manage ONE forum named forum .<br />
 			Once you created it, you can do minor edits via the edit link below. You can add more forums but they will be unusable. Also disabling the forum won't work.</p>
 			{% if msg %}<div class="manageforumsmsg">{{ msg }}</div>{% endif %}
 
@@ -51,7 +51,7 @@ function onSidebarFieldChange() {
 				{% if not forums %}
 				You haven't created any forums yet.
 				{% else %}
-				Existing forums (only ONE forum named test3 will be actually functional):
+				Existing forums (only ONE forum named forum will be actually functional):
 				<ul>
 					{% for f in forums %}
 					<li> <a href="/forumManagement/{{ f.url }}">{{ f.title_or_url }}</a>
@@ -65,11 +65,11 @@ function onSidebarFieldChange() {
 				</ul>
 				{% endif %}
 			</p>
-			<p>Create a new forum (only create ONE forum in the test3 directory ) :</p>
+			<p>Create a new forum (only create ONE forum in the forum directory ) :</p>
 			<form action="/forumManagement/manageforums" method="post">
 			<table class="form">
 					<tr>
-						<td>Url (type test3 here)</td>
+						<td>Url (type forum here)</td>
 						<td><input class="{{ urlclass }}" type="edit" size="60" maxlength="60" name="url" id="urlFieldId" onchange="return onUrlFieldChange();" onkeyup="return onUrlFieldChange();" value="{{ prevurl|escape }}"></input>
 							<div>{{ errmsg }}</div>
 							<div id="underUrlTxt">Full url: {{ hosturl }}/{{ forum.url }}</div>

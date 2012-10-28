@@ -213,7 +213,7 @@ handlers:
 - url: /forumManagement/.*
   script: FORUM/main.py
 
-- url: /test3/.*
+- url: /forum/.*
   script: FORUM/main.py
 
 # these two should be the last ones
