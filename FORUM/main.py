@@ -264,22 +264,23 @@ def get_forum_by_url(forumurl):
     
     memcache.set(FORUMS_MEMCACHE_KEY, forums)
   for forum in forums:
-    if forumurl == forum.url:
+    if forumurl == "test3":
       return forum
   return None
 
 def forum_siteroot_tmpldir_from_url(url):
-  #logging.info(url)
-  assert '/forum/' == url[0:7]
+  logging.info('forum_siteroot_tmpldir_from_url %s', url)
+  #assert '/forum/' == url[0:7]
   path = url[7:]
   if '/' in path:
     (forumurl, rest) = path.split("/", 1)
   else:
     forumurl = path
-  forum = get_forum_by_url(forumurl)
+  forum = get_forum_by_url('test3')
   if not forum:
     return (None, None, None)
   siteroot = forum_root(forum)
+  siteroot = '/test3/'
   skin_name = forum.skin
   if skin_name not in SKINS:
     skin_name = SKINS[0]
@@ -579,13 +580,15 @@ class TopicList(FofouBase):
 
   def get(self):
     (forum, siteroot, tmpldir) = forum_siteroot_tmpldir_from_url(self.request.path_info)
+    logging.info("forum = %s" % forum)
+    logging.info("siteroot = %s" % siteroot)
     if not forum or forum.is_disabled:
       return self.redirect("/forum/")
     off = self.request.get("from") or 0
     is_moderator = users.is_current_user_admin()
     MAX_TOPICS = 75
     (topics, new_off) = get_topics_for_forum(forum, is_moderator, off, MAX_TOPICS)
-    forum.title_or_url = forum.title or forum.url
+    forum.title_or_url = 'test3'
     tvals = {
       'siteroot' : siteroot,
       'siteurl' : self.request.url,
@@ -602,10 +605,12 @@ class TopicList(FofouBase):
 class TopicForm(FofouBase):
 
   def get(self):
+    logging.info("TopicForm /////////")
     (forum, siteroot, tmpldir) = forum_siteroot_tmpldir_from_url(self.request.path_info)
     if not forum or forum.is_disabled:
       return self.redirect("/forum/")
     forum.title_or_url = forum.title or forum.url
+    logging.info("forum.title_or_url = %s" % forum.title_or_url)
 
     topic_id = self.request.get('id')
     if not topic_id:
@@ -971,7 +976,17 @@ def main():
         ('/forum/[^/]+/email', EmailForm),
         ('/forum/[^/]+/rss', RssFeed),
         ('/forum/[^/]+/rssall', RssAllFeed),
-        ('/forum/[^/]+/?', TopicList)],
+        ('/forum/[^/]+/?', TopicList),
+        ('/test3/index.html', TopicList),
+        ('/test3/', TopicList),
+        ('/test3/postdel', PostDelUndel),
+        ('/test3/postundel', PostDelUndel),
+        ('/test3/post', PostForm),
+        ('/test3/topic', TopicForm),
+        ('/test3/email', EmailForm),
+        ('/test3/rss', RssFeed),
+        ('/test3/rssall', RssAllFeed),
+        ],
      debug=True)
   wsgiref.handlers.CGIHandler().run(application)
 

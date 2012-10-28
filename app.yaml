@@ -213,6 +213,9 @@ handlers:
 - url: /forum/.*
   script: FORUM/main.py
 
+- url: /test3/.*
+  script: FORUM/main.py
+
 - url: /forumList/.*
   script: FORUM/main.py
 

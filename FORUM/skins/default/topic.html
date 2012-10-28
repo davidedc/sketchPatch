@@ -36,7 +36,7 @@
                     <br/>
 		<form method="get" action="http://google.com/search">
 			<input type="hidden" name="IncludeBlogs" value="1">
-			<input type="hidden" name="as_sitesearch" value="{{ siteurl }}">
+			<input type="hidden" name="as_sitesearch" value="http://www.sketchpatch.net/temp3/">
 			<div class="searchBox">
 						<div><label for="search">Search</label><br> </div>
 						<input name="q" id="search" value="" type="text">
@@ -56,7 +56,7 @@
 		// -->
 		</script>
 		<div class="posts" style="width:400px;">
-                        <h2 class="document-title"><a href="/forum/{{forum.url}}" style="color: #BF0072;">Discussion</a> &gt; {{ topic.subject|escape }}</h2>
+                        <h2 class="document-title"><a href="/{{forum.url}}/" style="color: #BF0072;">Discussion</a> &gt; {{ topic.subject|escape }}</h2>
 			{% for post in posts %}
                                         <div class="comment-wrapper authored-by-None">
                                         <div id="post{{post.key.id}}" class="comment">
