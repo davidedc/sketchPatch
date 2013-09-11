@@ -519,11 +519,7 @@ class CopyBlog(BaseRequestHandler):
       user.whoIs(self)
 
       sketch.sourceCodeForTextArea = sketch.sourceCode
-      sketch.sourceCodeForTextArea = sketch.sourceCodeForTextArea.replace('&nbsp;',' ')
-      sketch.sourceCodeForTextArea = sketch.sourceCodeForTextArea.replace('<br>','\r\n')
-      sketch.sourceCodeForTextArea = sketch.sourceCodeForTextArea.replace('<br>','\n')
-      sketch.sourceCodeForTextArea = sketch.sourceCodeForTextArea.replace('<br>','\r')
-      sketch.sourceCodeForTextArea = sketch.sourceCodeForTextArea.replace('&nbsp;&nbsp;&nbsp;&nbsp;','\t')
+
       sketch.sourceCodeForTextArea = sketch.sourceCodeForTextArea.rstrip().lstrip()
       sketch.blogdate = "";
       sketch.entrytype="";
@@ -562,11 +558,6 @@ class EditBlogNEW(BaseRequestHandler):
       user.whoIs(self)
 
       sketch.sourceCodeForTextArea = sketch.sourceCode
-      sketch.sourceCodeForTextArea = sketch.sourceCodeForTextArea.replace('&nbsp;',' ')
-      sketch.sourceCodeForTextArea = sketch.sourceCodeForTextArea.replace('<br>','\r\n')
-      sketch.sourceCodeForTextArea = sketch.sourceCodeForTextArea.replace('<br>','\n')
-      sketch.sourceCodeForTextArea = sketch.sourceCodeForTextArea.replace('<br>','\r')
-      sketch.sourceCodeForTextArea = sketch.sourceCodeForTextArea.replace('&nbsp;&nbsp;&nbsp;&nbsp;','\t')
       sketch.sourceCodeForTextArea = sketch.sourceCodeForTextArea.rstrip().lstrip()
 
       if ((sketch.author_user_id == user.user_id) or (user.is_current_user_admin)):
@@ -760,11 +751,7 @@ class EditBlog(BaseRequestHandler):
       user.whoIs(self)
 
       sketch.sourceCodeForTextArea = sketch.sourceCode
-      sketch.sourceCodeForTextArea = sketch.sourceCodeForTextArea.replace('&nbsp;',' ')
-      sketch.sourceCodeForTextArea = sketch.sourceCodeForTextArea.replace('<br>','\r\n')
-      sketch.sourceCodeForTextArea = sketch.sourceCodeForTextArea.replace('<br>','\n')
-      sketch.sourceCodeForTextArea = sketch.sourceCodeForTextArea.replace('<br>','\r')
-      sketch.sourceCodeForTextArea = sketch.sourceCodeForTextArea.replace('&nbsp;&nbsp;&nbsp;&nbsp;','\t')
+
       sketch.sourceCodeForTextArea = sketch.sourceCodeForTextArea.rstrip().lstrip()
 
       if ((sketch.author_user_id == user.user_id) or (user.is_current_user_admin)):
