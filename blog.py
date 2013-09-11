@@ -278,15 +278,6 @@ class AddBlog(BaseRequestHandler):
 				authorSketchesSketch.published = True
 				mySketchesSketch.published = True
 			
-			sketch.sourceCode = sketch.sourceCode.replace('&','&amp;')
-			sketch.sourceCode = sketch.sourceCode.replace('<','&lt;')
-			sketch.sourceCode = sketch.sourceCode.replace(' ','&nbsp;')
-			sketch.sourceCode = sketch.sourceCode.replace('\r\n','<br>')
-			sketch.sourceCode = sketch.sourceCode.replace('\n','<br>')
-			sketch.sourceCode = sketch.sourceCode.replace('\r','<br>')
-			sketch.sourceCode = sketch.sourceCode.replace('\t','&nbsp;&nbsp;&nbsp;&nbsp;')
-			sketch.sourceCode = sketch.sourceCode.replace('"','&quot;')
-			sketch.sourceCode = sketch.sourceCode.replace("'", '&#39;')
 				
 			#sketch.author_user = user.user
 			sketch.author_email = user.email
@@ -438,15 +429,6 @@ class AddBlogNEW(BaseRequestHandler):
 				authorSketchesSketch.published = True
 				mySketchesSketch.published = True
 			
-			sketch.sourceCode = sketch.sourceCode.replace('&','&amp;')
-			sketch.sourceCode = sketch.sourceCode.replace('<','&lt;')
-			sketch.sourceCode = sketch.sourceCode.replace(' ','&nbsp;')
-			sketch.sourceCode = sketch.sourceCode.replace('\r\n','<br>')
-			sketch.sourceCode = sketch.sourceCode.replace('\n','<br>')
-			sketch.sourceCode = sketch.sourceCode.replace('\r','<br>')
-			sketch.sourceCode = sketch.sourceCode.replace('\t','&nbsp;&nbsp;&nbsp;&nbsp;')
-			sketch.sourceCode = sketch.sourceCode.replace('"','&quot;')
-			sketch.sourceCode = sketch.sourceCode.replace("'", '&#39;')
 				
 			#sketch.author_user = user.user
 			sketch.author_email = user.email
@@ -739,15 +721,6 @@ class EditBlogNEW(BaseRequestHandler):
 
 			#blog.sourceCode = self.request.get('text_input2')
 			sketch.sourceCode = self.request.get('text_input2').rstrip().lstrip()
-			sketch.sourceCode = sketch.sourceCode.replace('&','&amp;')
-			sketch.sourceCode = sketch.sourceCode.replace('<','&lt;')
-			sketch.sourceCode = sketch.sourceCode.replace(' ','&nbsp;')
-			sketch.sourceCode = sketch.sourceCode.replace('\r\n','<br>')
-			sketch.sourceCode = sketch.sourceCode.replace('\n','<br>')
-			sketch.sourceCode = sketch.sourceCode.replace('\r','<br>')
-			sketch.sourceCode = sketch.sourceCode.replace('\t','&nbsp;&nbsp;&nbsp;&nbsp;')
-			sketch.sourceCode = sketch.sourceCode.replace('"','&quot;')
-			sketch.sourceCode = sketch.sourceCode.replace("'", '&#39;')
 			
 			sketch.tags_commas = self.request.get('tags')
 			
@@ -980,15 +953,6 @@ class EditBlog(BaseRequestHandler):
 			sketch.published = (shouldItBePublished)
 
 			sketch.sourceCode = self.request.get('text_input2').rstrip().lstrip()
-			sketch.sourceCode = sketch.sourceCode.replace('&','&amp;')
-			sketch.sourceCode = sketch.sourceCode.replace('<','&lt;')
-			sketch.sourceCode = sketch.sourceCode.replace(' ','&nbsp;')
-			sketch.sourceCode = sketch.sourceCode.replace('\r\n','<br>')
-			sketch.sourceCode = sketch.sourceCode.replace('\n','<br>')
-			sketch.sourceCode = sketch.sourceCode.replace('\r','<br>')
-			sketch.sourceCode = sketch.sourceCode.replace('\t','&nbsp;&nbsp;&nbsp;&nbsp;')
-			sketch.sourceCode = sketch.sourceCode.replace('"','&quot;')
-			sketch.sourceCode = sketch.sourceCode.replace("'", '&#39;')
 			
 			sketch.tags_commas = self.request.get('tags')
 			
