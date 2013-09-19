@@ -537,11 +537,15 @@ class CopyBlog(BaseRequestHandler):
       user.whoIs(self)
 
       sketch.sourceCodeForTextArea = sketch.sourceCode
-      sketch.sourceCodeForTextArea = sketch.sourceCodeForTextArea.replace('&nbsp;',' ')
-      sketch.sourceCodeForTextArea = sketch.sourceCodeForTextArea.replace('<br>','\r\n')
-      sketch.sourceCodeForTextArea = sketch.sourceCodeForTextArea.replace('<br>','\n')
-      sketch.sourceCodeForTextArea = sketch.sourceCodeForTextArea.replace('<br>','\r')
+      sketch.sourceCodeForTextArea = sketch.sourceCodeForTextArea.replace('&#39;',"'")
+      sketch.sourceCodeForTextArea = sketch.sourceCodeForTextArea.replace('&quot;','"')
       sketch.sourceCodeForTextArea = sketch.sourceCodeForTextArea.replace('&nbsp;&nbsp;&nbsp;&nbsp;','\t')
+      sketch.sourceCodeForTextArea = sketch.sourceCodeForTextArea.replace('<br>','\r')
+      sketch.sourceCodeForTextArea = sketch.sourceCodeForTextArea.replace('<br>', '\n')
+      sketch.sourceCodeForTextArea = sketch.sourceCodeForTextArea.replace('<br>','\r\n')
+      sketch.sourceCodeForTextArea = sketch.sourceCodeForTextArea.replace('&nbsp;',' ')
+      sketch.sourceCodeForTextArea = sketch.sourceCodeForTextArea.replace('&lt;', '<')
+      sketch.sourceCodeForTextArea = sketch.sourceCodeForTextArea.replace('&amp;', '&')
       sketch.sourceCodeForTextArea = sketch.sourceCodeForTextArea.rstrip().lstrip()
       sketch.blogdate = "";
       sketch.entrytype="";
@@ -580,11 +584,15 @@ class EditBlogNEW(BaseRequestHandler):
       user.whoIs(self)
 
       sketch.sourceCodeForTextArea = sketch.sourceCode
-      sketch.sourceCodeForTextArea = sketch.sourceCodeForTextArea.replace('&nbsp;',' ')
-      sketch.sourceCodeForTextArea = sketch.sourceCodeForTextArea.replace('<br>','\r\n')
-      sketch.sourceCodeForTextArea = sketch.sourceCodeForTextArea.replace('<br>','\n')
-      sketch.sourceCodeForTextArea = sketch.sourceCodeForTextArea.replace('<br>','\r')
+      sketch.sourceCodeForTextArea = sketch.sourceCodeForTextArea.replace('&#39;',"'")
+      sketch.sourceCodeForTextArea = sketch.sourceCodeForTextArea.replace('&quot;','"')
       sketch.sourceCodeForTextArea = sketch.sourceCodeForTextArea.replace('&nbsp;&nbsp;&nbsp;&nbsp;','\t')
+      sketch.sourceCodeForTextArea = sketch.sourceCodeForTextArea.replace('<br>','\r')
+      sketch.sourceCodeForTextArea = sketch.sourceCodeForTextArea.replace('<br>', '\n')
+      sketch.sourceCodeForTextArea = sketch.sourceCodeForTextArea.replace('<br>','\r\n')
+      sketch.sourceCodeForTextArea = sketch.sourceCodeForTextArea.replace('&nbsp;',' ')
+      sketch.sourceCodeForTextArea = sketch.sourceCodeForTextArea.replace('&lt;', '<')
+      sketch.sourceCodeForTextArea = sketch.sourceCodeForTextArea.replace('&amp;', '&')
       sketch.sourceCodeForTextArea = sketch.sourceCodeForTextArea.rstrip().lstrip()
 
       if ((sketch.author_user_id == user.user_id) or (user.is_current_user_admin)):
@@ -787,11 +795,15 @@ class EditBlog(BaseRequestHandler):
       user.whoIs(self)
 
       sketch.sourceCodeForTextArea = sketch.sourceCode
-      sketch.sourceCodeForTextArea = sketch.sourceCodeForTextArea.replace('&nbsp;',' ')
-      sketch.sourceCodeForTextArea = sketch.sourceCodeForTextArea.replace('<br>','\r\n')
-      sketch.sourceCodeForTextArea = sketch.sourceCodeForTextArea.replace('<br>','\n')
-      sketch.sourceCodeForTextArea = sketch.sourceCodeForTextArea.replace('<br>','\r')
+      sketch.sourceCodeForTextArea = sketch.sourceCodeForTextArea.replace('&#39;',"'")
+      sketch.sourceCodeForTextArea = sketch.sourceCodeForTextArea.replace('&quot;','"')
       sketch.sourceCodeForTextArea = sketch.sourceCodeForTextArea.replace('&nbsp;&nbsp;&nbsp;&nbsp;','\t')
+      sketch.sourceCodeForTextArea = sketch.sourceCodeForTextArea.replace('<br>','\r')
+      sketch.sourceCodeForTextArea = sketch.sourceCodeForTextArea.replace('<br>', '\n')
+      sketch.sourceCodeForTextArea = sketch.sourceCodeForTextArea.replace('<br>','\r\n')
+      sketch.sourceCodeForTextArea = sketch.sourceCodeForTextArea.replace('&nbsp;',' ')
+      sketch.sourceCodeForTextArea = sketch.sourceCodeForTextArea.replace('&lt;', '<')
+      sketch.sourceCodeForTextArea = sketch.sourceCodeForTextArea.replace('&amp;', '&')
       sketch.sourceCodeForTextArea = sketch.sourceCodeForTextArea.rstrip().lstrip()
 
       if ((sketch.author_user_id == user.user_id) or (user.is_current_user_admin)):
@@ -1465,11 +1477,15 @@ class showProfileEdit(BaseRequestHandler):
           sketcher.url3 = ""
           sketcher.url4 = ""
 
-        sketcher.profileText = sketcher.profileText.replace('&nbsp;',' ')
-        sketcher.profileText = sketcher.profileText.replace('<br>','\r\n')
-        sketcher.profileText = sketcher.profileText.replace('<br>','\n')
-        sketcher.profileText = sketcher.profileText.replace('<br>','\r')
-        sketcher.profileText = sketcher.profileText.replace('&nbsp;&nbsp;&nbsp;&nbsp;','\t')
+        sketcher.profileText = sketch.profileText.replace('&#39;',"'")
+        sketcher.profileText = sketch.profileText.replace('&quot;','"')
+        sketcher.profileText = sketch.profileText.replace('&nbsp;&nbsp;&nbsp;&nbsp;','\t')
+        sketcher.profileText = sketch.profileText.replace('<br>','\r')
+        sketcher.profileText = sketch.profileText.replace('<br>', '\n')
+        sketcher.profileText = sketch.profileText.replace('<br>','\r\n')
+        sketcher.profileText = sketch.profileText.replace('&nbsp;',' ')
+        sketcher.profileText = sketch.profileText.replace('&lt;', '<')
+        sketcher.profileText = sketch.profileText.replace('&amp;', '&')
 
         template_values = {
           'action':"gallery",
