@@ -148,6 +148,9 @@ class GroupLogin(BaseRequestHandler):
    
    self.redirect("/groupLoginNotOK.html")
 
+class livecodelabRedirect(BaseRequestHandler):
+  def get(self):
+      self.redirect('http://livecodelab.net', permanent=True)
 
 class AddBlog(BaseRequestHandler):
 #  @authorized.role("admin")

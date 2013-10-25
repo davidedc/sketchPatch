@@ -43,6 +43,11 @@ def main():
     cpedialog = util.getCPedialog()
     application = webapp.WSGIApplication(
                                        [
+                                        #### Since 25 Oct 2013, these two do a 301 redirect
+                                        #### to livecodelab.net
+                                        ('/labs/livecodelabIntro.html', blog.livecodelabRedirect),
+                                        ('/livecodelab/.*$', blog.livecodelabRedirect),
+                                        ###################
                                         ('/admin/manageAnonymousSketches.html', blog.showAnonymousSketches), #DDC
                                         ('/thumbnailStringDownload/(.*)/*$', thumbnailStringDownload.thumbnailStringDownload), #DDC
                                         ('/thumbnailsForGallery/(.*)/*$', thumbnailDownload.thumbnailDownloadGallery), #DDC

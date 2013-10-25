@@ -20,6 +20,18 @@ skip_files: |
 
 handlers:
 
+# ------------- Since 25 Oct 2015, these
+# two do a 301 redirect to livecodelab.net
+
+- url: /labs/livecodelabIntro.html
+  script: main.py
+
+- url: /livecodelab/.*
+  script: main.py
+
+# --------------------------------
+
+
 - url: /sketchNotMadePublicNotice.html
   static_files: sketchNotMadePublicNotice.html
   upload: sketchNotMadePublicNotice.html
